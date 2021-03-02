@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:gravity="center_vertical"
+    android:background="?attr/backgroundColor"
+    android:id="@+id/relativeLayoutTrash">
+
+
+    <TextView
+        android:id="@+id/row_in_trash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/in_time"
+        android:textSize="12sp"
+        android:textColor="?attr/textColor"/>
+
+    <TextView
+        android:id="@+id/row_out_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/out_time"
+        android:textSize="12sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_in_trash"/>
+
+    <TextView
+        android:id="@+id/row_break_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/break_time"
+        android:textSize="12sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_out_trash"/>
+
+    <TextView
+        android:id="@+id/row_total_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        android:textSize="12sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_break_trash"/>
+
+    <TextView
+        android:id="@+id/row_day_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/day"
+        android:textSize="12sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_total_trash"/>
+
+    <ImageButton
+        android:id="@+id/imageViewOptions_trash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_more_vert_24px"
+        android:background="?attr/backgroundColor"
+        android:contentDescription="more items button"
+        android:tint="#ffffff"/>
+
+</RelativeLayout>

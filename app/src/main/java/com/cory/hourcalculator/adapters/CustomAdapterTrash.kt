@@ -1,0 +1,173 @@
+package com.cory.hourcalculator.adapters
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.BaseAdapter
+import android.widget.PopupMenu
+import android.widget.TextView
+import com.cory.hourcalculator.R
+import com.cory.hourcalculator.activities.TrashActivity
+import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.database.DBHelper
+import com.cory.hourcalculator.database.DBHelperTrash
+import kotlinx.android.synthetic.main.list_row_trash.view.*
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
+
+class CustomAdapterTrash(private val context: Context, private val dataList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
+
+    private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    override fun getCount(): Int {
+        return dataList.size
+    }
+
+    override fun getItem(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
+
+    @SuppressLint("ViewHolder")
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val dbHandler = DBHelper(context, null)
+        val dbHandlerTrash = DBHelperTrash(context, null)
+        val dataitem = dataList[position]
+
+        val vibrationData = VibrationData(context)
+
+        val rowView = inflater.inflate(R.layout.list_row_trash, parent, false)
+
+        rowView.findViewById<TextView>(R.id.row_in_trash).text = context.getString(R.string.in_time_adapter, dataitem["intime_trash"])
+        rowView.findViewById<TextView>(R.id.row_out_trash).text = context.getString(R.string.out_time_adapter, dataitem["out_trash"])
+        rowView.findViewById<TextView>(R.id.row_break_trash).text = context.getString(R.string.break_time_adapter, dataitem["break_trash"])
+        rowView.findViewById<TextView>(R.id.row_total_trash).text = context.getString(R.string.total_time_adapter, dataitem["total_trash"])
+        rowView.findViewById<TextView>(R.id.row_day_trash).text = context.getString(R.string.date_adapter, dataitem["day_trash"])
+
+        rowView.imageViewOptions_trash.setOnClickListener {
+            val popup = PopupMenu(context, rowView.imageViewOptions_trash)
+            popup.inflate(R.menu.menu_trash_options)
+            popup.setOnMenuItemClickListener { item ->
+                vibration(vibrationData)
+                when (item.itemId) {
+                    R.id.menu1 -> {
+                        val i = 0
+                        val id = dataList[+i]["id_trash"].toString()
+                        val intime = dataList[+i]["intime_trash"].toString()
+                        val outtime = dataList[+i]["out_trash"].toString()
+                        val breakTime = dataList[+i]["break_trash"].toString()
+                        val total = dataList[+i]["total_trash"].toString()
+                        //val day = dataList[+i]["day_trash"].toString()
+                        val day1 = LocalDateTime.now()
+                        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
+                        val dayOfWeek = day1.format(day2)
+                        dbHandlerTrash.deleteRow(id)
+                        dbHandler.insertRow(intime, outtime, breakTime, total, dayOfWeek)
+                        dataList.clear()
+                        val cursor = dbHandlerTrash.getAllRow(context)
+                        cursor!!.moveToFirst()
+                        if(cursor.count > 0) {
+
+                            while (!cursor.isAfterLast) {
+
+                                val map = HashMap<String, String>()
+                                map["id_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_ID_TRASH))
+                                map["intime_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
+                                map["out_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
+                                map["break_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
+                                map["total_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
+                                map["day_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
+                                dataList.add(map)
+
+                                cursor.moveToNext()
+                            }
+                        }
+                        val runnable = Runnable {
+                            (context as TrashActivity).update()
+                            (context).menuItem("menu_item_1_Custom_Adapter_Trash", "menu_item_1_Custom_Adapter_Trash_clicked", "menu_item")
+                        }
+                        TrashActivity().runOnUiThread(runnable)
+                    }
+                    R.id.menu2 -> {
+                        val i = 0
+                        val id = dataList[+i]["id_trash"].toString()
+                        dbHandlerTrash.deleteRow(id)
+                        val runnable = Runnable {
+                            (context as TrashActivity).update()
+                            (context).menuItem("menu_item_2_Custom_Adapter_Trash", "menu_item_2_Custom_Adapter_Trash_clicked", "menu_item")
+                        }
+                        TrashActivity().runOnUiThread(runnable)
+                    }
+                    R.id.menu3 -> {
+                        val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
+                        alertDialog.setTitle(context.getString(R.string.restore_all))
+                        alertDialog.setMessage(context.getString(R.string.restore_all_items_trash))
+                        alertDialog.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                            if (dbHandlerTrash.getCount() > 0) {
+                                dataList.clear()
+                                val cursor1 = dbHandlerTrash.getAllRow(context)
+                                cursor1!!.moveToFirst()
+
+                                while (!cursor1.isAfterLast) {
+                                    val intime = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
+                                    val outtime = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
+                                    val breaktime = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
+                                    val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
+                                    val day = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
+
+                                    dbHandler.insertRow(intime, outtime, breaktime, totaltime, day)
+
+                                    cursor1.moveToNext()
+                                }
+                                dbHandlerTrash.deleteAll()
+                                val runnable = Runnable {
+                                    (context as TrashActivity).update()
+                                    (context).menuItem("menu_item_3_Custom_Adapter_Trash", "menu_item_3_Custom_Adapter_Trash_clicked", "menu_item")
+                                }
+                                TrashActivity().runOnUiThread(runnable)
+                            }
+                        }
+                        alertDialog.setNegativeButton(context.getString(R.string.no), null)
+                        alertDialog.show()
+                    }
+                    R.id.menu4 -> {
+                        val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
+                        alertDialog.setTitle(context.getString(R.string.delete_all_from_trash_heading))
+                        alertDialog.setMessage(context.getString(R.string.delete_all_from_trash))
+                        alertDialog.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                            dbHandlerTrash.deleteAll()
+                            val runnable = Runnable {
+                                (context as TrashActivity).update()
+                                (context).menuItem("menu_item_4_Custom_Adapter_Trash", "menu_item_4_Custom_Adapter_Trash_clicked", "menu_item")
+                            }
+                            TrashActivity().runOnUiThread(runnable)
+                        }
+                            .setNegativeButton(context.getString(R.string.no), null)
+                        val alert = alertDialog.create()
+                        alert.show()
+                    }
+                }
+                true
+            }
+            popup.show()
+        }
+
+        rowView.tag = position
+        return rowView
+    }
+
+    private fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
+    }
+}

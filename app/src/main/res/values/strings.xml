@@ -1,0 +1,184 @@
+<resources>
+    <string name="title_activity_settings">Settings</string>
+    <string name="themeSettings">Theme</string>
+    <string name="recipient" translatable="false">corylowry12@gmail.com</string>
+    <string name="message">"Dear dev,  Here is some features I think need to be added: "</string>
+    <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
+    <string name="view_about_me_to_learn_about_the_developer_of_this_app">View about me to learn about the developer of this app.</string>
+    <string name="about_me">About Me</string>
+    <string name="report_a_bug_to_let_me_know_if_there_are_any_issues_with_the_app_so_i_can_fix_them">Report a bug to let me know if there are any issues with the app so i can fix them.</string>
+    <string name="view_my_other_apps_to_see_if_they_will_benefit_you_at_all">View my other apps to see if they will benefit you at all.</string>
+    <string name="other_apps">Other Apps</string>
+    <string name="other">Other</string>
+    <string name="report_a_bug">Report a Bug</string>
+    <string name="leave_a_review_to_let_me_know_n_what_you_think_about_the_app">Leave a Review to let me know what you think about the app.</string>
+    <string name="feature_request">Feature Request</string>
+    <string name="leave_a_review">Leave a Review</string>
+    <string name="request_features_that_you_think_should_be_added_into_the_app">Request Features that you think should be  added into the app.</string>
+    <string name="clear">Clear</string>
+    <string name="calculate">Calculate</string>
+    <string name="out">Out</string>
+    <string name="break_time_in_minutes">Break Time (In Minutes)</string>
+    <string name="enter_time_in_12h_format">Enter Time in 12 Hour Format</string>
+    <string name="in">In</string>
+    <string name="_9_00" translatable="false">9:00</string>
+    <string name="_5_00" translatable="false">5:00</string>
+    <string name="_60" translatable="false">60</string>
+    <string name="toggle_break">Toggle Break Text Box</string>
+    <string name="toggle_dark">Toggle Dark Mode</string>
+    <string name="toggle_vibration">Toggle Vibration</string>
+    <string name="proper_input">Please Enter the Proper Input</string>
+    <string name="dont_leave_anything_blank">"Don't leave anything blank!"</string>
+    <string name="no_colon">There is no colon, if you would like to enter a colon please click on me!</string>
+    <string name="cant_be_greater_than_or_equal_to_60">Minutes Can Not Be Greater Than Or Equal To 60</string>
+    <string name="cant_be_greater_than_or_equal_to_13">Hours can not be greater than or equal to 13</string>
+    <string name="in_time_can_not_be_greater_than_out_time">In time can not be greater than out time!</string>
+    <string name="about_me_message">I am a 20 year old new android dev, only been developing for about a year, the only way for me to make money off of this since there is not in-app purchases is for you to click on the ads. So if you want to help me out. Please click on the ads.</string>
+    <string name="history">History</string>
+    <string name="amount_of_hours_saved">"Amount of Hours Saved: %1$d"</string>
+    <string name="total_hours_history">"Total Hours: %1$s"</string>
+    <string name="total_hours">"Total Hours: %1$s"</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_last_entered">Sort By Last Entered</string>
+    <string name="sort_by_first_entered">Sort By First Entered</string>
+    <string name="sort_by_most_hours">Sort By Most Hours</string>
+    <string name="sort_by_least_hours">Sort By Least Hours</string>
+    <string name="change_log">Patch Notes</string>
+    <string name="most_hours">* Sort By Most Hours</string>
+    <string name="least_hours">* Sort By Least Hours</string>
+    <string name="last_entered">* Sort By Last Entered</string>
+    <string name="first_entered">* Sort By First Entered</string>
+    <string name="changed_sort_mode_first_entered">Changed sort mode to show first entered first</string>
+    <string name="changed_sort_mode_last_entered">Changed sort mode to show last entered first</string>
+    <string name="changed_sort_mode_most_hours">Changed sort mode to show item with most hours first</string>
+    <string name="changed_sort_mode_most_hours_last">Changed sort mode to show item with most hours last</string>
+    <string name="day_DESC" translatable="false">day DESC</string>
+    <string name="total_DESC" translatable="false">total DESC</string>
+    <string name="total_ASC" translatable="false">total ASC</string>
+    <string name="day_ASC" translatable="false">day ASC</string>
+    <string name="click_back_again">Please click BACK again to exit</string>
+    <string name="everything_already_cleared">Everything is already cleared 😃</string>
+    <string name="trash">Trash</string>
+    <string name="warning_trash_will_automatically_delete_each_hour_when_it_gets_a_week_old">Warning: Trash will automatically delete each hour when it gets a week old</string>
+    <string name="amount_of_hours_in_trash">"Amount of Hours in Trash: %1$d"</string>
+    <string name="day_trash_DESC" translatable="false">day_trash DESC</string>
+    <string name="day_trash_ASC" translatable="false">day_trash ASC</string>
+    <string name="total_trash_ASC" translatable="false">total_trash ASC</string>
+    <string name="total_trash_DESC" translatable="false">total_trash DESC</string>
+    <string name="in_time_adapter">In Time: %1$s</string>
+    <string name="out_time_adapter">Out Time: %1$s</string>
+    <string name="break_time_adapter">Break Time: %1$s</string>
+    <string name="total_time_adapter">Total Time: %1$s</string>
+    <string name="date_adapter">Date: %1$s</string>
+    <string name="cant_sort_data_trash_empty">Can\'t sort data, trash is empty</string>
+    <string name="cant_sort_data_history_empty">Can\'t sort data, hours is empty</string>
+    <string name="ads_link" translatable="false"><a href="https://developers.google.com/admob/android/quick-start">https://developers.google.com/admob/android/quick-start</a></string>
+    <string name="material_link" translatable="false"><a href="https://material.io/develop/android/docs/getting-started">https://material.io/develop/android/docs/getting-started</a></string>
+    <string name="spinner_link" translatable="false"><a href="https://github.com/jaredrummler/MaterialSpinner">https://github.com/jaredrummler/MaterialSpinner</a></string>
+    <string name="play_core_link" translatable="false"><a href="https://developer.android.com/guide/playcore">https://developer.android.com/guide/playcore</a></string>
+    <string name="crashlytics_link" translatable="false"><a href="https://firebase.google.com/docs/crashlytics">https://firebase.google.com/docs/crashlytics</a></string>
+    <string name="firebase_link" translatable="false"><a href="https://firebase.google.com/docs/reference">https://firebase.google.com/docs/reference</a></string>
+    <string name="performance_link" translatable="false"><a href="https://firebase.google.com/docs/perf-mon">https://firebase.google.com/docs/perf-mon</a></string>
+    <string name="tip_calculator_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.tipcalc">https://play.google.com/store/apps/details?id=com.cory.tipcalc</a></string>
+    <string name="hour_calculator_link"><a href="https://play.google.com/store/apps/details?id=com.cory.hourcalculator">https://play.google.com/store/apps/details?id=com.cory.hourcalculator</a></string>
+    <string name="tic_tac_toe_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.tictactoe">https://play.google.com/store/apps/details?id=com.cory.tictactoe</a></string>
+    <string name="book_finder_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.bookfinder">https://play.google.com/store/apps/details?id=com.cory.bookfinder</a></string>
+    <string name="bibleify_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.bible_ify">https://play.google.com/store/apps/details?id=com.cory.bible_ify</a></string>
+    <string name="hour_converter_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.timeconverter">https://play.google.com/store/apps/details?id=com.cory.timeconverter</a></string>
+    <string name="memorable_places_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.memorableplaces">https://play.google.com/store/apps/details?id=com.cory.memorableplaces</a></string>
+    <string name="texarkana_college_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.texarkanacollege">https://play.google.com/store/apps/details?id=com.cory.texarkanacollege</a></string>
+    <string name="chart_link" translatable="false"><a href="https://github.com/PhilJay/MPAndroidChart">https://github.com/PhilJay/MPAndroidChart</a></string>
+    <string name="toggle_history">Toggle History</string>
+    <string name="version_info">Version Info</string>
+    <string name="this_will_list_the_version_code_and_dependencies_used_in_the_app">This will list the version code and dependencies used in the app.</string>
+    <string name="play_core_in_app_review_dependency">Play Core (In App Review Dependency)</string>
+    <string name="jared_drummler_material_spinner">Jared Drummler Material Spinner</string>
+    <string name="google_play_ads">Google Play Ads</string>
+    <string name="material_ui">Material UI</string>
+    <string name="dependencies">Dependencies</string>
+    <string name="version">Version</string>
+    <string name="firebase_crashlytics" translatable="false">Firebase Crashlytics</string>
+    <string name="firebase_analytics" translatable="false">Firebase Analytics</string>
+    <string name="firebase_performance_monitoring">Firebase Performance Monitoring</string>
+    <string name="in_time">In Time</string>
+    <string name="out_time">Out Time</string>
+    <string name="break_time">Break Time</string>
+    <string name="total">Total</string>
+    <string name="day">Day</string>
+    <string name="lorem_ipsum">Lorem Ipsum</string>
+    <string name="mpandroid_chart">MPAndroid Chart</string>
+    <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
+    <string name="home">Home</string>
+    <string name="graph">Graph</string>
+    <string name="whats_new">"What's new in version"</string>
+    <string name="version_number" translatable="false">6.0.5</string>
+    <string name="memorable_places_logo">Memorable Places Logo</string>
+    <string name="texarkana_college_logo">Texarkana College Logo</string>
+    <string name="tip_calculator_image">Tip Calculator Image</string>
+    <string name="hour_calculator_image">Hour Calculator Image</string>
+    <string name="book_finder_image">Book Finder Image</string>
+    <string name="bibleify_logo">Bibleify Logo</string>
+    <string name="tic_tac_toe_logo">Tic Tac Toe Logo</string>
+    <string name="hour_time_converter_logo">Hour Time Converter Logo</string>
+    <string name="theres_a_comman_in_text_box">There is a comma in intime text box</string>
+    <string name="enabled_vibration">You enabled vibration</string>
+    <string name="disabled_vibration">You disabled vibration</string>
+    <string name="please_try_again">Sorry, Please Try Again</string>
+    <string name="enable_automatic_deletion">You enabled trash automatic deletion</string>
+    <string name="disable_automatic_deletion">You disabled trash automatic deletion</string>
+    <string name="history_shortcut_short">History</string>
+    <string name="history_shortcut_long">Open History Activity</string>
+    <string name="graph_shortcut_long">Open Graph Activity</string>
+    <string name="settings_shortcut_short">Settings</string>
+    <string name="settings_shortcut_long">Open Settings Activity</string>
+    <string name="trash_shortcut_short">Trash</string>
+    <string name="trash_shortcut_long">Open Trash Activity</string>
+    <string name="cloud_messaging_link" translatable="false"><a href="https://firebase.google.com/docs/cloud-messaging">https://firebase.google.com/docs/cloud-messaging</a></string>
+    <string name="cloud_messaging_heading">Firebase Cloud Messaging</string>
+    <string name="notifications">Notifications</string>
+    <string name="toggle_notifications_about_updates">Toggle Notifications About Updates</string>
+    <string name="subject">Feature Request</string>
+    <string name="app_name">Hour Calculator</string>
+    <string name="layout_settings">Layout Settings</string>
+    <string name="graph_shortcut_short">Graph</string>
+    <string name="total_wages">Total Wages for Hours Stored: %1$s</string>
+    <string name="toggle_trash_automatic_deletion">Toggle Trash Automatic Deletion</string>
+    <string name="ok">OK</string>
+    <string name="choose_email">Choose Email Client…</string>
+    <string name="disabled_update_notifications">You disabled update notifications</string>
+    <string name="enabled_update_notifications">You enabled update notifications</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
+    <string name="there_was_an_error_graph">There was an error, please try again or clear data for the app.</string>
+    <string name="movie_item_to_trash">Move Item To Trash</string>
+    <string name="move_all_to_trash">Move All To Trash</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete All</string>
+    <string name="no">No</string>
+    <string name="delete_all_from_history">Would you like to delete all items from history?</string>
+    <string name="delete_all_from_history_heading">Delete All From History</string>
+    <string name="move_all_to_trash_history">Would you like to move all items to trash?</string>
+    <string name="move_all_to_trash_history_heading">Move All To Trash?</string>
+    <string name="yes">Yes</string>
+    <string name="delete_all_from_trash_heading">Delete All From Trash</string>
+    <string name="delete_all_from_trash">Would you like to delete all items from trash?</string>
+    <string name="restore_all_items_trash">Would you like to restore all items?</string>
+    <string name="restore_all">Restore All?</string>
+    <string name="hours">Hours</string>
+    <string name="break_zero">0</string>
+    <string name="optimized_graph">- Fixed trash activity crashing if you had a mixture of spanish and english locale</string>
+    <string name="fixed_graph">- Optimized Main Activity</string>
+    <string name="added_firebase">- Other bug fixes</string>
+    <string name="firebase_notification">- Added firebase notification heading in version info activity</string>
+    <string name="firebase_heading">- Added firebase heading in version info activity</string>
+    <string name="fab">- Added floating action button in history activity to automatically scroll back to top</string>
+    <string name="fab_trash">- Added floating action button in trash activity to automatically scroll back to top</string>
+    <string name="disable_update">- Added switch in settings to disable update notifications</string>
+    <string name="dark_mode_default">- Dark mode is now the default theme</string>
+    <string name="heading_text_color">- Changed heading text color in settings activity</string>
+    <string name="tweaked_layout">- Tweaked layout for main screen on devices with xxx high density display</string>
+    <string name="support_for_spanish">- Added support for spanish</string>
+    <string name="version_info_label">Version Info</string>
+    <string name="graph_label">Graph</string>
+    <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s\nTotal Hours Without Break: %2$s</string>
+</resources>

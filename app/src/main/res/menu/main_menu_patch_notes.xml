@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/Settings"
+        android:checkable="false"
+        android:title="@string/title_activity_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/history"
+        android:title="@string/history" />
+    <item
+        android:id="@+id/trash"
+        android:title="@string/trash" />
+    <item
+        android:id="@+id/graph"
+        android:title="@string/graph" />
+</menu>

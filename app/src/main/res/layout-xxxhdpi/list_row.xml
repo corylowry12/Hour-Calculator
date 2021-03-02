@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    android:gravity="center_vertical"
+    android:background="?attr/backgroundColor"
+    android:id="@+id/relativeLayout">
+
+
+    <TextView
+        android:id="@+id/row_in"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/in_time"
+        android:textSize="16sp"
+        android:textColor="?attr/textColor"/>
+
+    <TextView
+        android:id="@+id/row_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/out_time"
+        android:textSize="16sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_in"/>
+
+    <TextView
+        android:id="@+id/row_break"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/break_time"
+        android:textSize="16sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_out"/>
+
+    <TextView
+        android:id="@+id/row_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/total"
+        android:textSize="16sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_break"/>
+
+    <TextView
+        android:id="@+id/row_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/day"
+        android:textSize="16sp"
+        android:textColor="?attr/textColor"
+        android:layout_below="@id/row_total"/>
+
+    <ImageButton
+        android:id="@+id/imageViewOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/ic_more_vert_24px"
+        android:background="?attr/backgroundColor"
+        android:contentDescription="more items button"
+        android:tint="#ffffff"/>
+
+</RelativeLayout>

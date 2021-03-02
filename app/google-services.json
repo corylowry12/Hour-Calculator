@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "377217919097",
+    "firebase_url": "https://hour-calculator-f47d9.firebaseio.com",
+    "project_id": "hour-calculator-f47d9",
+    "storage_bucket": "hour-calculator-f47d9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377217919097:android:b3e58050e59ffe01e80ca8",
+        "android_client_info": {
+          "package_name": "com.cory.hourcalculator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "377217919097-obgrjikcs0lrm95ddk50l9jr3peq630n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cory.hourcalculator",
+            "certificate_hash": "505a8c402a5925199d10c2346f1dda6ed82c0664"
+          }
+        },
+        {
+          "client_id": "377217919097-k179lg93ao0qv6mmggtce9hkvehbbcc3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQvjwEMXHK-tuSUICTl_CNraJwFR_PiCM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "377217919097-k179lg93ao0qv6mmggtce9hkvehbbcc3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
