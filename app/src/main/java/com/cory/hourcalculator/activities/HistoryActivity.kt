@@ -147,7 +147,7 @@ class HistoryActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        //loadIntoList()
+        loadIntoList()
     }
 
     override fun onRestart() {

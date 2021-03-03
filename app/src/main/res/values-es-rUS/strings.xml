@@ -136,8 +136,8 @@
     <string name="restore_all">¿Restaura todo?</string>
     <string name="hours">Horas</string>
     <string name="break_zero">0</string>
-    <string name="optimized_graph">- Se corrigió el bloqueo de la actividad de basura si tenía una combinación de configuración regional en español e inglés</string>
-    <string name="fixed_graph">- Actividad principal optimizada</string>
+    <string name="optimized_graph">- Copia de seguridad automática habilitada para realizar copias de seguridad automáticamente en la cuenta de Google. Entonces, si tiene que reinstalar, no perderá más datos de la aplicación. También almacenará cualquier configuración de la aplicación que realice.</string>
+    <string name="fixed_graph">- Corrección de errores para la actividad de la basura</string>
     <string name="added_firebase">- Otras correcciones de errores</string>
     <string name="firebase_notification">- Se agregó un encabezado de notificación de base de fuego en la actividad de información de la versión</string>
     <string name="firebase_heading">- Se agregó un encabezado de base de fuego en la actividad de información de la versión</string>

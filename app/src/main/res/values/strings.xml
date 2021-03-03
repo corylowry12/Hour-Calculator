@@ -166,8 +166,8 @@
     <string name="restore_all">Restore All?</string>
     <string name="hours">Hours</string>
     <string name="break_zero">0</string>
-    <string name="optimized_graph">- Fixed trash activity crashing if you had a mixture of spanish and english locale</string>
-    <string name="fixed_graph">- Optimized Main Activity</string>
+    <string name="optimized_graph">- Enabled auto backup to automatically backup to google account. So if you have to reinstall, no more losing app data. It will also store any app settings you make as well.</string>
+    <string name="fixed_graph">- Bug Fixes for Trash Activity</string>
     <string name="added_firebase">- Other bug fixes</string>
     <string name="firebase_notification">- Added firebase notification heading in version info activity</string>
     <string name="firebase_heading">- Added firebase heading in version info activity</string>

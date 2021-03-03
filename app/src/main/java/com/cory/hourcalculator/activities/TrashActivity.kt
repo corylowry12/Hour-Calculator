@@ -142,7 +142,7 @@ class TrashActivity : AppCompatActivity() {
             val date = LocalDateTime.now()
 
             try {
-                Toast.makeText(this, trashdate, Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this, trashdate, Toast.LENGTH_SHORT).show()
 
                 val localDateTime = LocalDateTime.parse(trashdate, DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
 
