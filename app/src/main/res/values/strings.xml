@@ -167,8 +167,8 @@
     <string name="break_zero" translatable="false">0</string>
     <string name="optimized_graph">- Fixed minor issues with ui on home screen</string>
     <string name="fixed_graph">- Added french as a language</string>
-    <string name="added_firebase" translatable="false">- Other bug fixes</string>
-    <string name="firebase_notification" translatable="false">- Added firebase notification heading in version info activity</string>
+    <string name="added_firebase">- Security Fixes with the new backup feature</string>
+    <string name="firebase_notification">- Fixed app crashing if you left wages text box empty and opened history activity</string>
     <string name="firebase_heading" translatable="false">- Added firebase heading in version info activity</string>
     <string name="fab" translatable="false">- Added floating action button in history activity to automatically scroll back to top</string>
     <string name="fab_trash" translatable="false">- Added floating action button in trash activity to automatically scroll back to top</string>

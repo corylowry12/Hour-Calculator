@@ -134,4 +134,6 @@
     <string name="version_info_label">Información de la versión</string>
     <string name="graph_label">Grafico</string>
     <string name="total_hours_with_and_without_break">Horas totales con descanso: %1$s\nHoras totales sin descanso: %2$s</string>
+    <string name="added_firebase">- Correcciones de seguridad con la nueva función de copia de seguridad</string>
+    <string name="firebase_notification">- Se corrigió el bloqueo de la aplicación si dejaba el cuadro de texto de salarios vacío y abría la actividad del historial</string>
 </resources>

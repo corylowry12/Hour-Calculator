@@ -123,10 +123,12 @@ class HistoryActivity : AppCompatActivity() {
             textViewTotalHours.text = getString(R.string.total_hours_history, output)
             textViewTotalHours.visibility = View.VISIBLE
 
-            val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
-            val wagesrounded = String.format("%.2f", wages)
-            textViewWages.text = getString(R.string.total_wages, wagesrounded)
-            textViewWages.visibility = View.VISIBLE
+            if(wagesData.loadWageAmount() != "") {
+                val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
+                val wagesrounded = String.format("%.2f", wages)
+                textViewWages.text = getString(R.string.total_wages, wagesrounded)
+                textViewWages.visibility = View.VISIBLE
+            }
 
             cursor.moveToNext()
         }
