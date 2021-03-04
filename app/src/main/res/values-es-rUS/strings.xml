@@ -68,7 +68,6 @@
     <string name="version_info">Información de la versión</string>
     <string name="this_will_list_the_version_code_and_dependencies_used_in_the_app">Esto mostrará el código de la versión y las dependencias utilizadas en la aplicación.</string>
     <string name="play_core_in_app_review_dependency">Play Core (Dependencia de revisión de aplicaciones)</string>
-    <string name="jared_drummler_material_spinner">Hilandero de material Jared Drummler</string>
     <string name="google_play_ads">Anuncios de Google Play</string>
     <string name="material_ui">UI de material</string>
     <string name="dependencies">Dependencias</string>
@@ -109,16 +108,11 @@
     <string name="notifications">Notificaciones</string>
     <string name="toggle_notifications_about_updates">Toggle Notificaciones sobre actualizaciones</string>
     <string name="toggle_trash_automatic_deletion">Alternar eliminación automática de la papelera</string>
-    <string name="mpandroid_chart">Gráfico de Android MP</string>
     <string name="total">Total</string>
-    <string name="lorem_ipsum">Lorem Ipsum</string>
     <string name="ok">Okay</string>
     <string name="choose_email">Elija cliente de correo electrónico …</string>
     <string name="disabled_update_notifications">Has desactivado las notificaciones de actualización</string>
     <string name="enabled_update_notifications">Habilitaste las notificaciones de actualización</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
-    <string name="hour_calculator_link"><a href="https://play.google.com/store/apps/details?id=com.cory.hourcalculator">https://play.google.com/store/apps/details?id=com.cory.hourcalculator</a></string>
     <string name="there_was_an_error_graph">Hubo un error. Vuelve a intentarlo o borra los datos de la aplicación.</string>
     <string name="movie_item_to_trash">Mover elemento a la papelera</string>
     <string name="move_all_to_trash">Mover todo a la papelera</string>
@@ -135,19 +129,8 @@
     <string name="restore_all_items_trash">¿Le gustaría restaurar todos los elementos?</string>
     <string name="restore_all">¿Restaura todo?</string>
     <string name="hours">Horas</string>
-    <string name="break_zero">0</string>
-    <string name="optimized_graph">- Copia de seguridad automática habilitada para realizar copias de seguridad automáticamente en la cuenta de Google. Entonces, si tiene que reinstalar, no perderá más datos de la aplicación. También almacenará cualquier configuración de la aplicación que realice.</string>
-    <string name="fixed_graph">- Corrección de errores para la actividad de la basura</string>
-    <string name="added_firebase">- Otras correcciones de errores</string>
-    <string name="firebase_notification">- Se agregó un encabezado de notificación de base de fuego en la actividad de información de la versión</string>
-    <string name="firebase_heading">- Se agregó un encabezado de base de fuego en la actividad de información de la versión</string>
-    <string name="fab">- Se agregó un botón de acción flotante en la actividad del historial para desplazarse automáticamente hacia arriba</string>
-    <string name="fab_trash">- Se agregó un botón de acción flotante en la actividad de la papelera para desplazarse automáticamente hacia la parte superior</string>
-    <string name="disable_update">- Se agregó un interruptor en la configuración para deshabilitar las notificaciones de actualización</string>
-    <string name="dark_mode_default">- El modo oscuro ahora es el tema predeterminado</string>
-    <string name="heading_text_color">- Se cambió el color del texto del título en la actividad de configuración</string>
-    <string name="tweaked_layout">- Diseño ajustado para la pantalla principal en dispositivos con pantalla xxx de alta densidad</string>
-    <string name="support_for_spanish">- Añadido soporte para español</string>
+    <string name="optimized_graph">- Se corrigieron problemas menores con la interfaz de usuario en la pantalla de inicio</string>
+    <string name="fixed_graph">- Añadido francés como idioma</string>
     <string name="version_info_label">Información de la versión</string>
     <string name="graph_label">Grafico</string>
     <string name="total_hours_with_and_without_break">Horas totales con descanso: %1$s\nHoras totales sin descanso: %2$s</string>

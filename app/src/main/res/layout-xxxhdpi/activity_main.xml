@@ -44,7 +44,7 @@
         android:layout_width="120sp"
         android:layout_height="50sp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24sp"
+        android:layout_marginEnd="12dp"
         android:text="@string/clear"
         android:textSize="14sp"
         app:layout_constraintEnd_toStartOf="@+id/calculateButton1"

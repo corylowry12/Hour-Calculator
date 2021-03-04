@@ -3,7 +3,6 @@
     <string name="themeSettings">Theme</string>
     <string name="recipient" translatable="false">corylowry12@gmail.com</string>
     <string name="message">"Dear dev,  Here is some features I think need to be added: "</string>
-    <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
     <string name="view_about_me_to_learn_about_the_developer_of_this_app">View about me to learn about the developer of this app.</string>
     <string name="about_me">About Me</string>
     <string name="report_a_bug_to_let_me_know_if_there_are_any_issues_with_the_app_so_i_can_fix_them">Report a bug to let me know if there are any issues with the app so i can fix them.</string>
@@ -80,7 +79,7 @@
     <string name="firebase_link" translatable="false"><a href="https://firebase.google.com/docs/reference">https://firebase.google.com/docs/reference</a></string>
     <string name="performance_link" translatable="false"><a href="https://firebase.google.com/docs/perf-mon">https://firebase.google.com/docs/perf-mon</a></string>
     <string name="tip_calculator_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.tipcalc">https://play.google.com/store/apps/details?id=com.cory.tipcalc</a></string>
-    <string name="hour_calculator_link"><a href="https://play.google.com/store/apps/details?id=com.cory.hourcalculator">https://play.google.com/store/apps/details?id=com.cory.hourcalculator</a></string>
+    <string name="hour_calculator_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.hourcalculator">https://play.google.com/store/apps/details?id=com.cory.hourcalculator</a></string>
     <string name="tic_tac_toe_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.tictactoe">https://play.google.com/store/apps/details?id=com.cory.tictactoe</a></string>
     <string name="book_finder_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.bookfinder">https://play.google.com/store/apps/details?id=com.cory.bookfinder</a></string>
     <string name="bibleify_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.bible_ify">https://play.google.com/store/apps/details?id=com.cory.bible_ify</a></string>
@@ -92,7 +91,7 @@
     <string name="version_info">Version Info</string>
     <string name="this_will_list_the_version_code_and_dependencies_used_in_the_app">This will list the version code and dependencies used in the app.</string>
     <string name="play_core_in_app_review_dependency">Play Core (In App Review Dependency)</string>
-    <string name="jared_drummler_material_spinner">Jared Drummler Material Spinner</string>
+    <string name="jared_drummler_material_spinner" translatable="false">Jared Drummler Material Spinner</string>
     <string name="google_play_ads">Google Play Ads</string>
     <string name="material_ui">Material UI</string>
     <string name="dependencies">Dependencies</string>
@@ -105,13 +104,13 @@
     <string name="break_time">Break Time</string>
     <string name="total">Total</string>
     <string name="day">Day</string>
-    <string name="lorem_ipsum">Lorem Ipsum</string>
-    <string name="mpandroid_chart">MPAndroid Chart</string>
+    <string name="lorem_ipsum" translatable="false">Lorem Ipsum</string>
+    <string name="mpandroid_chart" translatable="false">MPAndroid Chart</string>
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
     <string name="home">Home</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version"</string>
-    <string name="version_number" translatable="false">6.0.5</string>
+    <string name="version_number" translatable="false">6.0.7</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
@@ -147,8 +146,8 @@
     <string name="choose_email">Choose Email Client…</string>
     <string name="disabled_update_notifications">You disabled update notifications</string>
     <string name="enabled_update_notifications">You enabled update notifications</string>
-    <string name="am">AM</string>
-    <string name="pm">PM</string>
+    <string name="am" translatable="false">AM</string>
+    <string name="pm" translatable="false">PM</string>
     <string name="there_was_an_error_graph">There was an error, please try again or clear data for the app.</string>
     <string name="movie_item_to_trash">Move Item To Trash</string>
     <string name="move_all_to_trash">Move All To Trash</string>
@@ -165,20 +164,21 @@
     <string name="restore_all_items_trash">Would you like to restore all items?</string>
     <string name="restore_all">Restore All?</string>
     <string name="hours">Hours</string>
-    <string name="break_zero">0</string>
-    <string name="optimized_graph">- Enabled auto backup to automatically backup to google account. So if you have to reinstall, no more losing app data. It will also store any app settings you make as well.</string>
-    <string name="fixed_graph">- Bug Fixes for Trash Activity</string>
-    <string name="added_firebase">- Other bug fixes</string>
-    <string name="firebase_notification">- Added firebase notification heading in version info activity</string>
-    <string name="firebase_heading">- Added firebase heading in version info activity</string>
-    <string name="fab">- Added floating action button in history activity to automatically scroll back to top</string>
-    <string name="fab_trash">- Added floating action button in trash activity to automatically scroll back to top</string>
-    <string name="disable_update">- Added switch in settings to disable update notifications</string>
-    <string name="dark_mode_default">- Dark mode is now the default theme</string>
-    <string name="heading_text_color">- Changed heading text color in settings activity</string>
-    <string name="tweaked_layout">- Tweaked layout for main screen on devices with xxx high density display</string>
-    <string name="support_for_spanish">- Added support for spanish</string>
+    <string name="break_zero" translatable="false">0</string>
+    <string name="optimized_graph">- Fixed minor issues with ui on home screen</string>
+    <string name="fixed_graph">- Added french as a language</string>
+    <string name="added_firebase" translatable="false">- Other bug fixes</string>
+    <string name="firebase_notification" translatable="false">- Added firebase notification heading in version info activity</string>
+    <string name="firebase_heading" translatable="false">- Added firebase heading in version info activity</string>
+    <string name="fab" translatable="false">- Added floating action button in history activity to automatically scroll back to top</string>
+    <string name="fab_trash" translatable="false">- Added floating action button in trash activity to automatically scroll back to top</string>
+    <string name="disable_update" translatable="false">- Added switch in settings to disable update notifications</string>
+    <string name="dark_mode_default" translatable="false">- Dark mode is now the default theme</string>
+    <string name="heading_text_color" translatable="false">- Changed heading text color in settings activity</string>
+    <string name="tweaked_layout" translatable="false">- Tweaked layout for main screen on devices with xxx high density display</string>
+    <string name="support_for_spanish" translatable="false">- Added support for spanish</string>
     <string name="version_info_label">Version Info</string>
     <string name="graph_label">Graph</string>
-    <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s\nTotal Hours Without Break: %2$s</string>
+    <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s Total Hours Without Break: %2$s</string>
+    <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
 </resources>
