@@ -134,6 +134,6 @@
     <string name="graph_label">Graphique</string>
     <string name="total_hours_with_and_without_break">Heures totales avec pause: %1$s Heures totales sans pause: %2$s</string>
     <string name="version_info_label">Informations sur la version</string>
-    <string name="added_firebase">- Correctifs de sécurité avec la nouvelle fonctionnalité de sauvegarde</string>
-    <string name="firebase_notification">- Correction du crash de l\'application si vous laissiez la zone de texte des salaires vide et ouvriez l\'activité de l\'historique</string>
+    <string name="added_firebase">- Ajout de plus de vérification des erreurs dans l\'activité du graphique pour éviter les plantages en fonction de la date</string>
+    <string name="firebase_notification">- L\'élément de menu de l\'activité graphique n\'est plus visible si l\'historique est désactivé</string>
 </resources>

@@ -168,6 +168,8 @@ class HistoryActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
         }
         val sortData = SortData(this)
         val sort = sortData.loadSortState()

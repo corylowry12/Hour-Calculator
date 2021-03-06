@@ -98,7 +98,6 @@
                         android:text="@string/added_firebase"
                         android:textColor="?attr/textColor"
                         android:textSize="20sp"
-                        android:visibility="gone"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -111,7 +110,6 @@
                         android:text="@string/firebase_notification"
                         android:textColor="?attr/textColor"
                         android:textSize="20sp"
-                        android:visibility="gone"
                         tools:ignore="HardcodedText" />
 
                     <TextView

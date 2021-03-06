@@ -196,6 +196,8 @@ class TrashActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
         }
         val sortDataTrash = SortDataTrash(this)
         val sort = sortDataTrash.loadSortStateTrash()

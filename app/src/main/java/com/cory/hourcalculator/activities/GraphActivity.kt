@@ -140,7 +140,7 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                       // val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
+                       //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 7) {
                             if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
@@ -150,6 +150,9 @@ class GraphActivity : AppCompatActivity() {
                             }
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
+                            }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
                             }
                         }
 
@@ -239,6 +242,9 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
                             }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
+                            }
                         }
 
                         // Initializes array to store split string drop last array in
@@ -320,6 +326,9 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
                             }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
+                            }
                         }
 
                         // Initializes array to store split string drop last array in
@@ -397,6 +406,9 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
                             }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
+                            }
                         }
 
                         // Initializes array to store split string drop last array in
@@ -438,8 +450,6 @@ class GraphActivity : AppCompatActivity() {
                         // Animates bar chart
                         barChart.animateY(800)
 
-                        // Moves cursor to next to map in data
-
 
                     }
                     count == 3 -> {
@@ -466,6 +476,9 @@ class GraphActivity : AppCompatActivity() {
                             }
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
+                            }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
                             }
                         }
 
@@ -505,9 +518,6 @@ class GraphActivity : AppCompatActivity() {
                         // Animates bar chart
                         barChart.animateY(800)
 
-                        // Moves cursor to next to map in data
-
-
                     }
                     count == 2 -> {
                         // Initializes array to store xaxis values in
@@ -530,6 +540,9 @@ class GraphActivity : AppCompatActivity() {
                             }
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
+                            }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
                             }
                         }
 
@@ -566,9 +579,6 @@ class GraphActivity : AppCompatActivity() {
                         // Animates bar chart
                         barChart.animateY(800)
 
-                        // Moves cursor to next to map in data
-
-
                     }
                     count == 1 -> {
                         // Initializes array to store xaxis values in
@@ -588,6 +598,9 @@ class GraphActivity : AppCompatActivity() {
                             }
                             else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
                                 splitstring.add(15)
+                            }
+                            else if(dropLast.elementAt(i).length == 23) {
+                                splitstring.add(12)
                             }
                         }
 
@@ -652,6 +665,8 @@ class GraphActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
         }
         return true
     }

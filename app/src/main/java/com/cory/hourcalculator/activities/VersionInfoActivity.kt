@@ -161,6 +161,8 @@ class VersionInfoActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
         }
         return true
     }
