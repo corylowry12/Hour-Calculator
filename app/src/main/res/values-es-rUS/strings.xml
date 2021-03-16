@@ -129,11 +129,24 @@
     <string name="restore_all_items_trash">¿Le gustaría restaurar todos los elementos?</string>
     <string name="restore_all">¿Restaura todo?</string>
     <string name="hours">Horas</string>
-    <string name="optimized_graph">- Se corrigieron problemas menores con la interfaz de usuario en la pantalla de inicio</string>
-    <string name="fixed_graph">- Añadido francés como idioma</string>
+    <string name="optimized_graph">- Nueva capacidad para exportar archivos como un archivo de texto o una hoja de cálculo</string>
+    <string name="fixed_graph">- Se corrigió la actividad del gráfico que no cortaba la fecha en la ubicación adecuada</string>
     <string name="version_info_label">Información de la versión</string>
     <string name="graph_label">Grafico</string>
     <string name="total_hours_with_and_without_break">Horas totales con descanso: %1$s\nHoras totales sin descanso: %2$s</string>
     <string name="added_firebase">- Se agregó más verificación de errores en la actividad del gráfico para evitar fallas dependiendo de la fecha</string>
     <string name="firebase_notification">- Ahora el elemento del menú de actividad del gráfico ya no está visible si el historial está deshabilitado</string>
+    <string name="export_hours">Horas de exportación</string>
+    <string name="export_hours_caption">Exportar todas las horas almacenadas como un archivo .csv o .txt</string>
+    <string name="hours_file_name">horas</string>
+    <string name="file_not_found">Archivo no encontrado</string>
+    <string name="error_saving">Error al guardar</string>
+    <string name="no_hours_stored">No tienes horas almacenadas.</string>
+    <string name="need_permissions">Necesita permisos</string>
+    <string name="permissions_needed_caption">Se requieren permisos para utilizar la función de exportación para exportar un archivo a un archivo .csv o .txt.</string>
+    <string name="permission_not_granted">No se otorgaron permisos.</string>
+    <string name="cancel">Cancelar</string>
+    <string name="choose_format">Elija formato</string>
+    <string name="text_file">Archivo de texto</string>
+    <string name="spread_sheet">Hoja de cálculo</string>
 </resources>

@@ -110,7 +110,7 @@
     <string name="home">Home</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version"</string>
-    <string name="version_number" translatable="false">6.0.7</string>
+    <string name="version_number" translatable="false">6.0.8</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
@@ -165,8 +165,7 @@
     <string name="restore_all">Restore All?</string>
     <string name="hours">Hours</string>
     <string name="break_zero" translatable="false">0</string>
-    <string name="optimized_graph">- Fixed minor issues with ui on home screen</string>
-    <string name="fixed_graph">- Added french as a language</string>
+    <string name="optimized_graph">- New ability to export files as a text file or a spreadsheet</string>
     <string name="added_firebase">- Added more error checking in the graph activity to prevent crashing depending on the date</string>
     <string name="firebase_notification">- Now graph activity menu item is no longer visible if history is disabled</string>
     <string name="firebase_heading" translatable="false">- Added firebase heading in version info activity</string>
@@ -181,4 +180,18 @@
     <string name="graph_label">Graph</string>
     <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s Total Hours Without Break: %2$s</string>
     <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
+    <string name="export_hours">Export Hours</string>
+    <string name="export_hours_caption">Export all stored hours as a .csv  or .txt file</string>
+    <string name="hours_file_name">hours</string>
+    <string name="file_not_found">File Not Found</string>
+    <string name="error_saving">Error saving</string>
+    <string name="no_hours_stored">You have no hours stored.</string>
+    <string name="need_permissions">Need Permissions</string>
+    <string name="permissions_needed_caption">Permissions are required to use the export feature to export a file to a .csv or .txt file.</string>
+    <string name="permission_not_granted">Permissions were not granted.</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_format">Choose Format</string>
+    <string name="text_file">Text File</string>
+    <string name="spread_sheet">Spread Sheet</string>
+    <string name="fixed_graph">- Fixed graph activity not cutting off date at proper location</string>
 </resources>

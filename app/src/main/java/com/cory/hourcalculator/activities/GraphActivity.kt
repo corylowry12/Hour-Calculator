@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
@@ -20,11 +21,13 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.gms.ads.*
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_graph.*
+import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,11 +37,13 @@ class GraphActivity : AppCompatActivity() {
     private val dataList = ArrayList<HashMap<String, String>>()
     private lateinit var vibrationData: VibrationData
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-    private lateinit var saveData: DarkThemeData
+    private lateinit var darkThemeData: DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        saveData = DarkThemeData(this)
-        if (saveData.loadDarkModeState()) {
+        darkThemeData = DarkThemeData(this)
+        darkThemeData = DarkThemeData(this)
+        darkThemeData = DarkThemeData(this)
+        if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
@@ -82,7 +87,7 @@ class GraphActivity : AppCompatActivity() {
         xAxis.labelRotationAngle = 35f
         xAxis.textSize = 8f
 
-        if (saveData.loadDarkModeState()) {
+        if (darkThemeData.loadDarkModeState()) {
             xAxis.textColor = getColor(android.R.color.white)
             barChart.axisLeft.textColor = getColor(android.R.color.white)
             barChart.axisLeft.textColor = getColor(android.R.color.white)
@@ -142,7 +147,7 @@ class GraphActivity : AppCompatActivity() {
 
                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 7) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -154,6 +159,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -233,7 +244,7 @@ class GraphActivity : AppCompatActivity() {
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
 
                         for(i in 0 until 6) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -245,6 +256,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -317,7 +334,7 @@ class GraphActivity : AppCompatActivity() {
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 5) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -329,6 +346,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -397,7 +420,7 @@ class GraphActivity : AppCompatActivity() {
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
 
                         for(i in 0 until 4) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -409,6 +432,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -468,7 +497,7 @@ class GraphActivity : AppCompatActivity() {
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 3) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -480,6 +509,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -532,7 +567,7 @@ class GraphActivity : AppCompatActivity() {
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 2) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -544,6 +579,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -590,7 +631,7 @@ class GraphActivity : AppCompatActivity() {
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
                         for(i in 0 until 1) {
-                            if(dropLast.elementAt(i).length == 25) {
+                            /*if(dropLast.elementAt(i).length == 25) {
                                 splitstring.add(13)
                             }
                             else if (dropLast.elementAt(i).length == 24) {
@@ -602,6 +643,12 @@ class GraphActivity : AppCompatActivity() {
                             else if(dropLast.elementAt(i).length == 23) {
                                 splitstring.add(12)
                             }
+                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+
+                            val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
+                            val difference = dropLast.elementAt(i).length - matchIndex
+                            splitstring.add(difference)
+                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in

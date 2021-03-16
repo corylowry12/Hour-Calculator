@@ -2,14 +2,15 @@
   <library name="Gradle: com.google.android.gms:play-services-ads-identifier:17.0.0@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7842c98c73f805d5f9b7ffdc2e6e16a8/jetified-play-services-ads-identifier-17.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1326a40f40df36b46d5df133057d7776/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1326a40f40df36b46d5df133057d7776/jetified-play-services-ads-identifier-17.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1326a40f40df36b46d5df133057d7776/jetified-play-services-ads-identifier-17.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/54ce077b1c4b62a5279bcb3f7ff97af5/jetified-play-services-ads-identifier-17.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c9e4640c3b9897e7957f8f916c8a8fa2/jetified-play-services-ads-identifier-17.0.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7c56ff8b21dce419b7401a667af0db7/jetified-play-services-ads-identifier-17.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7c56ff8b21dce419b7401a667af0db7/jetified-play-services-ads-identifier-17.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7c56ff8b21dce419b7401a667af0db7/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1886654348ae570de2375dec8798018b/jetified-play-services-ads-identifier-17.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1886654348ae570de2375dec8798018b/jetified-play-services-ads-identifier-17.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1886654348ae570de2375dec8798018b/jetified-play-services-ads-identifier-17.0.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

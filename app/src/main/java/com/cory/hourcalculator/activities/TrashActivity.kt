@@ -11,6 +11,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.adapters.CustomAdapterTrash
 import com.cory.hourcalculator.classes.*
@@ -32,15 +33,16 @@ class TrashActivity : AppCompatActivity() {
     private val dbHandlerTrash = DBHelperTrash(this, null)
     private val dataListTrash = ArrayList<HashMap<String, String>>()
 
-    private lateinit var saveData: DarkThemeData
+    private lateinit var darkThemeData: DarkThemeData
     private lateinit var vibrationData: VibrationData
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        saveData = DarkThemeData(this)
-        if (saveData.loadDarkModeState()) {
+        darkThemeData = DarkThemeData(this)
+        darkThemeData = DarkThemeData(this)
+        if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)

@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.DarkThemeData
@@ -22,12 +23,12 @@ import com.google.firebase.ktx.Firebase
 class PatchNotesActivity : AppCompatActivity() {
 
     private lateinit var firebaseAnalytics : FirebaseAnalytics
-    private lateinit var saveData : DarkThemeData
+    private lateinit var darkThemeData : DarkThemeData
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-        saveData = DarkThemeData(this)
-        if (saveData.loadDarkModeState()) {
+        darkThemeData = DarkThemeData(this)
+        if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)

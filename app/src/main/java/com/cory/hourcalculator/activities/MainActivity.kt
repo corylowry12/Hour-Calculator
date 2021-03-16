@@ -1,21 +1,28 @@
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
 import android.graphics.Color
 import android.graphics.drawable.Icon
+import android.net.Uri
 import android.os.*
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.view.*
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.documentfile.provider.DocumentFile
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
@@ -33,13 +40,20 @@ import com.google.firebase.messaging.ktx.messaging
 import com.google.firebase.messaging.ktx.remoteMessage
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_main.*
+import okio.Utf8
+import java.io.*
 import java.lang.Exception
 import java.math.RoundingMode
+import java.net.URI
+import java.nio.file.Files
+import java.nio.file.StandardOpenOption
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,13 +65,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
     var testDeviceId = listOf("8EDC43FD82F98F52B4B982B33812B1BC")
     private val dbHandler = DBHelper(this, null)
+    private val permissionRequestCode = 1
+    private lateinit var managePermissions: ManagePermissions
+
+    val CREATE_FILE = 1
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
         darkThemeData = DarkThemeData(this)
-        if (darkThemeData.loadDarkModeState() == true) {
+        if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
@@ -1424,6 +1442,79 @@ class MainActivity : AppCompatActivity() {
     private fun requestFocus() {
         inTime.requestFocus()
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+    }
+
+    private fun createFile() {
+        try {
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/csv"
+                putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".csv")
+
+            }
+            startActivityForResult(intent, CREATE_FILE)
+        } catch (e : FileNotFoundException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+        } catch (e : IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (CREATE_FILE == requestCode) {
+            when(resultCode) {
+                Activity.RESULT_OK -> {
+                    if(data?.data != null) {
+                        var string = ""
+                        val datalist = ArrayList<HashMap<String, String>>()
+                        datalist.clear()
+                        val cursor = dbHandler.getAllRow(this)
+                        cursor!!.moveToFirst()
+
+                        while (!cursor.isAfterLast) {
+                            val map = HashMap<String, String>()
+                            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+                            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
+                            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
+                            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
+                            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                            datalist.add(map)
+
+                                string += map["id"].toString() + "," +
+                                        map["intime"].toString() + "," +
+                                        map["out"].toString() + "," +
+                                        map["break"].toString() + "," +
+                                        map["total"].toString() + "," +
+                                        map["day"].toString() + "," + "\n"
+
+                            cursor.moveToNext()
+                        }
+                        writeInFile(data.data!!, string)
+                        }
+
+                    }
+                Activity.RESULT_CANCELED -> finishActivity(requestCode)
+            }
+        }
+    }
+
+    private fun writeInFile(@NonNull uri : Uri, @NonNull text : String) {
+        val outputStream : OutputStream = contentResolver.openOutputStream(uri)!!
+        val bw = BufferedWriter(OutputStreamWriter(outputStream))
+        try {
+            val CSV_HEADER = "ID,In Time,Out Time,Break Time,Total,Day,Year,Time\n"
+            bw.append(CSV_HEADER)
+            bw.append(text)
+            bw.flush()
+            bw.close()
+        }catch (e : IOException) {
+            e.printStackTrace()
+        }
     }
 
 

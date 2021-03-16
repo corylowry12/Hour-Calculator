@@ -3,13 +3,14 @@
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3e7f3cf791777e6183fa3984d084f8fa/jetified-transport-api-2.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10720c2886717926cbfc2a28e197310d/jetified-transport-api-2.2.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10720c2886717926cbfc2a28e197310d/jetified-transport-api-2.2.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10720c2886717926cbfc2a28e197310d/jetified-transport-api-2.2.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/16a21c7a967bc3dfe264aec724a72999/jetified-transport-api-2.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c39123e78c304f3cd3a5aa498683ebae/jetified-transport-api-2.2.1/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bb5b0fca5e3bc0d46bcc53b91e3edef/jetified-transport-api-2.2.1/AndroidManifest.xml" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bb5b0fca5e3bc0d46bcc53b91e3edef/jetified-transport-api-2.2.1/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8bb5b0fca5e3bc0d46bcc53b91e3edef/jetified-transport-api-2.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/18c4eb8952cd3e00a2a5a9a26d2ec115/jetified-transport-api-2.2.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/18c4eb8952cd3e00a2a5a9a26d2ec115/jetified-transport-api-2.2.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/18c4eb8952cd3e00a2a5a9a26d2ec115/jetified-transport-api-2.2.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.datatransport/transport-api/2.2.1/44ab63fd6744b961c97d388fef15c888f99b561a/transport-api-2.2.1-javadoc.jar!/" />

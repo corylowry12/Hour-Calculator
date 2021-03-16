@@ -1,6 +1,7 @@
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,11 +12,13 @@ import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
+import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -27,18 +30,22 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.*
 
 class SettingsActivity : AppCompatActivity() {
 
     // Not initialized variables
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-    private lateinit var saveData: DarkThemeData
+    private lateinit var darkThemeData: DarkThemeData
+    private val CREATE_FILE = 1
+    private val dbHandler = DBHelper(this, null)
+    private val permissionRequestCode = 1
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         // Sets theme before activity is created
-        saveData = DarkThemeData(this)
-        if (saveData.loadDarkModeState()) {
+        darkThemeData = DarkThemeData(this)
+        if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
@@ -69,8 +76,149 @@ class SettingsActivity : AppCompatActivity() {
         // prevents keyboard from opening when activity is launched
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
+        val exportData = ExportData(this)
+
         // initializes the vibrationData class
         val vibrationData = VibrationData(this)
+        var selectedItemIndex = exportData.loadExportFormat()
+
+        val selection = arrayOf(getString(R.string.text_file), getString(R.string.spread_sheet))
+
+        var selectedItem = selection[selectedItemIndex]
+
+        textView29.setOnClickListener {
+            vibration(vibrationData)
+            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val managePermissions = ManagePermissions(this, list, permissionRequestCode)
+            if (dbHandler.getCount() > 0) {
+                if (managePermissions.checkPermissions()) {
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.choose_format))
+                        .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            selectedItemIndex = which
+                            selectedItem = selection[which]
+                        }
+                        .setPositiveButton(R.string.ok) {_, _ ->
+                            exportData.setExportFormat(selectedItemIndex)
+                            if(exportData.loadExportFormat() == 1) {
+                                createFileCSV()
+                            }
+                            else if(exportData.loadExportFormat() == 0) {
+                                createFileTEXT()
+                            }
+                        }
+                        .setNeutralButton(R.string.cancel, null)
+                    val alert = alertDialog.create()
+                    alert.show()
+                }
+                else {
+                    managePermissions.showAlertSettings(this)
+                }
+            }
+            else {
+                Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
+            }
+        }
+        textView30.setOnClickListener {
+            vibration(vibrationData)
+            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val managePermissions = ManagePermissions(this, list, permissionRequestCode)
+            if (dbHandler.getCount() > 0) {
+                if (managePermissions.checkPermissions()) {
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.choose_format))
+                        .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            selectedItemIndex = which
+                            selectedItem = selection[which]
+                        }
+                        .setPositiveButton(R.string.ok) {_, _ ->
+                            exportData.setExportFormat(selectedItemIndex)
+                            if(exportData.loadExportFormat() == 1) {
+                                createFileCSV()
+                            }
+                            else if(exportData.loadExportFormat() == 0) {
+                                createFileTEXT()
+                            }
+                        }
+                        .setNeutralButton(R.string.cancel, null)
+                    val alert = alertDialog.create()
+                    alert.show()
+                }
+                else {
+                    managePermissions.showAlertSettings(this)
+                }
+            }
+            else {
+                Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
+            }
+        }
+        txtviewExport.setOnClickListener {
+            vibration(vibrationData)
+            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val managePermissions = ManagePermissions(this, list, permissionRequestCode)
+            if (dbHandler.getCount() > 0) {
+                if (managePermissions.checkPermissions()) {
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.choose_format))
+                        .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            selectedItemIndex = which
+                            selectedItem = selection[which]
+                        }
+                        .setPositiveButton(R.string.ok) {_, _ ->
+                            exportData.setExportFormat(selectedItemIndex)
+                            if(exportData.loadExportFormat() == 1) {
+                                createFileCSV()
+                            }
+                            else if(exportData.loadExportFormat() == 0) {
+                                createFileTEXT()
+                            }
+                        }
+                        .setNeutralButton(R.string.cancel, null)
+                    val alert = alertDialog.create()
+                    alert.show()
+                }
+                else {
+                    managePermissions.showAlertSettings(this)
+                }
+            }
+            else {
+                Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
+            }
+        }
+        cardView12.setOnClickListener {
+            vibration(vibrationData)
+            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            val managePermissions = ManagePermissions(this, list, permissionRequestCode)
+            if (dbHandler.getCount() > 0) {
+                if (managePermissions.checkPermissions()) {
+                    val alertDialog = AlertDialog.Builder(this)
+                        .setTitle(getString(R.string.choose_format))
+                        .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            selectedItemIndex = which
+                            selectedItem = selection[which]
+                        }
+                        .setPositiveButton(R.string.ok) {_, _ ->
+                            exportData.setExportFormat(selectedItemIndex)
+                            if(exportData.loadExportFormat() == 1) {
+                                createFileCSV()
+                            }
+                            else if(exportData.loadExportFormat() == 0) {
+                                createFileTEXT()
+                            }
+                        }
+                        .setNeutralButton(R.string.cancel, null)
+                    val alert = alertDialog.create()
+                    alert.show()
+                }
+                else {
+                    managePermissions.showAlertSettings(this)
+                }
+            }
+            else {
+                Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // switched to enable and disable vibration
         val vibrationSwitch = findViewById<SwitchMaterial>(R.id.switch3)
         if (vibrationData.loadVibrationState()) {
@@ -113,7 +261,7 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         val switch = findViewById<SwitchMaterial>(R.id.switch1)
-        if (saveData.loadDarkModeState()) {
+        if (darkThemeData.loadDarkModeState()) {
             switch.isChecked = true
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                 param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
@@ -134,7 +282,7 @@ class SettingsActivity : AppCompatActivity() {
             vibration(vibrationData)
             if (isChecked) {
                 switch.isChecked = true
-                saveData.setDarkModeState(true)
+                darkThemeData.setDarkModeState(true)
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                     param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
                     param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_enabled")
@@ -143,7 +291,7 @@ class SettingsActivity : AppCompatActivity() {
                 restartApplication()
             } else {
                 switch.isChecked = false
-                saveData.setDarkModeState(false)
+                darkThemeData.setDarkModeState(false)
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                     param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
                     param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_disabled")
@@ -253,6 +401,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         updateSwitch.setOnCheckedChangeListener { _, isChecked ->
+            vibration(vibrationData)
             if(isChecked) {
                 updateData.setUpdateNotificationState(true)
                 Snackbar.make(constraintLayout, getString(R.string.enabled_update_notifications), Snackbar.LENGTH_SHORT).show()
@@ -265,7 +414,7 @@ class SettingsActivity : AppCompatActivity() {
                         }
                         Log.d("Updates", msg)
                     }
-                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                     param(FirebaseAnalytics.Param.ITEM_ID, "update_notifications_switch")
                     param(FirebaseAnalytics.Param.ITEM_NAME, "update_notifications_switch_enabled")
                     param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
@@ -325,7 +474,7 @@ class SettingsActivity : AppCompatActivity() {
         wagesEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString() != "") {
-                        wagesData.setWageAmount(s.toString())
+                    wagesData.setWageAmount(s.toString())
                     firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                         param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
                         param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
@@ -708,6 +857,154 @@ class SettingsActivity : AppCompatActivity() {
         startActivity(i)
     }
 
+    private fun createFileTEXT() {
+        try {
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/plain"
+                putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".txt")
+
+            }
+            startActivityForResult(intent, CREATE_FILE)
+        } catch (e : FileNotFoundException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+        } catch (e : IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun createFileCSV() {
+        try {
+            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                addCategory(Intent.CATEGORY_OPENABLE)
+                type = "text/csv"
+                putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".csv")
+
+            }
+            startActivityForResult(intent, CREATE_FILE)
+        } catch (e : FileNotFoundException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
+        } catch (e : IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val exportData = ExportData(this)
+        if (CREATE_FILE == requestCode) {
+            when(resultCode) {
+                Activity.RESULT_OK -> {
+                    if(data?.data != null) {
+                        if(exportData.loadExportFormat() == 1) {
+                            var string = ""
+                            val datalist = ArrayList<HashMap<String, String>>()
+                            datalist.clear()
+                            val cursor = dbHandler.getAllRow(this)
+                            cursor!!.moveToFirst()
+
+                            while (!cursor.isAfterLast) {
+                                val map = HashMap<String, String>()
+                                map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+                                map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
+                                map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
+                                map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                datalist.add(map)
+
+                                string += map["id"].toString() + "," +
+                                        map["intime"].toString() + "," +
+                                        map["out"].toString() + "," +
+                                        map["break"].toString() + "," +
+                                        map["total"].toString() + "," +
+                                        map["day"].toString() + "," + "\n"
+
+                                cursor.moveToNext()
+                            }
+                            writeInFile(data.data!!, string)
+                        }
+                        else if(exportData.loadExportFormat() == 0) {
+                            var string = ""
+                            val datalist = ArrayList<HashMap<String, String>>()
+                            datalist.clear()
+                            val cursor = dbHandler.getAllRow(this)
+                            cursor!!.moveToFirst()
+
+                            while (!cursor.isAfterLast) {
+                                val map = HashMap<String, String>()
+                                map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+                                map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
+                                map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
+                                map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                datalist.add(map)
+
+                                string += "ID: " + map["id"].toString() + "\n" +
+                                        "In Time: " + map["intime"].toString() + "\n" +
+                                        "Out Time: " + map["out"].toString() + "\n" +
+                                        "Break Time: " + map["break"].toString() + "\n" +
+                                        "Total Time: " + map["total"].toString() + "\n" +
+                                        "Day: " + map["day"].toString() + "\n" +
+                                        "*******************************" + "\n"
+
+                                cursor.moveToNext()
+                            }
+                            writeInFile(data.data!!, string)
+                        }
+                    }
+                }
+                Activity.RESULT_CANCELED -> finishActivity(requestCode)
+            }
+        }
+
+    }
+
+    private fun writeInFile(@NonNull uri : Uri, @NonNull text : String) {
+        val exportData = ExportData(this)
+        if(exportData.loadExportFormat() == 1) {
+            val outputStream: OutputStream = contentResolver.openOutputStream(uri)!!
+            val bw = BufferedWriter(OutputStreamWriter(outputStream))
+            try {
+                val csvHeader = "ID,In Time,Out Time,Break Time,Total,Day,Year,Time\n"
+                bw.append(csvHeader)
+                bw.append(text)
+                bw.flush()
+                bw.close()
+                val intent = Intent()
+                    .setType("text/csv")
+                    .setAction(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
+                startActivity(Intent.createChooser(intent, "Choose app"))
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        else if(exportData.loadExportFormat() == 0) {
+            val outputStream: OutputStream = contentResolver.openOutputStream(uri)!!
+            val bw = BufferedWriter(OutputStreamWriter(outputStream))
+            try {
+                bw.write(text)
+                bw.flush()
+                bw.close()
+                val intent = Intent()
+                    .setType("text/plain")
+                    .setAction(Intent.ACTION_SEND)
+                    .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
+                startActivity(Intent.createChooser(intent, "Choose app"))
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
@@ -722,8 +1019,6 @@ class SettingsActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
