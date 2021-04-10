@@ -86,6 +86,7 @@
                         android:text="@string/fixed_graph"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
+                        android:visibility="gone"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -98,7 +99,7 @@
                         android:text="@string/added_firebase"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -111,7 +112,7 @@
                         android:text="@string/firebase_notification"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -124,7 +125,7 @@
                         android:text="@string/firebase_heading"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -137,7 +138,7 @@
                         android:text="@string/fab"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -150,7 +151,7 @@
                         android:text="@string/fab_trash"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -163,7 +164,7 @@
                         android:text="@string/disable_update"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -176,7 +177,7 @@
                         android:text="@string/dark_mode_default"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -189,7 +190,7 @@
                         android:text="@string/heading_text_color"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView
@@ -202,7 +203,7 @@
                         android:text="@string/tweaked_layout"
                         android:textColor="?attr/textColor"
                         android:textSize="12sp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         tools:ignore="HardcodedText" />
 
                     <TextView

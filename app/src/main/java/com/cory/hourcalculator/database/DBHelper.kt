@@ -6,7 +6,9 @@ import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.SortData
+import kotlinx.android.synthetic.main.list_row.view.*
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -68,6 +70,29 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.delete(TABLE_NAME, null, null)
         db.execSQL("delete from $TABLE_NAME")
         db.close()
+    }
+
+    fun retrieve(query: String): Cursor {
+
+        var cursor : Cursor
+        val db = this.writableDatabase
+        val columns = listOf<String>(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
+
+        if(query != "" && query.isNotEmpty()) {
+            val sql = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_IN LIKE '%$query%' " +
+                    " OR $COLUMN_OUT LIKE '%$query%' " +
+                    " OR $COLUMN_BREAK LIKE '%$query%' " +
+                    " OR $COLUMN_TOTAL LIKE '%$query%' " +
+                    " OR $COLUMN_DAY LIKE '%$query%' "
+
+           cursor = db.rawQuery(sql, null)
+            return cursor
+        }
+
+            cursor = db.query(TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
+            return cursor
+
+
     }
 
     companion object {

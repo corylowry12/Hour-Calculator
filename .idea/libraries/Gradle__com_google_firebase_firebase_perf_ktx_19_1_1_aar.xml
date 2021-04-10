@@ -1,14 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-perf-ktx:19.1.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/777528c3d2d2f99d2048b36e34577f4c/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/70c91dd2c61eb327ebf0676f4567916b/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccfba64b8399e8fccb840ea710c339d4/jetified-firebase-perf-ktx-19.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccfba64b8399e8fccb840ea710c339d4/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ccfba64b8399e8fccb840ea710c339d4/jetified-firebase-perf-ktx-19.1.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a0aed2521d57399c72896b985073ee7/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a0aed2521d57399c72896b985073ee7/jetified-firebase-perf-ktx-19.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a0aed2521d57399c72896b985073ee7/jetified-firebase-perf-ktx-19.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddbb4ed6a794164d1cca01a603b801d1/jetified-firebase-perf-ktx-19.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddbb4ed6a794164d1cca01a603b801d1/jetified-firebase-perf-ktx-19.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddbb4ed6a794164d1cca01a603b801d1/jetified-firebase-perf-ktx-19.1.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-perf-ktx/19.1.1/3c8c0ee18bb338fba6f00ace1c3b72786be6451d/firebase-perf-ktx-19.1.1-javadoc.jar!/" />

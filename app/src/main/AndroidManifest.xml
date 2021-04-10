@@ -7,10 +7,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <uses-feature android:name="android.hardware.location.gps" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +24,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.GraphActivity"
+        <activity android:name=".activities.WebViewActivity" >
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.cory.hourcalculator.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
@@ -57,8 +67,9 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cory.hourcalculator.activities.MainActivity" />
+
             <intent-filter>
-            <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
@@ -81,16 +92,19 @@
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <meta-data android:name="android.app.shortcuts"
+            <meta-data
+                android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />
         </activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4546055219731501~9110514822" />
+
         <service
             android:name=".notifications.MyFirebaseMessagingService"
             android:exported="false">

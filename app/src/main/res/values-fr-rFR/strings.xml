@@ -130,7 +130,7 @@
     <string name="restore_all">Tout restaurer?</string>
     <string name="hours">Les heures</string>
     <string name="optimized_graph">- Nouvelle possibilité d\'exporter des fichiers sous forme de fichier texte ou de feuille de calcul</string>
-    <string name="fixed_graph">- Activité graphique fixe ne coupant pas la date au bon endroit</string>
+    <string name="fixed_graph">- Correction d\'un crash si vous alliez aux paramètres et à l\'historique désactivé, puis cliquiez sur le graphique dans le menu des paramètres</string>
     <string name="graph_label">Graphique</string>
     <string name="total_hours_with_and_without_break">Heures totales avec pause: %1$s Heures totales sans pause: %2$s</string>
     <string name="version_info_label">Informations sur la version</string>
@@ -149,4 +149,20 @@
     <string name="choose_format">Choisissez le format</string>
     <string name="text_file">Fichier texte</string>
     <string name="spread_sheet">Tableur</string>
+    <string name="please_donate">S\'il vous plaît faire un don</string>
+    <string name="donate">Faire un don</string>
+    <string name="one_dollar">.99 euros</string>
+    <string name="five_dollar">4.99 euros</string>
+    <string name="thanks_for_donation">Merci beaucoup pour votre don!</string>
+    <string name="make_a_donation">Faire un don</string>
+    <string name="please_leave_a_donation">S\'il vous plaît laissez un don, je travaille sur l\'application pendant mon temps libre et je ne veux pas que l\'application coûte de l\'argent.</string>
+    <string name="firebase_heading">- Fonction de recherche nouvellement ajoutée dans l\'activité de l\'historique</string>
+    <string name="fab">- Fonction de recherche nouvellement ajoutée sur l\'activité de la corbeille</string>
+    <string name="fab_trash">- Bouton de don nouvellement ajouté dans les paramètres. Il ne permet actuellement que 5 dollars, mais vous pouvez en donner plus d\'un si vous le souhaitez.</string>
+    <string name="disable_update">- Autres correctifs de stabilité</string>
+    <string name="dark_mode_default">- Correction d\'un bug où si vous changez les fileurs sur l\'activité principale en pm et alliez à une autre activité, puis reveniez à l\'activité principale en utilisant le bouton de retour et il calculait l\'heure du matin au lieu de pm comme il est dit.</string>
+    <string name="heading_text_color">- L\'application ouvre désormais les liens de dépendance dans l\'activité d\'informations de version dans une vue Web intégrée.</string>
+    <string name="tweaked_layout" translatable="false">- Correction de l\'historique et de l\'activité des graphiques en panne, espérons-le</string>
+    <string name="support_for_spanish">- L\'élément de graphique dans le menu dans les paramètres n\'apparaît plus si l\'historique est désactivé</string>
+    <string name="whoops_error">Oups, il y a eu une erreur! Veuillez réessayer.</string>
 </resources>

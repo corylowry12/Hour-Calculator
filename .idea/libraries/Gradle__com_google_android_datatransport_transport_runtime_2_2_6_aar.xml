@@ -1,14 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.datatransport:transport-runtime:2.2.6@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/70d26cbe26adc1f3a709d405f3f8f05c/jetified-transport-runtime-2.2.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f82a9d1726ffd7781c406296d3c8f392/jetified-transport-runtime-2.2.6/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b93046ab4e1a6a66d330ef0703d6b88a/jetified-transport-runtime-2.2.6/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b93046ab4e1a6a66d330ef0703d6b88a/jetified-transport-runtime-2.2.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b93046ab4e1a6a66d330ef0703d6b88a/jetified-transport-runtime-2.2.6/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/531beb6346764b8f62cc49fe04494806/jetified-transport-runtime-2.2.6/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/531beb6346764b8f62cc49fe04494806/jetified-transport-runtime-2.2.6/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/531beb6346764b8f62cc49fe04494806/jetified-transport-runtime-2.2.6/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f16fbb4c17582224c0be6a034fdf92b/jetified-transport-runtime-2.2.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f16fbb4c17582224c0be6a034fdf92b/jetified-transport-runtime-2.2.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0f16fbb4c17582224c0be6a034fdf92b/jetified-transport-runtime-2.2.6/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.android.datatransport/transport-runtime/2.2.6/7509bfbb3df6c8d1e8b5ab57eb22a40042d3ef64/transport-runtime-2.2.6-javadoc.jar!/" />

@@ -71,6 +71,15 @@
     <string name="date_adapter">Date: %1$s</string>
     <string name="cant_sort_data_trash_empty">Can\'t sort data, trash is empty</string>
     <string name="cant_sort_data_history_empty">Can\'t sort data, hours is empty</string>
+    <string name="AdmobLink" translatable="false">https://developers.google.com/admob/android/quick-start</string>
+    <string name="materialLink" translatable="false">https://github.com/jaredrummler/MaterialSpinner</string>
+    <string name="spinnerLink" translatable="false">https://github.com/jaredrummler/MaterialSpinner</string>
+    <string name="PlayCoreLink" translatable="false">https://developer.android.com/guide/playcore</string>
+    <string name="CrashlyticsLink" translatable="false">https://firebase.google.com/docs/crashlytics</string>
+    <string name="FirebaseLink" translatable="false">https://firebase.google.com/docs/reference</string>
+    <string name="PerformanceLink" translatable="false">https://firebase.google.com/docs/perf-mon</string>
+    <string name="MPAndroidLink" translatable="false">https://github.com/PhilJay/MPAndroidChart</string>
+    <string name="CloudMessagingLink" translatable="false">https://firebase.google.com/docs/cloud-messaging</string>
     <string name="ads_link" translatable="false"><a href="https://developers.google.com/admob/android/quick-start">https://developers.google.com/admob/android/quick-start</a></string>
     <string name="material_link" translatable="false"><a href="https://material.io/develop/android/docs/getting-started">https://material.io/develop/android/docs/getting-started</a></string>
     <string name="spinner_link" translatable="false"><a href="https://github.com/jaredrummler/MaterialSpinner">https://github.com/jaredrummler/MaterialSpinner</a></string>
@@ -110,7 +119,7 @@
     <string name="home">Home</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version"</string>
-    <string name="version_number" translatable="false">6.0.8</string>
+    <string name="version_number" translatable="false">6.0.9</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
@@ -165,17 +174,16 @@
     <string name="restore_all">Restore All?</string>
     <string name="hours">Hours</string>
     <string name="break_zero" translatable="false">0</string>
-    <string name="optimized_graph">- New ability to export files as a text file or a spreadsheet</string>
-    <string name="added_firebase">- Added more error checking in the graph activity to prevent crashing depending on the date</string>
-    <string name="firebase_notification">- Now graph activity menu item is no longer visible if history is disabled</string>
-    <string name="firebase_heading" translatable="false">- Added firebase heading in version info activity</string>
-    <string name="fab" translatable="false">- Added floating action button in history activity to automatically scroll back to top</string>
-    <string name="fab_trash" translatable="false">- Added floating action button in trash activity to automatically scroll back to top</string>
-    <string name="disable_update" translatable="false">- Added switch in settings to disable update notifications</string>
-    <string name="dark_mode_default" translatable="false">- Dark mode is now the default theme</string>
-    <string name="heading_text_color" translatable="false">- Changed heading text color in settings activity</string>
-    <string name="tweaked_layout" translatable="false">- Tweaked layout for main screen on devices with xxx high density display</string>
-    <string name="support_for_spanish" translatable="false">- Added support for spanish</string>
+    <string name="optimized_graph">- Tons of optimization in main activity</string>
+    <string name="added_firebase">- Fixed In Time not losing focus if you hit back button and dismissed keyboard</string>
+    <string name="firebase_notification">- Updated Dependencies</string>
+    <string name="firebase_heading">- Newly added search feature in history activity</string>
+    <string name="fab">- Newly added search function on trash activity</string>
+    <string name="fab_trash">- Newly added donate button in settings. It only allows 5 dollars currently, but you can donate more than one if you want to.</string>
+    <string name="disable_update">- Other stability fixes</string>
+    <string name="dark_mode_default">- Fixed bug where if you changes spinners on main activity to pm and went to another activity and then went back to main activity using back button and it would calculate am time instead of pm like it said.</string>
+    <string name="heading_text_color">- App now opens dependency links in version info activity in a built in webview</string>
+    <string name="support_for_spanish">- Graph item in menu in settings no longer shows up if history is disabled</string>
     <string name="version_info_label">Version Info</string>
     <string name="graph_label">Graph</string>
     <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s Total Hours Without Break: %2$s</string>
@@ -193,5 +201,14 @@
     <string name="choose_format">Choose Format</string>
     <string name="text_file">Text File</string>
     <string name="spread_sheet">Spread Sheet</string>
-    <string name="fixed_graph">- Fixed graph activity not cutting off date at proper location</string>
+    <string name="fixed_graph">- Fixed crashing if you went to settings and disabled history and then clicked graph from the settings menu</string>
+    <string name="please_donate">Please Donate</string>
+    <string name="donate">Donate</string>
+    <string name="one_dollar">One Dollar</string>
+    <string name="five_dollar">Five Dollar</string>
+    <string name="thanks_for_donation">Thank you so much for your donation!</string>
+    <string name="make_a_donation">Make a Donation</string>
+    <string name="please_leave_a_donation">Please leave a donation, I work on the app in my spare time and don\'t wanna make the app cost money.</string>
+    <string name="whoops_error">Whoops there was an error! Please try again.</string>
+    <string name="tweaked_layout">- Fixed history and graph activity crashing hopefully</string>
 </resources>

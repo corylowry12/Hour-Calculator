@@ -6,12 +6,8 @@ import android.os.*
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AbsListView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.adapters.CustomAdapterTrash
 import com.cory.hourcalculator.classes.*
@@ -21,6 +17,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_trash.*
 import java.time.LocalDateTime
 import java.time.Period
@@ -40,7 +37,6 @@ class TrashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        darkThemeData = DarkThemeData(this)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
@@ -94,6 +90,28 @@ class TrashActivity : AppCompatActivity() {
             override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
             }
         })
+    }
+    fun retrieveItems(query: String) {
+        dataListTrash.clear()
+        val cursor = dbHandlerTrash.retrieve(query)
+        cursor.moveToFirst()
+
+        while (!cursor.isAfterLast) {
+            val map = HashMap<String, String>()
+            map["id_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_ID_TRASH))
+            map["intime_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
+            map["out_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
+            map["break_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
+            map["total_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
+            map["day_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
+            dataListTrash.add(map)
+
+            cursor.moveToNext()
+        }
+
+        val listViewTrash = findViewById<ListView>(R.id.listViewTrash)
+        listViewTrash.adapter = CustomAdapterTrash(this@TrashActivity, dataListTrash)
+
     }
 
     fun update() {
@@ -219,6 +237,34 @@ class TrashActivity : AppCompatActivity() {
             val item = menu.findItem(R.id.menuSortByMostHours)
             item.title = getString(R.string.most_hours)
         }
+        val search = menu.findItem(R.id.app_bar_search)
+        val searchView = search.actionView as SearchView
+        searchView.queryHint = "Search"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if(query != "") {
+                    retrieveItems(query)
+                    textView8.visibility = View.INVISIBLE
+                    textViewWarning.visibility = View.INVISIBLE
+                }
+                else if (query == "") {
+                    loadIntoListTrash()
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText != "") {
+                    retrieveItems(newText)
+                    textView8.visibility = View.INVISIBLE
+                    textViewWarning.visibility = View.INVISIBLE
+                }
+                else if (newText == "") {
+                    loadIntoListTrash()
+                }
+                return false
+            }
+        })
 
         return true
     }

@@ -1,14 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:protolite-well-known-types:17.1.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f33d32c23bd3307bb80a67aa89afd9df/jetified-protolite-well-known-types-17.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c4f819ff0ff6ff5489493c5ff00872d6/jetified-protolite-well-known-types-17.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0a3d7ec58e833762408566b81a4b876b/jetified-protolite-well-known-types-17.1.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0a3d7ec58e833762408566b81a4b876b/jetified-protolite-well-known-types-17.1.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0a3d7ec58e833762408566b81a4b876b/jetified-protolite-well-known-types-17.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/90796b0fc371fc4e2603a2d33da65492/jetified-protolite-well-known-types-17.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/90796b0fc371fc4e2603a2d33da65492/jetified-protolite-well-known-types-17.1.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/90796b0fc371fc4e2603a2d33da65492/jetified-protolite-well-known-types-17.1.1/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d2f9f2f35d936e971e6b67384e9b843b/jetified-protolite-well-known-types-17.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d2f9f2f35d936e971e6b67384e9b843b/jetified-protolite-well-known-types-17.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d2f9f2f35d936e971e6b67384e9b843b/jetified-protolite-well-known-types-17.1.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/protolite-well-known-types/17.1.1/5fbe3622c8be8565ee56aa41117b13f095965904/protolite-well-known-types-17.1.1-javadoc.jar!/" />

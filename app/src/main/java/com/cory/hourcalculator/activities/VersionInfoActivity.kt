@@ -6,11 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.text.method.LinkMovementMethod
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.DarkThemeData
@@ -27,7 +25,6 @@ class VersionInfoActivity : AppCompatActivity() {
     private lateinit var darkThemeData : DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        darkThemeData = DarkThemeData(this)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
@@ -61,7 +58,10 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "material_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtMaterial.movementMethod = LinkMovementMethod.getInstance()
+            //txtMaterial.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.materialLink))
+            startActivity(intent)
         }
 
         val txtAds = findViewById<TextView>(R.id.txtAdLink)
@@ -71,7 +71,10 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "ad_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtAds.movementMethod = LinkMovementMethod.getInstance()
+            //txtAds.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.AdmobLink))
+            startActivity(intent)
         }
 
         val txtSpinner = findViewById<TextView>(R.id.txtSpinnerLink)
@@ -81,7 +84,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "spinner_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtSpinner.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.spinnerLink))
+            startActivity(intent)
         }
 
         val txtPlayLink = findViewById<TextView>(R.id.txtPlayLink)
@@ -91,7 +96,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "play_core_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtPlayLink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.PlayCoreLink))
+            startActivity(intent)
         }
 
         val txtFireBaseLink = findViewById<TextView>(R.id.txtFirebaseLink)
@@ -101,7 +108,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "firebase_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtFireBaseLink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.FirebaseLink))
+            startActivity(intent)
         }
 
         val txtCrashlyticsLink = findViewById<TextView>(R.id.txtCrashlyticsLink)
@@ -111,7 +120,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "crashlytics_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtCrashlyticsLink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.CrashlyticsLink))
+            startActivity(intent)
         }
 
         val txtPerformanceLink = findViewById<TextView>(R.id.txtPerformanceLink)
@@ -121,7 +132,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "performance_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            txtPerformanceLink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.PerformanceLink))
+            startActivity(intent)
         }
 
         val chartlink = findViewById<TextView>(R.id.txtMPANDROIDCHARTLINK)
@@ -131,7 +144,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "chart_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            chartlink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.MPAndroidLink))
+            startActivity(intent)
         }
 
         val cloudLink = findViewById<TextView>(R.id.txtCloudMessagingLink)
@@ -141,7 +156,9 @@ class VersionInfoActivity : AppCompatActivity() {
                 param(FirebaseAnalytics.Param.ITEM_NAME, "cloud_link_text_view_clicked")
                 param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
             }
-            cloudLink.movementMethod = LinkMovementMethod.getInstance()
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.CloudMessagingLink))
+            startActivity(intent)
         }
     }
 

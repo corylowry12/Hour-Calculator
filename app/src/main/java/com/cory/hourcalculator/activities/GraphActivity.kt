@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
@@ -21,13 +20,11 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.gms.ads.*
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_graph.*
-import kotlinx.android.synthetic.main.activity_settings.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -40,8 +37,6 @@ class GraphActivity : AppCompatActivity() {
     private lateinit var darkThemeData: DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        darkThemeData = DarkThemeData(this)
-        darkThemeData = DarkThemeData(this)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
@@ -712,8 +707,6 @@ class GraphActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }

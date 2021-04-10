@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.DarkThemeData

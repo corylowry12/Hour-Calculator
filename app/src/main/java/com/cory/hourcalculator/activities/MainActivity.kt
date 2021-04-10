@@ -40,6 +40,9 @@ import com.google.firebase.messaging.ktx.messaging
 import com.google.firebase.messaging.ktx.remoteMessage
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okio.Utf8
 import java.io.*
 import java.lang.Exception
@@ -57,7 +60,8 @@ import kotlin.collections.HashMap
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var vibrationData: VibrationData
+   // private lateinit var vibrationData: VibrationData
+    val vibrationData by lazy { VibrationData(this) }
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var firebaseData: FirebaseData
     private lateinit var historyToggleData: HistoryToggleData
@@ -68,9 +72,58 @@ class MainActivity : AppCompatActivity() {
     private val permissionRequestCode = 1
     private lateinit var managePermissions: ManagePermissions
 
-    val CREATE_FILE = 1
-
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+
+    // Spinner lazy and lateinit inializers
+    val spinner by lazy { findViewById<MaterialSpinner>(R.id.material_spinner_1) }
+    val spinner1 by lazy { findViewById<MaterialSpinner>(R.id.material_spinner_2) }
+    private lateinit var spinner1selecteditem: String
+    private lateinit var spinner2selecteditem: String
+
+    // Adview lazy initializer
+    val adView by lazy { AdView(this) }
+    val mAdView by lazy { findViewById<AdView>(R.id.adView) }
+    val adRequest by lazy { AdRequest.Builder().build() }
+
+    // Break data lazy initializer
+    val breakData by lazy { BreakData(this) }
+
+    // Shortcut manager lazy initialization
+    val shortcutManager by lazy { getSystemService(ShortcutManager::class.java) }
+    val dynamicIntent by lazy { Intent(this, HistoryActivity::class.java) }
+    val dynamicIntent2 by lazy { Intent(this, GraphActivity::class.java) }
+    val dynamicIntent3 by lazy { Intent(this, SettingsActivity::class.java) }
+    val dynamicIntent4 by lazy { Intent(this, TrashActivity::class.java) }
+    val shortcut by lazy { ShortcutInfo.Builder(this, "dynamic_shortcut")
+        .setLongLabel(getString(R.string.history_shortcut_long))
+        .setShortLabel(getString(R.string.history_shortcut_short))
+        .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_history_24px))
+        .setIntent(dynamicIntent)
+        .build() }
+    val shortcut2 by lazy { ShortcutInfo.Builder(this, "dynamic_shortcut2")
+        .setLongLabel(getString(R.string.graph_shortcut_long))
+        .setShortLabel(getString(R.string.graph_shortcut_short))
+        .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_bar_chart_24px))
+        .setIntent(dynamicIntent2)
+        .build()
+    }
+    val shortcut3 by lazy { ShortcutInfo.Builder(this, "dynamic_shortcut3")
+        .setLongLabel(getString(R.string.settings_shortcut_long))
+        .setShortLabel(getString(R.string.settings_shortcut_short))
+        .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_settings_24px))
+        .setIntent(dynamicIntent3)
+        .build()
+    }
+    val shortcut4 by lazy { ShortcutInfo.Builder(this, "dynamic_shortcut4")
+        .setLongLabel(getString(R.string.trash_shortcut_long))
+        .setShortLabel(getString(R.string.trash_shortcut_short))
+        .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_delete_24px))
+        .setIntent(dynamicIntent4)
+        .build()
+    }
+
+    // Input manager lazy initializer
+    val imm by lazy { this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
@@ -89,19 +142,29 @@ class MainActivity : AppCompatActivity() {
         updateData = UpdateData(this)
         trashAutomaticDeletion = TrashAutomaticDeletion(this)
 
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("token", "Fetching FCM registration token failed", task.exception)
-                return@OnCompleteListener
-            }
+        MobileAds.initialize(this)
+        //val adView = AdView(this)
+        adView.adSize = AdSize.BANNER
+        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        //val mAdView = findViewById<AdView>(R.id.adView)
+        //val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
 
-            val token = task.result
+        }
 
-            val msg = token
-            Log.d("Token", msg)
-        })
+        requestFocus()
 
-        val breakData = BreakData(this)
+        GlobalScope.launch(Dispatchers.Main) {
+            main()
+        }
+
+        //val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        if (imm.isAcceptingText) {
+            mAdView.visibility = View.INVISIBLE
+        }
+
+        //val breakData = BreakData(this)
         if (breakData.loadBreakState() == false) {
             findViewById<TextView>(R.id.textView4).visibility = View.GONE
             findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.GONE
@@ -114,21 +177,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         try {
-            val shortcutManager = getSystemService(ShortcutManager::class.java)
+            //val shortcutManager = getSystemService(ShortcutManager::class.java)
 
-            val dynamicIntent = Intent(this, HistoryActivity::class.java)
+            //val dynamicIntent = Intent(this, HistoryActivity::class.java)
             dynamicIntent.setAction(Intent.ACTION_VIEW)
 
-            val dynamicIntent2 = Intent(this, GraphActivity::class.java)
+            //val dynamicIntent2 = Intent(this, GraphActivity::class.java)
             dynamicIntent2.setAction(Intent.ACTION_VIEW)
 
-            val dynamicIntent3 = Intent(this, SettingsActivity::class.java)
+            //val dynamicIntent3 = Intent(this, SettingsActivity::class.java)
             dynamicIntent3.setAction(Intent.ACTION_VIEW)
 
-            val dynamicIntent4 = Intent(this, TrashActivity::class.java)
+           // val dynamicIntent4 = Intent(this, TrashActivity::class.java)
             dynamicIntent4.setAction(Intent.ACTION_VIEW)
 
-            val shortcut = ShortcutInfo.Builder(this, "dynamic_shortcut")
+            /*val shortcut = ShortcutInfo.Builder(this, "dynamic_shortcut")
                 .setLongLabel(getString(R.string.history_shortcut_long))
                 .setShortLabel(getString(R.string.history_shortcut_short))
                 .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_history_24px))
@@ -154,7 +217,7 @@ class MainActivity : AppCompatActivity() {
                 .setShortLabel(getString(R.string.trash_shortcut_short))
                 .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_delete_24px))
                 .setIntent(dynamicIntent4)
-                .build()
+                .build()*/
 
 
             shortcutManager.dynamicShortcuts = listOf(shortcut, shortcut2, shortcut3, shortcut4)
@@ -163,7 +226,7 @@ class MainActivity : AppCompatActivity() {
             Log.i("MainActivity", "Couldnt Load Shortcuts")
         }
 
-        main()
+        //main()
 
         firebaseData = FirebaseData(this)
         if (firebaseData.loadFirebaseLog() == false) {
@@ -212,36 +275,25 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
-    fun main() {
-        requestFocus()
-
-        MobileAds.initialize(this)
-        val adView = AdView(this)
-        adView.adSize = AdSize.BANNER
-        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val mAdView = findViewById<AdView>(R.id.adView)
-        val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-
+    override fun onResume() {
+        super.onResume()
+        GlobalScope.launch(Dispatchers.Main) {
+            main()
         }
+    }
 
-        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm.isAcceptingText) {
-            mAdView.visibility = View.INVISIBLE
-        }
+    suspend fun main() {
 
-        val constraintLayout = findViewById<ConstraintLayout>(R.id.constraintLayout)
-        constraintLayout.setOnClickListener {
+        findViewById<ConstraintLayout>(R.id.constraintLayout).setOnClickListener {
             if (findViewById<TextInputEditText>(R.id.inTime).hasFocus() || findViewById<TextInputEditText>(R.id.outTime).hasFocus() || findViewById<TextInputEditText>(R.id.breakTime).hasFocus()) {
-                //hideKeyboard()
+                hideKeyboard()
             }
             findViewById<TextInputEditText>(R.id.inTime).clearFocus()
             findViewById<TextInputEditText>(R.id.outTime).clearFocus()
             findViewById<TextInputEditText>(R.id.breakTime).clearFocus()
         }
 
-        vibrationData = VibrationData(this)
+        //vibrationData = VibrationData(this)
 
         inTime.setOnClickListener {
             vibration(vibrationData)
@@ -251,8 +303,8 @@ class MainActivity : AppCompatActivity() {
             vibration(vibrationData)
         }
 
-        val spinner = findViewById<MaterialSpinner>(R.id.material_spinner_1)
-        val spinner1 = findViewById<MaterialSpinner>(R.id.material_spinner_2)
+        //spinner = findViewById<MaterialSpinner>(R.id.material_spinner_1)
+        //spinner1 = findViewById<MaterialSpinner>(R.id.material_spinner_2)
 
         spinner.setItems(getString(R.string.am), getString(R.string.pm))
         var spinner1selecteditem: String = getString(R.string.am)
@@ -262,7 +314,6 @@ class MainActivity : AppCompatActivity() {
 
         spinner.setOnClickListener {
             vibration(vibrationData)
-
         }
 
         spinner1.setOnClickListener {
@@ -398,7 +449,6 @@ class MainActivity : AppCompatActivity() {
         dbHandler.insertRow(intime, out, break1, total, dayOfWeek)
     }
 
-    @SuppressLint("SetTextI18n")
     fun validation(str: String, str1: String, spinner1selecteditem: String, spinner2selecteditem: String, infoTextView1: TextView) {
         if (inTime.text.toString().contains(",")) {
             infoTextView1.visibility = View.VISIBLE
@@ -1374,7 +1424,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     fun aMandPMandPMandAM(separate1: String, separate2: String, separate3: String, separate4: String, infoTextView1: TextView, breakTime: EditText) {
         val historyToggleData = HistoryToggleData(this)
         val conv = separate2.toDouble()
@@ -1444,84 +1493,10 @@ class MainActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 
-    private fun createFile() {
-        try {
-            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                addCategory(Intent.CATEGORY_OPENABLE)
-                type = "text/csv"
-                putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".csv")
-
-            }
-            startActivityForResult(intent, CREATE_FILE)
-        } catch (e : FileNotFoundException) {
-            e.printStackTrace()
-            Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
-        } catch (e : IOException) {
-            e.printStackTrace()
-            Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (CREATE_FILE == requestCode) {
-            when(resultCode) {
-                Activity.RESULT_OK -> {
-                    if(data?.data != null) {
-                        var string = ""
-                        val datalist = ArrayList<HashMap<String, String>>()
-                        datalist.clear()
-                        val cursor = dbHandler.getAllRow(this)
-                        cursor!!.moveToFirst()
-
-                        while (!cursor.isAfterLast) {
-                            val map = HashMap<String, String>()
-                            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
-                            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
-                            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-                            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
-                            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
-                            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
-
-                            datalist.add(map)
-
-                                string += map["id"].toString() + "," +
-                                        map["intime"].toString() + "," +
-                                        map["out"].toString() + "," +
-                                        map["break"].toString() + "," +
-                                        map["total"].toString() + "," +
-                                        map["day"].toString() + "," + "\n"
-
-                            cursor.moveToNext()
-                        }
-                        writeInFile(data.data!!, string)
-                        }
-
-                    }
-                Activity.RESULT_CANCELED -> finishActivity(requestCode)
-            }
-        }
-    }
-
-    private fun writeInFile(@NonNull uri : Uri, @NonNull text : String) {
-        val outputStream : OutputStream = contentResolver.openOutputStream(uri)!!
-        val bw = BufferedWriter(OutputStreamWriter(outputStream))
-        try {
-            val CSV_HEADER = "ID,In Time,Out Time,Break Time,Total,Day,Year,Time\n"
-            bw.append(CSV_HEADER)
-            bw.append(text)
-            bw.flush()
-            bw.close()
-        }catch (e : IOException) {
-            e.printStackTrace()
-        }
-    }
-
-
     private var doubleBackToExitPressedOnce = false
 
     override fun onBackPressed() {
-        //inTime.clearFocus()
+        inTime.clearFocus()
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed()
             return

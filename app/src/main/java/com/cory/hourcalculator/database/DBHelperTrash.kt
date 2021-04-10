@@ -64,6 +64,29 @@ class DBHelperTrash(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
+    fun retrieve(query: String): Cursor {
+
+        var cursor : Cursor
+        val db = this.writableDatabase
+        val columns = listOf<String>(COLUMN_ID_TRASH, COLUMN_IN_TRASH, COLUMN_OUT_TRASH, COLUMN_BREAK_TRASH, COLUMN_TOTAL_TRASH, COLUMN_DAY_TRASH)
+
+        if(query != "" && query.isNotEmpty()) {
+            val sql = "SELECT * FROM $TABLE_NAME_TRASH WHERE $COLUMN_IN_TRASH LIKE '%$query%' " +
+                    " OR $COLUMN_OUT_TRASH LIKE '%$query%' " +
+                    " OR $COLUMN_BREAK_TRASH LIKE '%$query%' " +
+                    " OR $COLUMN_TOTAL_TRASH LIKE '%$query%' " +
+                    " OR $COLUMN_DAY_TRASH LIKE '%$query%' "
+
+            cursor = db.rawQuery(sql, null)
+            return cursor
+        }
+
+        cursor = db.query(DBHelper.TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
+        return cursor
+
+
+    }
+
     companion object {
         const val DATABASE_VERSION = 1
         const val DATABASE_NAME_TRASH = "trash.db"

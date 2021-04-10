@@ -130,7 +130,7 @@
     <string name="restore_all">¿Restaura todo?</string>
     <string name="hours">Horas</string>
     <string name="optimized_graph">- Nueva capacidad para exportar archivos como un archivo de texto o una hoja de cálculo</string>
-    <string name="fixed_graph">- Se corrigió la actividad del gráfico que no cortaba la fecha en la ubicación adecuada</string>
+    <string name="fixed_graph">- Se corrigió el bloqueo si iba a la configuración y deshabilitaba el historial y luego hacía clic en el gráfico en el menú de configuración</string>
     <string name="version_info_label">Información de la versión</string>
     <string name="graph_label">Grafico</string>
     <string name="total_hours_with_and_without_break">Horas totales con descanso: %1$s\nHoras totales sin descanso: %2$s</string>
@@ -149,4 +149,20 @@
     <string name="choose_format">Elija formato</string>
     <string name="text_file">Archivo de texto</string>
     <string name="spread_sheet">Hoja de cálculo</string>
+    <string name="please_donate">Por favor done</string>
+    <string name="donate">Donar</string>
+    <string name="one_dollar">24,00 MXN</string>
+    <string name="five_dollar">119,00 MXN</string>
+    <string name="thanks_for_donation">¡Muchas gracias por tu donación!</string>
+    <string name="make_a_donation">Haz una donación</string>
+    <string name="please_leave_a_donation">Deje una donación, trabajo en la aplicación en mi tiempo libre y no quiero que la aplicación cueste dinero.</string>
+    <string name="firebase_heading">- Función de búsqueda recién agregada en la actividad del historial</string>
+    <string name="fab">- Función de búsqueda recién agregada en la actividad de la basura</string>
+    <string name="fab_trash">- Botón de donación recién agregado en la configuración. Actualmente solo permite 5 dólares, pero puede donar más de uno si lo desea.</string>
+    <string name="disable_update">- Otras correcciones de estabilidad</string>
+    <string name="dark_mode_default">- Se corrigió el error por el cual si cambiaba los marcadores en la actividad principal a pm y luego pasaba a otra actividad y luego volvía a la actividad principal usando el botón Atrás y calculaba la hora am en lugar de pm como decía.</string>
+    <string name="heading_text_color">- La aplicación ahora abre enlaces de dependencia en la actividad de información de la versión en una vista web incorporada.</string>
+    <string name="tweaked_layout" translatable="false">- Se corrigió el bloqueo de la actividad del gráfico y el historial, con suerte</string>
+    <string name="support_for_spanish">- El elemento de gráfico en el menú en la configuración ya no aparece si el historial está deshabilitado</string>
+    <string name="whoops_error">¡Vaya, hubo un error! Inténtalo de nuevo.</string>
 </resources>

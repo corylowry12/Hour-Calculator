@@ -6,11 +6,8 @@ import android.os.*
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.AbsListView
-import android.widget.ListView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.adapters.CustomAdapter
 import com.cory.hourcalculator.classes.*
@@ -21,6 +18,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_history.*
+import kotlinx.android.synthetic.main.list_row.*
 
 
 class HistoryActivity : AppCompatActivity() {
@@ -32,7 +30,6 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var darkThemeData: DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        darkThemeData = DarkThemeData(this)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
@@ -141,6 +138,29 @@ class HistoryActivity : AppCompatActivity() {
 
     }
 
+    fun retrieveItems(query: String) {
+        dataList.clear()
+        val cursor = dbHandler.retrieve(query)
+        cursor.moveToFirst()
+
+        while (!cursor.isAfterLast) {
+            val map = HashMap<String, String>()
+            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
+            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
+            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
+            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
+            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
+            dataList.add(map)
+
+            cursor.moveToNext()
+        }
+
+        val listView = findViewById<ListView>(R.id.listView)
+        listView.adapter = CustomAdapter(this@HistoryActivity, dataList)
+
+    }
+
     fun menuItem(id : String, name : String, type : String) {
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
             param(FirebaseAnalytics.Param.ITEM_ID, id)
@@ -191,6 +211,36 @@ class HistoryActivity : AppCompatActivity() {
             val item = menu.findItem(R.id.menuSortByMostHours)
             item.title = getString(R.string.most_hours)
         }
+        val search = menu.findItem(R.id.app_bar_search)
+        val searchView = search.actionView as SearchView
+        searchView.queryHint = "Search"
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if(query != "") {
+                    retrieveItems(query)
+                    textViewTotalHours.visibility = View.INVISIBLE
+                    textViewSize.visibility = View.INVISIBLE
+                    textViewWages.visibility = View.INVISIBLE
+                }
+                else if (query == "") {
+                    loadIntoList()
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if(newText != "") {
+                    retrieveItems(newText)
+                    textViewTotalHours.visibility = View.INVISIBLE
+                    textViewSize.visibility = View.INVISIBLE
+                    textViewWages.visibility = View.INVISIBLE
+                }
+                else if (newText == "") {
+                    loadIntoList()
+                }
+                return false
+            }
+        })
         return true
     }
 

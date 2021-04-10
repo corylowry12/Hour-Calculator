@@ -31,7 +31,6 @@ class BottomSheet: BottomSheetDialogFragment() {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, R.style.BottomSheetTheme)
 
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

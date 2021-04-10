@@ -1,18 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-iid-interop:17.0.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/57684488b3da8d885e88144431f85459/jetified-firebase-iid-interop-17.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a390c32b859fd63fd8c842a550bd7dfe/jetified-firebase-iid-interop-17.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a390c32b859fd63fd8c842a550bd7dfe/jetified-firebase-iid-interop-17.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a390c32b859fd63fd8c842a550bd7dfe/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4a0dd5b906393256cd26c8d451f266bc/jetified-firebase-iid-interop-17.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d3c22116be33b16d79cc98f909f9f8df/jetified-firebase-iid-interop-17.0.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b5490b3fee25ed56c97bc5e754015ae1/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b5490b3fee25ed56c97bc5e754015ae1/jetified-firebase-iid-interop-17.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b5490b3fee25ed56c97bc5e754015ae1/jetified-firebase-iid-interop-17.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/509bfeb8a9545ac17b3f55eab3695062/jetified-firebase-iid-interop-17.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/509bfeb8a9545ac17b3f55eab3695062/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/509bfeb8a9545ac17b3f55eab3695062/jetified-firebase-iid-interop-17.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7b355bb5e2bb0bd58efaa37c50dc8b7/jetified-firebase-iid-interop-17.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7b355bb5e2bb0bd58efaa37c50dc8b7/jetified-firebase-iid-interop-17.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d7b355bb5e2bb0bd58efaa37c50dc8b7/jetified-firebase-iid-interop-17.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,14 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-messaging-ktx:21.0.1@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fae1f02943129023c2a4d160f3649d8b/jetified-firebase-messaging-ktx-21.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fce00250a61e0166d143e55c15accac8/jetified-firebase-messaging-ktx-21.0.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/928b9eba32f47401bf0bf3e20013e9f5/jetified-firebase-messaging-ktx-21.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/928b9eba32f47401bf0bf3e20013e9f5/jetified-firebase-messaging-ktx-21.0.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/928b9eba32f47401bf0bf3e20013e9f5/jetified-firebase-messaging-ktx-21.0.1/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a4b580d8c3780c9238603bdfd17870f/jetified-firebase-messaging-ktx-21.0.1/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a4b580d8c3780c9238603bdfd17870f/jetified-firebase-messaging-ktx-21.0.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/3a4b580d8c3780c9238603bdfd17870f/jetified-firebase-messaging-ktx-21.0.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0c8cdef91727fa069ef032477c4307b7/jetified-firebase-messaging-ktx-21.0.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0c8cdef91727fa069ef032477c4307b7/jetified-firebase-messaging-ktx-21.0.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0c8cdef91727fa069ef032477c4307b7/jetified-firebase-messaging-ktx-21.0.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-messaging-ktx/21.0.1/7621d8fef9942f97f4b347c2e9838bd9c71cffc1/firebase-messaging-ktx-21.0.1-javadoc.jar!/" />

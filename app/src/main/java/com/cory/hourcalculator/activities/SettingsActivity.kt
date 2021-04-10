@@ -16,7 +16,10 @@ import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import com.android.billingclient.api.*
 import com.cory.hourcalculator.R
+import com.cory.hourcalculator.billing.BillingAgent
+import com.cory.hourcalculator.billing.BillingCallback
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
@@ -32,14 +35,17 @@ import com.google.firebase.messaging.ktx.messaging
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.*
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity(), BillingCallback {
 
     // Not initialized variables
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var darkThemeData: DarkThemeData
-    private val CREATE_FILE = 1
+    private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
+
+    private var billingAgent: BillingAgent? = null
+
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +62,8 @@ class SettingsActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        billingAgent = BillingAgent(this, this)
+
         // sets background to null to prevent overdraw
         window.setBackgroundDrawable(null)
 
@@ -71,6 +79,66 @@ class SettingsActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
+        }
+
+        val donateSelection = arrayOf(getString(R.string.five_dollar))
+        var donateSelectedItemIndex = 0
+        var donateSelectedItem = donateSelection[donateSelectedItemIndex]
+
+        textView42.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setTitle(getString(R.string.please_donate))
+            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
+                    donateSelectedItemIndex = which
+                    donateSelectedItem = donateSelection[which]
+                }
+            alertDialog.setPositiveButton(R.string.donate) { _, _ ->
+                billingAgent?.purchaseView(0)
+            }
+            val alert = alertDialog.create()
+            alert.show()
+        }
+
+        txtDonateSettings.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setTitle(getString(R.string.please_donate))
+            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
+                donateSelectedItemIndex = which
+                donateSelectedItem = donateSelection[which]
+            }
+            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
+                billingAgent?.purchaseView(0)
+            }
+            val alert = alertDialog.create()
+            alert.show()
+        }
+
+        textView41.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setTitle(getString(R.string.please_donate))
+            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
+                donateSelectedItemIndex = which
+                donateSelectedItem = donateSelection[which]
+            }
+            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
+                billingAgent?.purchaseView(0)
+            }
+            val alert = alertDialog.create()
+            alert.show()
+        }
+
+        cardView15.setOnClickListener {
+            val alertDialog = AlertDialog.Builder(this)
+            alertDialog.setTitle(getString(R.string.please_donate))
+            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
+                donateSelectedItemIndex = which
+                donateSelectedItem = donateSelection[which]
+            }
+            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
+                billingAgent?.purchaseView(0)
+            }
+            val alert = alertDialog.create()
+            alert.show()
         }
 
         // prevents keyboard from opening when activity is launched
@@ -97,6 +165,7 @@ class SettingsActivity : AppCompatActivity() {
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
                             selectedItem = selection[which]
+                            exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
                             exportData.setExportFormat(selectedItemIndex)
@@ -130,6 +199,7 @@ class SettingsActivity : AppCompatActivity() {
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
                             selectedItem = selection[which]
+                            exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
                             exportData.setExportFormat(selectedItemIndex)
@@ -163,6 +233,7 @@ class SettingsActivity : AppCompatActivity() {
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
                             selectedItem = selection[which]
+                            exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
                             exportData.setExportFormat(selectedItemIndex)
@@ -196,6 +267,7 @@ class SettingsActivity : AppCompatActivity() {
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
                             selectedItem = selection[which]
+                            exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
                             exportData.setExportFormat(selectedItemIndex)
@@ -865,7 +937,7 @@ class SettingsActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".txt")
 
             }
-            startActivityForResult(intent, CREATE_FILE)
+            startActivityForResult(intent, createFile)
         } catch (e : FileNotFoundException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
@@ -883,7 +955,7 @@ class SettingsActivity : AppCompatActivity() {
                 putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".csv")
 
             }
-            startActivityForResult(intent, CREATE_FILE)
+            startActivityForResult(intent, createFile)
         } catch (e : FileNotFoundException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
@@ -896,7 +968,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         val exportData = ExportData(this)
-        if (CREATE_FILE == requestCode) {
+        if (createFile == requestCode) {
             when(resultCode) {
                 Activity.RESULT_OK -> {
                     if(data?.data != null) {
@@ -1011,6 +1083,17 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
+    override fun onDestroy() {
+        billingAgent?.onDestroy()
+        billingAgent = null
+        super.onDestroy()
+
+    }
+
+    override fun onTokenConsumed() {
+        Toast.makeText(this, getString(R.string.thanks_for_donation), Toast.LENGTH_LONG).show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_settings, menu)
         val historyToggleData = HistoryToggleData(this)
@@ -1019,6 +1102,8 @@ class SettingsActivity : AppCompatActivity() {
             history.isVisible = false
             val trash = menu.findItem(R.id.trash)
             trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
         }
         return true
     }

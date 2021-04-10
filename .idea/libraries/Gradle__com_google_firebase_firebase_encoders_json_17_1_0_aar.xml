@@ -1,14 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.firebase:firebase-encoders-json:17.1.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/371ef5450d5c1d01b6bcfeb7e9fc30c9/jetified-firebase-encoders-json-17.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/55a9ba7ab4353743407ec4319951fd7f/jetified-firebase-encoders-json-17.1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/db5fb7cadd5643e07c7ea9455e35b34b/jetified-firebase-encoders-json-17.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/db5fb7cadd5643e07c7ea9455e35b34b/jetified-firebase-encoders-json-17.1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/db5fb7cadd5643e07c7ea9455e35b34b/jetified-firebase-encoders-json-17.1.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165406ceb45a1a6ed3a6d9cbeccb6f41/jetified-firebase-encoders-json-17.1.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165406ceb45a1a6ed3a6d9cbeccb6f41/jetified-firebase-encoders-json-17.1.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/165406ceb45a1a6ed3a6d9cbeccb6f41/jetified-firebase-encoders-json-17.1.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0022059e1f1032bd7232d7842923373b/jetified-firebase-encoders-json-17.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0022059e1f1032bd7232d7842923373b/jetified-firebase-encoders-json-17.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0022059e1f1032bd7232d7842923373b/jetified-firebase-encoders-json-17.1.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-encoders-json/17.1.0/5fbe3622c8be8565ee56aa41117b13f095965904/firebase-encoders-json-17.1.0-javadoc.jar!/" />
