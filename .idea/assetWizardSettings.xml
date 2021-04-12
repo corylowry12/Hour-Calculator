@@ -111,7 +111,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\coryl\Downloads\ic_launcher(1)\res\mipmap-xxxhdpi\ic_launcher.png" />
+                                                <entry key="imagePath" value="C:\Users\coryl\Downloads\calculate_black_24dp.svg" />
                                                 <entry key="scalingPercent" value="85" />
                                               </map>
                                             </option>
@@ -149,7 +149,6 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="30d3b6" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -216,6 +215,19 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
+                                                <entry key="imagePath" value="C:\Users\coryl\Downloads\calculate_black_24dp.svg" />
+                                                <entry key="paddingPercent" value="-10" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="text">
                                         <value>
                                           <PersistentState>
@@ -238,6 +250,12 @@
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\coryl\Downloads\calculate_black_24dp.svg" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -318,6 +336,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="NOTIFICATION" />
                           </map>
                         </option>
                       </PersistentState>

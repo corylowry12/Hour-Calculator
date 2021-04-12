@@ -1,9 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.android.billingclient:billing:3.0.3@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2d8fc625d77b3aa0fac9be54cbc06dd4/jetified-billing-3.0.3/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2d8fc625d77b3aa0fac9be54cbc06dd4/jetified-billing-3.0.3/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2d8fc625d77b3aa0fac9be54cbc06dd4/jetified-billing-3.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93ad90d3105c5fe52967d2144419d388/jetified-billing-3.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93ad90d3105c5fe52967d2144419d388/jetified-billing-3.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/93ad90d3105c5fe52967d2144419d388/jetified-billing-3.0.3/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.billingclient/billing/3.0.3/a0736fafbb7bcaf0d82a1708d5e91d3a5821b768/billing-3.0.3-javadoc.jar!/" />
