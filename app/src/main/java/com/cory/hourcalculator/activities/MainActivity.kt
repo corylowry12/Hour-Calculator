@@ -153,6 +153,15 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w("FCM", "Fetching fcm registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+
+            Log.d("FCM", task.result.toString())
+        })
+
         requestFocus()
 
         GlobalScope.launch(Dispatchers.Main) {
