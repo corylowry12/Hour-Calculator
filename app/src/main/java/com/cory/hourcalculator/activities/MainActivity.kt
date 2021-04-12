@@ -134,9 +134,8 @@ class MainActivity : AppCompatActivity() {
             setTheme(R.style.AppTheme)
         }
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
         window.setBackgroundDrawable(null)
+        setContentView(R.layout.activity_main)
 
         historyToggleData = HistoryToggleData(this)
         updateData = UpdateData(this)
@@ -164,9 +163,9 @@ class MainActivity : AppCompatActivity() {
 
         requestFocus()
 
-        GlobalScope.launch(Dispatchers.Main) {
+
             main()
-        }
+
 
         //val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (imm.isAcceptingText) {
@@ -286,12 +285,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        GlobalScope.launch(Dispatchers.Main) {
             main()
-        }
+
     }
 
-    suspend fun main() {
+    fun main() {
 
         findViewById<ConstraintLayout>(R.id.constraintLayout).setOnClickListener {
             if (findViewById<TextInputEditText>(R.id.inTime).hasFocus() || findViewById<TextInputEditText>(R.id.outTime).hasFocus() || findViewById<TextInputEditText>(R.id.breakTime).hasFocus()) {
