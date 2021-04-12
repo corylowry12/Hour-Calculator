@@ -6,9 +6,7 @@ import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.SortData
-import kotlinx.android.synthetic.main.list_row.view.*
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     SQLiteOpenHelper(context, DATABASE_NAME, factory, DATABASE_VERSION) {
@@ -93,6 +91,13 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
             return cursor
 
 
+    }
+
+    fun itemClicked(index : Int): Cursor {
+
+        val db = this.readableDatabase
+
+        return db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID=$index", null)
     }
 
     companion object {
