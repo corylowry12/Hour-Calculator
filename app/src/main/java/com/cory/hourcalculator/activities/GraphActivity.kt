@@ -2,11 +2,13 @@ package com.cory.hourcalculator.activities
 
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
@@ -18,6 +20,9 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -35,6 +40,8 @@ class GraphActivity : AppCompatActivity() {
     private lateinit var vibrationData: VibrationData
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var darkThemeData: DarkThemeData
+
+    private lateinit var textViewItemClicked: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -65,6 +72,8 @@ class GraphActivity : AppCompatActivity() {
 
         vibrationData = VibrationData(this)
 
+        textViewItemClicked = findViewById(R.id.textView37)
+
         setBarChart()
     }
 
@@ -73,7 +82,8 @@ class GraphActivity : AppCompatActivity() {
         // Customizes bar chart
         barChart.setVisibleXRangeMaximum(7f)
         barChart.moveViewToX(0f)
-        barChart.setTouchEnabled(false)
+        barChart.setTouchEnabled(true)
+        barChart.isDoubleTapToZoomEnabled = false
 
         // Makes all X Axis labels fit on one page
         val xAxis = barChart.xAxis
@@ -140,26 +150,12 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                       //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-                        for(i in 0 until 7) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
+                        for (i in 0 until 7) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
                             splitstring.add(difference)
-                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -211,6 +207,37 @@ class GraphActivity : AppCompatActivity() {
                         barChart.animateY(800)
 
                         // Moves cursor to next to map in data
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
+
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 6 -> {
@@ -236,27 +263,11 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-
-                        for(i in 0 until 6) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 6) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
                             splitstring.add(difference)
-                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -297,14 +308,43 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
 
-                        // Moves cursor to next to map in data
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                Toast.makeText(applicationContext, mapIndex["id"], Toast.LENGTH_SHORT).show()
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 5 -> {
@@ -327,26 +367,11 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-                        for(i in 0 until 5) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 5) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
                             splitstring.add(difference)
-                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -385,14 +410,42 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
 
-                        // Moves cursor to next to map in data
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 4 -> {
@@ -412,22 +465,7 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-
-                        for(i in 0 until 4) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 4) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
@@ -468,12 +506,42 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
 
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
+
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 3 -> {
@@ -491,25 +559,11 @@ class GraphActivity : AppCompatActivity() {
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-                        for(i in 0 until 3) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 3) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
                             splitstring.add(difference)
-                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -542,11 +596,42 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        // barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
+
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
+
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 2 -> {
@@ -560,26 +645,11 @@ class GraphActivity : AppCompatActivity() {
                         dropLast.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY)))
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
-                        //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-                        for(i in 0 until 2) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 2) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
                             splitstring.add(difference)
-                            //Toast.makeText(this, difference.toString(), Toast.LENGTH_SHORT).show()
                         }
 
                         // Initializes array to store split string drop last array in
@@ -609,11 +679,42 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
+
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
+
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
 
                     }
                     count == 1 -> {
@@ -625,20 +726,7 @@ class GraphActivity : AppCompatActivity() {
                         hours.add(cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))).toString().replace("[", "").replace("]", "")
 
                         //val splitstring = dropLast.elementAt(0).toString().indexOf(",", dropLast.elementAt(0).toString().indexOf(",") + 1)
-                        for(i in 0 until 1) {
-                            /*if(dropLast.elementAt(i).length == 25) {
-                                splitstring.add(13)
-                            }
-                            else if (dropLast.elementAt(i).length == 24) {
-                                splitstring.add(13)
-                            }
-                            else if(dropLast.elementAt(i).length == 26 || dropLast.elementAt(i).length == 27) {
-                                splitstring.add(15)
-                            }
-                            else if(dropLast.elementAt(i).length == 23) {
-                                splitstring.add(12)
-                            }
-                            //Toast.makeText(this, dropLast.elementAt(1).toString(), Toast.LENGTH_LONG).show()*/
+                        for (i in 0 until 1) {
 
                             val matchIndex = dropLast.elementAt(i).lastIndexOf(",")
                             val difference = dropLast.elementAt(i).length - matchIndex
@@ -671,12 +759,47 @@ class GraphActivity : AppCompatActivity() {
                         barChart.setDrawGridBackground(true)
 
                         // Sets accent color to bar chart
-                        //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
                         barChart.animateY(800)
 
+                        barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                            override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
+
+                                vibration(vibrationData)
+                                val cursorIndex = dbHandler.itemClicked(h.xIndex + 1)
+
+                                cursorIndex.moveToFirst()
+
+                                val mapIndex = HashMap<String, String>()
+                                mapIndex["id"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_ID))
+                                mapIndex["intime"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_IN))
+                                mapIndex["out"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_OUT))
+                                mapIndex["break"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_BREAK))
+                                mapIndex["total"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                                mapIndex["day"] = cursorIndex.getString(cursorIndex.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                                val inTime = mapIndex["intime"]
+                                val outTime = mapIndex["out"]
+                                val breakTime = mapIndex["break"]
+                                val total = mapIndex["total"]
+                                val day = mapIndex["day"]
+
+                                textViewItemClicked.text = getString(R.string.bar_chart_item_clicked, inTime, outTime, breakTime, total, day)
+
+                            }
+
+                            override fun onNothingSelected() {
+                                vibration(vibrationData)
+                                textViewItemClicked.text = ""
+                            }
+                        })
+
+                    }
+
+                    count == 0 -> {
+                        Toast.makeText(this, getString(R.string.no_hours_stored_for_graph), Toast.LENGTH_SHORT).show()
                     }
                 }
                 // Moves cursor to next to map in data
