@@ -165,4 +165,6 @@
     <string name="tweaked_layout" translatable="false">- Se corrigió el bloqueo de la actividad del gráfico y el historial, con suerte</string>
     <string name="support_for_spanish">- El elemento de gráfico en el menú en la configuración ya no aparece si el historial está deshabilitado</string>
     <string name="whoops_error">¡Vaya, hubo un error! Inténtalo de nuevo.</string>
+    <string name="no_hours_stored_for_graph">No hay horas almacenadas para mostrar en el gráfico.</string>
+    <string name="bar_chart_item_clicked">Tiempo de entrada: %1$s \\n Tiempo de salida: %2$s \\n Tiempo de descanso: %3$s \\n Total: %4$s \\n Día: %5$s</string>
 </resources>

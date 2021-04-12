@@ -165,4 +165,6 @@
     <string name="tweaked_layout" translatable="false">- Correction de l\'historique et de l\'activité des graphiques en panne, espérons-le</string>
     <string name="support_for_spanish">- L\'élément de graphique dans le menu dans les paramètres n\'apparaît plus si l\'historique est désactivé</string>
     <string name="whoops_error">Oups, il y a eu une erreur! Veuillez réessayer.</string>
+    <string name="no_hours_stored_for_graph">Il n\'y a pas d\'heures stockées à afficher dans le graphique.</string>
+    <string name="bar_chart_item_clicked">Temps d\'entrée: %1$s \\n Temps d\'arrêt: %2$s \\n Temps de pause: %3$s \\n Total: %4$s \\n Jour: %5$s</string>
 </resources>

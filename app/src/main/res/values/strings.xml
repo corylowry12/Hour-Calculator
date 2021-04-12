@@ -113,6 +113,7 @@
     <string name="break_time">Break Time</string>
     <string name="total">Total</string>
     <string name="day">Day</string>
+    <string name="bar_chart_item_clicked">"In Time: %1$s   Out Time: %2$s   Break Time: %3$s   Total: %4$s   Day: %5$s "</string>
     <string name="lorem_ipsum" translatable="false">Lorem Ipsum</string>
     <string name="mpandroid_chart" translatable="false">MPAndroid Chart</string>
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
@@ -211,4 +212,5 @@
     <string name="please_leave_a_donation">Please leave a donation, I work on the app in my spare time and don\'t wanna make the app cost money.</string>
     <string name="whoops_error">Whoops there was an error! Please try again.</string>
     <string name="tweaked_layout">- Fixed history and graph activity crashing hopefully</string>
+    <string name="no_hours_stored_for_graph">There are no hours stored to display in the graph.</string>
 </resources>
