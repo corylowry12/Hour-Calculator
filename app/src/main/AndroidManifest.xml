@@ -105,6 +105,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4546055219731501~9110514822" />
 
+        <meta-data
+             android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_stat_name"/>
+
         <service
             android:name=".notifications.MyFirebaseMessagingService"
             android:exported="false">
