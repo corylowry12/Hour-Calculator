@@ -1,3 +1,5 @@
+@file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
+
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
@@ -29,10 +31,11 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_settings.constraintLayout
 import java.io.*
 
 class SettingsActivity : AppCompatActivity(), BillingCallback {
@@ -293,104 +296,43 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         // switched to enable and disable vibration
         val vibrationSwitch = findViewById<SwitchMaterial>(R.id.switch3)
-        if (vibrationData.loadVibrationState()) {
-            vibrationSwitch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "vibration_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "vibration_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            vibrationSwitch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "vibration_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "vibration_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        vibrationSwitch.isChecked = vibrationData.loadVibrationState()
         // listens for the switch to be changed
         vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
             if (isChecked) {
                 vibrationData.setVibrationState(true)
                 Snackbar.make(constraintLayout, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "vibration_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "vibration_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             } else {
                 vibrationSwitch.isChecked = false
                 vibrationData.setVibrationState(false)
                 Snackbar.make(constraintLayout, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "vibration_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "vibration_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
         }
 
         val switch = findViewById<SwitchMaterial>(R.id.switch1)
-        if (darkThemeData.loadDarkModeState()) {
-            switch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            switch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        switch.isChecked = darkThemeData.loadDarkModeState()
 
         switch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
             if (isChecked) {
                 switch.isChecked = true
                 darkThemeData.setDarkModeState(true)
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
-                restartApplication()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    restartApplication()
+                }, 200)
             } else {
                 switch.isChecked = false
                 darkThemeData.setDarkModeState(false)
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "dark_mode_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "dark_mode_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
-                restartApplication()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    restartApplication()
+                }, 200)
             }
         }
 
         val historySwitch = findViewById<SwitchMaterial>(R.id.switch4)
         val historyToggleData = HistoryToggleData(this)
-        if (historyToggleData.loadHistoryState()) {
-            historySwitch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "history_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "history_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            historySwitch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "history_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "history_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        historySwitch.isChecked = historyToggleData.loadHistoryState()
 
         historySwitch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
@@ -398,80 +340,30 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 historySwitch.isChecked = true
                 historyToggleData.setHistoryToggle(true)
                 invalidateOptionsMenu()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "history_toggle_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_toggle_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             } else {
                 historySwitch.isChecked = false
                 historyToggleData.setHistoryToggle(false)
                 invalidateOptionsMenu()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "history_toggle_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_toggle_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
         }
 
         val trashAutomaticDeletion = TrashAutomaticDeletion(this)
         val trashSwitch = findViewById<SwitchMaterial>(R.id.switch5)
-        if (trashAutomaticDeletion.loadTrashDeletionState()) {
-            trashSwitch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "trash_automatic_deletion_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "trash_automatic_deletion_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            trashSwitch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "trash_automatic_deletion_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "trash_automatic_deletion_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        trashSwitch.isChecked = trashAutomaticDeletion.loadTrashDeletionState()
         trashSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 trashAutomaticDeletion.setTrashDeletionState(true)
                 Snackbar.make(constraintLayout, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_automatic_deletion_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_automatic_deletion_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             } else {
                 trashSwitch.isChecked = false
                 trashAutomaticDeletion.setTrashDeletionState(false)
                 Snackbar.make(constraintLayout, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_automatic_deletion_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_automatic_deletion_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
         }
 
         val updateData = UpdateData(this)
         val updateSwitch = findViewById<SwitchMaterial>(R.id.switch6)
-        if(updateData.loadUpdateNotificationState()) {
-            updateSwitch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "update_notifications_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "update_notifications_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            updateSwitch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "update_notifications_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "update_notifications_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        updateSwitch.isChecked = updateData.loadUpdateNotificationState()
         updateSwitch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
             if(isChecked) {
@@ -486,11 +378,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                         }
                         Log.d("Updates", msg)
                     }
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "update_notifications_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "update_notifications_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
             else {
                 updateSwitch.isChecked = false
@@ -504,11 +391,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                         }
                         Log.d("Updates", msg)
                     }
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "update_notifications_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "update_notifications_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
         }
 
@@ -518,26 +400,13 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val editable = Editable.Factory.getInstance().newEditable(wagesData.loadWageAmount().toString())
         wagesEditText.text = editable
 
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-            param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
-            param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
-            param(FirebaseAnalytics.Param.CONTENT_TYPE, "wages edit text")
-            param(FirebaseAnalytics.Param.CONTENT, wagesEditText.text.toString())
-        }
         wagesEditText.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                wagesEditText.clearFocus()
+                hideKeyboard(wagesEditText)
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 wagesData.setWageAmount(wagesEditText.text.toString())
-                //wagesEditText.clearFocus()
-                hideKeyboard()
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "wages edit text")
-                    param(FirebaseAnalytics.Param.CONTENT, wagesEditText.text.toString())
-                }
+                hideKeyboard(wagesEditText)
                 return@OnKeyListener true
             }
             false
@@ -547,69 +416,26 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             override fun afterTextChanged(s: Editable?) {
                 if (s.toString() != "") {
                     wagesData.setWageAmount(s.toString())
-                    firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                        param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
-                        param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
-                        param(FirebaseAnalytics.Param.CONTENT_TYPE, "wages edit text")
-                        param(FirebaseAnalytics.Param.CONTENT, wagesEditText.text.toString())
-                    }
                 }
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "wages edit text")
-                    param(FirebaseAnalytics.Param.CONTENT, wagesEditText.text.toString())
-                }
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 wagesData.setWageAmount(s.toString())
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "wages_amount")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "wages_data_changed")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "wages edit text")
-                    param(FirebaseAnalytics.Param.CONTENT, wagesEditText.text.toString())
-                }
             }
         })
 
         val breakData = BreakData(this)
         val breakSwitch = findViewById<SwitchMaterial>(R.id.switch2)
-        if (breakData.loadBreakState()) {
-            breakSwitch.isChecked = true
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "break_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "break_switch_enabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
-        else {
-            breakSwitch.isChecked = false
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "break_switch")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "break_switch_disabled")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-            }
-        }
+        breakSwitch.isChecked = breakData.loadBreakState()
         breakSwitch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
             if (isChecked) {
                 breakData.setBreakState(true)
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "break_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "break_switch_enabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             } else {
                 breakData.setBreakState(false)
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "break_switch")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "break_switch_disabled")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "switch")
-                }
             }
         }
 
@@ -627,11 +453,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             } catch (e: Exception) {
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
             }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "feature_request")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "feature_request_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
         }
         textView19.setOnClickListener {
             vibration(vibrationData)
@@ -647,11 +468,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             } catch (e: Exception) {
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
             }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "feature_request")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "feature_request_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
         textView21.setOnClickListener {
             vibration(vibrationData)
@@ -666,11 +482,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
             } catch (e: Exception) {
                 Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
-            }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "feature_request")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "feature_request_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
             }
         }
 
@@ -689,11 +500,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     Snackbar.make(constraintLayout, getString(R.string.please_try_again), Snackbar.LENGTH_SHORT).show()
                 }
             }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "leave_a_review")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "leave_a_review_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
         }
         textView18.setOnClickListener {
             vibration(vibrationData)
@@ -709,11 +515,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 } else {
                     Snackbar.make(constraintLayout, getString(R.string.please_try_again), Snackbar.LENGTH_SHORT).show()
                 }
-            }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "leave_a_review")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "leave_a_review_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
             }
         }
         textView23.setOnClickListener {
@@ -731,11 +532,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     Snackbar.make(constraintLayout, getString(R.string.please_try_again), Snackbar.LENGTH_SHORT).show()
                 }
             }
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "leave_a_review")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "leave_a_review_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
 
         cardView7.setOnClickListener {
@@ -744,16 +540,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             intent.data = Uri.parse("mailto:")
             intent.type = "message/rfc822"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report")
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
             intent.putExtra(
                 Intent.EXTRA_TEXT, getString(R.string.bug_report)
             )
             startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "report_a_bug")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "report_a_bug_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
         }
         textView31.setOnClickListener {
             vibration(vibrationData)
@@ -761,16 +552,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             intent.data = Uri.parse("mailto:")
             intent.type = "message/rfc822"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report")
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
             intent.putExtra(
                 Intent.EXTRA_TEXT, getString(R.string.bug_report)
             )
             startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "report_a_bug")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "report_a_bug_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
         textView32.setOnClickListener {
             vibration(vibrationData)
@@ -778,46 +564,26 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             intent.data = Uri.parse("mailto:")
             intent.type = "message/rfc822"
             intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, "Bug Report")
+            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
             intent.putExtra(
                 Intent.EXTRA_TEXT, getString(R.string.bug_report)
             )
             startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "report_a_bug")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "report_a_bug_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
 
         cardView8.setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "other_apps")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "other_apps_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
             val fragment = BottomSheet.newInstance()
             fragment.show(supportFragmentManager, "my_bs")
         }
         textView33.setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "other_apps")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "other_apps_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
             val fragment = BottomSheet.newInstance()
             fragment.show(supportFragmentManager, "my_bs")
         }
 
         textView34.setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "other_apps")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "other_apps_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
             val fragment = BottomSheet.newInstance()
             fragment.show(supportFragmentManager, "my_bs")
         }
@@ -832,11 +598,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 }
             val alert = alertDialog.create()
             alert.show()
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "about_me")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "about_me_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
         }
         textView35.setOnClickListener {
             vibration(vibrationData)
@@ -849,11 +610,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 }
             val alert = alertDialog.create()
             alert.show()
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "about_me")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "about_me_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
         textView36.setOnClickListener {
             vibration(vibrationData)
@@ -866,52 +622,33 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 }
             val alert = alertDialog.create()
             alert.show()
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "about_me")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "about_me_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
         }
 
         findViewById<CardView>(R.id.cardView10).setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "version_info")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "version_info_card_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "card view")
-            }
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
         }
         textView38.setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "version_info")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "version_info_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
         }
         textView39.setOnClickListener {
             vibration(vibrationData)
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "version_info")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "version_info_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text view")
-            }
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
         }
     }
 
-    private fun hideKeyboard() {
+    private fun hideKeyboard(wagesEditText: TextInputEditText) {
         val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val focusedView = this.currentFocus
+
         if (focusedView != null) {
             inputManager.hideSoftInputFromWindow(focusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-            if (Wages!!.hasFocus()) {
-                Wages!!.clearFocus()
+            if (wagesEditText.hasFocus()) {
+                wagesEditText.clearFocus()
             }
         }
     }
@@ -924,9 +661,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     }
 
     private fun restartApplication() {
+        val intent = this.intent
         finish()
-        val i = Intent(applicationContext, this::class.java)
-        startActivity(i)
+        overridePendingTransition(0,0)
+        startActivity(intent)
+        overridePendingTransition(0,0)
     }
 
     private fun createFileTEXT() {
@@ -990,12 +729,13 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
                                 datalist.add(map)
 
-                                string += map["id"].toString() + "," +
-                                        map["intime"].toString() + "," +
-                                        map["out"].toString() + "," +
-                                        map["break"].toString() + "," +
-                                        map["total"].toString() + "," +
-                                        map["day"].toString() + "," + "\n"
+                                string += getString(R.string.id_text) + map["id"].toString() + "\n" +
+                                        getString(R.string.in_time_text) + map["intime"].toString() + "\n" +
+                                        getString(R.string.out_time_text) + map["out"].toString() + "\n" +
+                                        getString(R.string.break_time_text) + map["break"].toString() + "\n" +
+                                        getString(R.string.total_time_text) + map["total"].toString() + "\n" +
+                                        getString(R.string.day_text) + map["day"].toString() + "\n" +
+                                        getString(R.string.asterisks_text) + "\n"
 
                                 cursor.moveToNext()
                             }
@@ -1019,13 +759,13 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
                                 datalist.add(map)
 
-                                string += "ID: " + map["id"].toString() + "\n" +
-                                        "In Time: " + map["intime"].toString() + "\n" +
-                                        "Out Time: " + map["out"].toString() + "\n" +
-                                        "Break Time: " + map["break"].toString() + "\n" +
-                                        "Total Time: " + map["total"].toString() + "\n" +
-                                        "Day: " + map["day"].toString() + "\n" +
-                                        "*******************************" + "\n"
+                                string += getString(R.string.id_text) + map["id"].toString() + "\n" +
+                                        getString(R.string.in_time_text) + map["intime"].toString() + "\n" +
+                                        getString(R.string.out_time_text) + map["out"].toString() + "\n" +
+                                        getString(R.string.break_time_text) + map["break"].toString() + "\n" +
+                                        getString(R.string.total_time_text) + map["total"].toString() + "\n" +
+                                        getString(R.string.day_text) + map["day"].toString() + "\n" +
+                                        getString(R.string.asterisks_text) + "\n"
 
                                 cursor.moveToNext()
                             }
@@ -1045,7 +785,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val outputStream: OutputStream = contentResolver.openOutputStream(uri)!!
             val bw = BufferedWriter(OutputStreamWriter(outputStream))
             try {
-                val csvHeader = "ID,In Time,Out Time,Break Time,Total,Day,Year,Time\n"
+                val csvHeader = getString(R.string.csv_heading)
                 bw.append(csvHeader)
                 bw.append(text)
                 bw.flush()
@@ -1054,7 +794,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     .setType("text/csv")
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
-                startActivity(Intent.createChooser(intent, "Choose app"))
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_app)))
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -1070,7 +810,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     .setType("text/plain")
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
-                startActivity(Intent.createChooser(intent, "Choose app"))
+                startActivity(Intent.createChooser(intent, getString(R.string.choose_app)))
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -1080,7 +820,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     override fun onBackPressed() {
         super.onBackPressed()
         finish()
-
     }
 
     override fun onDestroy() {
@@ -1115,52 +854,22 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
         }
         return when (item.itemId) {
-            R.id.home -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "home_menu_item_settings")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "home_menu_item_clicked_settings")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                return true
-            }
             R.id.changelog -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "patch_notes_menu_item_settings")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "patch_notes_menu_item_clicked_settings")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.history -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "history_menu_item_settings")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_menu_item_clicked_settings")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.trash -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_menu_item_settings")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_menu_item_clicked_settings")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.graph -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "graph_menu_item_settings")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "graph_menu_item_clicked_settings")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 return true

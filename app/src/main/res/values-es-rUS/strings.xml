@@ -167,4 +167,12 @@
     <string name="whoops_error">¡Vaya, hubo un error! Inténtalo de nuevo.</string>
     <string name="no_hours_stored_for_graph">No hay horas almacenadas para mostrar en el gráfico.</string>
     <string name="bar_chart_item_clicked">Tiempo de entrada: %1$s \\n Tiempo de salida: %2$s \\n Tiempo de descanso: %3$s \\n Total: %4$s \\n Día: %5$s</string>
+    <string name="day_text">\"Día: \"</string>
+    <string name="choose_app">Elija la aplicación</string>
+    <string name="csv_heading">ID, tiempo de entrada, tiempo de salida, tiempo de descanso, total, día, año, tiempo\\n</string>
+    <string name="id_text">\"IDENTIFICACIÓN: \"</string>
+    <string name="in_time_text">\"A tiempo: \"</string>
+    <string name="out_time_text">\"Fuera de tiempo: \"</string>
+    <string name="break_time_text">\"Descanso: \"</string>
+    <string name="total_time_text">\"Tiempo Total: \"</string>
 </resources>

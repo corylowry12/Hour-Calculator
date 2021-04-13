@@ -49,6 +49,9 @@ class WebViewActivity : AppCompatActivity() {
         if (webView.canGoBack()) {
             webView.goBack()
         }
+        else {
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -72,11 +75,6 @@ class WebViewActivity : AppCompatActivity() {
             vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
         }
         return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                return true
-            }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
