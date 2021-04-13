@@ -87,6 +87,7 @@ class CustomAdapter(private val context: Context,
                         }
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
+                            (context).menuItem("menu_item_1_Custom_Adapter", "menu_item_1_Custom_Adapter_clicked", "menu_item")
                         }
                         HistoryActivity().runOnUiThread(runnable)
                     }
@@ -112,6 +113,7 @@ class CustomAdapter(private val context: Context,
                         }
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
+                            (context).menuItem("menu_item_2_Custom_Adapter", "menu_item_2_Custom_Adapter_clicked", "menu_item")
                         }
                         HistoryActivity().runOnUiThread(runnable)
                     }
@@ -138,6 +140,7 @@ class CustomAdapter(private val context: Context,
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
+                                (context).menuItem("menu_item_3_Custom_Adapter", "menu_item_3_Custom_Adapter_clicked", "menu_item")
                             }
                             HistoryActivity().runOnUiThread(runnable)
                         }
@@ -154,6 +157,7 @@ class CustomAdapter(private val context: Context,
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
+                                (context).menuItem("menu_item_4_Custom_Adapter", "menu_item_4_Custom_Adapter_clicked", "menu_item")
                             }
                             HistoryActivity().runOnUiThread(runnable)
                         }

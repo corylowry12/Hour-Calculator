@@ -248,7 +248,7 @@
                             android:layout_height="wrap_content"
                             android:ems="10"
                             android:hint="8.75"
-                            android:imeOptions="actionGo"
+                            android:imeOptions="actionNext"
                             android:inputType="numberDecimal"
                             android:maxLength="5"
                             android:textColor="?attr/textColor"

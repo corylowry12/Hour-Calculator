@@ -75,23 +75,53 @@ class PatchNotesActivity : AppCompatActivity() {
         val vibrationData = VibrationData(this)
         vibration(vibrationData)
         return when (item.itemId) {
+            R.id.home -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "home_menu_item_patch")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "home_menu_item_clicked_patch")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.Settings -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "settings_menu_item_patch")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "settings_menu_item_clicked_patch")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
 
                 return true
             }
             R.id.history -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "history_menu_item_patch")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_menu_item_clicked_patch")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.trash -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_menu_item_patch")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_menu_item_clicked_patch")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.graph -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "graph_menu_item_patch")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "graph_menu_item_clicked_patch")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 return true

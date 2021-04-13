@@ -16,14 +16,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
-    <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="true"
-        android:xlargeScreens="true"
-        android:resizeable="true"
-        />
-
     <application
         android:allowBackup="true"
         android:fullBackupContent="@xml/my_backup_rules"
@@ -32,14 +24,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".activities.SplashScreen"
+        <activity android:name=".activities.SplashScreen"
             android:theme="@style/SplashScreenThemeLight">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
         <activity android:name=".activities.WebViewActivity">
             <meta-data
@@ -107,6 +98,8 @@
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
+
+
             <meta-data
                 android:name="android.app.shortcuts"
                 android:resource="@xml/shortcuts" />

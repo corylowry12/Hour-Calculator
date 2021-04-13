@@ -260,7 +260,6 @@
                             android:ems="10"
                             android:hint="8.75"
                             android:textColor="?attr/textColor"
-                            android:imeOptions="actionGo"
                             android:inputType="number"
                             android:maxLength="5"
                             android:textSize="16sp" />
@@ -716,5 +715,6 @@
 
         </LinearLayout>
     </ScrollView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

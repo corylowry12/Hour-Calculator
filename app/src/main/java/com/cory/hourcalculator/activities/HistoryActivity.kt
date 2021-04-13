@@ -161,6 +161,14 @@ class HistoryActivity : AppCompatActivity() {
 
     }
 
+    fun menuItem(id : String, name : String, type : String) {
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, id)
+            param(FirebaseAnalytics.Param.ITEM_NAME, name)
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, type)
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         loadIntoList()
@@ -173,9 +181,8 @@ class HistoryActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-       finish()
+        finish()
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_history, menu)
@@ -293,22 +300,52 @@ class HistoryActivity : AppCompatActivity() {
                 }
                 return true
             }
+            R.id.home -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "home_menu_item_history")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "home_menu_item_clicked_history")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.Settings -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "settings_menu_item_history")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "settings_menu_item_clicked_history")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.changelog -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "patch_notes_menu_item_history")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "patch_notes_menu_item_clicked_history")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.trash -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_menu_item_history")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_menu_item_clicked_history")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.graph -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "graph_menu_item_history")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "graph_menu_item_clicked_history")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 return true

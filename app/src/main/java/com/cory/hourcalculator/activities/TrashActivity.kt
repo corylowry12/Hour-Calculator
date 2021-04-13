@@ -322,6 +322,16 @@ class TrashActivity : AppCompatActivity() {
                 }
                 return true
             }
+            R.id.home -> {
+                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
+                    param(FirebaseAnalytics.Param.ITEM_ID, "home_menu_item")
+                    param(FirebaseAnalytics.Param.ITEM_NAME, "home_menu_item_clicked")
+                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
+                }
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                return true
+            }
             R.id.Settings -> {
                 firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                     param(FirebaseAnalytics.Param.ITEM_ID, "settings_menu_item_trash")

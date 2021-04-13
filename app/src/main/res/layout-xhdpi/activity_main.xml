@@ -171,48 +171,48 @@
 
     <Button
         android:id="@+id/calculateButton1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="50sp"
         android:layout_alignStart="@+id/textView2"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="12dp"
         android:hapticFeedbackEnabled="true"
         android:text="@string/calculate"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout3" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnClear"
+        app:layout_constraintTop_toTopOf="@+id/btnClear" />
 
     <Button
         android:id="@+id/btnClear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_width="110sp"
+        android:layout_height="50sp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
         android:text="@string/clear"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/calculateButton1"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calculateButton1" />
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3" />
 
     <TextView
         android:id="@+id/infoTextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4sp"
+        android:layout_marginTop="4dp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnClear"
-        tools:hint="Total Hours: 6.42"
-        tools:visibility="visible"/>
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton1" />
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
