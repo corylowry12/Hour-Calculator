@@ -167,4 +167,12 @@
     <string name="whoops_error">Oups, il y a eu une erreur! Veuillez réessayer.</string>
     <string name="no_hours_stored_for_graph">Il n\'y a pas d\'heures stockées à afficher dans le graphique.</string>
     <string name="bar_chart_item_clicked">Temps d\'entrée: %1$s \\n Temps d\'arrêt: %2$s \\n Temps de pause: %3$s \\n Total: %4$s \\n Jour: %5$s</string>
+    <string name="day_text">\"Jour: \"</string>
+    <string name="total_time_text">\"Temps total: \"</string>
+    <string name="break_time_text">\"Pause: \"</string>
+    <string name="out_time_text">\"Temps de sortie:\"</string>
+    <string name="in_time_text">\"À l\'heure: \"</string>
+    <string name="id_text">\"IDENTIFIANT: \"</string>
+    <string name="csv_heading">ID, temps d\'entrée, temps de sortie, temps de pause, total, jour, année, temps\\n</string>
+    <string name="choose_app">Choisissez une application</string>
 </resources>

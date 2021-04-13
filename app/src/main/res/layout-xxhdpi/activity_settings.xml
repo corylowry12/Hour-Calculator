@@ -245,6 +245,7 @@
                             android:hint="8.75"
                             android:textColor="?attr/textColor"
                             android:inputType="numberDecimal"
+                            android:imeOptions="actionGo"
                             android:maxLength="5"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
