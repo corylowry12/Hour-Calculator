@@ -98,5 +98,4 @@
     <style name="SplashScreenThemeDark" parent="Theme.AppCompat.NoActionBar">
         <item name="backgroundColor">#000000</item>
     </style>
-
 </resources>

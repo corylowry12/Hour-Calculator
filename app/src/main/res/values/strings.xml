@@ -239,4 +239,5 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails</string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="something_wrong_with_break_text_box">There is something wrong with the input in the break text box. Please check it out.</string>
+    <string name="close_button">close button</string>
 </resources>
