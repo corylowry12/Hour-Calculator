@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
@@ -61,9 +62,6 @@ class MainActivity : AppCompatActivity() {
 
     // Break data lazy initializer
     val breakData by lazy { BreakData(this) }
-
-    // Shortcut manager lazy initialization
-
 
     // Input manager lazy initializer
     val imm by lazy { this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
@@ -123,56 +121,6 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.VISIBLE
             findViewById<TextInputEditText>(R.id.breakTime).visibility = View.VISIBLE
         }
-
-        try {
-            val shortcutManager = getSystemService(ShortcutManager::class.java)
-
-            val dynamicIntent = Intent(this, HistoryActivity::class.java)
-            dynamicIntent.setAction(Intent.ACTION_VIEW)
-
-            val dynamicIntent2 = Intent(this, GraphActivity::class.java)
-            dynamicIntent2.setAction(Intent.ACTION_VIEW)
-
-            val dynamicIntent3 = Intent(this, SettingsActivity::class.java)
-            dynamicIntent3.setAction(Intent.ACTION_VIEW)
-
-           val dynamicIntent4 = Intent(this, TrashActivity::class.java)
-            dynamicIntent4.setAction(Intent.ACTION_VIEW)
-
-            val shortcut = ShortcutInfo.Builder(this, "dynamic_shortcut")
-                .setLongLabel(getString(R.string.history_shortcut_long))
-                .setShortLabel(getString(R.string.history_shortcut_short))
-                .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_history_24px))
-                .setIntent(dynamicIntent)
-                .build()
-
-            val shortcut2 = ShortcutInfo.Builder(this, "dynamic_shortcut2")
-                .setLongLabel(getString(R.string.graph_shortcut_long))
-                .setShortLabel(getString(R.string.graph_shortcut_short))
-                .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_bar_chart_24px))
-                .setIntent(dynamicIntent2)
-                .build()
-
-            val shortcut3 = ShortcutInfo.Builder(this, "dynamic_shortcut3")
-                .setLongLabel(getString(R.string.settings_shortcut_long))
-                .setShortLabel(getString(R.string.settings_shortcut_short))
-                .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_settings_24px))
-                .setIntent(dynamicIntent3)
-                .build()
-
-            val shortcut4 = ShortcutInfo.Builder(this, "dynamic_shortcut4")
-                .setLongLabel(getString(R.string.trash_shortcut_long))
-                .setShortLabel(getString(R.string.trash_shortcut_short))
-                .setIcon(Icon.createWithResource(applicationContext, R.drawable.ic_delete_24px))
-                .setIntent(dynamicIntent4)
-                .build()
-
-            shortcutManager.dynamicShortcuts = listOf(shortcut, shortcut2, shortcut3, shortcut4)
-            shortcutManager.disableShortcuts(Arrays.asList(shortcut.id, shortcut2.id, shortcut3.id, shortcut4.id))
-        } catch (exception: Exception) {
-            Log.i("MainActivity", "Couldnt Load Shortcuts")
-        }
-
     }
 
     override fun onRestart() {
@@ -256,22 +204,28 @@ class MainActivity : AppCompatActivity() {
 
 
         outTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
-            val str = inTime.text.toString()
-            val str1 = outTime.text.toString()
+            //val str = inTime.text.toString()
+            //val str1 = outTime.text.toString()
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 outTime.clearFocus()
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
-
-                hideKeyboard()
+                //if(textInputLayout3.visibility != View.VISIBLE) {
+                    //hideKeyboard()
+                //}
                 if (textInputLayout3.visibility == View.VISIBLE) {
-                    breakTime.requestFocus()
-                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+                    //Toast.makeText(this, "It is visible", Toast.LENGTH_SHORT).show()
+                        Log.i("Break", "It is visible")
+                    //breakTime.requestFocus()
+                    /*window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
                     val imm1: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm1.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
+                    imm1.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)*/
+                    window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+                    breakTime.requestFocus()
                 } else {
-                    validation(str, str1, spinner1selecteditem, spinner2selecteditem, infoTextView1)
+                    hideKeyboard()
+                    validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, infoTextView1)
                 }
                 return@OnKeyListener true
             }
@@ -282,7 +236,8 @@ class MainActivity : AppCompatActivity() {
             val str = inTime.text.toString()
             val str1 = outTime.text.toString()
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                outTime.clearFocus()
+                //outTime.clearFocus()
+                breakTime.clearFocus()
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
@@ -1272,13 +1227,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun vibration(vibrationData: VibrationData) {
-        if (vibrationData.loadVibrationState() == true) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-    }
-
     fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
         val historyToggleData = HistoryToggleData(this)
         //val separate2.toDouble() = separate2.toDouble()
@@ -1309,70 +1257,81 @@ class MainActivity : AppCompatActivity() {
                     savingHours(totalhours, inTime, outTime, breakTime)
                 }
             } else if (breakTime.text.toString() != "") {
-                val breakTimeInt = breakTime.text.toString().toDouble()
-                val breakTimeDec: Double = breakTimeInt / 60
-                val break1 = breakTimeDec.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
-                val totalHours1 = totalhours - break1
-                val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                if (totalHoursWithBreak < 0) {
-                    infoTextView1.visibility = View.VISIBLE
-                    infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                } else if (totalHoursWithBreak > 0) {
-                    infoTextView1.visibility = View.VISIBLE
-                    infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
-                    if (historyToggleData.loadHistoryState() == true) {
-                        savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
+                //val breakTimeInt = breakTime.text.toString().toDouble()
+                    if(!breakTime.text.isDigitsOnly()) {
+                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                        infoTextView1.visibility = View.VISIBLE
                     }
-                }
+                else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        //val break1 = breakTimeDec.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHoursWithBreak < 0) {
+                            infoTextView1.visibility = View.VISIBLE
+                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                        } else if (totalHoursWithBreak > 0) {
+                            infoTextView1.visibility = View.VISIBLE
+                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
+                            if (historyToggleData.loadHistoryState() == true) {
+                                savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
+                            }
+                        }
+                    }
             }
         }
     }
 
-    fun aMandPMandPMandAM(separate1: String, separate2: String, separate3: String, separate4: String, infoTextView1: TextView, breakTime: EditText) {
+    fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
         val historyToggleData = HistoryToggleData(this)
-        val conv = separate2.toDouble()
-        val conv1 = separate1.toDouble()
-        val conv2 = separate3.toDouble()
-        val conv3 = separate4.toDouble()
-        val div = conv / 60
-        val div1 = conv3 / 60
-        val rounded = div.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val rounded1 = div1.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val s2 = rounded1.substring(1)
-        val s1 = rounded.substring(1)
-        val s3 = s1.toDouble()
-        val s5 = s2.toDouble()
-        val total1 = conv1 + s3
-        val total2 = conv2 + s5
-        val difference = total2 - total1
+        //val separate2.toDouble() = separate2.toDouble()
+        //val conv1 = inTimeHours.toDouble()
+        //val conv2 = outTimeHours.toDouble()
+        //val conv3 = separate4.toDouble()
+        //val div = separate2.toDouble() / 60
+        //val div1 = separate4.toDouble() / 60
+        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+        //val s2 = outTimeMinutesRounded.substring(1)
+        //val s1 = inTimeMinutesRounded.substring(1)
+        //val s3 = s1.toDouble()
+        //val s5 = s2.toDouble()
+        val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
+        val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
+        val difference = outTimeTotal - inTimeTotal
         val totalhours = String.format("%.2f", difference).toDouble() + 12
-        val totalhours3 = String.format("%.2f", totalhours).toDouble()
         if (totalhours < 0) {
             infoTextView1.visibility = View.VISIBLE
             infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
         } else {
             if (breakTime.text.toString() == "") {
                 infoTextView1.visibility = View.VISIBLE
-                infoTextView1.text = getString(R.string.total_hours, totalhours3.toString())
+                infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                 if (historyToggleData.loadHistoryState() == true) {
-                    savingHours(totalhours3, inTime, outTime, breakTime)
+                    savingHours(totalhours, inTime, outTime, breakTime)
                 }
             } else if (breakTime.text.toString() != "") {
-                val breakTimeInt = breakTime.text.toString().toDouble()
-                val breakTimeDec: Double = breakTimeInt / 60
-                val break1 = breakTimeDec.toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
-                val totalHours1 = totalhours - break1
-                val totalhours2 = String.format("%.2f", totalHours1).toDouble()
-                if (totalhours2 < 0) {
-                    infoTextView1.visibility = View.VISIBLE
-                    infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                } else if (totalhours2 > 0) {
-                    infoTextView1.visibility = View.VISIBLE
-                    infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalhours2.toString(), totalhours3.toString())
-                    if (historyToggleData.loadHistoryState() == true) {
-                        savingHours2(totalhours2, inTime, outTime, breakTime)
+                //val breakTimeInt = breakTime.text.toString().toDouble()
+                    if(!breakTime.text.toString().isDigitsOnly()) {
+                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                        infoTextView1.visibility = View.VISIBLE
                     }
-                }
+                else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        //val break1 = breakTimeDec.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHours1 < 0) {
+                            infoTextView1.visibility = View.VISIBLE
+                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                        } else if (totalHours1 > 0) {
+                            infoTextView1.visibility = View.VISIBLE
+                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHours1.toString(), totalhours.toString())
+                            if (historyToggleData.loadHistoryState() == true) {
+                                savingHours2(totalHours1, inTime, outTime, breakTime)
+                            }
+                        }
+                    }
             }
         }
     }
@@ -1389,6 +1348,13 @@ class MainActivity : AppCompatActivity() {
             } else if (breakTime!!.hasFocus()) {
                 breakTime!!.clearFocus()
             }
+        }
+    }
+
+    fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState() == true) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 
