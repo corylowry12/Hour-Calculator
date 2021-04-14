@@ -78,7 +78,6 @@
     <string name="break_time">Descanso</string>
     <string name="day">Día</string>
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Advertencia: el gráfico solo mostrará 7 entradas \\n como máximo y serán las entradas más recientes</string>
-    <string name="home">Hogar</string>
     <string name="graph">Grafico</string>
     <string name="whats_new">Novedades de la versión</string>
     <string name="memorable_places_logo">Logotipo de lugares memorables</string>
@@ -95,14 +94,6 @@
     <string name="please_try_again">Lo siento, inténtalo de nuevo</string>
     <string name="enable_automatic_deletion">Habilitaste la eliminación automática de la papelera</string>
     <string name="disable_automatic_deletion">Inhabilitaste la eliminación automática de la papelera</string>
-    <string name="history_shortcut_short">Historia</string>
-    <string name="history_shortcut_long">Actividad de historia abierta</string>
-    <string name="graph_shortcut_short">Grafico</string>
-    <string name="graph_shortcut_long">Actividad de Open Graph</string>
-    <string name="settings_shortcut_short">Configuraciones</string>
-    <string name="settings_shortcut_long">Abrir actividad de configuración</string>
-    <string name="trash_shortcut_short">Basura</string>
-    <string name="trash_shortcut_long">Abrir actividad de basura</string>
     <string name="total_wages">Salarios totales por horas almacenadas: %1$s</string>
     <string name="cloud_messaging_heading">Mensajería en la nube de Firebase</string>
     <string name="notifications">Notificaciones</string>
@@ -151,10 +142,8 @@
     <string name="spread_sheet">Hoja de cálculo</string>
     <string name="please_donate">Por favor done</string>
     <string name="donate">Donar</string>
-    <string name="one_dollar">24,00 MXN</string>
     <string name="five_dollar">119,00 MXN</string>
     <string name="thanks_for_donation">¡Muchas gracias por tu donación!</string>
-    <string name="make_a_donation">Haz una donación</string>
     <string name="please_leave_a_donation">Deje una donación, trabajo en la aplicación en mi tiempo libre y no quiero que la aplicación cueste dinero.</string>
     <string name="firebase_heading">- Función de búsqueda recién agregada en la actividad del historial</string>
     <string name="fab">- Función de búsqueda recién agregada en la actividad de la basura</string>

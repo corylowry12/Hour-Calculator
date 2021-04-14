@@ -125,7 +125,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        recreate()
+        val intent = Intent(this, this::class.java)
+        startActivity(intent)
+        overridePendingTransition(0, 0)
     }
 
     override fun onResume() {

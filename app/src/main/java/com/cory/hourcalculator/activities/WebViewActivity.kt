@@ -1,6 +1,8 @@
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.widget.Toast
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
@@ -55,7 +58,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_web_view, menu)
+        menuInflater.inflate(R.menu.main_menu_webview, menu)
         val historyToggleData = HistoryToggleData(this)
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
@@ -69,12 +72,23 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
-        if (vibrationData.loadVibrationState()) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
         return when (item.itemId) {
+            R.id.copyMenu -> {
+                val clipBoard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("URL", intent.getStringExtra("url")) //intent.getStringExtra("url")
+                clipBoard.setPrimaryClip(clip)
+                Toast.makeText(this, getString(R.string.text_copied_to_clipboard), Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.shareMenu -> {
+                val shareIntent = Intent()
+                shareIntent.action = Intent.ACTION_SEND
+                shareIntent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("url"))
+                shareIntent.type = "text/plain"
+                Intent.createChooser(shareIntent, getString(R.string.share_via))
+                startActivity(shareIntent)
+                return true
+            }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
