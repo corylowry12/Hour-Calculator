@@ -49,11 +49,10 @@ class GraphActivity : AppCompatActivity() {
             setTheme(R.style.AppTheme)
         }
         super.onCreate(savedInstanceState)
+        window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_graph)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        window.setBackgroundDrawable(null)
 
         firebaseAnalytics = Firebase.analytics
 
