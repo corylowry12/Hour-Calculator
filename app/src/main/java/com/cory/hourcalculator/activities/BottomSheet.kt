@@ -84,5 +84,6 @@ class BottomSheet: BottomSheetDialogFragment() {
             val intent = Intent(Intent.ACTION_VIEW).setData(Uri.parse(getString(R.string.texarkana_college_link)))
             this.startActivity(intent)
         }
+        closeImageButton.setOnClickListener { dismiss() }
     }
 }
