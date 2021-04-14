@@ -166,7 +166,7 @@
     <string name="support_for_spanish">- L\'élément de graphique dans le menu dans les paramètres n\'apparaît plus si l\'historique est désactivé</string>
     <string name="whoops_error">Oups, il y a eu une erreur! Veuillez réessayer.</string>
     <string name="no_hours_stored_for_graph">Il n\'y a pas d\'heures stockées à afficher dans le graphique.</string>
-    <string name="bar_chart_item_clicked">Temps d\'entrée: %1$s \\n Temps d\'arrêt: %2$s \\n Temps de pause: %3$s \\n Total: %4$s \\n Jour: %5$s</string>
+    <string name="bar_chart_item_clicked">Temps d\'entrée: %1$s\nTemps d\'arrêt: %2$s\nTemps de pause: %3$s\nTotal: %4$s\nJour: %5$s</string>
     <string name="day_text">\"Jour: \"</string>
     <string name="total_time_text">\"Temps total: \"</string>
     <string name="break_time_text">\"Pause: \"</string>
