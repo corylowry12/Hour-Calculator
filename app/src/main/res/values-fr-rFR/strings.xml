@@ -123,7 +123,7 @@
     <string name="optimized_graph">- Nouvelle possibilité d\'exporter des fichiers sous forme de fichier texte ou de feuille de calcul</string>
     <string name="fixed_graph">- Correction d\'un crash si vous alliez aux paramètres et à l\'historique désactivé, puis cliquiez sur le graphique dans le menu des paramètres</string>
     <string name="graph_label">Graphique</string>
-    <string name="total_hours_with_and_without_break">Heures totales avec pause: %1$s Heures totales sans pause: %2$s</string>
+    <string name="total_hours_with_and_without_break">Heures totales avec pause: %1$s\nHeures totales sans pause: %2$s</string>
     <string name="version_info_label">Informations sur la version</string>
     <string name="added_firebase">- Ajout de plus de vérification des erreurs dans l\'activité du graphique pour éviter les plantages en fonction de la date</string>
     <string name="firebase_notification">- L\'élément de menu de l\'activité graphique n\'est plus visible si l\'historique est désactivé</string>

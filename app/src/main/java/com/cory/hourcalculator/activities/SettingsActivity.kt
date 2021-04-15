@@ -24,6 +24,7 @@ import com.cory.hourcalculator.billing.BillingAgent
 import com.cory.hourcalculator.billing.BillingCallback
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
+import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.switchmaterial.SwitchMaterial
@@ -46,6 +47,9 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
+
+    private val dbHandlerTrash = DBHelperTrash(this, null)
+    private val dataList = ArrayList<HashMap<String, String>>()
 
     private var billingAgent: BillingAgent? = null
 
@@ -339,11 +343,41 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             if (isChecked) {
                 historySwitch.isChecked = true
                 historyToggleData.setHistoryToggle(true)
+                Snackbar.make(constraintLayout, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
                 invalidateOptionsMenu()
             } else {
                 historySwitch.isChecked = false
                 historyToggleData.setHistoryToggle(false)
+                Snackbar.make(constraintLayout, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
                 invalidateOptionsMenu()
+                val alertDialog = AlertDialog.Builder(this)
+                alertDialog.setTitle(getString(R.string.history))
+                alertDialog.setMessage(getString(R.string.what_would_you_like_to_do_with_history))
+                alertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
+                    dbHandler.deleteAll()
+                    Snackbar.make(constraintLayout, getString(R.string.deleted_all_of_hour_history), Snackbar.LENGTH_SHORT).show()
+                }
+                alertDialog.setNegativeButton(getString(R.string.trash)) { _, _ ->
+                    dataList.clear()
+                    val cursor1 = dbHandler.getAllRow(this)
+                    cursor1!!.moveToFirst()
+
+                    while (!cursor1.isAfterLast) {
+                        val intime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_IN))
+                        val outtime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_OUT))
+                        val breaktime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_BREAK))
+                        val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                        val day = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                        dbHandlerTrash.insertRow(intime, outtime, breaktime, totaltime, day)
+
+                        cursor1.moveToNext()
+                    }
+                    dbHandler.deleteAll()
+                    Snackbar.make(constraintLayout, getString(R.string.moved_all_hours_to_trash), Snackbar.LENGTH_SHORT).show()
+                }
+                alertDialog.setNeutralButton(getString(R.string.nothing), null)
+                alertDialog.create().show()
             }
         }
 
@@ -434,8 +468,10 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             if (isChecked) {
                 breakData.setBreakState(true)
+                Snackbar.make(constraintLayout, getString(R.string.enabled_break_text_box), Snackbar.LENGTH_SHORT).show()
             } else {
                 breakData.setBreakState(false)
+                Snackbar.make(constraintLayout, getString(R.string.disabled_break_text_box), Snackbar.LENGTH_SHORT).show()
             }
         }
 

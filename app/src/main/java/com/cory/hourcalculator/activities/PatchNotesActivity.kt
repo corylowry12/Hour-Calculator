@@ -18,6 +18,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_patch_notes.*
 
 class PatchNotesActivity : AppCompatActivity() {
 
@@ -42,6 +43,12 @@ class PatchNotesActivity : AppCompatActivity() {
         firebaseAnalytics = Firebase.analytics
 
         findViewById<TextView>(R.id.textView).text = getString(R.string.whats_new) + " " + getString(R.string.version_number)
+
+        linkTextView.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_link))
+            startActivity(intent)
+        }
 
     }
 
@@ -78,7 +85,6 @@ class PatchNotesActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-
                 return true
             }
             R.id.history -> {

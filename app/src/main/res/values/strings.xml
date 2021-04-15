@@ -166,7 +166,7 @@
     <string name="restore_all">Restore All?</string>
     <string name="hours">Hours</string>
     <string name="break_zero" translatable="false">0</string>
-    <string name="optimized_graph">- Tons of optimization in main activity</string>
+    <string name="github_link" translatable="false"><a href="https://github.com/corylowry12/Hour-Calculator">https://github.com/corylowry12/Hour-Calculator</a></string>
     <string name="added_firebase">- Fixed In Time not losing focus if you hit back button and dismissed keyboard</string>
     <string name="firebase_notification">- Updated Dependencies</string>
     <string name="firebase_heading">- Newly added search feature in history activity</string>
@@ -178,7 +178,7 @@
     <string name="support_for_spanish">- Graph item in menu in settings no longer shows up if history is disabled</string>
     <string name="version_info_label">Version Info</string>
     <string name="graph_label">Graph</string>
-    <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s Total Hours Without Break: %2$s</string>
+    <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s\nTotal Hours Without Break: %2$s</string>
     <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
     <string name="export_hours">Export Hours</string>
     <string name="export_hours_caption">Export all stored hours as a .csv  or .txt file</string>
@@ -204,16 +204,24 @@
     <string name="no_hours_stored_for_graph">There are no hours stored to display in the graph.</string>
     <string name="choose_app">Choose app</string>
     <string name="csv_heading">ID,In Time,Out Time,Break Time,Total,Day,Year,Time\\n</string>
-    <string name="id_text">\"ID: \"</string>
-    <string name="in_time_text">\"In Time: \"</string>
-    <string name="out_time_text">\"Out Time: \"</string>
-    <string name="break_time_text">\"Break Time: \"</string>
-    <string name="total_time_text">\"Total Time: \"</string>
-    <string name="day_text">\"Day: \"</string>
+    <string name="id_text">"ID: "</string>
+    <string name="in_time_text">"In Time: "</string>
+    <string name="out_time_text">"Out Time: "</string>
+    <string name="break_time_text">"Break Time: "</string>
+    <string name="total_time_text">"Total Time: "</string>
+    <string name="day_text">"Day: "</string>
     <string name="asterisks_text" translatable="false">*******************************</string>
     <string name="something_wrong_with_break_text_box">There is something wrong with the input in the break text box. Please check it out.</string>
     <string name="close_button">close button</string>
     <string name="share_via">Share via</string>
     <string name="text_copied_to_clipboard">Text Copied to Clipboard</string>
     <string name="copy_to_clipboard">Copy to Clipboard</string>
+    <string name="enabled_history">You enabled history</string>
+    <string name="disabled_history">You disabled history</string>
+    <string name="enabled_break_text_box">You enabled break text box</string>
+    <string name="disabled_break_text_box">You disabled break text box</string>
+    <string name="what_would_you_like_to_do_with_history">What would you like to do with your hour history?</string>
+    <string name="deleted_all_of_hour_history">You deleted all of your hour history</string>
+    <string name="moved_all_hours_to_trash">You moved all of your hour history to the trash</string>
+    <string name="nothing">Nothing</string>
 </resources>

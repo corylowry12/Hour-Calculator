@@ -81,6 +81,7 @@ class GraphActivity : AppCompatActivity() {
         barChart.moveViewToX(0f)
         barChart.setTouchEnabled(true)
         barChart.isDoubleTapToZoomEnabled = false
+        barChart.animateY(400)
 
         // Makes all X Axis labels fit on one page
         val xAxis = barChart.xAxis
@@ -201,7 +202,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                         //barChart.animateY(800)
 
                         // Moves cursor to next to map in data
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
@@ -308,7 +309,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -410,7 +411,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -506,7 +507,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -596,7 +597,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -679,7 +680,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -759,7 +760,7 @@ class GraphActivity : AppCompatActivity() {
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
                         // Animates bar chart
-                        barChart.animateY(800)
+                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {

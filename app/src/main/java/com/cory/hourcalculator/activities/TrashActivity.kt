@@ -66,6 +66,8 @@ class TrashActivity : AppCompatActivity() {
 
         textView8.text = getString(R.string.amount_of_hours_in_trash, dbHandlerTrash.getCount())
 
+        floatingActionButtonTrash.showMotionSpec
+
         floatingActionButtonTrash.setOnClickListener {
             firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
                 param(FirebaseAnalytics.Param.ITEM_ID, "fab_trash")

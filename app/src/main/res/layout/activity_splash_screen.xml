@@ -37,7 +37,7 @@
        android:textColor="@android:color/white"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,7 @@
         android:text="Created By: Cory Lowry"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
-        android:textStyle="italic|bold"/>
+        android:textStyle="italic|bold"
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

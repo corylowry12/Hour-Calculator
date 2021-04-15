@@ -77,7 +77,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewWages"
         app:srcCompat="@drawable/ic_arrow_upward_24px"
-        app:fabSize="mini"/>
+        app:fabSize="mini"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

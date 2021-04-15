@@ -60,7 +60,8 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewWarning"
         app:srcCompat="@drawable/ic_arrow_upward_24px"
         android:contentDescription="scroll to top"
-        app:fabSize="mini"/>
+        app:fabSize="mini"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"

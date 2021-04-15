@@ -56,15 +56,7 @@ class HistoryActivity : AppCompatActivity() {
 
         }
 
-
-        floatingActionButtonHistory.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "fab_history")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "fab_history_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "floating_action_button")
-            }
-            listView.smoothScrollToPosition(0)
-        }
+        floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
 
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
@@ -78,8 +70,7 @@ class HistoryActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {
-            }
+            override fun onScrollStateChanged(view: AbsListView?, scrollState: Int) {}
         })
     }
 

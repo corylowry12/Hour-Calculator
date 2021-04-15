@@ -89,11 +89,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtPlayLink = findViewById<TextView>(R.id.txtPlayLink)
         txtPlayLink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "play_core_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "play_core_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PlayCoreLink))
             startActivity(intent)

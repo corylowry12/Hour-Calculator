@@ -66,157 +66,15 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/linkTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:text="@string/optimized_graph"
+                        android:text="@string/github_link"
                         android:textColor="?attr/textColor"
                         android:textSize="17sp"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView14"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/fixed_graph"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="gone"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/added_firebase"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView16"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/firebase_notification"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView17"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/firebase_heading"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView22"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/fab"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView24"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/fab_trash"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView26"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/disable_update"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView27"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/dark_mode_default"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView28"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/heading_text_color"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/tweaked_layout"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="visible"
-                        tools:ignore="HardcodedText" />
-
-                    <TextView
-                        android:id="@+id/textView30"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
-                        android:text="@string/support_for_spanish"
-                        android:textColor="?attr/textColor"
-                        android:textSize="17sp"
-                        android:visibility="gone"
                         tools:ignore="HardcodedText" />
 
                 </LinearLayout>
