@@ -15,7 +15,6 @@ import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.list_row.*

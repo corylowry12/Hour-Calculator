@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
@@ -26,7 +28,6 @@ import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
 import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -34,35 +35,36 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-   // private lateinit var vibrationData: VibrationData
-    val vibrationData by lazy { VibrationData(this) }
+    // private lateinit var vibrationData: VibrationData
+    private val vibrationData by lazy { VibrationData(this) }
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var historyToggleData: HistoryToggleData
     private lateinit var updateData: UpdateData
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
-    var testDeviceId = listOf("8EDC43FD82F98F52B4B982B33812B1BC")
+
+    //var testDeviceId = listOf("8EDC43FD82F98F52B4B982B33812B1BC")
     private val dbHandler = DBHelper(this, null)
-    private val permissionRequestCode = 1
-    private lateinit var managePermissions: ManagePermissions
+    // private val permissionRequestCode = 1
+    //private lateinit var managePermissions: ManagePermissions
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
-    // Spinner lazy and lateinit inializers
-    val spinner by lazy { findViewById<MaterialSpinner>(R.id.material_spinner_1) }
-    val spinner1 by lazy { findViewById<MaterialSpinner>(R.id.material_spinner_2) }
+    // Spinner lazy and lateinit initializers
+    private val spinner: MaterialSpinner by lazy { findViewById(R.id.material_spinner_1) }
+    private val spinner1: MaterialSpinner by lazy { findViewById(R.id.material_spinner_2) }
     private lateinit var spinner1selecteditem: String
     private lateinit var spinner2selecteditem: String
 
-    // Adview lazy initializer
+    // AdView lazy initializer
     val adView by lazy { AdView(this) }
-    val mAdView by lazy { findViewById<AdView>(R.id.adView) }
-    val adRequest by lazy { AdRequest.Builder().build() }
+    private val mAdView by lazy { findViewById<AdView>(R.id.adView) }
+    private val adRequest by lazy { AdRequest.Builder().build() }
 
     // Break data lazy initializer
-    val breakData by lazy { BreakData(this) }
+    private val breakData by lazy { BreakData(this) }
 
     // Input manager lazy initializer
-    val imm by lazy { this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
+    //val imm by lazy { this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
@@ -103,7 +105,7 @@ class MainActivity : AppCompatActivity() {
 
         requestFocus()
 
-            main()
+        main()
 
         val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         if (imm.isAcceptingText) {
@@ -126,7 +128,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-            main()
+        main()
 
     }
 
@@ -150,9 +152,6 @@ class MainActivity : AppCompatActivity() {
         outTime.setOnClickListener {
             vibration(vibrationData)
         }
-
-        //spinner = findViewById<MaterialSpinner>(R.id.material_spinner_1)
-        //spinner1 = findViewById<MaterialSpinner>(R.id.material_spinner_2)
 
         spinner.setItems(getString(R.string.am), getString(R.string.pm))
         var spinner1selecteditem: String = getString(R.string.am)
@@ -200,23 +199,13 @@ class MainActivity : AppCompatActivity() {
 
 
         outTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
-            //val str = inTime.text.toString()
-            //val str1 = outTime.text.toString()
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 outTime.clearFocus()
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
-                //if(textInputLayout3.visibility != View.VISIBLE) {
-                    //hideKeyboard()
-                //}
+
                 if (textInputLayout3.visibility == View.VISIBLE) {
-                    //Toast.makeText(this, "It is visible", Toast.LENGTH_SHORT).show()
-                        Log.i("Break", "It is visible")
-                    //breakTime.requestFocus()
-                    /*window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
-                    val imm1: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm1.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)*/
                     window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
                     breakTime.requestFocus()
                 } else {
@@ -229,10 +218,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         breakTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
-            //val str = inTime.text.toString()
-            //val str1 = outTime.text.toString()
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                //outTime.clearFocus()
                 breakTime.clearFocus()
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
@@ -246,8 +232,6 @@ class MainActivity : AppCompatActivity() {
         })
 
         calculateButton1.setOnClickListener {
-            //val str = inTime.text.toString()
-            //val str1 = outTime.text.toString()
             vibration(vibrationData)
 
             validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, infoTextView1)
@@ -276,8 +260,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savingHours(totalHours3: Double, inTime: EditText, outTime: EditText, breakTime: EditText) {
-        //val intime = inTime.text.toString()
-        //val out = outTime.text.toString()
         var break1 = breakTime.text.toString()
         if (breakTime.text.toString() == "") {
             break1 = getString(R.string.break_zero)
@@ -290,8 +272,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText) {
-        //val intime = inTime.text.toString()
-        //val out = outTime.text.toString()
         var break1 = breakTime.text.toString()
         if (breakTime.text.toString() == "") {
             break1 = "0"
@@ -394,18 +374,8 @@ class MainActivity : AppCompatActivity() {
                             infoTextView1.visibility = View.VISIBLE
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            //val conv = inTimeMinutes.toDouble()
-                            //val conv1 = inTimeHours.toDouble()
-                            //val conv2 = outTimeHours.toDouble()
-                            //val conv3 = outTimeMinutes.toDouble()
-                            //val div = inTimeMinutes.toDouble() / 60
-                            //val div1 = outTimeMinutes.toDouble() / 60
                             val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
                             val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-                            //val s2 = rounded1.substring(1)
-                            //val s1 = rounded.substring(1)
-                            //val s3 = s1.toDouble()
-                            //val s5 = s2.toDouble()
                             val total1 = inTimeHours.toDouble() + rounded.substring(1).toDouble()
                             val total2 = outTimeHours.toDouble() + rounded1.substring(1).toDouble()
                             val difference = total2 - total1
@@ -1225,23 +1195,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
         val historyToggleData = HistoryToggleData(this)
-        //val inTimeMinutes.toDouble() = inTimeMinutes.toDouble()
-        //val conv1 = inTimeHours.toDouble()
-        //val conv2 = outTimeHours.toDouble()
-        //val conv3 = outTimeMinutes.toDouble()
-        //val div = inTimeMinutes.toDouble() / 60
-        //val div1 = outTimeMinutes.toDouble() / 60
         val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
         val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        //val s2 = outTimeMinutesRounded.substring(1)
-        //val s1 = inTimeMinutesRounded.substring(1)
-        //val s3 = s1.toDouble()
-        //val s5 = s2.toDouble()
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference = outTimeTotal - inTimeTotal
         val totalhours = String.format("%.2f", difference).toDouble()
-        //val totalhours3 = String.format("%.2f", totalhours).toDouble()
         if (totalhours < 0) {
             infoTextView1.visibility = View.VISIBLE
             infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
@@ -1253,48 +1212,35 @@ class MainActivity : AppCompatActivity() {
                     savingHours(totalhours, inTime, outTime, breakTime)
                 }
             } else if (breakTime.text.toString() != "") {
-                //val breakTimeInt = breakTime.text.toString().toDouble()
-                    if(!breakTime.text.isDigitsOnly()) {
-                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                if (!breakTime.text.isDigitsOnly()) {
+                    infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                    infoTextView1.visibility = View.VISIBLE
+                } else {
+                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                    val totalHours1 = totalhours - breakTimeDec
+                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                    if (totalHoursWithBreak < 0) {
                         infoTextView1.visibility = View.VISIBLE
-                    }
-                else {
-                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        //val break1 = breakTimeDec.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        val totalHours1 = totalhours - breakTimeDec
-                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                        if (totalHoursWithBreak < 0) {
-                            infoTextView1.visibility = View.VISIBLE
-                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                        } else if (totalHoursWithBreak > 0) {
-                            infoTextView1.visibility = View.VISIBLE
-                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
-                            if (historyToggleData.loadHistoryState()) {
-                                savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
-                            }
+                        infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                    } else if (totalHoursWithBreak > 0) {
+                        infoTextView1.visibility = View.VISIBLE
+                        infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
+                        if (historyToggleData.loadHistoryState()) {
+                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
                         }
                     }
+                }
             }
         }
     }
 
     private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
         val historyToggleData = HistoryToggleData(this)
-        //val inTimeMinutes.toDouble() = inTimeMinutes.toDouble()
-        //val conv1 = inTimeHours.toDouble()
-        //val conv2 = outTimeHours.toDouble()
-        //val conv3 = outTimeMinutes.toDouble()
-        //val div = inTimeMinutes.toDouble() / 60
-        //val div1 = outTimeMinutes.toDouble() / 60
         val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
         val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        //val s2 = outTimeMinutesRounded.substring(1)
-        //val s1 = inTimeMinutesRounded.substring(1)
-        //val s3 = s1.toDouble()
-        //val s5 = s2.toDouble()
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference : Double = outTimeTotal - inTimeTotal
+        val difference: Double = outTimeTotal - inTimeTotal
         val totalhours = String.format("%.2f", difference).toDouble() + 12
         if (totalhours < 0) {
             infoTextView1.visibility = View.VISIBLE
@@ -1307,27 +1253,24 @@ class MainActivity : AppCompatActivity() {
                     savingHours(totalhours, inTime, outTime, breakTime)
                 }
             } else if (breakTime.text.toString() != "") {
-                //val breakTimeInt = breakTime.text.toString().toDouble()
-                    if(!breakTime.text.toString().isDigitsOnly()) {
-                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                if (!breakTime.text.toString().isDigitsOnly()) {
+                    infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                    infoTextView1.visibility = View.VISIBLE
+                } else {
+                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                    val totalHours1 = totalhours - breakTimeDec
+                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                    if (totalHours1 < 0) {
                         infoTextView1.visibility = View.VISIBLE
-                    }
-                else {
-                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        //val break1 = breakTimeDec.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        val totalHours1 = totalhours - breakTimeDec
-                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                        if (totalHours1 < 0) {
-                            infoTextView1.visibility = View.VISIBLE
-                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                        } else if (totalHours1 > 0) {
-                            infoTextView1.visibility = View.VISIBLE
-                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
-                            if (historyToggleData.loadHistoryState()) {
-                                savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
-                            }
+                        infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                    } else if (totalHours1 > 0) {
+                        infoTextView1.visibility = View.VISIBLE
+                        infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
+                        if (historyToggleData.loadHistoryState()) {
+                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
                         }
                     }
+                }
             }
         }
     }

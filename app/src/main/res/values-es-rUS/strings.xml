@@ -120,13 +120,9 @@
     <string name="restore_all_items_trash">¿Le gustaría restaurar todos los elementos?</string>
     <string name="restore_all">¿Restaura todo?</string>
     <string name="hours">Horas</string>
-    <string name="optimized_graph">- Nueva capacidad para exportar archivos como un archivo de texto o una hoja de cálculo</string>
-    <string name="fixed_graph">- Se corrigió el bloqueo si iba a la configuración y deshabilitaba el historial y luego hacía clic en el gráfico en el menú de configuración</string>
     <string name="version_info_label">Información de la versión</string>
     <string name="graph_label">Grafico</string>
     <string name="total_hours_with_and_without_break">Horas totales con descanso: %1$s\nHoras totales sin descanso: %2$s</string>
-    <string name="added_firebase">- Se agregó más verificación de errores en la actividad del gráfico para evitar fallas dependiendo de la fecha</string>
-    <string name="firebase_notification">- Ahora el elemento del menú de actividad del gráfico ya no está visible si el historial está deshabilitado</string>
     <string name="export_hours">Horas de exportación</string>
     <string name="export_hours_caption">Exportar todas las horas almacenadas como un archivo .csv o .txt</string>
     <string name="hours_file_name">horas</string>
@@ -145,14 +141,6 @@
     <string name="five_dollar">119,00 MXN</string>
     <string name="thanks_for_donation">¡Muchas gracias por tu donación!</string>
     <string name="please_leave_a_donation">Deje una donación, trabajo en la aplicación en mi tiempo libre y no quiero que la aplicación cueste dinero.</string>
-    <string name="firebase_heading">- Función de búsqueda recién agregada en la actividad del historial</string>
-    <string name="fab">- Función de búsqueda recién agregada en la actividad de la basura</string>
-    <string name="fab_trash">- Botón de donación recién agregado en la configuración. Actualmente solo permite 5 dólares, pero puede donar más de uno si lo desea.</string>
-    <string name="disable_update">- Otras correcciones de estabilidad</string>
-    <string name="dark_mode_default">- Se corrigió el error por el cual si cambiaba los marcadores en la actividad principal a pm y luego pasaba a otra actividad y luego volvía a la actividad principal usando el botón Atrás y calculaba la hora am en lugar de pm como decía.</string>
-    <string name="heading_text_color">- La aplicación ahora abre enlaces de dependencia en la actividad de información de la versión en una vista web incorporada.</string>
-    <string name="tweaked_layout" translatable="false">- Se corrigió el bloqueo de la actividad del gráfico y el historial, con suerte</string>
-    <string name="support_for_spanish">- El elemento de gráfico en el menú en la configuración ya no aparece si el historial está deshabilitado</string>
     <string name="whoops_error">¡Vaya, hubo un error! Inténtalo de nuevo.</string>
     <string name="no_hours_stored_for_graph">No hay horas almacenadas para mostrar en el gráfico.</string>
     <string name="bar_chart_item_clicked">Tiempo de entrada: %1$s\nTiempo de salida: %2$s\nTiempo de descanso: %3$s\nTotal: %4$s\nDía: %5$s</string>
@@ -164,4 +152,19 @@
     <string name="out_time_text">\"Fuera de tiempo: \"</string>
     <string name="break_time_text">\"Descanso: \"</string>
     <string name="total_time_text">\"Tiempo Total: \"</string>
+    <string name="something_wrong_with_break_text_box">Hay algún problema con la entrada en el cuadro de texto de interrupción. Por favor, míralo.</string>
+    <string name="close_button">botón de cierre</string>
+    <string name="share_via">Compartir vía</string>
+    <string name="text_copied_to_clipboard">Texto copiado al portapapeles</string>
+    <string name="copy_to_clipboard">Copy to Clipboard</string>
+    <string name="enabled_history">Habilitaste el historial</string>
+    <string name="disabled_history">Has desactivado el historial</string>
+    <string name="enabled_break_text_box">Ha habilitado el cuadro de texto de descanso</string>
+    <string name="disabled_break_text_box">Has desactivado el cuadro de texto de interrupción</string>
+    <string name="what_would_you_like_to_do_with_history">¿Qué le gustaría hacer con su historial de horas?</string>
+    <string name="deleted_all_of_hour_history">Borraste todo tu historial de horas</string>
+    <string name="moved_all_hours_to_trash">Moviste todo tu historial de horas a la papelera</string>
+    <string name="nothing">Nada</string>
+    <string name="created_by">Creado por: Cory Lowry</string>
+    <string name="search">Buscar</string>
 </resources>

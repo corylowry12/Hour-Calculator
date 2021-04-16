@@ -167,15 +167,6 @@
     <string name="hours">Hours</string>
     <string name="break_zero" translatable="false">0</string>
     <string name="github_link" translatable="false"><a href="https://github.com/corylowry12/Hour-Calculator">https://github.com/corylowry12/Hour-Calculator</a></string>
-    <string name="added_firebase">- Fixed In Time not losing focus if you hit back button and dismissed keyboard</string>
-    <string name="firebase_notification">- Updated Dependencies</string>
-    <string name="firebase_heading">- Newly added search feature in history activity</string>
-    <string name="fab">- Newly added search function on trash activity</string>
-    <string name="fab_trash">- Newly added donate button in settings. It only allows 5 dollars currently, but you can donate more than one if you want to.</string>
-    <string name="disable_update">- Other stability fixes</string>
-    <string name="dark_mode_default">- Fixed bug where if you changes spinners on main activity to pm and went to another activity and then went back to main activity using back button and it would calculate am time instead of pm like it said.</string>
-    <string name="heading_text_color">- App now opens dependency links in version info activity in a built in webview</string>
-    <string name="support_for_spanish">- Graph item in menu in settings no longer shows up if history is disabled</string>
     <string name="version_info_label">Version Info</string>
     <string name="graph_label">Graph</string>
     <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s\nTotal Hours Without Break: %2$s</string>
@@ -193,14 +184,12 @@
     <string name="choose_format">Choose Format</string>
     <string name="text_file">Text File</string>
     <string name="spread_sheet">Spread Sheet</string>
-    <string name="fixed_graph">- Fixed crashing if you went to settings and disabled history and then clicked graph from the settings menu</string>
     <string name="please_donate">Please Donate</string>
     <string name="donate">Donate</string>
     <string name="five_dollar">Five Dollar</string>
     <string name="thanks_for_donation">Thank you so much for your donation!</string>
     <string name="please_leave_a_donation">Please leave a donation, I work on the app in my spare time and don\'t want to make the app cost money.</string>
     <string name="whoops_error">Whoops there was an error! Please try again.</string>
-    <string name="tweaked_layout">- Fixed history and graph activity crashing hopefully</string>
     <string name="no_hours_stored_for_graph">There are no hours stored to display in the graph.</string>
     <string name="choose_app">Choose app</string>
     <string name="csv_heading">ID,In Time,Out Time,Break Time,Total,Day,Year,Time\\n</string>
@@ -224,4 +213,6 @@
     <string name="deleted_all_of_hour_history">You deleted all of your hour history</string>
     <string name="moved_all_hours_to_trash">You moved all of your hour history to the trash</string>
     <string name="nothing">Nothing</string>
+    <string name="created_by">Created By: Cory Lowry</string>
+    <string name="search">Search</string>
 </resources>

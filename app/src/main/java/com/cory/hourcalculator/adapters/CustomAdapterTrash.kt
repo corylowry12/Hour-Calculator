@@ -16,9 +16,6 @@ import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
 import kotlinx.android.synthetic.main.list_row_trash.view.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class CustomAdapterTrash(private val context: Context, private val dataList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
 
@@ -97,7 +94,6 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
-                            (context).menuItem("menu_item_1_Custom_Adapter_Trash", "menu_item_1_Custom_Adapter_Trash_clicked", "menu_item")
                         }
                         TrashActivity().runOnUiThread(runnable)
                     }
@@ -124,7 +120,6 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
-                            (context).menuItem("menu_item_2_Custom_Adapter_Trash", "menu_item_2_Custom_Adapter_Trash_clicked", "menu_item")
                         }
                         TrashActivity().runOnUiThread(runnable)
                     }
@@ -152,7 +147,6 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                                 dbHandlerTrash.deleteAll()
                                 val runnable = Runnable {
                                     (context as TrashActivity).update()
-                                    (context).menuItem("menu_item_3_Custom_Adapter_Trash", "menu_item_3_Custom_Adapter_Trash_clicked", "menu_item")
                                 }
                                 TrashActivity().runOnUiThread(runnable)
                             }
@@ -168,7 +162,6 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                             dbHandlerTrash.deleteAll()
                             val runnable = Runnable {
                                 (context as TrashActivity).update()
-                                (context).menuItem("menu_item_4_Custom_Adapter_Trash", "menu_item_4_Custom_Adapter_Trash_clicked", "menu_item")
                             }
                             TrashActivity().runOnUiThread(runnable)
                         }

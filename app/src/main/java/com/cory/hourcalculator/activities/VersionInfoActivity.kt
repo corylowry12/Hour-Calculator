@@ -16,7 +16,6 @@ import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 
 class VersionInfoActivity : AppCompatActivity() {
@@ -53,11 +52,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtMaterial = findViewById<TextView>(R.id.txtMaterialLink)
         txtMaterial.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "material_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "material_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.materialLink))
             startActivity(intent)
@@ -65,11 +59,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtAds = findViewById<TextView>(R.id.txtAdLink)
         txtAds.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "ad_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "ad_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.AdmobLink))
             startActivity(intent)
@@ -77,11 +66,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtSpinner = findViewById<TextView>(R.id.txtSpinnerLink)
         txtSpinner.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "spinner_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "spinner_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.spinnerLink))
             startActivity(intent)
@@ -96,11 +80,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtFireBaseLink = findViewById<TextView>(R.id.txtFirebaseLink)
         txtFireBaseLink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "firebase_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "firebase_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.FirebaseLink))
             startActivity(intent)
@@ -108,11 +87,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtCrashlyticsLink = findViewById<TextView>(R.id.txtCrashlyticsLink)
         txtCrashlyticsLink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "crashlytics_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "crashlytics_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CrashlyticsLink))
             startActivity(intent)
@@ -120,11 +94,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtPerformanceLink = findViewById<TextView>(R.id.txtPerformanceLink)
         txtPerformanceLink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "performance_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "performance_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PerformanceLink))
             startActivity(intent)
@@ -132,11 +101,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val chartlink = findViewById<TextView>(R.id.txtMPANDROIDCHARTLINK)
         chartlink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "chart_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "chart_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.MPAndroidLink))
             startActivity(intent)
@@ -144,11 +108,6 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val cloudLink = findViewById<TextView>(R.id.txtCloudMessagingLink)
         cloudLink.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "cloud_link_text_view")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "cloud_link_text_view_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "text_view")
-            }
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CloudMessagingLink))
             startActivity(intent)
@@ -182,51 +141,26 @@ class VersionInfoActivity : AppCompatActivity() {
         }
         return when (item.itemId) {
             R.id.Settings -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "settings_menu_item")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "settings_menu_item_clicked")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.changelog -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "patch_notes_menu_item")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "patch_notes_menu_item_clicked")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.history -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "history_menu_item")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_menu_item_clicked")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.trash -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "trash_menu_item")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "trash_menu_item_clicked")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.graph -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "graph_menu_item")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "graph_menu_item_clicked")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 return true

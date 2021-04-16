@@ -42,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="Created By: Cory Lowry"
+        android:text="@string/created_by"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         android:textStyle="italic|bold"

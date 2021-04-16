@@ -201,9 +201,6 @@ class GraphActivity : AppCompatActivity() {
                         //barDataSet.color = resources.getColor(R.color.colorAccent)
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                         //barChart.animateY(800)
-
                         // Moves cursor to next to map in data
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
@@ -308,9 +305,6 @@ class GraphActivity : AppCompatActivity() {
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                        //barChart.animateY(800)
-
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
@@ -410,9 +404,6 @@ class GraphActivity : AppCompatActivity() {
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                        //barChart.animateY(800)
-
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
@@ -506,9 +497,6 @@ class GraphActivity : AppCompatActivity() {
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                        //barChart.animateY(800)
-
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
@@ -596,9 +584,6 @@ class GraphActivity : AppCompatActivity() {
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                        //barChart.animateY(800)
-
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
@@ -679,9 +664,6 @@ class GraphActivity : AppCompatActivity() {
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
 
-                        // Animates bar chart
-                        //barChart.animateY(800)
-
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {
 
@@ -758,9 +740,6 @@ class GraphActivity : AppCompatActivity() {
 
                         // Sets accent color to bar chart
                         barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
-
-                        // Animates bar chart
-                        //barChart.animateY(800)
 
                         barChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                             override fun onValueSelected(e: Entry?, dataSetIndex: Int, h: Highlight) {

@@ -15,7 +15,6 @@ import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_trash.*
@@ -66,14 +65,7 @@ class TrashActivity : AppCompatActivity() {
 
         textView8.text = getString(R.string.amount_of_hours_in_trash, dbHandlerTrash.getCount())
 
-        floatingActionButtonTrash.showMotionSpec
-
         floatingActionButtonTrash.setOnClickListener {
-            firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                param(FirebaseAnalytics.Param.ITEM_ID, "fab_trash")
-                param(FirebaseAnalytics.Param.ITEM_NAME, "fab_trash_clicked")
-                param(FirebaseAnalytics.Param.CONTENT_TYPE, "floating_action_button")
-            }
             listViewTrash.smoothScrollToPosition(0)
         }
 
@@ -164,12 +156,8 @@ class TrashActivity : AppCompatActivity() {
             val date = LocalDateTime.now()
 
             try {
-                //Toast.makeText(this, trashdate, Toast.LENGTH_SHORT).show()
-
                 val localDateTime = LocalDateTime.parse(trashdate, DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM))
-
                 val difference = Period.between(date.toLocalDate(), localDateTime.toLocalDate()).toString().replace("P", "").replace("-", "").replace("D", "").trim().toInt()
-
                 if (difference.toString().toInt() >= 7) {
                     dbHandlerTrash.deleteRow(id_trash)
                     loadIntoListTrash()
@@ -178,14 +166,6 @@ class TrashActivity : AppCompatActivity() {
             catch (e: DateTimeParseException) {
                 Toast.makeText(this, getString(R.string.there_was_an_error_graph), Toast.LENGTH_SHORT).show()
             }
-        }
-    }
-
-    fun menuItem(id : String, name : String, type : String) {
-        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-            param(FirebaseAnalytics.Param.ITEM_ID, id)
-            param(FirebaseAnalytics.Param.ITEM_NAME, name)
-            param(FirebaseAnalytics.Param.CONTENT_TYPE, type)
         }
     }
 
@@ -241,7 +221,7 @@ class TrashActivity : AppCompatActivity() {
         }
         val search = menu.findItem(R.id.app_bar_search)
         val searchView = search.actionView as SearchView
-        searchView.queryHint = "Search"
+        searchView.queryHint = getString(R.string.search)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if(query != "") {
@@ -325,41 +305,21 @@ class TrashActivity : AppCompatActivity() {
                 return true
             }
             R.id.Settings -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "settings_menu_item_trash")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "settings_menu_item_clicked_trash")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.changelog -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "patch_notes_menu_item_trash")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "patch_notes_menu_item_clicked_trash")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.history -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "history_menu_item_trash")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "history_menu_item_clicked_trash")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
                 return true
             }
             R.id.graph -> {
-                firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_ITEM) {
-                    param(FirebaseAnalytics.Param.ITEM_ID, "graph_menu_item_trash")
-                    param(FirebaseAnalytics.Param.ITEM_NAME, "graph_menu_item_clicked_trash")
-                    param(FirebaseAnalytics.Param.CONTENT_TYPE, "menu_item")
-                }
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 return true

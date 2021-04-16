@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="coryl">
     <words>
+      <w>adview</w>
       <w>amoled</w>
       <w>bibleify</w>
       <w>bibleifylogo</w>
@@ -22,19 +23,27 @@
       <w>hourcalculator</w>
       <w>hourcalculatorlogo</w>
       <w>hourtimeconverter</w>
+      <w>inapp</w>
+      <w>initializers</w>
       <w>intime</w>
       <w>intimelast</w>
+      <w>lateinit</w>
+      <w>liberapay</w>
+      <w>lowry</w>
       <w>mand</w>
       <w>memorableplaceslogo</w>
       <w>mpandroid</w>
       <w>mpandroidchartheading</w>
       <w>mpandroidchartlink</w>
+      <w>otechie</w>
       <w>outtime</w>
       <w>outtimelast</w>
       <w>patchnotes</w>
+      <w>patreon</w>
       <w>returntop</w>
       <w>savedhour</w>
       <w>selecteditem</w>
+      <w>sharedpref</w>
       <w>sorttype</w>
       <w>splashtimeout</w>
       <w>splitstring</w>
@@ -42,11 +51,14 @@
       <w>texarkanacollegelogo</w>
       <w>theres</w>
       <w>tictactoe</w>
+      <w>tidelift</w>
       <w>timestr</w>
       <w>tipcalculator</w>
       <w>totalhours</w>
       <w>totaltime</w>
       <w>trashdate</w>
+      <w>txtview</w>
+      <w>usernames</w>
       <w>vert</w>
       <w>wagesrounded</w>
       <w>x axi</w>

@@ -3,6 +3,9 @@
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/K3K64AQVM)
 
+# Status
+[![GitHub issues](https://img.shields.io/github/issues/morpheus65535/bazarr.svg?style=flat-square)](https://github.com/morpheus65535/bazarr/issues)
+
 Use this app to take input time, out time time and/or break time, to display your time in a decimal format, rounded to the second decimal place.
 
 This app will also store the hours in a SQLite database, as well as let you view it and calculate total pay, and how many hours are stored, and the total hours of all the hours combined.

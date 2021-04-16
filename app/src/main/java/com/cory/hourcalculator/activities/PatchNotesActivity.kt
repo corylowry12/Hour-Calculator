@@ -16,7 +16,6 @@ import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_patch_notes.*
 

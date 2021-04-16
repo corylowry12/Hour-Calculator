@@ -1,3 +1,5 @@
+@file:Suppress("CanBeVal", "CanBeVal")
+
 package com.cory.hourcalculator.database
 
 import android.content.ContentValues
@@ -75,7 +77,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         var cursor : Cursor
         val db = this.writableDatabase
-        val columns = listOf<String>(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
+        val columns = listOf(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
 
         if(query != "" && query.isNotEmpty()) {
             val sql = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_IN LIKE '%$query%' " +

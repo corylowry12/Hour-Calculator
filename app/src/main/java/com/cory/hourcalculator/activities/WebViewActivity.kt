@@ -7,8 +7,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
 import android.webkit.WebChromeClient
@@ -17,7 +15,6 @@ import android.widget.Toast
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.VibrationData
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {

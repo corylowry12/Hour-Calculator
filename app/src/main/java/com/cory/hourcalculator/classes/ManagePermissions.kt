@@ -1,7 +1,6 @@
 package com.cory.hourcalculator.classes
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast

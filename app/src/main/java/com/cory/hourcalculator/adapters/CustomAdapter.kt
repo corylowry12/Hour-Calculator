@@ -2,15 +2,8 @@ package com.cory.hourcalculator.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.res.ColorStateList
-import android.content.res.Resources
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.TextAppearanceSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +14,6 @@ import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
 import kotlinx.android.synthetic.main.list_row.view.*
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class CustomAdapter(private val context: Context,
                     private val dataList: ArrayList<HashMap<String, String>>) : BaseAdapter() {

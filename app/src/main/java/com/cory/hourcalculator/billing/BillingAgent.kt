@@ -6,13 +6,13 @@ import com.android.billingclient.api.*
 import com.cory.hourcalculator.R
 import java.lang.Exception
 
-class BillingAgent(val activity: Activity, val callback: BillingCallback) : PurchasesUpdatedListener {
+class BillingAgent(private val activity: Activity, private val callback: BillingCallback) : PurchasesUpdatedListener {
 
     private var billingClient = BillingClient.newBuilder(activity).setListener(this).enablePendingPurchases().build()
     private val productsSKUList = listOf("five_dollar_donation")
     private val productsList = arrayListOf<SkuDetails>()
 
-    private var selection_billing: Int = 0
+    private var selectionBilling: Int = 0
 
     init {
         billingClient.startConnection(object : BillingClientStateListener {
@@ -36,7 +36,7 @@ class BillingAgent(val activity: Activity, val callback: BillingCallback) : Purc
         checkProduct(p0, p1)
     }
 
-    fun checkProduct(p0: BillingResult, p1: MutableList<Purchase>?) {
+    private fun checkProduct(p0: BillingResult, p1: MutableList<Purchase>?) {
         p1?.let {
             var token: String? = null
             if (p0.responseCode == BillingClient.BillingResponseCode.OK &&
@@ -63,7 +63,7 @@ class BillingAgent(val activity: Activity, val callback: BillingCallback) : Purc
                     .newBuilder()
                     .setPurchaseToken(token)
                     .build()
-                billingClient.consumeAsync(params) { billingResult, purchaseToken ->
+                billingClient.consumeAsync(params) { billingResult, _ ->
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                         callback.onTokenConsumed()
                     }
@@ -93,7 +93,7 @@ class BillingAgent(val activity: Activity, val callback: BillingCallback) : Purc
         //Toast.makeText(activity, productsList[0].toString() + " " + productsList[1].toString(), Toast.LENGTH_LONG).show()
         try {
             if (selection == 0) {
-                selection_billing = 0
+                selectionBilling = 0
                 val billingFlowParams = BillingFlowParams
                     .newBuilder()
                     .setSkuDetails(productsList[selection])
