@@ -56,25 +56,29 @@ class CustomAdapter(private val context: Context,
                 vibration(vibrationData)
                 when (item.itemId) {
                     R.id.menu1 -> {
-                        val i = 0
-                        val id = dataList[+i]["id"].toString()
+                        //dataList.clear()
+                        //val i = 1
+                        /*val id = dataList[i]["id"].toString()
+                        //val returnValue = dataitem["id"]
                         val intime = dataList[+i]["intime"].toString()
                         val outtime = dataList[+i]["out"].toString()
                         val breakTime = dataList[+i]["break"].toString()
                         val total = dataList[+i]["total"].toString()
-                        //val day = dataList[+i]["day"].toString()
+                        val day = dataList[+i]["day"].toString()
                         val day1 = LocalDateTime.now()
                         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                         val dayOfWeek = day1.format(day2)
-                        dbHandler.deleteRow(id)
-                        dbHandlerTrash.insertRow(intime, outtime, breakTime, total, dayOfWeek)
+                        //dbHandler.deleteRow(id)
+                        //dbHandlerTrash.insertRow(intime, outtime, breakTime, total, day)
+                        var idCursor : Int*/
 
                         dataList.clear()
                         val cursor = dbHandler.getAllRow(context)
-                        cursor!!.moveToFirst()
+                        cursor!!.moveToPosition(position)
 
-                        while (!cursor.isAfterLast) {
-                            val map = HashMap<String, String>()
+                        val map = HashMap<String, String>()
+                        while (cursor.position == position) {
+
                             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
                             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
                             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
@@ -83,23 +87,32 @@ class CustomAdapter(private val context: Context,
                             map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
                             dataList.add(map)
 
+                            dbHandlerTrash.insertRow(
+                                map["intime"].toString(), map["out"].toString(),
+                                map["break"].toString(), map["total"].toString(), map["day"].toString()
+                            )
+                            dbHandler.deleteRow(map["id"].toString())
+
                             cursor.moveToNext()
+
                         }
+
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
                         }
                         HistoryActivity().runOnUiThread(runnable)
                     }
                     R.id.menu2 -> {
-                        val i = 0
+                        /*val i = 0
                         val id = dataList[+i]["id"].toString()
-                        dbHandler.deleteRow(id)
+                        dbHandler.deleteRow(id)*/
                         dataList.clear()
                         val cursor = dbHandler.getAllRow(context)
-                        cursor!!.moveToFirst()
+                        cursor!!.moveToPosition(position)
 
-                        while (!cursor.isAfterLast) {
-                            val map = HashMap<String, String>()
+                        val map = HashMap<String, String>()
+                        while (cursor.position == position) {
+
                             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
                             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
                             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
@@ -108,8 +121,12 @@ class CustomAdapter(private val context: Context,
                             map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
                             dataList.add(map)
 
+                            dbHandler.deleteRow(map["id"].toString())
+
                             cursor.moveToNext()
+
                         }
+
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
                         }

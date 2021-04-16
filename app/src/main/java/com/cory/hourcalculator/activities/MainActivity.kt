@@ -88,8 +88,9 @@ class MainActivity : AppCompatActivity() {
         //val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
-
         }
+
+        applicationContext.cacheDir.deleteRecursively()
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {

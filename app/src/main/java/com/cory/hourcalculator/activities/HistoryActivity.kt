@@ -98,6 +98,7 @@ class HistoryActivity : AppCompatActivity() {
         while (!cursor.isAfterLast) {
             val map = HashMap<String, String>()
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+            //Toast.makeText(this, map["id"].toString(), Toast.LENGTH_SHORT).show()
             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
             map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))

@@ -48,6 +48,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         val db = this.writableDatabase
         db.delete(TABLE_NAME, "$COLUMN_ID = ?", arrayOf(row_id))
         db.close()
+
     }
 
     fun getAllRow(context: Context): Cursor? {

@@ -59,7 +59,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                 vibration(vibrationData)
                 when (item.itemId) {
                     R.id.menu1 -> {
-                        val i = 0
+                       /* val i = 0
                         val id = dataList[+i]["id_trash"].toString()
                         val intime = dataList[+i]["intime_trash"].toString()
                         val outtime = dataList[+i]["out_trash"].toString()
@@ -70,25 +70,30 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
                         val dayOfWeek = day1.format(day2)
                         dbHandlerTrash.deleteRow(id)
-                        dbHandler.insertRow(intime, outtime, breakTime, total, dayOfWeek)
+                        dbHandler.insertRow(intime, outtime, breakTime, total, dayOfWeek)*/
                         dataList.clear()
                         val cursor = dbHandlerTrash.getAllRow(context)
-                        cursor!!.moveToFirst()
-                        if(cursor.count > 0) {
+                        cursor!!.moveToPosition(position)
 
-                            while (!cursor.isAfterLast) {
+                        val map = HashMap<String, String>()
+                        while (cursor.position == position) {
 
-                                val map = HashMap<String, String>()
-                                map["id_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_ID_TRASH))
-                                map["intime_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
-                                map["out_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
-                                map["break_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
-                                map["total_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
-                                map["day_trash"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
-                                dataList.add(map)
+                            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_ID_TRASH))
+                            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
+                            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
+                            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
+                            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
+                            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
+                            dataList.add(map)
 
-                                cursor.moveToNext()
-                            }
+                            dbHandler.insertRow(
+                                map["intime"].toString(), map["out"].toString(),
+                                map["break"].toString(), map["total"].toString(), map["day"].toString()
+                            )
+                            dbHandlerTrash.deleteRow(map["id"].toString())
+
+                            cursor.moveToNext()
+
                         }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
@@ -97,9 +102,26 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         TrashActivity().runOnUiThread(runnable)
                     }
                     R.id.menu2 -> {
-                        val i = 0
-                        val id = dataList[+i]["id_trash"].toString()
-                        dbHandlerTrash.deleteRow(id)
+                        dataList.clear()
+                        val cursor = dbHandlerTrash.getAllRow(context)
+                        cursor!!.moveToPosition(position)
+
+                        val map = HashMap<String, String>()
+                        while (cursor.position == position) {
+
+                            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_ID_TRASH))
+                            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_IN_TRASH))
+                            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_OUT_TRASH))
+                            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_BREAK_TRASH))
+                            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
+                            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
+                            dataList.add(map)
+
+                            dbHandlerTrash.deleteRow(map["id"].toString())
+
+                            cursor.moveToNext()
+
+                        }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
                             (context).menuItem("menu_item_2_Custom_Adapter_Trash", "menu_item_2_Custom_Adapter_Trash_clicked", "menu_item")
