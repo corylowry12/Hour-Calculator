@@ -1,12 +1,12 @@
 package com.cory.hourcalculator.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cory.hourcalculator.R
 
@@ -32,7 +32,7 @@ class SplashScreen : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             finish()
         }, 3000)
     }
