@@ -53,6 +53,8 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
     private var billingAgent: BillingAgent? = null
 
+    private var position : Int = 0
+
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -319,17 +321,19 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         switch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
+            position = scrollView.scrollY
+            Toast.makeText(this, position.toString(), Toast.LENGTH_SHORT).show()
             if (isChecked) {
                 switch.isChecked = true
                 darkThemeData.setDarkModeState(true)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication()
+                    restartApplication(position)
                 }, 200)
             } else {
                 switch.isChecked = false
                 darkThemeData.setDarkModeState(false)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication()
+                    restartApplication(position)
                 }, 200)
             }
         }
@@ -386,9 +390,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         trashSwitch.isChecked = trashAutomaticDeletion.loadTrashDeletionState()
         trashSwitch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
+                vibration(vibrationData)
                 trashAutomaticDeletion.setTrashDeletionState(true)
                 Snackbar.make(constraintLayout, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
             } else {
+                vibration(vibrationData)
                 trashSwitch.isChecked = false
                 trashAutomaticDeletion.setTrashDeletionState(false)
                 Snackbar.make(constraintLayout, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
@@ -664,16 +670,19 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         textView38.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
         textView39.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
 
@@ -696,7 +705,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
     }
 
-    private fun restartApplication() {
+    private fun restartApplication(position: Int) {
         val intent = this.intent
         finish()
         overridePendingTransition(0,0)
@@ -853,9 +862,15 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        this.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onDestroy() {
@@ -887,27 +902,31 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val vibrationData = VibrationData(this)
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
         return when (item.itemId) {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

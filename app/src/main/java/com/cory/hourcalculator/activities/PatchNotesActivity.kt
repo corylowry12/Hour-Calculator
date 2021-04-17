@@ -11,8 +11,8 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -43,10 +43,14 @@ class PatchNotesActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.textView).text = getString(R.string.whats_new) + " " + getString(R.string.version_number)
 
+        val vibrationData = VibrationData(this)
+
         linkTextView.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }
@@ -59,9 +63,14 @@ class PatchNotesActivity : AppCompatActivity() {
         private fun vibration(vibrationData: VibrationData) {
             if (vibrationData.loadVibrationState()) {
                 val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                    vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+                    vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
             }
         }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_patch_notes, menu)
@@ -84,21 +93,25 @@ class PatchNotesActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -107,6 +120,7 @@ class PatchNotesActivity : AppCompatActivity() {
 
    override fun onBackPressed() {
        super.onBackPressed()
-       finish()
+       this.finish()
+       overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

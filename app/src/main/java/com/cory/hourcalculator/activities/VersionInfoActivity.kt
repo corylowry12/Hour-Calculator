@@ -2,16 +2,16 @@ package com.cory.hourcalculator.activities
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -55,6 +55,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.materialLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtAds = findViewById<TextView>(R.id.txtAdLink)
@@ -62,6 +63,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.AdmobLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtSpinner = findViewById<TextView>(R.id.txtSpinnerLink)
@@ -69,6 +71,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.spinnerLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtPlayLink = findViewById<TextView>(R.id.txtPlayLink)
@@ -76,6 +79,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PlayCoreLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtFireBaseLink = findViewById<TextView>(R.id.txtFirebaseLink)
@@ -83,6 +87,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.FirebaseLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtCrashlyticsLink = findViewById<TextView>(R.id.txtCrashlyticsLink)
@@ -90,6 +95,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CrashlyticsLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val txtPerformanceLink = findViewById<TextView>(R.id.txtPerformanceLink)
@@ -97,6 +103,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PerformanceLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val chartlink = findViewById<TextView>(R.id.txtMPANDROIDCHARTLINK)
@@ -104,6 +111,7 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.MPAndroidLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
         val cloudLink = findViewById<TextView>(R.id.txtCloudMessagingLink)
@@ -111,12 +119,19 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CloudMessagingLink))
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
-        finish()
+        this.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -137,32 +152,37 @@ class VersionInfoActivity : AppCompatActivity() {
         val vibrationData = VibrationData(this)
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
         return when (item.itemId) {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

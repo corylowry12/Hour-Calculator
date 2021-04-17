@@ -259,7 +259,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun savingHours(totalHours3: Double, inTime: EditText, outTime: EditText, breakTime: EditText) {
+    private fun savingHours(totalHours3: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         var break1 = breakTime.text.toString()
         if (breakTime.text.toString() == "") {
             break1 = getString(R.string.break_zero)
@@ -268,20 +268,20 @@ class MainActivity : AppCompatActivity() {
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        dbHandler.insertRow(inTime.text.toString(), outTime.text.toString(), break1, total, dayOfWeek)
+        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
     }
 
-    private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText) {
+   /* private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         var break1 = breakTime.text.toString()
         if (breakTime.text.toString() == "") {
-            break1 = "0"
+            break1 = getString(R.string.break_zero)
         }
         val total = totalHours2.toString()
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        dbHandler.insertRow(inTime.text.toString(), outTime.text.toString(), break1, total, dayOfWeek)
-    }
+        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
+    }*/
 
     @SuppressLint("SetTextI18n")
     fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, infoTextView1: TextView) {
@@ -316,7 +316,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
@@ -337,7 +337,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
@@ -367,7 +367,7 @@ class MainActivity : AppCompatActivity() {
                             if (totalhours < 0) {
                                 infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
                             } else {
-                                aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                                aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                             }
                         }
                     }
@@ -389,7 +389,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -410,7 +410,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4) {
@@ -428,9 +428,12 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (inTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -444,12 +447,13 @@ class MainActivity : AppCompatActivity() {
                         val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                         if (inTimeMinutes == "" || outTimeMinutes == "") {
                             infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        }
+                        else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (outTimeString.length == 4) {
@@ -462,26 +466,38 @@ class MainActivity : AppCompatActivity() {
                         val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                         if (inTimeMinutes == "" || outTimeMinutes == "") {
                             infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        }
+                        else if (inTimeMinutes.length == 3 && outTimeMinutes.length == 3) {
+                            infoTextView1.text = "Minutes can't be three numbers"
+                        }
+                        else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                }
+                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                    infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
+                }
+                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show()
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                 } else {
-                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             }
         }
@@ -511,7 +527,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
@@ -532,7 +548,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
@@ -553,7 +569,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
@@ -574,7 +590,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -595,7 +611,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4) {
@@ -613,9 +629,12 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (inTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -634,7 +653,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (outTimeString.length == 4) {
@@ -652,21 +671,28 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                }
+                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                    infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
+                }
+                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                 } else {
-                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             }
         }
@@ -696,7 +722,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
@@ -717,7 +743,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
@@ -738,7 +764,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
@@ -759,7 +785,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -780,7 +806,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4) {
@@ -798,9 +824,12 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (inTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -819,7 +848,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (outTimeString.length == 4) {
@@ -837,21 +866,28 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                }
+                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                    infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
+                }
+                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                 } else {
-                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             }
         }
@@ -881,7 +917,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
@@ -902,7 +938,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
@@ -923,7 +959,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
@@ -944,7 +980,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -965,7 +1001,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (inTimeString.length == 4) {
@@ -983,9 +1019,12 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (inTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -1004,7 +1043,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 } else if (outTimeString.length == 4) {
@@ -1022,27 +1061,34 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                }
+                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                    infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
+                }
+                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                 } else {
-                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime)
+                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             }
         }
     }
 
-    private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
+    private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         val historyToggleData = HistoryToggleData(this)
         val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
         val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
@@ -1056,7 +1102,7 @@ class MainActivity : AppCompatActivity() {
             if (breakTime.text.toString() == "") {
                 infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                 if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime)
+                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             } else if (breakTime.text.toString() != "") {
                 if (!breakTime.text.isDigitsOnly()) {
@@ -1070,7 +1116,7 @@ class MainActivity : AppCompatActivity() {
                     } else if (totalHoursWithBreak > 0) {
                         infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
                         if (historyToggleData.loadHistoryState()) {
-                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
+                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -1078,7 +1124,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText) {
+    private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         val historyToggleData = HistoryToggleData(this)
         val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
         val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
@@ -1092,7 +1138,7 @@ class MainActivity : AppCompatActivity() {
             if (breakTime.text.toString() == "") {
                 infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                 if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime)
+                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                 }
             } else if (breakTime.text.toString() != "") {
                 if (!breakTime.text.toString().isDigitsOnly()) {
@@ -1106,7 +1152,7 @@ class MainActivity : AppCompatActivity() {
                     } else if (totalHours1 > 0) {
                         infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
                         if (historyToggleData.loadHistoryState()) {
-                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime)
+                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                     }
                 }
@@ -1185,26 +1231,31 @@ class MainActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             else -> super.onOptionsItemSelected(item)

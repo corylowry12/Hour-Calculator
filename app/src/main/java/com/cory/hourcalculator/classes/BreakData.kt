@@ -16,7 +16,7 @@ class BreakData (context: Context) {
 
     // this will load break state
     fun loadBreakState(): Boolean {
-        val state = sharedPreferences.getBoolean("Break", false)
+        val state = sharedPreferences.getBoolean("Break", true)
         return (state)
     }
 }

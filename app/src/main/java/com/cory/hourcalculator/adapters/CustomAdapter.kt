@@ -2,13 +2,18 @@ package com.cory.hourcalculator.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.BaseAdapter
+import android.widget.PopupMenu
+import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import com.cory.hourcalculator.R
+import com.cory.hourcalculator.activities.EditActivity
 import com.cory.hourcalculator.activities.HistoryActivity
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
@@ -167,6 +172,29 @@ class CustomAdapter(private val context: Context,
                             .setNegativeButton(context.getString(R.string.no), null)
                         val alert = alertDialog.create()
                         alert.show()
+                    }
+                    R.id.menu5 -> {
+                        dataList.clear()
+                        val cursor = dbHandler.getAllRow(context)
+                        cursor!!.moveToPosition(position)
+
+                        val map = HashMap<String, String>()
+                        while (cursor.position == position) {
+
+                            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
+                            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
+                            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
+                            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
+                            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
+                            dataList.add(map)
+
+                            cursor.moveToNext()
+
+                        }
+                        val intent = Intent(context, EditActivity::class.java)
+                        intent.putExtra("id", position.toString())
+                        startActivity(context, intent, null)
                     }
                 }
                 true

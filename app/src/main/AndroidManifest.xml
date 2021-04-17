@@ -17,12 +17,11 @@
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
+        android:normalScreens="true"
         android:resizeable="true"
-        />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +31,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".activities.EditActivity"></activity>
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/SplashScreenThemeLight">
@@ -41,20 +41,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WebViewActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-        </activity>
+        <activity android:name=".activities.WebViewActivity"></activity>
         <activity
             android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -62,29 +54,19 @@
 
         <activity
             android:name=".activities.VersionInfoActivity"
-            android:label="@string/version_info_label">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-        </activity>
+            android:label="@string/version_info_label"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.TrashActivity"
             android:label="@string/trash"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.HistoryActivity"
             android:label="@string/history"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
@@ -97,17 +79,11 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cory.hourcalculator.activities.MainActivity" />
-        </activity>
+            android:screenOrientation="portrait"></activity>
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize">
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

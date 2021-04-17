@@ -2,6 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu5"
+        android:title="Edit"
+        />
+
+    <item
         android:id="@+id/menu1"
         android:title="@string/movie_item_to_trash" />
 
