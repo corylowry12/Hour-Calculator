@@ -63,7 +63,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     fun returntop7(): Cursor? {
         val db = this.readableDatabase
 
-        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day ASC LIMIT 7", null)
+        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day DESC LIMIT 7", null)
     }
 
     fun deleteAll() {
