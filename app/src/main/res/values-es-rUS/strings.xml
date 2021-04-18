@@ -173,4 +173,7 @@
     <string name="cant_edit">No se puede editar la hora, AM o PM no están almacenados</string>
     <string name="edit_label">Editar</string>
     <string name="toggle_performance_mode">Alternar modo de rendimiento</string>
+    <string name="github_caption">Vea el repositorio de github para mantenerse actualizado sobre el progreso de la aplicación o informar un problema</string>
+    <string name="github_heading">Ver repositorio de Github</string>
+    <string name="home">Casa</string>
 </resources>

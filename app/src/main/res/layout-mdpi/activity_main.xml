@@ -220,7 +220,7 @@
             android:ems="10"
             android:hint="@string/_60"
             android:inputType="time"
-            android:maxLength="5"
+            android:maxLength="3"
             android:textSize="10sp"
             tools:ignore="SmallSp" />
     </com.google.android.material.textfield.TextInputLayout>

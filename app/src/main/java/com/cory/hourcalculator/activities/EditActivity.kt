@@ -23,9 +23,6 @@ import com.google.android.material.textfield.TextInputEditText
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_main.*
 import java.math.RoundingMode
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.time.format.FormatStyle
 
 class EditActivity : AppCompatActivity() {
 
@@ -65,10 +62,10 @@ class EditActivity : AppCompatActivity() {
 
         dataList.clear()
         val cursor = dbHandler.getAllRow(this)
-        cursor!!.moveToPosition(id.toString().toInt())
+        cursor!!.moveToPosition(id.toInt())
 
         val map = HashMap<String, String>()
-        while (cursor.position == id.toString().toInt()) {
+        while (cursor.position == id.toInt()) {
 
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
@@ -861,7 +858,6 @@ class EditActivity : AppCompatActivity() {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
-                    //Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
                     Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
                 } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
                     Toast.makeText(this, getString(R.string.minutes_cant_be_three_numbers), Toast.LENGTH_LONG).show()
@@ -904,7 +900,7 @@ class EditActivity : AppCompatActivity() {
                     } else if (totalHoursWithBreak > 0) {
                         Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
                         if (historyToggleData.loadHistoryState()) {
-                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                         }
                     }
                 }
@@ -919,7 +915,13 @@ class EditActivity : AppCompatActivity() {
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference: Double = outTimeTotal - inTimeTotal
-        val totalhours = String.format("%.2f", difference).toDouble() + 12
+        val totalhours : Double
+        if(outTimeHours.toInt() == 12) {
+            totalhours = String.format("%.2f", difference).toDouble()
+        }
+        else {
+            totalhours = String.format("%.2f", difference).toDouble() + 12
+        }
         if (totalhours < 0) {
             Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
         } else {
@@ -938,10 +940,9 @@ class EditActivity : AppCompatActivity() {
                     if (totalHours1 < 0) {
                         Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
                     } else if (totalHours1 > 0) {
-                        //Toast.makeText(this, getString(R.string.total_no_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
                         Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
                         if (historyToggleData.loadHistoryState()) {
-                            savingHours2(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                         }
                     }
                 }
@@ -954,39 +955,15 @@ class EditActivity : AppCompatActivity() {
         if (breakTime.text.toString() == "") {
             break1 = getString(R.string.break_zero)
         }
-        val total = totalHours3.toString()
-        val day = LocalDateTime.now()
-        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-        val dayOfWeek = day.format(day2)
-        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, findViewById<TextInputEditText>(R.id.date).text.toString())
+        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, totalHours3.toString(), findViewById<TextInputEditText>(R.id.date).text.toString())
         this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
         Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_LONG).show()
-    }
-
-    private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        var break1 = breakTime.text.toString()
-        if (breakTime.text.toString() == "") {
-            break1 = getString(R.string.break_zero)
-        }
-        val total = totalHours2.toString()
-        val day = LocalDateTime.now()
-        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-        val dayOfWeek = day.format(day2)
-        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, findViewById<TextInputEditText>(R.id.date).text.toString())
-        this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
-        Toast.makeText(this,  getString(R.string.hour_is_saved), Toast.LENGTH_LONG).show()
     }
 
     fun vibration(vibrationData: VibrationData) {
@@ -1004,7 +981,7 @@ class EditActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
@@ -1029,10 +1006,21 @@ class EditActivity : AppCompatActivity() {
         val vibrationData = VibrationData(this)
         vibration(vibrationData)
         return when (item.itemId) {
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1043,7 +1031,7 @@ class EditActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1054,7 +1042,7 @@ class EditActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1065,7 +1053,7 @@ class EditActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1076,7 +1064,7 @@ class EditActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {

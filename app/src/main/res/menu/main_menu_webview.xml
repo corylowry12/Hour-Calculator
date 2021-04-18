@@ -15,6 +15,10 @@
         android:icon="@drawable/ic_share_black_24dp"/>
 
     <item
+        android:id="@+id/home"
+        android:title="@string/home"/>
+
+    <item
         android:id="@+id/Settings"
         android:title="@string/title_activity_settings" />
     <item

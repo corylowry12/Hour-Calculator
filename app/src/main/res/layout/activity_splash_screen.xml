@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/SplashScreenImage"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
         app:srcCompat="@drawable/hourcalculatorlogo"
         android:contentDescription="Splash Screen Image" />
     </androidx.cardview.widget.CardView>

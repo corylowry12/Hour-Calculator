@@ -203,11 +203,11 @@ class CustomAdapter(private val context: Context,
                             val intent = Intent(context, EditActivity::class.java)
                             intent.putExtra("id", position.toString())
                             (context as HistoryActivity).startActivity(intent)
-                            if(PerformanceModeData(context).loadPerformanceMode() == false) {
-                                (context as HistoryActivity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                            if(!PerformanceModeData(context).loadPerformanceMode()) {
+                                (context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                             }
                             else {
-                                (context as HistoryActivity).overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                                (context).overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                             }
                         }
                     }
@@ -218,7 +218,7 @@ class CustomAdapter(private val context: Context,
         }
 
         (context as HistoryActivity).findViewById<ListView>(R.id.listView).setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
-            if(PerformanceModeData(context).loadPerformanceMode() == false) {
+            if(!PerformanceModeData(context).loadPerformanceMode()) {
                 val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.list_view_scroll_animation)
                 animation.duration = 200
                 rowView.startAnimation(animation)

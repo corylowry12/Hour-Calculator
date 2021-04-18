@@ -221,4 +221,7 @@
     <string name="cant_edit">Can\'t edit hour, AM or PM is not stored</string>
     <string name="edit_label">Edit</string>
     <string name="toggle_performance_mode">Toggle Performance Mode</string>
+    <string name="github_caption">View github repository to stay up to date on app progress or report an issue</string>
+    <string name="github_heading">View Github Repository</string>
+    <string name="home">Home</string>
 </resources>

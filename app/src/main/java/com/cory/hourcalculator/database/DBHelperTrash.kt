@@ -66,7 +66,7 @@ class DBHelperTrash(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun retrieve(query: String): Cursor {
 
-        var cursor : Cursor
+        val cursor : Cursor
         val db = this.writableDatabase
         val columns = listOf(COLUMN_ID_TRASH, COLUMN_IN_TRASH, COLUMN_OUT_TRASH, COLUMN_BREAK_TRASH, COLUMN_TOTAL_TRASH, COLUMN_DAY_TRASH)
 

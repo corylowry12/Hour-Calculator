@@ -82,7 +82,7 @@ class GraphActivity : AppCompatActivity() {
         barChart.moveViewToX(0f)
         barChart.setTouchEnabled(true)
         barChart.isDoubleTapToZoomEnabled = false
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             barChart.animateY(400)
         }
 
@@ -817,10 +817,21 @@ class GraphActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         vibration(vibrationData)
         return when (item.itemId) {
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -831,7 +842,7 @@ class GraphActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -842,7 +853,7 @@ class GraphActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -853,7 +864,7 @@ class GraphActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -873,7 +884,7 @@ class GraphActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {

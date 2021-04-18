@@ -58,7 +58,7 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             listView.startAnimation(slideTopToBottom)
             textViewTotalHours.startAnimation(slideTopToBottom)
             textViewSize.startAnimation(slideTopToBottom)
@@ -91,7 +91,7 @@ class HistoryActivity : AppCompatActivity() {
         val v = listView.getChildAt(0)
         val top = if (v == null) 0 else v.top - listView.paddingTop
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_top_to_bottom)
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             listView.startAnimation(slideTopToBottom)
         }
         loadIntoList()
@@ -179,7 +179,7 @@ class HistoryActivity : AppCompatActivity() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
         startActivity(intent)
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
@@ -195,7 +195,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
@@ -317,10 +317,21 @@ class HistoryActivity : AppCompatActivity() {
                 }
                 return true
             }
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -331,7 +342,7 @@ class HistoryActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -342,7 +353,7 @@ class HistoryActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -353,7 +364,7 @@ class HistoryActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {

@@ -173,4 +173,7 @@
     <string name="hour_is_saved">L\'heure est mise à jour</string>
     <string name="time_cant_be_five_digits">L\'heure ne peut pas être composée de 5 chiffres sans deux-points. Vérifiez votre saisie.</string>
     <string name="minutes_cant_be_three_numbers">Les minutes ne peuvent pas être trois nombres</string>
+    <string name="github_caption">Afficher le référentiel github pour rester informé de la progression de l\'application ou signaler un problème</string>
+    <string name="github_heading">Afficher le référentiel Github</string>
+    <string name="home">Domicile</string>
 </resources>

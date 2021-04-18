@@ -64,9 +64,6 @@ class MainActivity : AppCompatActivity() {
     // Break data lazy initializer
     private val breakData by lazy { BreakData(this) }
 
-    // Input manager lazy initializer
-    //val imm by lazy { this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
         darkThemeData = DarkThemeData(this)
@@ -124,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
         startActivity(intent)
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
@@ -148,8 +145,6 @@ class MainActivity : AppCompatActivity() {
             findViewById<TextInputEditText>(R.id.breakTime).clearFocus()
         }
 
-        //vibrationData = VibrationData(this)
-
         inTime.setOnClickListener {
             vibration(vibrationData)
         }
@@ -162,12 +157,24 @@ class MainActivity : AppCompatActivity() {
             vibration(vibrationData)
         }
 
-        spinner.setItems(getString(R.string.am), getString(R.string.pm))
-        var spinner1selecteditem: String = getString(R.string.am)
+        val spinnerState = SpinnerData(this)
+        if(!spinnerState.loadSpinner1State()) {
+            spinner.setItems(getString(R.string.am), getString(R.string.pm))
+            spinner1selecteditem = getString(R.string.am)
+        }
+        else {
+            spinner.setItems(getString(R.string.pm), getString(R.string.am))
+            spinner1selecteditem = getString(R.string.pm)
+        }
 
-        spinner1.setItems(getString(R.string.pm), getString(R.string.am))
-        var spinner2selecteditem: String = getString(R.string.pm)
-
+        if(!spinnerState.loadSpinner2State()) {
+            spinner1.setItems(getString(R.string.pm), getString(R.string.am))
+            spinner2selecteditem = getString(R.string.pm)
+        }
+        else {
+            spinner1.setItems(getString(R.string.am), getString(R.string.pm))
+            spinner2selecteditem = getString(R.string.am)
+        }
         spinner.setOnClickListener {
             vibration(vibrationData)
         }
@@ -179,11 +186,23 @@ class MainActivity : AppCompatActivity() {
         spinner.setOnItemSelectedListener { _, _, _, item ->
             vibration(vibrationData)
             spinner1selecteditem = item as String
+            if(item == getString(R.string.am)) {
+                spinnerState.setSpinner1State(false)
+            }
+            else if (item == getString(R.string.pm)) {
+                spinnerState.setSpinner1State(true)
+            }
         }
 
         spinner1.setOnItemSelectedListener { _, _, _, item ->
             vibration(vibrationData)
             spinner2selecteditem = item as String
+            if(item == getString(R.string.pm)) {
+                spinnerState.setSpinner2State(false)
+            }
+            else if (item == getString(R.string.am)) {
+                spinnerState.setSpinner2State(true)
+            }
         }
 
         spinner.setOnNothingSelectedListener {
@@ -199,10 +218,10 @@ class MainActivity : AppCompatActivity() {
                 vibration(vibrationData)
 
             }
-            /*if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
+            if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 inTime.clearFocus()
                 return@OnKeyListener true
-            }*/
+            }
             false
         })
 
@@ -273,24 +292,11 @@ class MainActivity : AppCompatActivity() {
         if (breakTime.text.toString() == "") {
             break1 = getString(R.string.break_zero)
         }
-        val total = totalHours3.toString()
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
+        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, totalHours3.toString(), dayOfWeek)
     }
-
-   /* private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
-        var break1 = breakTime.text.toString()
-        if (breakTime.text.toString() == "") {
-            break1 = getString(R.string.break_zero)
-        }
-        val total = totalHours2.toString()
-        val day = LocalDateTime.now()
-        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-        val dayOfWeek = day.format(day2)
-        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
-    }*/
 
     @SuppressLint("SetTextI18n")
     fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, infoTextView1: TextView) {
@@ -1075,7 +1081,13 @@ class MainActivity : AppCompatActivity() {
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference: Double = outTimeTotal - inTimeTotal
-        val totalhours = String.format("%.2f", difference).toDouble() + 12
+        val totalhours : Double
+        if(outTimeHours.toInt() == 12) {
+            totalhours = String.format("%.2f", difference).toDouble()
+        }
+        else {
+            totalhours = String.format("%.2f", difference).toDouble() + 12
+        }
         if (totalhours < 0) {
             infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
         } else {
@@ -1138,7 +1150,6 @@ class MainActivity : AppCompatActivity() {
     private var doubleBackToExitPressedOnce = false
 
     override fun onBackPressed() {
-        inTime.clearFocus()
         if (doubleBackToExitPressedOnce) {
             finishAffinity()
         }
@@ -1172,7 +1183,7 @@ class MainActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1183,7 +1194,7 @@ class MainActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1194,7 +1205,7 @@ class MainActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1205,7 +1216,7 @@ class MainActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -1216,7 +1227,7 @@ class MainActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {

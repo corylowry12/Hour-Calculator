@@ -22,7 +22,7 @@ class SplashScreen : AppCompatActivity() {
     }
 
     fun load() {
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             val cardView: CardView = findViewById(R.id.cardView)
             val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
             cardView.startAnimation(slideAnimation)
@@ -33,7 +33,7 @@ class SplashScreen : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
             }
             else {

@@ -90,6 +90,40 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         mAdView.adListener = object : AdListener() {
         }
 
+        cardViewGithub.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        textViewGithubHeading.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        textViewGithubCaption.setOnClickListener {
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
         val performanceSwitch = findViewById<SwitchMaterial>(R.id.switchPerformance)
         performanceSwitch.isChecked = PerformanceModeData(this).loadPerformanceMode()
         performanceSwitch.setOnCheckedChangeListener { _, isChecked ->
@@ -684,7 +718,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             else {
@@ -695,7 +729,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             else {
@@ -706,7 +740,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
             }
             else {
@@ -899,7 +933,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
@@ -939,10 +973,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
         return when (item.itemId) {
+            R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -953,7 +998,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -964,7 +1009,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
@@ -975,7 +1020,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 }
                 else {
