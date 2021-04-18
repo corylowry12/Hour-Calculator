@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
@@ -50,7 +51,12 @@ class PatchNotesActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
     }
@@ -93,25 +99,45 @@ class PatchNotesActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -121,6 +147,11 @@ class PatchNotesActivity : AppCompatActivity() {
    override fun onBackPressed() {
        super.onBackPressed()
        this.finish()
-       overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+       if(PerformanceModeData(this).loadPerformanceMode() == false) {
+           overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+       }
+       else {
+           overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+       }
     }
 }

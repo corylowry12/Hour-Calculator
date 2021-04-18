@@ -217,4 +217,8 @@
     <string name="search">Search</string>
     <string name="minutes_cant_be_three_numbers">Minutes can\'t be three numbers</string>
     <string name="time_cant_be_five_digits">Time can not be 5 digits without a colon. Check your input.</string>
+    <string name="hour_is_saved">Hour is updated</string>
+    <string name="cant_edit">Can\'t edit hour, AM or PM is not stored</string>
+    <string name="edit_label">Edit</string>
+    <string name="toggle_performance_mode">Toggle Performance Mode</string>
 </resources>

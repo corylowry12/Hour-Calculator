@@ -167,4 +167,10 @@
     <string name="disabled_break_text_box">Vous avez désactivé la zone de texte de pause</string>
     <string name="created_by">Créé par: Cory Lowry</string>
     <string name="search">Rechercher</string>
+    <string name="toggle_performance_mode">Basculer en mode Performance</string>
+    <string name="edit_label">Éditer</string>
+    <string name="cant_edit">Impossible de modifier l\'heure, AM ou PM n\'est pas stocké</string>
+    <string name="hour_is_saved">L\'heure est mise à jour</string>
+    <string name="time_cant_be_five_digits">L\'heure ne peut pas être composée de 5 chiffres sans deux-points. Vérifiez votre saisie.</string>
+    <string name="minutes_cant_be_three_numbers">Les minutes ne peuvent pas être trois nombres</string>
 </resources>

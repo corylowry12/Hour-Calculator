@@ -7,11 +7,15 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.BaseAdapter
+import android.widget.ListView
 import android.widget.PopupMenu
 import android.widget.TextView
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.activities.TrashActivity
+import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
@@ -173,6 +177,14 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                 true
             }
             popup.show()
+        }
+
+        (context as TrashActivity).findViewById<ListView>(R.id.listViewTrash).setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if(PerformanceModeData(context).loadPerformanceMode() == false) {
+                val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.list_view_scroll_animation)
+                animation.duration = 200
+                rowView.startAnimation(animation)
+            }
         }
 
         rowView.tag = position

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -55,7 +56,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.materialLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtAds = findViewById<TextView>(R.id.txtAdLink)
@@ -63,7 +69,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.AdmobLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtSpinner = findViewById<TextView>(R.id.txtSpinnerLink)
@@ -71,7 +82,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.spinnerLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtPlayLink = findViewById<TextView>(R.id.txtPlayLink)
@@ -79,7 +95,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PlayCoreLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtFireBaseLink = findViewById<TextView>(R.id.txtFirebaseLink)
@@ -87,7 +108,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.FirebaseLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtCrashlyticsLink = findViewById<TextView>(R.id.txtCrashlyticsLink)
@@ -95,7 +121,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CrashlyticsLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val txtPerformanceLink = findViewById<TextView>(R.id.txtPerformanceLink)
@@ -103,7 +134,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PerformanceLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val chartlink = findViewById<TextView>(R.id.txtMPANDROIDCHARTLINK)
@@ -111,7 +147,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.MPAndroidLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
         val cloudLink = findViewById<TextView>(R.id.txtCloudMessagingLink)
@@ -119,7 +160,12 @@ class VersionInfoActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CloudMessagingLink))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
     }
 
@@ -131,7 +177,12 @@ class VersionInfoActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -158,31 +209,56 @@ class VersionInfoActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)

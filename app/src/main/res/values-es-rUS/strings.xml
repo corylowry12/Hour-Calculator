@@ -167,4 +167,10 @@
     <string name="nothing">Nada</string>
     <string name="created_by">Creado por: Cory Lowry</string>
     <string name="search">Buscar</string>
+    <string name="minutes_cant_be_three_numbers">Los minutos no pueden ser tres números</string>
+    <string name="time_cant_be_five_digits">La hora no puede tener 5 dígitos sin dos puntos. Verifique su entrada.</string>
+    <string name="hour_is_saved">La hora se actualiza</string>
+    <string name="cant_edit">No se puede editar la hora, AM o PM no están almacenados</string>
+    <string name="edit_label">Editar</string>
+    <string name="toggle_performance_mode">Alternar modo de rendimiento</string>
 </resources>

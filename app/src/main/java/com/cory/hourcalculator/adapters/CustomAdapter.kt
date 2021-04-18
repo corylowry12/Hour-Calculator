@@ -8,13 +8,13 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.PopupMenu
-import android.widget.TextView
-import androidx.core.content.ContextCompat.startActivity
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.widget.*
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.activities.EditActivity
 import com.cory.hourcalculator.activities.HistoryActivity
+import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
@@ -96,6 +96,8 @@ class CustomAdapter(private val context: Context,
                             (context as HistoryActivity).update()
                         }
                         HistoryActivity().runOnUiThread(runnable)
+
+
                     }
                     R.id.menu2 -> {
                         /*val i = 0
@@ -124,6 +126,7 @@ class CustomAdapter(private val context: Context,
 
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
+
                         }
                         HistoryActivity().runOnUiThread(runnable)
                     }
@@ -162,7 +165,7 @@ class CustomAdapter(private val context: Context,
                         val alertDialog = androidx.appcompat.app.AlertDialog.Builder(context)
                         alertDialog.setTitle(context.getString(R.string.delete_all_from_history_heading))
                         alertDialog.setMessage(context.getString(R.string.delete_all_from_history))
-                        alertDialog.setPositiveButton("Yes") { _, _ ->
+                        alertDialog.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
@@ -192,14 +195,34 @@ class CustomAdapter(private val context: Context,
                             cursor.moveToNext()
 
                         }
-                        val intent = Intent(context, EditActivity::class.java)
-                        intent.putExtra("id", position.toString())
-                        startActivity(context, intent, null)
+                        if(!map["intime"].toString().contains(context.getString(R.string.am)) || !map["out"].toString().contains(context.getString(R.string.pm))
+                            || map["intime"].toString().contains(context.getString(R.string.pm)) || map["out"].toString().contains(context.getString(R.string.am))) {
+                            Toast.makeText(context, context.getString(R.string.cant_edit), Toast.LENGTH_SHORT).show()
+                        }
+                        else {
+                            val intent = Intent(context, EditActivity::class.java)
+                            intent.putExtra("id", position.toString())
+                            (context as HistoryActivity).startActivity(intent)
+                            if(PerformanceModeData(context).loadPerformanceMode() == false) {
+                                (context as HistoryActivity).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                            }
+                            else {
+                                (context as HistoryActivity).overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                            }
+                        }
                     }
                 }
                 true
             }
             popup.show()
+        }
+
+        (context as HistoryActivity).findViewById<ListView>(R.id.listView).setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if(PerformanceModeData(context).loadPerformanceMode() == false) {
+                val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.list_view_scroll_animation)
+                animation.duration = 200
+                rowView.startAnimation(animation)
+            }
         }
 
         rowView.tag = position
@@ -209,7 +232,7 @@ class CustomAdapter(private val context: Context,
     private fun vibration(vibrationData: VibrationData) {
         if (vibrationData.loadVibrationState()) {
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 }

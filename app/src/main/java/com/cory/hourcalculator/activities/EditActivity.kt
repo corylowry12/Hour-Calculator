@@ -1,14 +1,24 @@
 package com.cory.hourcalculator.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
+import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.PerformanceModeData
+import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,11 +32,21 @@ class EditActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     private val dataList = ArrayList<HashMap<String, String>>()
 
-    //private var id : String = ""
+    private val vibrationData by lazy { VibrationData(this) }
+
+    private lateinit var darkThemeData: DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        darkThemeData = DarkThemeData(this)
+        if (darkThemeData.loadDarkModeState()) {
+            setTheme(R.style.AMOLED)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_activity)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         main()
 
@@ -42,7 +62,6 @@ class EditActivity : AppCompatActivity() {
         val dateEditText = findViewById<TextInputEditText>(R.id.date)
 
         val id = intent.getStringExtra("id").toString()
-        //Toast.makeText(this, id.toString(), Toast.LENGTH_SHORT).show()
 
         dataList.clear()
         val cursor = dbHandler.getAllRow(this)
@@ -63,7 +82,6 @@ class EditActivity : AppCompatActivity() {
 
         }
         val idMap = map["id"].toString()
-        //Toast.makeText(this, id, Toast.LENGTH_LONG).show()
 
         inTime.setText(map["intime"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
         outTime.setText(map["out"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
@@ -81,17 +99,29 @@ class EditActivity : AppCompatActivity() {
 
         dateEditText.setText(map["day"].toString())
 
+        inTime.setOnClickListener {
+            vibration(vibrationData)
+        }
+
+        outTime.setOnClickListener {
+            vibration(vibrationData)
+        }
+
+        breakTime.setOnClickListener {
+            vibration(vibrationData)
+        }
+
         var spinner1selecteditem: String = getString(R.string.am)
 
         spinner1.setItems(getString(R.string.pm), getString(R.string.am))
         var spinner2selecteditem: String = getString(R.string.pm)
 
         spinner1.setOnClickListener {
-            //vibration(vibrationData)
+            vibration(vibrationData)
         }
 
         spinner2.setOnClickListener {
-            //vibration(vibrationData)
+            vibration(vibrationData)
         }
 
         spinner1.setOnItemSelectedListener { _, _, _, item ->
@@ -99,25 +129,27 @@ class EditActivity : AppCompatActivity() {
         }
 
         spinner2.setOnItemSelectedListener { _, _, _, item ->
-            //vibration(vibrationData)
+            vibration(vibrationData)
             spinner2selecteditem = item as String
         }
 
         spinner1.setOnNothingSelectedListener {
-            //vibration(vibrationData)
+            vibration(vibrationData)
         }
 
         spinner2.setOnNothingSelectedListener {
-            //vibration(vibrationData)
+            vibration(vibrationData)
         }
 
-        val fab = findViewById<ExtendedFloatingActionButton>(R.id.extendedFloatingActionButton)
-        fab.setOnClickListener {
+        val saveButton = findViewById<MaterialButton>(R.id.buttonSave)
+        saveButton.setOnClickListener {
+            vibration(vibrationData)
             validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, idMap)
         }
     }
 
-    fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
+    @SuppressLint("SetTextI18n")
+    private fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
         if (inTime.text.toString().contains(",")) {
             Toast.makeText(this, getString(R.string.theres_a_comman_in_text_box), Toast.LENGTH_LONG).show()
         } else if (outTime.text.toString().contains(",")) {
@@ -128,11 +160,10 @@ class EditActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
             }
             if (inTime.text.toString() == "" || outTime.text.toString() == "" || !inTime.hasFocus() || !outTime.hasFocus()) {
-                Toast.makeText(this, "Dont leave anything blank", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    //Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
@@ -254,6 +285,9 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 }
+                else if (inTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
+                }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
@@ -288,6 +322,9 @@ class EditActivity : AppCompatActivity() {
                     } else {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
@@ -425,6 +462,9 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 }
+                else if (inTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
+                }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
@@ -459,6 +499,9 @@ class EditActivity : AppCompatActivity() {
                     } else {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
@@ -596,6 +639,9 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 }
+                else if (inTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
+                }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
@@ -630,6 +676,9 @@ class EditActivity : AppCompatActivity() {
                     } else {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
@@ -767,6 +816,9 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 }
+                else if (inTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
+                }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
@@ -801,6 +853,9 @@ class EditActivity : AppCompatActivity() {
                     } else {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
+                }
+                else if (outTimeString.length == 5) {
+                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
                 val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
@@ -903,11 +958,15 @@ class EditActivity : AppCompatActivity() {
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        //dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
-        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
-        //this.finish()
-        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        Toast.makeText(this, id, Toast.LENGTH_LONG).show()
+        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, findViewById<TextInputEditText>(R.id.date).text.toString())
+        this.finish()
+        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+        }
+        Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_LONG).show()
     }
 
     private fun savingHours2(totalHours2: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
@@ -919,12 +978,114 @@ class EditActivity : AppCompatActivity() {
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        //dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
-        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, dayOfWeek)
-        Toast.makeText(this, id, Toast.LENGTH_LONG).show()
-        //this.finish()
-        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, total, findViewById<TextInputEditText>(R.id.date).text.toString())
+        this.finish()
+        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+        }
+        Toast.makeText(this,  getString(R.string.hour_is_saved), Toast.LENGTH_LONG).show()
     }
 
-    //Toast.makeText(this, dataList.toString(), Toast.LENGTH_LONG).show()
+    fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
+        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+        }
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.main_menu_edit, menu)
+        val historyToggleData = HistoryToggleData(this)
+        if (!historyToggleData.loadHistoryState()) {
+            val history = menu.findItem(R.id.history)
+            history.isVisible = false
+            val trash = menu.findItem(R.id.trash)
+            trash.isVisible = false
+            val graph = menu.findItem(R.id.graph)
+            graph.isVisible = false
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val vibrationData = VibrationData(this)
+        vibration(vibrationData)
+        return when (item.itemId) {
+            R.id.Settings -> {
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
+            R.id.changelog -> {
+                val intent = Intent(this, PatchNotesActivity::class.java)
+                startActivity(intent)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
+            R.id.history -> {
+                val intent = Intent(this, HistoryActivity::class.java)
+                startActivity(intent)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
+            R.id.trash -> {
+                val intent = Intent(this, TrashActivity::class.java)
+                startActivity(intent)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
+            R.id.graph -> {
+                val intent = Intent(this, GraphActivity::class.java)
+                startActivity(intent)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

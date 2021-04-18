@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.PerformanceModeData
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
@@ -44,7 +45,7 @@ class WebViewActivity : AppCompatActivity() {
 
     }
 
-    override fun onNavigateUp(): Boolean {
+    override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
@@ -56,7 +57,12 @@ class WebViewActivity : AppCompatActivity() {
         else {
             super.onBackPressed()
             this.finish()
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
     }
 
@@ -95,31 +101,56 @@ class WebViewActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)

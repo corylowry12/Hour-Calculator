@@ -31,7 +31,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EditActivity"></activity>
+        <activity android:name=".activities.EditActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/edit_label"
+            android:parentActivityName=".activities.MainActivity"/>
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/SplashScreenThemeLight">
@@ -41,12 +44,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WebViewActivity"></activity>
+        <activity android:name=".activities.WebViewActivity"
+            android:parentActivityName=".activities.MainActivity" />
         <activity
             android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -56,12 +60,12 @@
             android:name=".activities.VersionInfoActivity"
             android:label="@string/version_info_label"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.TrashActivity"
             android:label="@string/trash"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.HistoryActivity"
             android:label="@string/history"
@@ -79,11 +83,12 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:screenOrientation="portrait"></activity>
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

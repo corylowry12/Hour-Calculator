@@ -90,6 +90,20 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         mAdView.adListener = object : AdListener() {
         }
 
+        val performanceSwitch = findViewById<SwitchMaterial>(R.id.switchPerformance)
+        performanceSwitch.isChecked = PerformanceModeData(this).loadPerformanceMode()
+        performanceSwitch.setOnCheckedChangeListener { _, isChecked ->
+            //vibration(vibrationData)
+            if (isChecked) {
+                PerformanceModeData(this).setPerformanceMode(true)
+                Snackbar.make(constraintLayout, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
+            } else {
+                performanceSwitch.isChecked = false
+                PerformanceModeData(this).setPerformanceMode(false)
+                Snackbar.make(constraintLayout, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
         val donateSelection = arrayOf(getString(R.string.five_dollar))
         var donateSelectedItemIndex = 0
         var donateSelectedItem = donateSelection[donateSelectedItemIndex]
@@ -670,19 +684,34 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
         textView38.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
         textView39.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
     }
 
@@ -708,9 +737,9 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     private fun restartApplication(position: Int) {
         val intent = this.intent
         finish()
-        overridePendingTransition(0,0)
+        overridePendingTransition(R.anim.no_animation,R.anim.no_animation)
         startActivity(intent)
-        overridePendingTransition(0,0)
+        overridePendingTransition(R.anim.no_animation,R.anim.no_animation)
     }
 
     private fun createFileTEXT() {
@@ -870,7 +899,12 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        if(PerformanceModeData(this).loadPerformanceMode() == false) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+        }
     }
 
     override fun onDestroy() {
@@ -908,25 +942,45 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                if(PerformanceModeData(this).loadPerformanceMode() == false) {
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                }
+                else {
+                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                }
                 return true
             }
             else -> super.onOptionsItemSelected(item)
