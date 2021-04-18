@@ -119,7 +119,7 @@
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version"</string>
-    <string name="version_number" translatable="false">6.0.9</string>
+    <string name="version_number" translatable="false">7.0.0</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
