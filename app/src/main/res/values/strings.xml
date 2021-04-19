@@ -72,7 +72,7 @@
     <string name="cant_sort_data_trash_empty">Can\'t sort data, trash is empty</string>
     <string name="cant_sort_data_history_empty">Can\'t sort data, hours is empty</string>
     <string name="AdmobLink" translatable="false">https://developers.google.com/admob/android/quick-start</string>
-    <string name="materialLink" translatable="false">https://github.com/jaredrummler/MaterialSpinner</string>
+    <string name="materialLink" translatable="false">https://material.io/develop/android/docs/getting-started</string>
     <string name="spinnerLink" translatable="false">https://github.com/jaredrummler/MaterialSpinner</string>
     <string name="PlayCoreLink" translatable="false">https://developer.android.com/guide/playcore</string>
     <string name="CrashlyticsLink" translatable="false">https://firebase.google.com/docs/crashlytics</string>
@@ -226,4 +226,9 @@
     <string name="home">Home</string>
     <string name="enabled_performance_mode">You enabled performance mode</string>
     <string name="disabled_performance_mode">You disabled performance mode</string>
+    <string name="admob">Admob</string>
+    <string name="firebase">Firebase Docs</string>
+    <string name="github">Github</string>
+    <string name="material">Material Docs</string>
+    <string name="webview">WebView</string>
 </resources>

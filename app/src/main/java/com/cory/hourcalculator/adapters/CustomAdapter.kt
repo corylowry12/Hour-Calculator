@@ -51,21 +51,6 @@ class CustomAdapter(private val context: Context,
                 vibration(vibrationData)
                 when (item.itemId) {
                     R.id.menu1 -> {
-                        //dataList.clear()
-                        //val i = 1
-                        /*val id = dataList[i]["id"].toString()
-                        //val returnValue = dataitem["id"]
-                        val intime = dataList[+i]["intime"].toString()
-                        val outtime = dataList[+i]["out"].toString()
-                        val breakTime = dataList[+i]["break"].toString()
-                        val total = dataList[+i]["total"].toString()
-                        val day = dataList[+i]["day"].toString()
-                        val day1 = LocalDateTime.now()
-                        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                        val dayOfWeek = day1.format(day2)
-                        //dbHandler.deleteRow(id)
-                        //dbHandlerTrash.insertRow(intime, outtime, breakTime, total, day)
-                        var idCursor : Int*/
 
                         dataList.clear()
                         val cursor = dbHandler.getAllRow(context)
@@ -100,9 +85,7 @@ class CustomAdapter(private val context: Context,
 
                     }
                     R.id.menu2 -> {
-                        /*val i = 0
-                        val id = dataList[+i]["id"].toString()
-                        dbHandler.deleteRow(id)*/
+
                         dataList.clear()
                         val cursor = dbHandler.getAllRow(context)
                         cursor!!.moveToPosition(position)
@@ -195,8 +178,6 @@ class CustomAdapter(private val context: Context,
                             cursor.moveToNext()
 
                         }
-                        /*if(!map["intime"].toString().contains(context.getString(R.string.am)) || !map["out"].toString().contains(context.getString(R.string.pm))
-                            || !map["intime"].toString().contains(context.getString(R.string.pm)) || !map["out"].toString().contains(context.getString(R.string.am)))*/
                            if ((map["intime"].toString().contains(context.getString(R.string.am)) || map["intime"].toString().contains(context.getString(R.string.pm))) &&
                                (map["out"].toString().contains(context.getString(R.string.am)) || map["out"].toString().contains(context.getString(R.string.pm))))     {
                                val intent = Intent(context, EditActivity::class.java)

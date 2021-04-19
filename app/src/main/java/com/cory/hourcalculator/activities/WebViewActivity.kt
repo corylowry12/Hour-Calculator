@@ -5,9 +5,13 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -21,6 +25,7 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 class WebViewActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData : DarkThemeData
+    private lateinit var url : String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,12 +42,54 @@ class WebViewActivity : AppCompatActivity() {
 
         val webView = findViewById<WebView>(R.id.webView)
 
-        val url = intent.getStringExtra("url")
-        webView.loadUrl(url.toString())
-        webView.webViewClient = WebViewClient()
+        url = intent.getStringExtra("url").toString()
+
+        Log.i("Link", url)
+        if (url.contains("material")) {
+            supportActionBar!!.subtitle = getString(R.string.material)
+        } else if (url.contains("github")) {
+            supportActionBar!!.subtitle = getString(R.string.github)
+        } else if (url.contains("firebase")) {
+            supportActionBar!!.subtitle = getString(R.string.firebase)
+        } else if (url.contains("admob")) {
+            supportActionBar!!.subtitle = getString(R.string.admob)
+        }
+
+        webView.onResume()
+
+        webView.loadUrl(url)
+
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
+                progressBar.visibility = View.VISIBLE
+                swipeRefreshLayout.isRefreshing = false
+            }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                progressBar.visibility = View.GONE
+            }
+
+            override fun shouldOverrideUrlLoading(view: WebView?, request: WebResourceRequest?): Boolean {
+                webView.loadUrl(url)
+                return false
+            }
+        }
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
+        webView.settings.javaScriptCanOpenWindowsAutomatically = true
 
+        swipeRefreshLayout.setOnRefreshListener {
+            webView.reload()
+        }
+
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        webView.onResume()
+        recreate()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -82,6 +129,10 @@ class WebViewActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.refresh -> {
+                webView.reload()
+                return true
+            }
             R.id.copyMenu -> {
                 val clipBoard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("URL", intent.getStringExtra("url")) //intent.getStringExtra("url")

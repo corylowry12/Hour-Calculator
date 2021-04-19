@@ -169,6 +169,18 @@ class VersionInfoActivity : AppCompatActivity() {
         }
     }
 
+    override fun onRestart() {
+        super.onRestart()
+        val intent = Intent(this, this::class.java)
+        startActivity(intent)
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(0, 0)
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true

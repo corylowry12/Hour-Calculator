@@ -45,7 +45,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.WebViewActivity"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/webview"/>
         <activity
             android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
@@ -65,12 +67,14 @@
             android:name=".activities.TrashActivity"
             android:label="@string/trash"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="standard"/>
         <activity
             android:name=".activities.HistoryActivity"
             android:label="@string/history"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="standard">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
@@ -79,7 +83,8 @@
             android:name=".activities.PatchNotesActivity"
             android:label="@string/change_log"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="standard"/>
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"

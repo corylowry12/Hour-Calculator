@@ -58,7 +58,7 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
             listView.startAnimation(slideTopToBottom)
             textViewTotalHours.startAnimation(slideTopToBottom)
             textViewSize.startAnimation(slideTopToBottom)
@@ -66,6 +66,10 @@ class HistoryActivity : AppCompatActivity() {
             textViewWages.text = ""
             textViewSize.text = ""
             textViewTotalHours.text = ""
+        }
+        if(dbHandler.getCount() == 0) {
+            listView.isFastScrollAlwaysVisible = false
+            listView.isFastScrollEnabled = false
         }
 
         floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
@@ -104,6 +108,11 @@ class HistoryActivity : AppCompatActivity() {
 
     private fun loadIntoList() {
 
+        if(dbHandler.getCount() == 0) {
+            listView.isFastScrollAlwaysVisible = false
+            listView.isFastScrollEnabled = false
+        }
+
         val wagesData = WagesData(this)
         textViewWages.visibility = View.INVISIBLE
 
@@ -115,7 +124,6 @@ class HistoryActivity : AppCompatActivity() {
         while (!cursor.isAfterLast) {
             val map = HashMap<String, String>()
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
-            //Toast.makeText(this, map["id"].toString(), Toast.LENGTH_SHORT).show()
             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
             map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
@@ -173,7 +181,7 @@ class HistoryActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
             listView.startAnimation(slideTopToBottom)
             textViewTotalHours.startAnimation(slideTopToBottom)
             textViewSize.startAnimation(slideTopToBottom)
@@ -182,18 +190,27 @@ class HistoryActivity : AppCompatActivity() {
             textViewSize.text = ""
             textViewTotalHours.text = ""
         }
+        if(dbHandler.getCount() == 0) {
+            listView.isFastScrollAlwaysVisible = false
+            listView.isFastScrollEnabled = false
+        }
         loadIntoList()
     }
 
     override fun onRestart() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
             overridePendingTransition(0, 0)
+        }
+        if(dbHandler.getCount() == 0) {
+            listView.isFastScrollAlwaysVisible = false
+            listView.isFastScrollEnabled = false
         }
     }
 
@@ -212,7 +229,6 @@ class HistoryActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_history, menu)

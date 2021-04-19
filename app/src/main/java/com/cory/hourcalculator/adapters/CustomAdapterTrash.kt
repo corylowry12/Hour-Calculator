@@ -60,18 +60,6 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                 vibration(vibrationData)
                 when (item.itemId) {
                     R.id.menu1 -> {
-                       /* val i = 0
-                        val id = dataList[+i]["id_trash"].toString()
-                        val intime = dataList[+i]["intime_trash"].toString()
-                        val outtime = dataList[+i]["out_trash"].toString()
-                        val breakTime = dataList[+i]["break_trash"].toString()
-                        val total = dataList[+i]["total_trash"].toString()
-                        //val day = dataList[+i]["day_trash"].toString()
-                        val day1 = LocalDateTime.now()
-                        val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
-                        val dayOfWeek = day1.format(day2)
-                        dbHandlerTrash.deleteRow(id)
-                        dbHandler.insertRow(intime, outtime, breakTime, total, dayOfWeek)*/
                         dataList.clear()
                         val cursor = dbHandlerTrash.getAllRow(context)
                         cursor!!.moveToPosition(position)

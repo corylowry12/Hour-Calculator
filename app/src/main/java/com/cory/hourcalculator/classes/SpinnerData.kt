@@ -32,5 +32,4 @@ class SpinnerData(context: Context) {
         val state = sharedPreferences.getBoolean("Spinner2", false)
         return (state)
     }
-
 }

@@ -63,13 +63,15 @@ class PatchNotesActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
+        super.onRestart()
         val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            overridePendingTransition(0, 0)
         }
     }
 

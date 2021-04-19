@@ -63,10 +63,14 @@ class TrashActivity : AppCompatActivity() {
         }
 
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandlerTrash.getCount() > 0) {
             listViewTrash.startAnimation(slideTopToBottom)
             textViewWarning.startAnimation(slideTopToBottom)
             textView8.startAnimation(slideTopToBottom)
+        }
+        if(dbHandlerTrash.getCount() == 0) {
+            listViewTrash.isFastScrollEnabled = false
+            listViewTrash.isFastScrollAlwaysVisible = false
         }
 
         val textView8 = findViewById<TextView>(R.id.textView8)
@@ -134,6 +138,11 @@ class TrashActivity : AppCompatActivity() {
 
     private fun loadIntoListTrash() {
 
+        if(dbHandlerTrash.getCount() == 0) {
+            listViewTrash.isFastScrollEnabled = false
+            listViewTrash.isFastScrollAlwaysVisible = false
+        }
+
         dataListTrash.clear()
         val cursor = dbHandlerTrash.getAllRow(this)
         cursor!!.moveToFirst()
@@ -192,21 +201,30 @@ class TrashActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandlerTrash.getCount() > 0) {
             listViewTrash.startAnimation(slideTopToBottom)
         }
         loadIntoListTrash()
+        if(dbHandlerTrash.getCount() == 0) {
+            listViewTrash.isFastScrollEnabled = false
+            listViewTrash.isFastScrollAlwaysVisible = false
+        }
     }
 
     override fun onRestart() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         else {
             overridePendingTransition(0, 0)
+        }
+        if(dbHandlerTrash.getCount() == 0) {
+            listViewTrash.isFastScrollEnabled = false
+            listViewTrash.isFastScrollAlwaysVisible = false
         }
     }
 
@@ -217,7 +235,7 @@ class TrashActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        this.finish()
+        this.finishAndRemoveTask()
         if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
@@ -225,6 +243,7 @@ class TrashActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_trash, menu)
         val historyToggleData = HistoryToggleData(this)

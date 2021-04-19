@@ -18,5 +18,4 @@ class TrashAutomaticDeletion(context: Context) {
         val state = sharedPreferences.getBoolean("Trash_Deletion", true)
         return (state)
     }
-
 }
