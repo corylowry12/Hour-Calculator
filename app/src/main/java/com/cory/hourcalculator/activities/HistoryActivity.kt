@@ -172,6 +172,16 @@ class HistoryActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
+            listView.startAnimation(slideTopToBottom)
+            textViewTotalHours.startAnimation(slideTopToBottom)
+            textViewSize.startAnimation(slideTopToBottom)
+            textViewWages.startAnimation(slideTopToBottom)
+            textViewWages.text = ""
+            textViewSize.text = ""
+            textViewTotalHours.text = ""
+        }
         loadIntoList()
     }
 

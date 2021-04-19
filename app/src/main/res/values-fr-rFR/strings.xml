@@ -176,4 +176,6 @@
     <string name="github_caption">Afficher le référentiel github pour rester informé de la progression de l\'application ou signaler un problème</string>
     <string name="github_heading">Afficher le référentiel Github</string>
     <string name="home">Domicile</string>
+    <string name="enabled_performance_mode">Vous avez activé le mode performance</string>
+    <string name="disabled_performance_mode">Vous avez désactivé le mode performance</string>
 </resources>

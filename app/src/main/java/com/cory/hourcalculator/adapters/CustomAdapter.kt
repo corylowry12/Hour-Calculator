@@ -195,20 +195,22 @@ class CustomAdapter(private val context: Context,
                             cursor.moveToNext()
 
                         }
-                        if(!map["intime"].toString().contains(context.getString(R.string.am)) || !map["out"].toString().contains(context.getString(R.string.pm))
-                            || map["intime"].toString().contains(context.getString(R.string.pm)) || map["out"].toString().contains(context.getString(R.string.am))) {
-                            Toast.makeText(context, context.getString(R.string.cant_edit), Toast.LENGTH_SHORT).show()
+                        /*if(!map["intime"].toString().contains(context.getString(R.string.am)) || !map["out"].toString().contains(context.getString(R.string.pm))
+                            || !map["intime"].toString().contains(context.getString(R.string.pm)) || !map["out"].toString().contains(context.getString(R.string.am)))*/
+                           if ((map["intime"].toString().contains(context.getString(R.string.am)) || map["intime"].toString().contains(context.getString(R.string.pm))) &&
+                               (map["out"].toString().contains(context.getString(R.string.am)) || map["out"].toString().contains(context.getString(R.string.pm))))     {
+                               val intent = Intent(context, EditActivity::class.java)
+                               intent.putExtra("id", position.toString())
+                               (context as HistoryActivity).startActivity(intent)
+                               if(!PerformanceModeData(context).loadPerformanceMode()) {
+                                   (context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                               }
+                               else {
+                                   (context).overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+                               }
                         }
                         else {
-                            val intent = Intent(context, EditActivity::class.java)
-                            intent.putExtra("id", position.toString())
-                            (context as HistoryActivity).startActivity(intent)
-                            if(!PerformanceModeData(context).loadPerformanceMode()) {
-                                (context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                            }
-                            else {
-                                (context).overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                            }
+                               Toast.makeText(context, map["intime"].toString() /*context.getString(R.string.cant_edit)*/, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -217,10 +219,9 @@ class CustomAdapter(private val context: Context,
             popup.show()
         }
 
-        (context as HistoryActivity).findViewById<ListView>(R.id.listView).setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        (context as HistoryActivity).findViewById<ListView>(R.id.listView).setOnScrollChangeListener { _, _, _, _, _ ->
             if(!PerformanceModeData(context).loadPerformanceMode()) {
                 val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.list_view_scroll_animation)
-                animation.duration = 200
                 rowView.startAnimation(animation)
             }
         }

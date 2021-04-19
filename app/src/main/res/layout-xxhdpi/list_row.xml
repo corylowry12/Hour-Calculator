@@ -59,9 +59,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:background="@null"
+        android:background="?attr/backgroundColor"
         android:contentDescription="more items button"
         android:src="@drawable/ic_more_vert_24px"
-        android:tint="#A81E1E" />
+        android:paddingEnd="20dp" />
 
 </RelativeLayout>

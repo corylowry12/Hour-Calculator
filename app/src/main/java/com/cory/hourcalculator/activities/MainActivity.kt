@@ -309,7 +309,7 @@ class MainActivity : AppCompatActivity() {
             if (inTimeString.length == 2 || outTimeString.length == 2) {
                 infoTextView1.text = getString(R.string.proper_input)
             }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "" || !inTime.hasFocus() || !outTime.hasFocus()) {
+            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
                 infoTextView1.text = getString(R.string.dont_leave_anything_blank)
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -503,7 +503,7 @@ class MainActivity : AppCompatActivity() {
             if (inTimeString.length <= 2 || outTimeString.length <= 2) {
                 infoTextView1.text = getString(R.string.proper_input)
             }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "" || !inTime.hasFocus() || !outTime.hasFocus()) {
+            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
                 infoTextView1.text = getString(R.string.dont_leave_anything_blank)
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {

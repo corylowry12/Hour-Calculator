@@ -128,7 +128,7 @@
     <string name="bibleify_logo">Bibleify Logo</string>
     <string name="tic_tac_toe_logo">Tic Tac Toe Logo</string>
     <string name="hour_time_converter_logo">Hour Time Converter Logo</string>
-    <string name="theres_a_comman_in_text_box">There is a comma in intime text box</string>
+    <string name="theres_a_comman_in_text_box">There is a comma in a text box</string>
     <string name="enabled_vibration">You enabled vibration</string>
     <string name="disabled_vibration">You disabled vibration</string>
     <string name="please_try_again">Sorry, Please Try Again</string>
@@ -224,4 +224,6 @@
     <string name="github_caption">View github repository to stay up to date on app progress or report an issue</string>
     <string name="github_heading">View Github Repository</string>
     <string name="home">Home</string>
+    <string name="enabled_performance_mode">You enabled performance mode</string>
+    <string name="disabled_performance_mode">You disabled performance mode</string>
 </resources>

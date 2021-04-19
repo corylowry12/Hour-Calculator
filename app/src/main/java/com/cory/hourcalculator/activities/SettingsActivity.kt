@@ -127,14 +127,14 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val performanceSwitch = findViewById<SwitchMaterial>(R.id.switchPerformance)
         performanceSwitch.isChecked = PerformanceModeData(this).loadPerformanceMode()
         performanceSwitch.setOnCheckedChangeListener { _, isChecked ->
-            //vibration(vibrationData)
+            vibration(VibrationData(this))
             if (isChecked) {
                 PerformanceModeData(this).setPerformanceMode(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(constraintLayout, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
             } else {
                 performanceSwitch.isChecked = false
                 PerformanceModeData(this).setPerformanceMode(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
+                Snackbar.make(constraintLayout, getString(R.string.disabled_performance_mode), Snackbar.LENGTH_SHORT).show()
             }
         }
 
@@ -369,19 +369,17 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         switch.setOnCheckedChangeListener { _, isChecked ->
             vibration(vibrationData)
-            position = scrollView.scrollY
-            Toast.makeText(this, position.toString(), Toast.LENGTH_SHORT).show()
             if (isChecked) {
                 switch.isChecked = true
                 darkThemeData.setDarkModeState(true)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication(position)
+                    restartApplication()
                 }, 200)
             } else {
                 switch.isChecked = false
                 darkThemeData.setDarkModeState(false)
                 Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication(position)
+                    restartApplication()
                 }, 200)
             }
         }
@@ -541,7 +539,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
             } catch (e: Exception) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                e.printStackTrace()
             }
         }
         textView19.setOnClickListener {
@@ -556,7 +554,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
             } catch (e: Exception) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                e.printStackTrace()
             }
         }
         textView21.setOnClickListener {
@@ -571,7 +569,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             try {
                 startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
             } catch (e: Exception) {
-                Toast.makeText(this, e.message, Toast.LENGTH_LONG).show()
+                e.printStackTrace()
             }
         }
 
@@ -768,7 +766,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
     }
 
-    private fun restartApplication(position: Int) {
+    private fun restartApplication() {
         val intent = this.intent
         finish()
         overridePendingTransition(R.anim.no_animation,R.anim.no_animation)

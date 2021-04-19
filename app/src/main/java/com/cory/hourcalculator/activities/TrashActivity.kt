@@ -62,14 +62,15 @@ class TrashActivity : AppCompatActivity() {
 
         }
 
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)
         if(!PerformanceModeData(this).loadPerformanceMode()) {
-            val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
             listViewTrash.startAnimation(slideTopToBottom)
-            textView8.startAnimation(slideTopToBottom)
             textViewWarning.startAnimation(slideTopToBottom)
+            textView8.startAnimation(slideTopToBottom)
         }
 
         val textView8 = findViewById<TextView>(R.id.textView8)
+
 
         textView8.text = getString(R.string.amount_of_hours_in_trash, dbHandlerTrash.getCount())
 
@@ -190,6 +191,10 @@ class TrashActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
+            listViewTrash.startAnimation(slideTopToBottom)
+        }
         loadIntoListTrash()
     }
 

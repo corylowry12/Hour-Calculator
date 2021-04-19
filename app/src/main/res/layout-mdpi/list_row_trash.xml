@@ -62,6 +62,6 @@
         android:src="@drawable/ic_more_vert_24px"
         android:background="?attr/backgroundColor"
         android:contentDescription="more items button"
-        android:tint="#ffffff"/>
+        android:paddingEnd="20dp"/>
 
 </RelativeLayout>

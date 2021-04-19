@@ -179,7 +179,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
             popup.show()
         }
 
-        (context as TrashActivity).findViewById<ListView>(R.id.listViewTrash).setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+        (context as TrashActivity).findViewById<ListView>(R.id.listViewTrash).setOnScrollChangeListener { _, _, _, _, _ ->
             if(!PerformanceModeData(context).loadPerformanceMode()) {
                 val animation: Animation = AnimationUtils.loadAnimation(context, R.anim.list_view_scroll_animation)
                 animation.duration = 200

@@ -176,4 +176,6 @@
     <string name="github_caption">Vea el repositorio de github para mantenerse actualizado sobre el progreso de la aplicación o informar un problema</string>
     <string name="github_heading">Ver repositorio de Github</string>
     <string name="home">Casa</string>
+    <string name="enabled_performance_mode">Ha habilitado el modo de rendimiento</string>
+    <string name="disabled_performance_mode">Has desactivado el modo de rendimiento</string>
 </resources>

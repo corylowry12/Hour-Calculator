@@ -31,6 +31,9 @@ class EditActivity : AppCompatActivity() {
 
     private val vibrationData by lazy { VibrationData(this) }
 
+    private lateinit var spinner1selecteditem: String
+    private lateinit var spinner2selecteditem: String
+
     private lateinit var darkThemeData: DarkThemeData
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,15 +86,19 @@ class EditActivity : AppCompatActivity() {
         inTime.setText(map["intime"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
         outTime.setText(map["out"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
         breakTime.setText(map["break"].toString())
-        if (map["intime"].toString().contains(getString(R.string.am))) {
-            spinner1.setItems(getString(R.string.am), getString(R.string.pm))
-        } else if (map["intime"].toString().contains(getString(R.string.pm))) {
-            spinner1.setItems(getString(R.string.pm), getString(R.string.am))
+        if (map["intime"].toString().contains(this.getString(R.string.am))) {
+            material_spinner_1.setItems(getString(R.string.am), getString(R.string.pm))
+            spinner1selecteditem = getString(R.string.am)
+        } else if (map["intime"].toString().contains(this.getString(R.string.pm))) {
+            material_spinner_1.setItems(getString(R.string.pm), getString(R.string.am))
+            spinner1selecteditem = getString(R.string.pm)
         }
         if (map["out"].toString().contains(getString(R.string.am))) {
-            spinner2.setItems(getString(R.string.am), getString(R.string.pm))
+            material_spinner_2.setItems(getString(R.string.am), getString(R.string.pm))
+            spinner2selecteditem = getString(R.string.am)
         } else if (map["out"].toString().contains(getString(R.string.pm))) {
-            spinner2.setItems(getString(R.string.pm), getString(R.string.am))
+            material_spinner_2.setItems(getString(R.string.pm), getString(R.string.am))
+            spinner2selecteditem = getString(R.string.pm)
         }
 
         dateEditText.setText(map["day"].toString())
@@ -107,11 +114,6 @@ class EditActivity : AppCompatActivity() {
         breakTime.setOnClickListener {
             vibration(vibrationData)
         }
-
-        var spinner1selecteditem: String = getString(R.string.am)
-
-        spinner1.setItems(getString(R.string.pm), getString(R.string.am))
-        var spinner2selecteditem: String = getString(R.string.pm)
 
         spinner1.setOnClickListener {
             vibration(vibrationData)
@@ -156,7 +158,7 @@ class EditActivity : AppCompatActivity() {
             if (inTimeString.length == 2 || outTimeString.length == 2) {
                 Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
             }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "" || !inTime.hasFocus() || !outTime.hasFocus()) {
+            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
                 Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
@@ -343,7 +345,7 @@ class EditActivity : AppCompatActivity() {
             if (inTimeString.length <= 2 || outTimeString.length <= 2) {
                 Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
             }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "" || !inTime.hasFocus() || !outTime.hasFocus()) {
+            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
                 Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
