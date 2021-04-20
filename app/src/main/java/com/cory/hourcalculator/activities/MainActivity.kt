@@ -314,7 +314,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(1)
@@ -333,7 +332,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(1)
                         val outtime = outTimeString.drop(2)
@@ -352,7 +350,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -381,7 +378,6 @@ class MainActivity : AppCompatActivity() {
                             }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -403,7 +399,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -419,7 +414,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -441,7 +435,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(1)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -458,7 +451,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(2)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -508,7 +500,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(1)
@@ -527,7 +518,7 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
+
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(1)
                         val outtime = outTimeString.drop(2)
@@ -546,7 +537,7 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
+
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -565,7 +556,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -587,7 +577,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -603,7 +592,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -625,7 +613,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(1)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -641,7 +628,6 @@ class MainActivity : AppCompatActivity() {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(2)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -687,7 +673,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(1)
@@ -706,7 +691,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(1)
                         val outtime = outTimeString.drop(2)
@@ -725,7 +709,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -744,7 +727,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -766,7 +748,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -782,7 +763,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -804,7 +784,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(1)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -820,7 +799,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(2)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -866,7 +844,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(1)
@@ -885,7 +862,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(1)
                         val outtime = outTimeString.drop(2)
@@ -904,7 +880,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -923,7 +898,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         val outtime = outTimeString.drop(2)
@@ -945,7 +919,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(1)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -961,7 +934,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (inTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val intime = inTimeString.drop(2)
                         val intimelast = inTimeString.dropLast(2)
                         inTime.setText("$intimelast:$intime")
@@ -983,7 +955,6 @@ class MainActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(1)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
@@ -999,7 +970,6 @@ class MainActivity : AppCompatActivity() {
                             aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
                 } else if (outTimeString.length == 4) {
-                    infoTextView1.text = getString(R.string.no_colon)
                         val outtime = outTimeString.drop(2)
                         val outtimelast = outTimeString.dropLast(2)
                         outTime.setText("$outtimelast:$outtime")
