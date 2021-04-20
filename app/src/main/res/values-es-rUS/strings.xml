@@ -29,7 +29,6 @@
     <string name="toggle_vibration">Alternar vibración</string>
     <string name="proper_input">Ingrese la entrada adecuada</string>
     <string name="dont_leave_anything_blank">¡No dejes nada en blanco!</string>
-    <string name="no_colon">No hay dos puntos, si desea ingresar dos puntos, haga clic en mí.</string>
     <string name="cant_be_greater_than_or_equal_to_60">Los minutos no pueden ser mayores ni iguales a 60</string>
     <string name="cant_be_greater_than_or_equal_to_13">Las horas no pueden ser mayores o iguales a 13</string>
     <string name="in_time_can_not_be_greater_than_out_time">¡Con el tiempo no puede ser mayor que el tiempo!</string>
@@ -170,7 +169,6 @@
     <string name="minutes_cant_be_three_numbers">Los minutos no pueden ser tres números</string>
     <string name="time_cant_be_five_digits">La hora no puede tener 5 dígitos sin dos puntos. Verifique su entrada.</string>
     <string name="hour_is_saved">La hora se actualiza</string>
-    <string name="cant_edit">No se puede editar la hora, AM o PM no están almacenados</string>
     <string name="edit_label">Editar</string>
     <string name="toggle_performance_mode">Alternar modo de rendimiento</string>
     <string name="github_caption">Vea el repositorio de github para mantenerse actualizado sobre el progreso de la aplicación o informar un problema</string>
@@ -178,4 +176,7 @@
     <string name="home">Casa</string>
     <string name="enabled_performance_mode">Ha habilitado el modo de rendimiento</string>
     <string name="disabled_performance_mode">Has desactivado el modo de rendimiento</string>
+    <string name="firebase">Documentos de Firebase</string>
+    <string name="material">Documentos de materiales</string>
+    <string name="webview">Vista web</string>
 </resources>

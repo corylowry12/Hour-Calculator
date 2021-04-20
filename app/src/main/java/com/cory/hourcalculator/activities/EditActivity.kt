@@ -163,7 +163,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(1)
@@ -182,7 +181,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(1)
                     val outtime = outTimeString.drop(2)
@@ -201,7 +199,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -230,7 +227,6 @@ class EditActivity : AppCompatActivity() {
                         }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -252,7 +248,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -268,7 +263,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -290,7 +284,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(1)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -306,7 +299,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(2)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -350,7 +342,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(1)
@@ -369,7 +360,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(1)
                     val outtime = outTimeString.drop(2)
@@ -388,7 +378,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -407,7 +396,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -429,7 +417,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -445,7 +432,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -467,7 +453,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(1)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -483,7 +468,6 @@ class EditActivity : AppCompatActivity() {
                         aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(2)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -527,7 +511,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(1)
@@ -546,7 +529,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(1)
                     val outtime = outTimeString.drop(2)
@@ -565,7 +547,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -584,7 +565,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -606,7 +586,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -622,7 +601,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -644,7 +622,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(1)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -660,7 +637,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(2)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -704,7 +680,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(1)
@@ -723,7 +698,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(1)
                     val outtime = outTimeString.drop(2)
@@ -742,7 +716,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -761,7 +734,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     val outtime = outTimeString.drop(2)
@@ -783,7 +755,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(1)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -799,7 +770,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (inTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val intime = inTimeString.drop(2)
                     val intimelast = inTimeString.dropLast(2)
                     inTime.setText("$intimelast:$intime")
@@ -821,7 +791,6 @@ class EditActivity : AppCompatActivity() {
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(1)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -837,7 +806,6 @@ class EditActivity : AppCompatActivity() {
                         aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
                     }
                 } else if (outTimeString.length == 4) {
-                    Toast.makeText(this, getString(R.string.no_colon), Toast.LENGTH_LONG).show()
                     val outtime = outTimeString.drop(2)
                     val outtimelast = outTimeString.dropLast(2)
                     outTime.setText("$outtimelast:$outtime")
@@ -916,13 +884,11 @@ class EditActivity : AppCompatActivity() {
         val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference: Double = outTimeTotal - inTimeTotal
-        val totalhours : Double
-        if(outTimeHours.toInt() == 12) {
-            totalhours = String.format("%.2f", difference).toDouble()
-        }
-        else {
-            totalhours = String.format("%.2f", difference).toDouble() + 12
+        val difference : Double = outTimeTotal - inTimeTotal
+        val totalhours : Double = if(outTimeHours.toInt() == 12) {
+            String.format("%.2f", difference).toDouble()
+        } else {
+            String.format("%.2f", difference).toDouble() + 12
         }
         if (totalhours < 0) {
             Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()

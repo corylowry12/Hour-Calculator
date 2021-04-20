@@ -7,6 +7,8 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -20,12 +22,15 @@ import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.PerformanceModeData
+import com.cory.hourcalculator.classes.VibrationData
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData : DarkThemeData
     private lateinit var url : String
+
+    val vibrationData = VibrationData(this)
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,14 +50,19 @@ class WebViewActivity : AppCompatActivity() {
         url = intent.getStringExtra("url").toString()
 
         Log.i("Link", url)
-        if (url.contains("material")) {
-            supportActionBar!!.subtitle = getString(R.string.material)
-        } else if (url.contains("github")) {
-            supportActionBar!!.subtitle = getString(R.string.github)
-        } else if (url.contains("firebase")) {
-            supportActionBar!!.subtitle = getString(R.string.firebase)
-        } else if (url.contains("admob")) {
-            supportActionBar!!.subtitle = getString(R.string.admob)
+        when {
+            url.contains("material") -> {
+                supportActionBar!!.subtitle = getString(R.string.material)
+            }
+            url.contains("github") -> {
+                supportActionBar!!.subtitle = getString(R.string.github)
+            }
+            url.contains("firebase") -> {
+                supportActionBar!!.subtitle = getString(R.string.firebase)
+            }
+            url.contains("admob") -> {
+                supportActionBar!!.subtitle = getString(R.string.admob)
+            }
         }
 
         webView.onResume()
@@ -130,10 +140,12 @@ class WebViewActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.refresh -> {
+                vibration(vibrationData)
                 webView.reload()
                 return true
             }
             R.id.copyMenu -> {
+                vibration(vibrationData)
                 val clipBoard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("URL", intent.getStringExtra("url")) //intent.getStringExtra("url")
                 clipBoard.setPrimaryClip(clip)
@@ -141,6 +153,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.shareMenu -> {
+                vibration(vibrationData)
                 val shareIntent = Intent()
                 shareIntent.action = Intent.ACTION_SEND
                 shareIntent.putExtra(Intent.EXTRA_TEXT, intent.getStringExtra("url"))
@@ -150,6 +163,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.home -> {
+                vibration(vibrationData)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -161,6 +175,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.Settings -> {
+                vibration(vibrationData)
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -172,6 +187,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.changelog -> {
+                vibration(vibrationData)
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -183,6 +199,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.history -> {
+                vibration(vibrationData)
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -194,6 +211,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.trash -> {
+                vibration(vibrationData)
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -205,6 +223,7 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             R.id.graph -> {
+                vibration(vibrationData)
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -216,6 +235,12 @@ class WebViewActivity : AppCompatActivity() {
                 return true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+    fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 }

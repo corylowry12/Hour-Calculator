@@ -158,22 +158,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         val spinnerState = SpinnerData(this)
-        if(!spinnerState.loadSpinner1State()) {
+        spinner1selecteditem = if(!spinnerState.loadSpinner1State()) {
             spinner.setItems(getString(R.string.am), getString(R.string.pm))
-            spinner1selecteditem = getString(R.string.am)
-        }
-        else {
+            getString(R.string.am)
+        } else {
             spinner.setItems(getString(R.string.pm), getString(R.string.am))
-            spinner1selecteditem = getString(R.string.pm)
+            getString(R.string.pm)
         }
 
-        if(!spinnerState.loadSpinner2State()) {
+        spinner2selecteditem = if(!spinnerState.loadSpinner2State()) {
             spinner1.setItems(getString(R.string.pm), getString(R.string.am))
-            spinner2selecteditem = getString(R.string.pm)
-        }
-        else {
+            getString(R.string.pm)
+        } else {
             spinner1.setItems(getString(R.string.am), getString(R.string.pm))
-            spinner2selecteditem = getString(R.string.am)
+            getString(R.string.am)
         }
         spinner.setOnClickListener {
             vibration(vibrationData)
@@ -1051,12 +1049,10 @@ class MainActivity : AppCompatActivity() {
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference: Double = outTimeTotal - inTimeTotal
-        val totalhours : Double
-        if(outTimeHours.toInt() == 12) {
-            totalhours = String.format("%.2f", difference).toDouble()
-        }
-        else {
-            totalhours = String.format("%.2f", difference).toDouble() + 12
+        val totalhours : Double = if(outTimeHours.toInt() == 12) {
+            String.format("%.2f", difference).toDouble()
+        } else {
+            String.format("%.2f", difference).toDouble() + 12
         }
         if (totalhours < 0) {
             infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
@@ -1143,11 +1139,6 @@ class MainActivity : AppCompatActivity() {
             val graph = menu.findItem(R.id.graph)
             graph.isVisible = false
         }
-        return true
-    }
-
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        vibration(vibrationData)
         return true
     }
 

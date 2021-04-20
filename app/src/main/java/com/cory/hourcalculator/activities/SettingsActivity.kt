@@ -154,7 +154,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 vibration(VibrationData(this))
                 billingAgent?.purchaseView(0)
             }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
                 vibration(VibrationData(this))
                 dialog.dismiss()
             }
@@ -174,7 +174,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 vibration(VibrationData(this))
                 billingAgent?.purchaseView(0)
             }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
                 vibration(VibrationData(this))
                 dialog.dismiss()
             }
@@ -194,7 +194,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 vibration(VibrationData(this))
                 billingAgent?.purchaseView(0)
             }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
                 vibration(VibrationData(this))
                 dialog.dismiss()
             }
@@ -213,7 +213,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 vibration(VibrationData(this))
                 billingAgent?.purchaseView(0)
             }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, which ->
+            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
                 vibration(VibrationData(this))
                 dialog.dismiss()
             }
@@ -257,7 +257,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                                 createFileTEXT()
                             }
                         }
-                        .setNeutralButton(R.string.cancel) { dialog, which ->
+                        .setNeutralButton(R.string.cancel) { dialog, _ ->
                             vibration(VibrationData(this))
                             dialog.dismiss()
                         }
@@ -272,9 +272,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
+
+        val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
         textView30.setOnClickListener {
             vibration(vibrationData)
-            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
@@ -295,7 +297,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                                 createFileTEXT()
                             }
                         }
-                        .setNeutralButton(R.string.cancel) { dialog, which ->
+                        .setNeutralButton(R.string.cancel) { dialog, _ ->
                             vibration(VibrationData(this))
                             dialog.dismiss()
                         }
@@ -312,7 +314,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         txtviewExport.setOnClickListener {
             vibration(vibrationData)
-            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
@@ -333,7 +334,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                                 createFileTEXT()
                             }
                         }
-                        .setNeutralButton(R.string.cancel) { dialog, which ->
+                        .setNeutralButton(R.string.cancel) { dialog, _ ->
                             vibration(VibrationData(this))
                             dialog.dismiss()
                         }
@@ -350,7 +351,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         cardView12.setOnClickListener {
             vibration(vibrationData)
-            val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
@@ -371,7 +371,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                                 createFileTEXT()
                             }
                         }
-                        .setNeutralButton(R.string.cancel) { dialog, which ->
+                        .setNeutralButton(R.string.cancel) { dialog, _ ->
                             vibration(VibrationData(this))
                             dialog.dismiss()
                         }
@@ -721,6 +721,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alertDialog.setTitle(getString(R.string.about_me)).setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                    vibration(vibrationData)
                     dialog.cancel()
                 }
             val alert = alertDialog.create()
@@ -733,6 +734,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                    vibration(vibrationData)
                     dialog.cancel()
                 }
             val alert = alertDialog.create()
@@ -745,6 +747,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
+                    vibration(vibrationData)
                     dialog.cancel()
                 }
             val alert = alertDialog.create()
@@ -784,6 +787,14 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
         }
+
+        Wages.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
+            if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
+                Wages.clearFocus()
+                return@OnKeyListener true
+            }
+            false
+        })
     }
 
     private fun hideKeyboard(wagesEditText: TextInputEditText) {

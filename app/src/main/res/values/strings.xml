@@ -28,7 +28,6 @@
     <string name="toggle_vibration">Toggle Vibration</string>
     <string name="proper_input">Please Enter the Proper Input</string>
     <string name="dont_leave_anything_blank">"Don't leave anything blank!"</string>
-    <string name="no_colon">There is no colon, if you would like to enter a colon please click on me!</string>
     <string name="cant_be_greater_than_or_equal_to_60">Minutes Can Not Be Greater Than Or Equal To 60</string>
     <string name="cant_be_greater_than_or_equal_to_13">Hours can not be greater than or equal to 13</string>
     <string name="in_time_can_not_be_greater_than_out_time">In time can not be greater than out time!</string>
@@ -218,7 +217,6 @@
     <string name="minutes_cant_be_three_numbers">Minutes can\'t be three numbers</string>
     <string name="time_cant_be_five_digits">Time can not be 5 digits without a colon. Check your input.</string>
     <string name="hour_is_saved">Hour is updated</string>
-    <string name="cant_edit">Can\'t edit hour, AM or PM is not stored</string>
     <string name="edit_label">Edit</string>
     <string name="toggle_performance_mode">Toggle Performance Mode</string>
     <string name="github_caption">View github repository to stay up to date on app progress or report an issue</string>
@@ -226,9 +224,9 @@
     <string name="home">Home</string>
     <string name="enabled_performance_mode">You enabled performance mode</string>
     <string name="disabled_performance_mode">You disabled performance mode</string>
-    <string name="admob">Admob</string>
+    <string name="admob" translatable="false">Admob</string>
     <string name="firebase">Firebase Docs</string>
-    <string name="github">Github</string>
+    <string name="github" translatable="false">Github</string>
     <string name="material">Material Docs</string>
-    <string name="webview">WebView</string>
+    <string name="webview">Web View</string>
 </resources>

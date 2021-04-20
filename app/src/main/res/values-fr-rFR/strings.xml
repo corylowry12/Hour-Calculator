@@ -27,7 +27,6 @@
     <string name="toggle_vibration">Basculer la vibration</string>
     <string name="proper_input">Veuillez saisir la bonne entrée</string>
     <string name="dont_leave_anything_blank">Ne laissez rien de blanc!</string>
-    <string name="no_colon">Il n\'y a pas de deux-points, si vous souhaitez entrer un deux-points, veuillez cliquer sur moi!</string>
     <string name="cant_be_greater_than_or_equal_to_60">Les minutes ne peuvent pas être supérieures ou égales à 60</string>
     <string name="cant_be_greater_than_or_equal_to_13">Les heures ne peuvent pas être supérieures ou égales à 13</string>
     <string name="in_time_can_not_be_greater_than_out_time">Dans le temps ne peut pas être plus grand que le temps!</string>
@@ -169,7 +168,6 @@
     <string name="search">Rechercher</string>
     <string name="toggle_performance_mode">Basculer en mode Performance</string>
     <string name="edit_label">Éditer</string>
-    <string name="cant_edit">Impossible de modifier l\'heure, AM ou PM n\'est pas stocké</string>
     <string name="hour_is_saved">L\'heure est mise à jour</string>
     <string name="time_cant_be_five_digits">L\'heure ne peut pas être composée de 5 chiffres sans deux-points. Vérifiez votre saisie.</string>
     <string name="minutes_cant_be_three_numbers">Les minutes ne peuvent pas être trois nombres</string>
@@ -178,4 +176,7 @@
     <string name="home">Domicile</string>
     <string name="enabled_performance_mode">Vous avez activé le mode performance</string>
     <string name="disabled_performance_mode">Vous avez désactivé le mode performance</string>
+    <string name="material">Documentation sur les matériaux</string>
+    <string name="webview">Vue Web</string>
+    <string name="firebase">Documentation Firebase</string>
 </resources>
