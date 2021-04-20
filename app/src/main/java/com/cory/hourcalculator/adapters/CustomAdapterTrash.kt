@@ -183,7 +183,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
     private fun vibration(vibrationData: VibrationData) {
         if (vibrationData.loadVibrationState()) {
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 }

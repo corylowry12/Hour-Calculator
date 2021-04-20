@@ -1146,6 +1146,11 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        vibration(vibrationData)
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val vibrationData = VibrationData(this)
         vibration(vibrationData)
