@@ -45,6 +45,7 @@ class CustomAdapter(private val context: Context,
         rowView.findViewById<TextView>(R.id.row_day).text = context.getString(R.string.date_adapter, dataitem["day"])
 
         rowView.imageViewOptions.setOnClickListener {
+            vibration(vibrationData)
             val popup = PopupMenu(context, rowView.imageViewOptions)
             popup.inflate(R.menu.menu_history_options)
             popup.setOnMenuItemClickListener { item ->

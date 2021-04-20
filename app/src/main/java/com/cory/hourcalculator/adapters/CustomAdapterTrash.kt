@@ -54,6 +54,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
         rowView.findViewById<TextView>(R.id.row_day_trash).text = context.getString(R.string.date_adapter, dataitem["day_trash"])
 
         rowView.imageViewOptions_trash.setOnClickListener {
+            vibration(vibrationData)
             val popup = PopupMenu(context, rowView.imageViewOptions_trash)
             popup.inflate(R.menu.menu_trash_options)
             popup.setOnMenuItemClickListener { item ->
