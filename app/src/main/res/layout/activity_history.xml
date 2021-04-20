@@ -16,9 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"
-        android:fastScrollEnabled="true"
-        android:fastScrollAlwaysVisible="true"/>
+        android:textColor="?attr/textColor" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/horizontalGuideline"

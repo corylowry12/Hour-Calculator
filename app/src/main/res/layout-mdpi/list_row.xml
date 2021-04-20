@@ -61,7 +61,6 @@
         android:layout_alignParentTop="true"
         android:src="@drawable/ic_more_vert_24px"
         android:background="?attr/backgroundColor"
-        android:contentDescription="more items button"
-        android:paddingEnd="20dp"/>
+        android:contentDescription="more items button" />
 
 </RelativeLayout>

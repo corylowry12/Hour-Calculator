@@ -68,10 +68,6 @@ class TrashActivity : AppCompatActivity() {
             textViewWarning.startAnimation(slideTopToBottom)
             textView8.startAnimation(slideTopToBottom)
         }
-        if(dbHandlerTrash.getCount() == 0) {
-            listViewTrash.isFastScrollEnabled = false
-            listViewTrash.isFastScrollAlwaysVisible = false
-        }
 
         val textView8 = findViewById<TextView>(R.id.textView8)
 
@@ -138,11 +134,6 @@ class TrashActivity : AppCompatActivity() {
 
     private fun loadIntoListTrash() {
 
-        if(dbHandlerTrash.getCount() == 0) {
-            listViewTrash.isFastScrollEnabled = false
-            listViewTrash.isFastScrollAlwaysVisible = false
-        }
-
         dataListTrash.clear()
         val cursor = dbHandlerTrash.getAllRow(this)
         cursor!!.moveToFirst()
@@ -205,10 +196,6 @@ class TrashActivity : AppCompatActivity() {
             listViewTrash.startAnimation(slideTopToBottom)
         }
         loadIntoListTrash()
-        if(dbHandlerTrash.getCount() == 0) {
-            listViewTrash.isFastScrollEnabled = false
-            listViewTrash.isFastScrollAlwaysVisible = false
-        }
     }
 
     override fun onRestart() {
@@ -221,10 +208,6 @@ class TrashActivity : AppCompatActivity() {
         }
         else {
             overridePendingTransition(0, 0)
-        }
-        if(dbHandlerTrash.getCount() == 0) {
-            listViewTrash.isFastScrollEnabled = false
-            listViewTrash.isFastScrollAlwaysVisible = false
         }
     }
 

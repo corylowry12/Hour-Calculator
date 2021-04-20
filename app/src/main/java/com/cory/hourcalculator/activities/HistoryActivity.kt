@@ -67,10 +67,6 @@ class HistoryActivity : AppCompatActivity() {
             textViewSize.text = ""
             textViewTotalHours.text = ""
         }
-        if(dbHandler.getCount() == 0) {
-            listView.isFastScrollAlwaysVisible = false
-            listView.isFastScrollEnabled = false
-        }
 
         floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
 
@@ -107,11 +103,6 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun loadIntoList() {
-
-        if(dbHandler.getCount() == 0) {
-            listView.isFastScrollAlwaysVisible = false
-            listView.isFastScrollEnabled = false
-        }
 
         val wagesData = WagesData(this)
         textViewWages.visibility = View.INVISIBLE
@@ -190,10 +181,6 @@ class HistoryActivity : AppCompatActivity() {
             textViewSize.text = ""
             textViewTotalHours.text = ""
         }
-        if(dbHandler.getCount() == 0) {
-            listView.isFastScrollAlwaysVisible = false
-            listView.isFastScrollEnabled = false
-        }
         loadIntoList()
     }
 
@@ -207,10 +194,6 @@ class HistoryActivity : AppCompatActivity() {
         }
         else {
             overridePendingTransition(0, 0)
-        }
-        if(dbHandler.getCount() == 0) {
-            listView.isFastScrollAlwaysVisible = false
-            listView.isFastScrollEnabled = false
         }
     }
 
