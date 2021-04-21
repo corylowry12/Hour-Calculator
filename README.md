@@ -127,3 +127,4 @@ I created this app in order to help me calculate my hours at work.
 ![History Screen](/Screenshots/screenshot3.png?raw=true "History Screen")
 ![Trash Screen](/Screenshots/screenshot4.png?raw=true "Trash Screen")
 ![Graph Screen](/Screenshots/screenshot5.png?raw=true "Graph Screen")
+<img src=/Screenshots/screenshot1.png width="100" height="200"/>
