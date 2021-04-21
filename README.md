@@ -122,8 +122,7 @@ Has an activity that displays a graph to visualize the hours yuo have worked on 
 I created this app in order to help me calculate my hours at work.
 
 # Screenshots
-![Home Screen](/Screenshots/screenshot1.png?raw=true "Home Screen")
-![Settings Screen](/Screenshots/screenshot2.png?raw=true "Settings Screen")
+![Home Screen](/Screenshots/screenshot1.png?raw=true "Home Screen") ![Settings Screen](/Screenshots/screenshot2.png?raw=true "Settings Screen")
 ![History Screen](/Screenshots/screenshot3.png?raw=true "History Screen")
 ![Trash Screen](/Screenshots/screenshot4.png?raw=true "Trash Screen")
 ![Graph Screen](/Screenshots/screenshot5.png?raw=true "Graph Screen")
