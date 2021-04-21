@@ -122,8 +122,10 @@ Has an activity that displays a graph to visualize the hours yuo have worked on 
 I created this app in order to help me calculate my hours at work.
 
 # Screenshots
+<p float="left">
 <img src=/Screenshots/screenshot1.png width="200" height="400"/>
 <img src=/Screenshots/screenshot2.png width="200" height="400"/>
 <img src=/Screenshots/screenshot3.png width="200" height="400"/>
 <img src=/Screenshots/screenshot4.png width="200" height="400"/>
 <img src=/Screenshots/screenshot5.png width="200" height="400"/>
+</p>
