@@ -120,3 +120,6 @@ It also has various customization options to make the app suit your needs.
 Has an activity that displays a graph to visualize the hours yuo have worked on a bar graph.
 
 I created this app in order to help me calculate my hours at work.
+
+# Screenshots
+![Alt text](/Screenshots/screenshot1.png?raw=true "Home Screen")

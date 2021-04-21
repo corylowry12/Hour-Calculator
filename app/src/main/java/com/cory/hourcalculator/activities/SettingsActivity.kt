@@ -86,9 +86,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
         }
+        // initializes the vibrationData class
+        val vibrationData = VibrationData(this)
 
         cardViewGithub.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
@@ -100,7 +102,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
         }
         textViewGithubHeading.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
@@ -112,7 +114,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
         }
         textViewGithubCaption.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
@@ -127,7 +129,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val performanceSwitch = findViewById<SwitchMaterial>(R.id.switchPerformance)
         performanceSwitch.isChecked = PerformanceModeData(this).loadPerformanceMode()
         performanceSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             if (isChecked) {
                 PerformanceModeData(this).setPerformanceMode(true)
                 Snackbar.make(constraintLayout, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
@@ -143,7 +145,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         var donateSelectedItem = donateSelection[donateSelectedItemIndex]
 
         textView42.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
@@ -151,11 +153,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     donateSelectedItem = donateSelection[which]
                 }
             alertDialog.setPositiveButton(R.string.donate) { _, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 billingAgent?.purchaseView(0)
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 dialog.dismiss()
             }
             val alert = alertDialog.create()
@@ -163,7 +165,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
 
         txtDonateSettings.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
@@ -171,11 +173,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 donateSelectedItem = donateSelection[which]
             }
             alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 billingAgent?.purchaseView(0)
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 dialog.dismiss()
             }
             val alert = alertDialog.create()
@@ -183,7 +185,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
 
         textView41.setOnClickListener {
-            vibration(VibrationData(this))
+            vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
@@ -191,11 +193,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 donateSelectedItem = donateSelection[which]
             }
             alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 billingAgent?.purchaseView(0)
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 dialog.dismiss()
             }
             val alert = alertDialog.create()
@@ -210,11 +212,11 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 donateSelectedItem = donateSelection[which]
             }
             alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 billingAgent?.purchaseView(0)
             }
             alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(VibrationData(this))
+                vibration(vibrationData)
                 dialog.dismiss()
             }
             val alert = alertDialog.create()
@@ -226,8 +228,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val exportData = ExportData(this)
 
-        // initializes the vibrationData class
-        val vibrationData = VibrationData(this)
         var selectedItemIndex = exportData.loadExportFormat()
 
         val selection = arrayOf(getString(R.string.text_file), getString(R.string.spread_sheet))
@@ -248,7 +248,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
                             if(exportData.loadExportFormat() == 1) {
                                 createFileCSV()
@@ -258,7 +258,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             }
                         }
                         .setNeutralButton(R.string.cancel) { dialog, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             dialog.dismiss()
                         }
                     val alert = alertDialog.create()
@@ -288,7 +288,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
                             if(exportData.loadExportFormat() == 1) {
                                 createFileCSV()
@@ -298,7 +298,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             }
                         }
                         .setNeutralButton(R.string.cancel) { dialog, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             dialog.dismiss()
                         }
                     val alert = alertDialog.create()
@@ -325,7 +325,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
                             if(exportData.loadExportFormat() == 1) {
                                 createFileCSV()
@@ -335,7 +335,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             }
                         }
                         .setNeutralButton(R.string.cancel) { dialog, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             dialog.dismiss()
                         }
                     val alert = alertDialog.create()
@@ -362,7 +362,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
                             if(exportData.loadExportFormat() == 1) {
                                 createFileCSV()
@@ -372,7 +372,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                             }
                         }
                         .setNeutralButton(R.string.cancel) { dialog, _ ->
-                            vibration(VibrationData(this))
+                            vibration(vibrationData)
                             dialog.dismiss()
                         }
                     val alert = alertDialog.create()
