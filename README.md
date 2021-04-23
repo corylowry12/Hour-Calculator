@@ -6,10 +6,11 @@
 # Status
 [![GitHub issues](https://img.shields.io/github/issues-raw/corylowry12/Hour-Calculator?style=for-the-badge)](https://github.com/corylowry12/Hour-Calculator/issues)
 
-# Whats New in Version 7.0.1
+# Whats New in Version 7.0.2
 * Fixed crashing in webview when it would launch on some devices
 * Now links in version info activity vibrate when you click on them
 * Tweaked left padding for certain text views in version info activity in every layout size
+* Fixed people not receiving update notifications even when update notifications were enabled
 
 # Whats New in Version 7.0.0
 * Added ability to click on item in the graph activity and have a textview display contents of that SQLite row
