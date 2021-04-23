@@ -29,12 +29,12 @@ class EditActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     private val dataList = ArrayList<HashMap<String, String>>()
 
-    private val vibrationData by lazy { VibrationData(this) }
-
     private lateinit var spinner1selecteditem: String
     private lateinit var spinner2selecteditem: String
 
     private lateinit var darkThemeData: DarkThemeData
+
+    private lateinit var vibrationData: VibrationData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -49,6 +49,8 @@ class EditActivity : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
         main()
+
+        vibrationData = VibrationData(this)
 
     }
 

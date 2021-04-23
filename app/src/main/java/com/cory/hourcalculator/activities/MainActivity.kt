@@ -24,6 +24,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
+import com.google.firebase.messaging.ktx.messaging
 import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,7 +38,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     // private lateinit var vibrationData: VibrationData
-    private val vibrationData by lazy { VibrationData(this) }
+    private lateinit var vibrationData: VibrationData
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var historyToggleData: HistoryToggleData
     private lateinit var updateData: UpdateData
@@ -90,7 +91,16 @@ class MainActivity : AppCompatActivity() {
         mAdView.adListener = object : AdListener() {
         }
 
-        applicationContext.cacheDir.deleteRecursively()
+        if (UpdateData(this).loadUpdateNotificationState()) {
+            Firebase.messaging.subscribeToTopic("updates")
+                .addOnCompleteListener { task ->
+                    var msg = "Subscribed"
+                    if(!task.isSuccessful) {
+                        msg = "Subscribe failed"
+                    }
+                    Log.d("Updates", msg)
+                }
+        }
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
@@ -100,6 +110,8 @@ class MainActivity : AppCompatActivity() {
 
             Log.d("FCM", task.result.toString())
         })
+
+        vibrationData = VibrationData(this)
 
         requestFocus()
 

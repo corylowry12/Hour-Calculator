@@ -23,6 +23,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
     private lateinit var darkThemeData : DarkThemeData
+    private lateinit var vibrationData: VibrationData
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -39,6 +40,7 @@ class VersionInfoActivity : AppCompatActivity() {
         window.setBackgroundDrawable(null)
 
         firebaseAnalytics = Firebase.analytics
+        vibrationData = VibrationData(this)
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this)
@@ -53,6 +55,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtMaterial = findViewById<TextView>(R.id.txtMaterialLink)
         txtMaterial.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.materialLink))
             startActivity(intent)
@@ -66,6 +69,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtAds = findViewById<TextView>(R.id.txtAdLink)
         txtAds.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.AdmobLink))
             startActivity(intent)
@@ -79,6 +83,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtSpinner = findViewById<TextView>(R.id.txtSpinnerLink)
         txtSpinner.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.spinnerLink))
             startActivity(intent)
@@ -92,6 +97,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtPlayLink = findViewById<TextView>(R.id.txtPlayLink)
         txtPlayLink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PlayCoreLink))
             startActivity(intent)
@@ -105,6 +111,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtFireBaseLink = findViewById<TextView>(R.id.txtFirebaseLink)
         txtFireBaseLink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.FirebaseLink))
             startActivity(intent)
@@ -118,6 +125,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtCrashlyticsLink = findViewById<TextView>(R.id.txtCrashlyticsLink)
         txtCrashlyticsLink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CrashlyticsLink))
             startActivity(intent)
@@ -131,6 +139,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val txtPerformanceLink = findViewById<TextView>(R.id.txtPerformanceLink)
         txtPerformanceLink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.PerformanceLink))
             startActivity(intent)
@@ -144,6 +153,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val chartlink = findViewById<TextView>(R.id.txtMPANDROIDCHARTLINK)
         chartlink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.MPAndroidLink))
             startActivity(intent)
@@ -157,6 +167,7 @@ class VersionInfoActivity : AppCompatActivity() {
 
         val cloudLink = findViewById<TextView>(R.id.txtCloudMessagingLink)
         cloudLink.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.CloudMessagingLink))
             startActivity(intent)
@@ -166,6 +177,13 @@ class VersionInfoActivity : AppCompatActivity() {
             else {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
+        }
+    }
+
+    fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 
@@ -212,7 +230,7 @@ class VersionInfoActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
+        vibrationData = VibrationData(this)
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))

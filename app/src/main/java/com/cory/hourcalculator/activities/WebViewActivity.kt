@@ -30,8 +30,6 @@ class WebViewActivity : AppCompatActivity() {
     private lateinit var darkThemeData : DarkThemeData
     private lateinit var url : String
 
-    val vibrationData = VibrationData(this)
-
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -138,6 +136,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val vibrationData = VibrationData(this)
         return when (item.itemId) {
             R.id.refresh -> {
                 vibration(vibrationData)
