@@ -239,6 +239,7 @@ class MainActivity : AppCompatActivity() {
         outTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 outTime.clearFocus()
+                return@OnKeyListener true
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
@@ -258,6 +259,7 @@ class MainActivity : AppCompatActivity() {
         breakTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
                 breakTime.clearFocus()
+                return@OnKeyListener true
             }
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
@@ -375,8 +377,8 @@ class MainActivity : AppCompatActivity() {
                         } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                             infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
                         } else {
-                            val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-                            val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+                            val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+                            val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
                             val total1 = inTimeHours.toDouble() + rounded.substring(1).toDouble()
                             val total2 = outTimeHours.toDouble() + rounded1.substring(1).toDouble()
                             val difference = total2 - total1
@@ -1020,8 +1022,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference = outTimeTotal - inTimeTotal
@@ -1038,7 +1040,7 @@ class MainActivity : AppCompatActivity() {
                 if (!breakTime.text.isDigitsOnly()) {
                     infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
                 } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
                     val totalHours1 = totalhours - breakTimeDec
                     val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
                     if (totalHoursWithBreak < 0) {
@@ -1056,8 +1058,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
         val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
         val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
         val difference: Double = outTimeTotal - inTimeTotal
@@ -1078,7 +1080,7 @@ class MainActivity : AppCompatActivity() {
                 if (!breakTime.text.toString().isDigitsOnly()) {
                     infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
                 } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
                     val totalHours1 = totalhours - breakTimeDec
                     val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
                     if (totalHours1 < 0) {
