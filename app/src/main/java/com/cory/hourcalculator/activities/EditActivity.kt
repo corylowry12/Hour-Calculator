@@ -943,6 +943,16 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        main()
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        recreate()
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
@@ -957,6 +967,7 @@ class EditActivity : AppCompatActivity() {
         else {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
+        Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_edit, menu)
@@ -985,6 +996,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.Settings -> {
@@ -996,6 +1008,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.changelog -> {
@@ -1007,6 +1020,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.history -> {
@@ -1018,6 +1032,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.trash -> {
@@ -1029,6 +1044,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             R.id.graph -> {
@@ -1040,6 +1056,7 @@ class EditActivity : AppCompatActivity() {
                 else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
                 return true
             }
             else -> super.onOptionsItemSelected(item)
