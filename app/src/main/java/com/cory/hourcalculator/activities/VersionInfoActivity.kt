@@ -190,9 +190,10 @@ class VersionInfoActivity : AppCompatActivity() {
     override fun onRestart() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         if(!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
         }
         else {
             overridePendingTransition(0, 0)
