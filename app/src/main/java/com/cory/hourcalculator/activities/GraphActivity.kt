@@ -792,7 +792,15 @@ class GraphActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        recreate()
+        val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+        else {
+            overridePendingTransition(0, 0)
+        }
     }
 
     private fun vibration(vibrationData: VibrationData) {
