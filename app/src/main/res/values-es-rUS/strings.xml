@@ -179,4 +179,12 @@
     <string name="firebase">Documentos de Firebase</string>
     <string name="material">Documentos de materiales</string>
     <string name="webview">Vista web</string>
+    <string name="hour_was_not_saved">La hora no se guardó</string>
+    <string name="item_moved_to_trash">Elemento movido a la papelera</string>
+    <string name="item_restored">Objeto restaurado</string>
+    <string name="all_items_restored">Todos los elementos restaurados</string>
+    <string name="all_items_deleted">Todos los elementos eliminados</string>
+    <string name="item_deleted">Elemento eliminado</string>
+    <string name="all_items_moved_to_trash">Todos los elementos movidos a la papelera</string>
+    <string name="cant_edit">No se puede editar esa hora. Algo está mal.</string>
 </resources>

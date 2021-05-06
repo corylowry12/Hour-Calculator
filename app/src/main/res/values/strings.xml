@@ -229,4 +229,12 @@
     <string name="github" translatable="false">Github</string>
     <string name="material">Material Docs</string>
     <string name="webview">Web View</string>
+    <string name="hour_was_not_saved">Hour was not saved</string>
+    <string name="item_moved_to_trash">Item Moved to Trash</string>
+    <string name="all_items_moved_to_trash">All Items Moved to Trash</string>
+    <string name="item_deleted">Item Deleted</string>
+    <string name="all_items_deleted">All Items Deleted</string>
+    <string name="all_items_restored">All Items Restored</string>
+    <string name="item_restored">Item Restored</string>
+    <string name="cant_edit">Can\'t edit that hour. Something is wrong.</string>
 </resources>

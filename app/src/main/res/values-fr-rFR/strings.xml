@@ -179,4 +179,12 @@
     <string name="material">Documentation sur les matériaux</string>
     <string name="webview">Vue Web</string>
     <string name="firebase">Documentation Firebase</string>
+    <string name="hour_was_not_saved">L\'heure n\'a pas été enregistrée</string>
+    <string name="item_moved_to_trash">Élément placé dans la corbeille</string>
+    <string name="item_restored">Article restauré</string>
+    <string name="all_items_restored">Tous les éléments restaurés</string>
+    <string name="all_items_deleted">Tous les éléments supprimés</string>
+    <string name="item_deleted">Élément supprimé</string>
+    <string name="all_items_moved_to_trash">Tous les éléments placés dans la corbeille</string>
+    <string name="cant_edit">Impossible de modifier cette heure. Quelque chose ne va pas.</string>
 </resources>
