@@ -2,9 +2,10 @@
   <library name="Gradle: com.google.firebase:firebase-perf-ktx:19.1.1@aar">
     <CLASSES>
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddbb4ed6a794164d1cca01a603b801d1/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/58ea60ffa7abc23639ab366f11fb28bb/jetified-firebase-perf-ktx-19.1.1/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/58ea60ffa7abc23639ab366f11fb28bb/jetified-firebase-perf-ktx-19.1.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/58ea60ffa7abc23639ab366f11fb28bb/jetified-firebase-perf-ktx-19.1.1/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/823f24c7946d9f16f085711717b2b4c3/jetified-firebase-perf-ktx-19.1.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/823f24c7946d9f16f085711717b2b4c3/jetified-firebase-perf-ktx-19.1.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/823f24c7946d9f16f085711717b2b4c3/jetified-firebase-perf-ktx-19.1.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-perf-ktx/19.1.1/3c8c0ee18bb338fba6f00ace1c3b72786be6451d/firebase-perf-ktx-19.1.1-javadoc.jar!/" />
