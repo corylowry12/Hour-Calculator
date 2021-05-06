@@ -9,10 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.BaseAdapter
-import android.widget.ListView
-import android.widget.PopupMenu
-import android.widget.TextView
+import android.widget.*
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.activities.TrashActivity
 import com.cory.hourcalculator.classes.PerformanceModeData
@@ -87,6 +84,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
+                            Toast.makeText(context, context.getString(R.string.item_restored), Toast.LENGTH_SHORT).show()
                         }
                         TrashActivity().runOnUiThread(runnable)
                     }
@@ -113,6 +111,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                         }
                         val runnable = Runnable {
                             (context as TrashActivity).update()
+                            Toast.makeText(context, context.getString(R.string.item_deleted), Toast.LENGTH_SHORT).show()
                         }
                         TrashActivity().runOnUiThread(runnable)
                     }
@@ -140,6 +139,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                                 dbHandlerTrash.deleteAll()
                                 val runnable = Runnable {
                                     (context as TrashActivity).update()
+                                    Toast.makeText(context, context.getString(R.string.all_items_restored), Toast.LENGTH_SHORT).show()
                                 }
                                 TrashActivity().runOnUiThread(runnable)
                             }
@@ -155,6 +155,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                             dbHandlerTrash.deleteAll()
                             val runnable = Runnable {
                                 (context as TrashActivity).update()
+                                Toast.makeText(context, context.getString(R.string.all_items_deleted), Toast.LENGTH_SHORT).show()
                             }
                             TrashActivity().runOnUiThread(runnable)
                         }

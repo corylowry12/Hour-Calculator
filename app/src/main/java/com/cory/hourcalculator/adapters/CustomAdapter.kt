@@ -80,6 +80,7 @@ class CustomAdapter(private val context: Context,
 
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
+                            Toast.makeText(context, context.getString(R.string.item_moved_to_trash), Toast.LENGTH_SHORT).show()
                         }
                         HistoryActivity().runOnUiThread(runnable)
 
@@ -110,7 +111,7 @@ class CustomAdapter(private val context: Context,
 
                         val runnable = Runnable {
                             (context as HistoryActivity).update()
-
+                            Toast.makeText(context, context.getString(R.string.item_deleted), Toast.LENGTH_SHORT).show()
                         }
                         HistoryActivity().runOnUiThread(runnable)
                     }
@@ -137,6 +138,7 @@ class CustomAdapter(private val context: Context,
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
+                                Toast.makeText(context, context.getString(R.string.all_items_moved_to_trash), Toast.LENGTH_SHORT).show()
                             }
                             HistoryActivity().runOnUiThread(runnable)
                         }
@@ -153,6 +155,7 @@ class CustomAdapter(private val context: Context,
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
+                                Toast.makeText(context, context.getString(R.string.all_items_deleted), Toast.LENGTH_SHORT).show()
                             }
                             HistoryActivity().runOnUiThread(runnable)
                         }
@@ -192,7 +195,7 @@ class CustomAdapter(private val context: Context,
                                }
                         }
                         else {
-                               Toast.makeText(context, map["intime"].toString() /*context.getString(R.string.cant_edit)*/, Toast.LENGTH_SHORT).show()
+                               Toast.makeText(context, context.getString(R.string.cant_edit), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
