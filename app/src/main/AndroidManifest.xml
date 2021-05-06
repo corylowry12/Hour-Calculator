@@ -34,7 +34,8 @@
         <activity android:name=".activities.EditActivity"
             android:screenOrientation="portrait"
             android:label="@string/edit_label"
-            android:parentActivityName=".activities.MainActivity"/>
+            android:parentActivityName=".activities.MainActivity"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SplashScreen"
             android:theme="@style/SplashScreenThemeLight">
@@ -47,12 +48,16 @@
         <activity android:name=".activities.WebViewActivity"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:label="@string/webview"/>
+            android:label="@string/webview"
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="firebase_performance_logcat_enabled"
@@ -62,19 +67,23 @@
             android:name=".activities.VersionInfoActivity"
             android:label="@string/version_info_label"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.TrashActivity"
             android:label="@string/trash"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"/>
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.HistoryActivity"
             android:label="@string/history"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard">
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
@@ -84,16 +93,21 @@
             android:label="@string/change_log"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"/>
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+            android:launchMode="standard"
+            tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
