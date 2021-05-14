@@ -69,11 +69,6 @@ class TrashActivity : AppCompatActivity() {
             textView8.startAnimation(slideTopToBottom)
         }
 
-        val textView8 = findViewById<TextView>(R.id.textView8)
-
-
-        textView8.text = getString(R.string.amount_of_hours_in_trash, dbHandlerTrash.getCount())
-
         floatingActionButtonTrash.setOnClickListener {
             listViewTrash.smoothScrollToPosition(0)
         }
@@ -128,7 +123,7 @@ class TrashActivity : AppCompatActivity() {
         }
         listViewTrash.setSelectionFromTop(index, top)
         if(dbHandlerTrash.getCount() == 0) {
-             textView8.visibility = View.INVISIBLE
+             textView8.text = ""
         }
     }
 

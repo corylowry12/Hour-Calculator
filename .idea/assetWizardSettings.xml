@@ -362,8 +362,8 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_refresh_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\coryl\Downloads\refresh_black_24dp.svg" />
+                            <entry key="outputName" value="ic_apps_black_24dp" />
+                            <entry key="sourceFile" value="C:\Users\coryl\Downloads\apps_black_24dp.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -135,7 +135,6 @@
     <string name="disable_automatic_deletion">You disabled trash automatic deletion</string>
     <string name="cloud_messaging_link" translatable="false"><a href="https://firebase.google.com/docs/cloud-messaging">https://firebase.google.com/docs/cloud-messaging</a></string>
     <string name="cloud_messaging_heading">Firebase Cloud Messaging</string>
-    <string name="notifications">Notifications</string>
     <string name="toggle_notifications_about_updates">Toggle Notifications About Updates</string>
     <string name="subject">Feature Request</string>
     <string name="app_name">Hour Calculator</string>
@@ -237,4 +236,14 @@
     <string name="all_items_restored">All Items Restored</string>
     <string name="item_restored">Item Restored</string>
     <string name="cant_edit">Can\'t edit that hour. Something is wrong.</string>
+    <string name="layout_settings_subtitle">Customize the layout settings of the app</string>
+    <string name="layout">Layout Settings</string>
+    <string name="appearance">Appearance</string>
+    <string name="layout_settings_information">All the settings that you can change here will change the basic functionality of the app.</string>
+    <string name="notification_subtitle">Change notifications you receive</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_information">Changing these settings will change the notifications you receive</string>
+    <string name="disable_update_notifications">Disable Update Notifications</string>
+    <string name="enable_update_notifications">Enable Update Notifications</string>
+    <string name="notification_settings">Notification Settings</string>
 </resources>

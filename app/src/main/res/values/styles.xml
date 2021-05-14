@@ -31,7 +31,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundColor">@color/darkBackground</item>
         <item name="textColor">@color/darkTextColor</item>
-        <item name="cardBackgroundColor">@color/cardDarkBackground</item>
+        <item name="cardBackgroundColor">#444E53</item>
         <item name="android:navigationBarColor">@color/darkNavColor</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="itemBackground">@color/darkMenuBackground</item>

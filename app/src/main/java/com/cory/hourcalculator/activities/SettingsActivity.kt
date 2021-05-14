@@ -7,18 +7,18 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.*
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
-import android.view.*
-import android.view.inputmethod.InputMethodManager
+import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.view.Menu
+import android.view.MenuItem
+import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.android.billingclient.api.*
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.billing.BillingAgent
 import com.cory.hourcalculator.billing.BillingCallback
@@ -27,16 +27,11 @@ import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.switchmaterial.SwitchMaterial
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.ktx.messaging
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.*
-import kotlinx.android.synthetic.main.activity_settings.constraintLayout
 import java.io.*
 
 class SettingsActivity : AppCompatActivity(), BillingCallback {
@@ -89,6 +84,108 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         // initializes the vibrationData class
         val vibrationData = VibrationData(this)
 
+        val theme = findViewById<TextView>(R.id.theme)
+        theme.setOnClickListener {
+            val intent = Intent(this, ThemeActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val themeSubtitle = findViewById<TextView>(R.id.themeSubtitle)
+        themeSubtitle.setOnClickListener {
+            val intent = Intent(this, ThemeActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val themeCardView = findViewById<CardView>(R.id.themeCardView)
+        themeCardView.setOnClickListener {
+            val intent = Intent(this, ThemeActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
+        val layout = findViewById<TextView>(R.id.layout)
+        layout.setOnClickListener {
+            val intent = Intent(this, LayoutSettings::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val layoutSubtitle = findViewById<TextView>(R.id.layoutSubtitle)
+        layoutSubtitle.setOnClickListener {
+            val intent = Intent(this, LayoutSettings::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val layoutCardView = findViewById<CardView>(R.id.layoutCardView)
+        layoutCardView.setOnClickListener {
+            val intent = Intent(this, LayoutSettings::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
+        val notificationCardView = findViewById<CardView>(R.id.notificationsCardView)
+        notificationCardView.setOnClickListener {
+            val intent = Intent(this, NotificationSettingActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val notificationTitle = findViewById<TextView>(R.id.notifications)
+        notificationTitle.setOnClickListener {
+            val intent = Intent(this, NotificationSettingActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val notificationSubtitle = findViewById<TextView>(R.id.notificationsSubtitle)
+        notificationSubtitle.setOnClickListener {
+            val intent = Intent(this, NotificationSettingActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
         cardViewGithub.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
@@ -126,20 +223,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
         }
 
-        val performanceSwitch = findViewById<SwitchMaterial>(R.id.switchPerformance)
-        performanceSwitch.isChecked = PerformanceModeData(this).loadPerformanceMode()
-        performanceSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                PerformanceModeData(this).setPerformanceMode(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
-            } else {
-                performanceSwitch.isChecked = false
-                PerformanceModeData(this).setPerformanceMode(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_performance_mode), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
         val donateSelection = arrayOf(getString(R.string.five_dollar))
         var donateSelectedItemIndex = 0
         var donateSelectedItem = donateSelection[donateSelectedItemIndex]
@@ -153,26 +236,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                     donateSelectedItem = donateSelection[which]
                 }
             alertDialog.setPositiveButton(R.string.donate) { _, _ ->
-                vibration(vibrationData)
-                billingAgent?.purchaseView(0)
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(vibrationData)
-                dialog.dismiss()
-            }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-
-        txtDonateSettings.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle(getString(R.string.please_donate))
-            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
-                donateSelectedItemIndex = which
-                donateSelectedItem = donateSelection[which]
-            }
-            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
                 vibration(vibrationData)
                 billingAgent?.purchaseView(0)
             }
@@ -312,43 +375,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
-        txtviewExport.setOnClickListener {
-            vibration(vibrationData)
-            val managePermissions = ManagePermissions(this, list, permissionRequestCode)
-            if (dbHandler.getCount() > 0) {
-                if (managePermissions.checkPermissions()) {
-                    val alertDialog = AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.choose_format))
-                        .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
-                            selectedItemIndex = which
-                            selectedItem = selection[which]
-                            exportData.setExportFormat(selectedItemIndex)
-                        }
-                        .setPositiveButton(R.string.ok) {_, _ ->
-                            vibration(vibrationData)
-                            exportData.setExportFormat(selectedItemIndex)
-                            if(exportData.loadExportFormat() == 1) {
-                                createFileCSV()
-                            }
-                            else if(exportData.loadExportFormat() == 0) {
-                                createFileTEXT()
-                            }
-                        }
-                        .setNeutralButton(R.string.cancel) { dialog, _ ->
-                            vibration(vibrationData)
-                            dialog.dismiss()
-                        }
-                    val alert = alertDialog.create()
-                    alert.show()
-                }
-                else {
-                    managePermissions.showAlertSettings(this)
-                }
-            }
-            else {
-                Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
-            }
-        }
         cardView12.setOnClickListener {
             vibration(vibrationData)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
@@ -384,231 +410,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
             else {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        // switched to enable and disable vibration
-        val vibrationSwitch = findViewById<SwitchMaterial>(R.id.switch3)
-        vibrationSwitch.isChecked = vibrationData.loadVibrationState()
-        // listens for the switch to be changed
-        vibrationSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                vibrationData.setVibrationState(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
-            } else {
-                vibrationSwitch.isChecked = false
-                vibrationData.setVibrationState(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
-        val switch = findViewById<SwitchMaterial>(R.id.switch1)
-        switch.isChecked = darkThemeData.loadDarkModeState()
-
-        switch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                switch.isChecked = true
-                darkThemeData.setDarkModeState(true)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication()
-                }, 200)
-            } else {
-                switch.isChecked = false
-                darkThemeData.setDarkModeState(false)
-                Handler(Looper.getMainLooper()).postDelayed({
-                    restartApplication()
-                }, 200)
-            }
-        }
-
-        val historySwitch = findViewById<SwitchMaterial>(R.id.switch4)
-        val historyToggleData = HistoryToggleData(this)
-        historySwitch.isChecked = historyToggleData.loadHistoryState()
-
-        historySwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                historySwitch.isChecked = true
-                historyToggleData.setHistoryToggle(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
-                invalidateOptionsMenu()
-            } else {
-                historySwitch.isChecked = false
-                historyToggleData.setHistoryToggle(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
-                invalidateOptionsMenu()
-                val alertDialog = AlertDialog.Builder(this)
-                alertDialog.setTitle(getString(R.string.history))
-                alertDialog.setMessage(getString(R.string.what_would_you_like_to_do_with_history))
-                alertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
-                    dbHandler.deleteAll()
-                    Snackbar.make(constraintLayout, getString(R.string.deleted_all_of_hour_history), Snackbar.LENGTH_SHORT).show()
-                }
-                alertDialog.setNegativeButton(getString(R.string.trash)) { _, _ ->
-                    dataList.clear()
-                    val cursor1 = dbHandler.getAllRow(this)
-                    cursor1!!.moveToFirst()
-
-                    while (!cursor1.isAfterLast) {
-                        val intime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_IN))
-                        val outtime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_OUT))
-                        val breaktime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_BREAK))
-                        val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_TOTAL))
-                        val day = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_DAY))
-
-                        dbHandlerTrash.insertRow(intime, outtime, breaktime, totaltime, day)
-
-                        cursor1.moveToNext()
-                    }
-                    dbHandler.deleteAll()
-                    Snackbar.make(constraintLayout, getString(R.string.moved_all_hours_to_trash), Snackbar.LENGTH_SHORT).show()
-                }
-                alertDialog.setNeutralButton(getString(R.string.nothing), null)
-                alertDialog.create().show()
-            }
-        }
-
-        val trashAutomaticDeletion = TrashAutomaticDeletion(this)
-        val trashSwitch = findViewById<SwitchMaterial>(R.id.switch5)
-        trashSwitch.isChecked = trashAutomaticDeletion.loadTrashDeletionState()
-        trashSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                vibration(vibrationData)
-                trashAutomaticDeletion.setTrashDeletionState(true)
-                Snackbar.make(constraintLayout, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            } else {
-                vibration(vibrationData)
-                trashSwitch.isChecked = false
-                trashAutomaticDeletion.setTrashDeletionState(false)
-                Snackbar.make(constraintLayout, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
-        val updateData = UpdateData(this)
-        val updateSwitch = findViewById<SwitchMaterial>(R.id.switch6)
-        updateSwitch.isChecked = updateData.loadUpdateNotificationState()
-        updateSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if(isChecked) {
-                updateData.setUpdateNotificationState(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_update_notifications), Snackbar.LENGTH_SHORT).show()
-                Firebase.messaging.subscribeToTopic("updates")
-                    .addOnCompleteListener { task ->
-                        var msg = "Subscribed"
-                        if(!task.isSuccessful) {
-                            msg = "Subscribe failed"
-                            updateSwitch.isChecked = false
-                        }
-                        Log.d("Updates", msg)
-                    }
-            }
-            else {
-                updateSwitch.isChecked = false
-                updateData.setUpdateNotificationState(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_update_notifications), Snackbar.LENGTH_SHORT).show()
-                Firebase.messaging.unsubscribeFromTopic("updates")
-                    .addOnCompleteListener { task ->
-                        var msg = "Unsubscribed"
-                        if(!task.isSuccessful) {
-                            msg = "Unsubscribe failed"
-                        }
-                        Log.d("Updates", msg)
-                    }
-            }
-        }
-
-        val wagesData = WagesData(this)
-        val wagesEditText = findViewById<TextInputEditText>(R.id.Wages)
-
-        val editable = Editable.Factory.getInstance().newEditable(wagesData.loadWageAmount().toString())
-        wagesEditText.text = editable
-
-        wagesEditText.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
-            if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                hideKeyboard(wagesEditText)
-            }
-            if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
-                wagesData.setWageAmount(wagesEditText.text.toString())
-                hideKeyboard(wagesEditText)
-                return@OnKeyListener true
-            }
-            false
-        })
-
-        wagesEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString() != "") {
-                    wagesData.setWageAmount(s.toString())
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                wagesData.setWageAmount(s.toString())
-            }
-        })
-
-        val breakData = BreakData(this)
-        val breakSwitch = findViewById<SwitchMaterial>(R.id.switch2)
-        breakSwitch.isChecked = breakData.loadBreakState()
-        breakSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                breakData.setBreakState(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_break_text_box), Snackbar.LENGTH_SHORT).show()
-            } else {
-                breakData.setBreakState(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_break_text_box), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
-        cardView5.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            setTheme(R.style.AMOLED)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.subject))
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.message))
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        textView19.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            setTheme(R.style.AMOLED)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.subject))
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.message))
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        textView21.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            setTheme(R.style.AMOLED)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.subject))
-            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.message))
-            try {
-                startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
 
@@ -787,41 +588,13 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
         }
-
-        Wages.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
-            if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                Wages.clearFocus()
-                return@OnKeyListener true
-            }
-            false
-        })
-    }
-
-    private fun hideKeyboard(wagesEditText: TextInputEditText) {
-        val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        val focusedView = this.currentFocus
-
-        if (focusedView != null) {
-            inputManager.hideSoftInputFromWindow(focusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
-            if (wagesEditText.hasFocus()) {
-                wagesEditText.clearFocus()
-            }
-        }
     }
 
     private fun vibration(vibrationData: VibrationData) {
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
-    }
-
-    private fun restartApplication() {
-        val intent = this.intent
-        finish()
-        overridePendingTransition(R.anim.no_animation,R.anim.no_animation)
-        startActivity(intent)
-        overridePendingTransition(R.anim.no_animation,R.anim.no_animation)
     }
 
     private fun createFileTEXT() {
@@ -994,6 +767,19 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         billingAgent = null
         super.onDestroy()
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        val intent = Intent(this, this::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        if(!PerformanceModeData(this).loadPerformanceMode()) {
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        }
+        else {
+            overridePendingTransition(0, 0)
+        }
     }
 
     override fun onTokenConsumed() {

@@ -31,10 +31,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.EditActivity"
+        <activity android:name=".activities.NotificationSettingActivity"
+            android:label="@string/notifications"
+            android:launchMode="standard"
+            android:parentActivityName=".activities.SettingsActivity"
             android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".activities.LayoutSettings"
+            android:label="@string/layout"
+            android:launchMode="standard"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activities.ThemeActivity"
+            android:label="@string/appearance"
+            android:launchMode="standard"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".activities.EditActivity"
             android:label="@string/edit_label"
             android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SplashScreen"
@@ -45,18 +66,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.WebViewActivity"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
+        <activity
+            android:name=".activities.WebViewActivity"
             android:label="@string/webview"
             android:launchMode="standard"
+            android:parentActivityName=".activities.MainActivity"
+            android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.GraphActivity"
             android:label="@string/graph_label"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
 
         <meta-data
@@ -66,23 +88,23 @@
         <activity
             android:name=".activities.VersionInfoActivity"
             android:label="@string/version_info_label"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.TrashActivity"
             android:label="@string/trash"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.HistoryActivity"
             android:label="@string/history"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -91,22 +113,22 @@
         <activity
             android:name=".activities.PatchNotesActivity"
             android:label="@string/change_log"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
+            android:launchMode="standard"
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.MainActivity"
+            android:launchMode="standard"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            android:launchMode="standard"
             tools:ignore="LockedOrientationActivity" />
 
         <meta-data

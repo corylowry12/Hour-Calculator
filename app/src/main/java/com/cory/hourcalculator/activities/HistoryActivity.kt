@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.*
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -97,7 +96,7 @@ class HistoryActivity : AppCompatActivity() {
         loadIntoList()
             listView.setSelectionFromTop(index, top)
             if(dbHandler.getCount() == 0) {
-                textViewTotalHours.visibility = View.INVISIBLE
+                textViewTotalHours.text = ""
             }
 
     }
@@ -105,7 +104,7 @@ class HistoryActivity : AppCompatActivity() {
     private fun loadIntoList() {
 
         val wagesData = WagesData(this)
-        textViewWages.visibility = View.INVISIBLE
+        textViewWages.text = ""
 
         var y = 0.0
         dataList.clear()
@@ -128,19 +127,16 @@ class HistoryActivity : AppCompatActivity() {
 
             val output = String.format("%.2f", y)
             textViewTotalHours.text = getString(R.string.total_hours_history, output)
-            textViewTotalHours.visibility = View.VISIBLE
 
             if(wagesData.loadWageAmount() != "") {
                 val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
                 val wagesrounded = String.format("%.2f", wages)
                 textViewWages.text = getString(R.string.total_wages, wagesrounded)
-                textViewWages.visibility = View.VISIBLE
             }
 
             cursor.moveToNext()
         }
         textViewSize.text = getString(R.string.amount_of_hours_saved, dbHandler.getCount())
-        textViewSize.visibility = View.VISIBLE
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = CustomAdapter(this@HistoryActivity, dataList)
 
@@ -247,9 +243,9 @@ class HistoryActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 if(query != "") {
                     retrieveItems(query)
-                    textViewTotalHours.visibility = View.INVISIBLE
-                    textViewSize.visibility = View.INVISIBLE
-                    textViewWages.visibility = View.INVISIBLE
+                    textViewTotalHours.text = ""
+                    textViewSize.text = ""
+                    textViewWages.text = ""
                 }
                 else if (query == "") {
                     loadIntoList()
@@ -260,9 +256,9 @@ class HistoryActivity : AppCompatActivity() {
             override fun onQueryTextChange(newText: String): Boolean {
                 if(newText != "") {
                     retrieveItems(newText)
-                    textViewTotalHours.visibility = View.INVISIBLE
-                    textViewSize.visibility = View.INVISIBLE
-                    textViewWages.visibility = View.INVISIBLE
+                    textViewTotalHours.text = ""
+                    textViewSize.text = ""
+                    textViewWages.text = ""
                 }
                 else if (newText == "") {
                     loadIntoList()
