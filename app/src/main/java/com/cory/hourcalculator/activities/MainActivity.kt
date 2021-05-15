@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var updateData: UpdateData
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
 
-    //var testDeviceId = listOf("8EDC43FD82F98F52B4B982B33812B1BC")
+    var testDeviceId = listOf("55AC61F1C7B72939031CF0C8F0256649")
     private val dbHandler = DBHelper(this, null)
     // private val permissionRequestCode = 1
     //private lateinit var managePermissions: ManagePermissions
@@ -56,11 +56,6 @@ class MainActivity : AppCompatActivity() {
     private val spinner1: MaterialSpinner by lazy { findViewById(R.id.material_spinner_2) }
     private lateinit var spinner1selecteditem: String
     private lateinit var spinner2selecteditem: String
-
-    // AdView lazy initializer
-    val adView by lazy { AdView(this) }
-    private val mAdView by lazy { findViewById<AdView>(R.id.adView) }
-    private val adRequest by lazy { AdRequest.Builder().build() }
 
     // Break data lazy initializer
     private val breakData by lazy { BreakData(this) }
@@ -82,11 +77,13 @@ class MainActivity : AppCompatActivity() {
         trashAutomaticDeletion = TrashAutomaticDeletion(this)
 
         MobileAds.initialize(this)
-        //val adView = AdView(this)
+        val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        //val mAdView = findViewById<AdView>(R.id.adView)
-        //val adRequest = AdRequest.Builder().build()
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
+        MobileAds.setRequestConfiguration(configuration)
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
         }

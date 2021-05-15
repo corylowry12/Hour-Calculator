@@ -1,5 +1,3 @@
-@file:Suppress("ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
-
 package com.cory.hourcalculator.activities
 
 import android.annotation.SuppressLint
@@ -12,7 +10,6 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
-import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
@@ -82,6 +79,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val theme = findViewById<TextView>(R.id.theme)
         theme.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -93,6 +91,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val themeSubtitle = findViewById<TextView>(R.id.themeSubtitle)
         themeSubtitle.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -104,6 +103,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val themeCardView = findViewById<CardView>(R.id.themeCardView)
         themeCardView.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -116,6 +116,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val layout = findViewById<TextView>(R.id.layout)
         layout.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -127,6 +128,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val layoutSubtitle = findViewById<TextView>(R.id.layoutSubtitle)
         layoutSubtitle.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -138,6 +140,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val layoutCardView = findViewById<CardView>(R.id.layoutCardView)
         layoutCardView.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -150,6 +153,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val notificationCardView = findViewById<CardView>(R.id.notificationsCardView)
         notificationCardView.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, NotificationSettingActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -161,6 +165,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val notificationTitle = findViewById<TextView>(R.id.notifications)
         notificationTitle.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, NotificationSettingActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -172,6 +177,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val notificationSubtitle = findViewById<TextView>(R.id.notificationsSubtitle)
         notificationSubtitle.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, NotificationSettingActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -264,6 +270,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
 
         donateCardView.setOnClickListener {
+            vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
@@ -281,9 +288,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val alert = alertDialog.create()
             alert.show()
         }
-
-        // prevents keyboard from opening when activity is launched
-        this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         val exportData = ExportData(this)
 

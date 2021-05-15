@@ -90,7 +90,7 @@ class BillingAgent(private val activity: Activity, private val callback: Billing
     }
 
     fun purchaseView(selection: Int) {
-        //Toast.makeText(activity, productsList[0].toString() + " " + productsList[1].toString(), Toast.LENGTH_LONG).show()
+        //Toast.makeText(activity, selection.toString(), Toast.LENGTH_LONG).show()
         try {
             if (selection == 0) {
                 selectionBilling = 0
@@ -99,7 +99,6 @@ class BillingAgent(private val activity: Activity, private val callback: Billing
                     .setSkuDetails(productsList[selection])
                     .build()
                 billingClient.launchBillingFlow(activity, billingFlowParams)
-                //Toast.makeText(activity, productsList[0].toString(), Toast.LENGTH_LONG).show()
             }
         } catch (e : Exception) {
             e.printStackTrace()

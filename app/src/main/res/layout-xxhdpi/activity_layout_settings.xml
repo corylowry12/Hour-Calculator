@@ -289,12 +289,12 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardViewWages"
                 android:gravity="center"
+                android:padding="10dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/layout_settings_information"
                 android:textColor="?attr/textColor"
-                android:padding="10dp"
-                android:textSize="16sp"/>
+                android:textSize="14sp" />
 
             <com.google.android.gms.ads.AdView
                 android:id="@+id/adView"
