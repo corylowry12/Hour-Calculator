@@ -24,7 +24,6 @@ import com.cory.hourcalculator.billing.BillingAgent
 import com.cory.hourcalculator.billing.BillingCallback
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
-import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -42,9 +41,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
-
-    private val dbHandlerTrash = DBHelperTrash(this, null)
-    private val dataList = ArrayList<HashMap<String, String>>()
 
     private var billingAgent: BillingAgent? = null
 
@@ -227,7 +223,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         var donateSelectedItemIndex = 0
         var donateSelectedItem = donateSelection[donateSelectedItemIndex]
 
-        textView42.setOnClickListener {
+        donateHeading.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
@@ -247,7 +243,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alert.show()
         }
 
-        textView41.setOnClickListener {
+        donateSubtitle.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
@@ -267,7 +263,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alert.show()
         }
 
-        cardView15.setOnClickListener {
+        donateCardView.setOnClickListener {
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
@@ -297,7 +293,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         var selectedItem = selection[selectedItemIndex]
 
-        textView29.setOnClickListener {
+        exportHeading.setOnClickListener {
             vibration(vibrationData)
             val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
@@ -338,7 +334,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
-        textView30.setOnClickListener {
+        exportSubtitle.setOnClickListener {
             vibration(vibrationData)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
@@ -375,7 +371,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
-        cardView12.setOnClickListener {
+        ExportCardView.setOnClickListener {
             vibration(vibrationData)
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
@@ -413,7 +409,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
         }
 
-        cardView6.setOnClickListener {
+        reviewCardView.setOnClickListener {
             vibration(vibrationData)
             val reviewManager = ReviewManagerFactory.create(this)
             val requestReviewFlow = reviewManager.requestReviewFlow()
@@ -429,7 +425,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 }
             }
         }
-        textView18.setOnClickListener {
+        reviewHeading.setOnClickListener {
             vibration(vibrationData)
             val reviewManager = ReviewManagerFactory.create(this)
             val requestReviewFlow = reviewManager.requestReviewFlow()
@@ -445,7 +441,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 }
             }
         }
-        textView23.setOnClickListener {
+        reviewSubtitle.setOnClickListener {
             vibration(vibrationData)
             val reviewManager = ReviewManagerFactory.create(this)
             val requestReviewFlow = reviewManager.requestReviewFlow()
@@ -462,61 +458,61 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             }
         }
 
-        cardView7.setOnClickListener {
+        bugCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
-            intent.putExtra(
-                Intent.EXTRA_TEXT, getString(R.string.bug_report)
-            )
-            startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_issue_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
-        textView31.setOnClickListener {
+        bugHeading.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
-            intent.putExtra(
-                Intent.EXTRA_TEXT, getString(R.string.bug_report)
-            )
-            startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_issue_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
-        textView32.setOnClickListener {
+        bugSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(Intent.ACTION_SEND)
-            intent.data = Uri.parse("mailto:")
-            intent.type = "message/rfc822"
-            intent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.recipient)))
-            intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.bug_report))
-            intent.putExtra(
-                Intent.EXTRA_TEXT, getString(R.string.bug_report)
-            )
-            startActivity(Intent.createChooser(intent, getString(R.string.choose_email)))
+            val intent = Intent(this, WebViewActivity::class.java)
+            intent.putExtra("url", getString(R.string.github_issue_link))
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
         }
 
-        cardView8.setOnClickListener {
+        otherAppsCardView.setOnClickListener {
             vibration(vibrationData)
             val fragment = BottomSheet.newInstance()
             fragment.show(supportFragmentManager, "my_bs")
         }
-        textView33.setOnClickListener {
-            vibration(vibrationData)
-            val fragment = BottomSheet.newInstance()
-            fragment.show(supportFragmentManager, "my_bs")
-        }
-
-        textView34.setOnClickListener {
+        otherAppHeading.setOnClickListener {
             vibration(vibrationData)
             val fragment = BottomSheet.newInstance()
             fragment.show(supportFragmentManager, "my_bs")
         }
 
-        cardView9.setOnClickListener {
+        otherAppsSubtitle.setOnClickListener {
+            vibration(vibrationData)
+            val fragment = BottomSheet.newInstance()
+            fragment.show(supportFragmentManager, "my_bs")
+        }
+
+        aboutCardView.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.about_me)).setMessage(getString(R.string.about_me_message))
@@ -528,7 +524,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val alert = alertDialog.create()
             alert.show()
         }
-        textView35.setOnClickListener {
+        aboutMeHeading.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.about_me))
@@ -541,7 +537,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val alert = alertDialog.create()
             alert.show()
         }
-        textView36.setOnClickListener {
+        aboutMeSubtitle.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.about_me))
@@ -555,7 +551,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alert.show()
         }
 
-        findViewById<CardView>(R.id.cardView10).setOnClickListener {
+        findViewById<CardView>(R.id.versionCardView).setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
@@ -566,7 +562,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
         }
-        textView38.setOnClickListener {
+        versionHeading.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
@@ -577,9 +573,43 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
         }
-        textView39.setOnClickListener {
+        versionSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, VersionInfoActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
+        val deleteCardView = findViewById<CardView>(R.id.deleteDataCardView)
+        deleteCardView.setOnClickListener {
+            val intent = Intent(this, DeleteAppDataActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val deleteHeading = findViewById<TextView>(R.id.deleteDataHeading)
+        deleteHeading.setOnClickListener {
+            val intent = Intent(this, DeleteAppDataActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val deleteSubtitle = findViewById<TextView>(R.id.deleteDataSubtitle)
+        deleteSubtitle.setOnClickListener {
+            val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

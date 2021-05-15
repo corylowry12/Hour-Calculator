@@ -31,12 +31,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.NotificationSettingActivity"
-            android:label="@string/notifications"
+        <activity android:name=".activities.DeleteAppDataActivity"
+            android:label="@string/delete_data_label"
             android:launchMode="standard"
             android:parentActivityName=".activities.SettingsActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".activities.NotificationSettingActivity"
+            android:label="@string/notification_settings"
+            android:launchMode="standard"
+            android:parentActivityName=".activities.SettingsActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.LayoutSettings"
             android:label="@string/layout"

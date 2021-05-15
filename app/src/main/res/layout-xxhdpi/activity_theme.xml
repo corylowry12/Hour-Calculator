@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ThemeActivity"
+    android:background="?attr/backgroundColor">
+
+    <TextView
+        android:id="@+id/themeSettingsTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:text="@string/theme_settings"
+        android:textColor="?attr/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/themeCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/themeSettingsTextView"
+        app:cardBackgroundColor="?attr/cardBackgroundColor"
+        app:cardCornerRadius="5dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardUseCompatPadding="true">
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/lightTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/light_theme"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/darkTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dark_theme"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp"/>
+        </RadioGroup>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/changing_theme_info"
+        app:layout_constraintTop_toBottomOf="@id/themeCardView"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textColor="?attr/textColor"
+        android:textSize="14sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

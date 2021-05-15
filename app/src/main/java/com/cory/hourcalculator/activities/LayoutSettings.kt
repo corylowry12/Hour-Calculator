@@ -19,6 +19,7 @@ import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
+import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_layout_settings.*
@@ -42,6 +43,17 @@ class LayoutSettings : AppCompatActivity() {
         setContentView(R.layout.activity_layout_settings)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        adView.adSize = AdSize.BANNER
+        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
+
+        }
 
         val performanceModeData = PerformanceModeData(this)
         val breakTextBoxData = BreakData(this)
@@ -119,13 +131,14 @@ class LayoutSettings : AppCompatActivity() {
             enableHistory.isChecked = true
         }
         else if (!historyToggleData.loadHistoryState()) {
-            disableHistory.isChecked = false
+            disableHistory.isChecked = true
         }
 
         enableHistory.setOnClickListener {
             historyToggleData.setHistoryToggle(true)
             Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            invalidateOptionsMenu()
         }
         disableHistory.setOnClickListener {
             historyToggleData.setHistoryToggle(false)
@@ -159,6 +172,7 @@ class LayoutSettings : AppCompatActivity() {
             alertDialog.create().show()
             vibration(vibrationData)
             Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
+            invalidateOptionsMenu()
         }
 
         val enableTrashAutomaticDeletion = findViewById<RadioButton>(R.id.enableTrashDeletion)

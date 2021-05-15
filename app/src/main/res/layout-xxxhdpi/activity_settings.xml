@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView15"
+                android:id="@+id/donateCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -53,20 +53,21 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/textView42"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/donateHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/please_donate"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/donateImage"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView41"
+                        android:id="@+id/donateSubtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -78,7 +79,7 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/donateImage"
-                        app:layout_constraintTop_toBottomOf="@+id/textView42" />
+                        app:layout_constraintTop_toBottomOf="@+id/donateHeading" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
@@ -107,18 +108,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_dark_mode_black_24dp"
                         tools:ignore="ContentDescription" />
+
                     <TextView
                         android:id="@+id/theme"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Appearance"
-                        android:textColor="?attr/textColor"
                         android:paddingStart="12dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
+                        android:text="Appearance"
+                        android:textColor="?attr/textColor"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/appearanceImage"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/themeSubtitle"
@@ -161,18 +164,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_dashboard_black_24dp"
                         tools:ignore="ContentDescription" />
+
                     <TextView
                         android:id="@+id/layout"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/layout_settings"
-                        android:textColor="?attr/textColor"
                         android:paddingStart="12dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
+                        android:text="@string/layout_settings"
+                        android:textColor="?attr/textColor"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/layoutImage"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/layoutSubtitle"
@@ -215,18 +220,20 @@
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_notifications_black_24dp"
                         tools:ignore="ContentDescription" />
+
                     <TextView
                         android:id="@+id/notifications"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/notifications"
-                        android:textColor="?attr/textColor"
                         android:paddingStart="12dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
+                        android:text="@string/notifications"
+                        android:textColor="?attr/textColor"
                         android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/notificationsImage"
-                        app:layout_constraintTop_toTopOf="parent"/>
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/notificationsSubtitle"
@@ -246,7 +253,7 @@
             </androidx.cardview.widget.CardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView12"
+                android:id="@+id/ExportCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -276,20 +283,21 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/textView29"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/exportHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/export_hours"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/exportImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView30"
+                        android:id="@+id/exportSubtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -301,13 +309,13 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/exportImage"
-                        app:layout_constraintTop_toBottomOf="@+id/textView29" />
+                        app:layout_constraintTop_toBottomOf="@+id/exportHeading" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView6"
+                android:id="@+id/reviewCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -337,20 +345,21 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/textView18"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/reviewHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/leave_a_review"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reviewImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/reviewSubtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -362,13 +371,13 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reviewImage"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                        app:layout_constraintTop_toBottomOf="@+id/reviewHeading" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView7"
+                android:id="@+id/bugCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -378,7 +387,7 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView6"
+                app:layout_constraintTop_toBottomOf="@+id/reviewCardView"
                 tools:ignore="PrivateResource"
                 tools:visibility="visible">
 
@@ -398,20 +407,21 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/textView31"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/bugHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/report_a_bug"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reportABug"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView32"
+                        android:id="@+id/bugSubtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -423,12 +433,12 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reportABug"
-                        app:layout_constraintTop_toBottomOf="@+id/textView31" />
+                        app:layout_constraintTop_toBottomOf="@+id/bugHeading" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView8"
+                android:id="@+id/otherAppsCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -438,7 +448,7 @@
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView7"
+                app:layout_constraintTop_toBottomOf="@+id/bugCardView"
                 tools:ignore="PrivateResource"
                 tools:visibility="visible">
 
@@ -458,20 +468,21 @@
                         tools:ignore="ContentDescription" />
 
                     <TextView
-                        android:id="@+id/textView33"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/otherAppHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/other_apps"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/otherAppsImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView34"
+                        android:id="@+id/otherAppsSubtitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
@@ -483,12 +494,12 @@
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/otherAppsImage"
-                        app:layout_constraintTop_toBottomOf="@+id/textView33" />
+                        app:layout_constraintTop_toBottomOf="@+id/otherAppHeading" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView9"
+                android:id="@+id/aboutCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -503,34 +514,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/aboutMeImage"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/ic_info_black_24dp"
+                        tools:ignore="ContentDescription" />
+
                     <TextView
-                        android:id="@+id/textView35"
-                        android:layout_width="match_parent"
+                        android:id="@+id/aboutMeHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="10dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/about_me"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/aboutMeImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView36"
-                        android:layout_width="match_parent"
+                        android:id="@+id/aboutMeSubtitle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="5dp"
                         android:paddingBottom="4dp"
                         android:text="@string/view_about_me_to_learn_about_the_developer_of_this_app"
-                        android:textSize="12sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView35" />
+                        app:layout_constraintStart_toEndOf="@id/aboutMeImage"
+                        app:layout_constraintTop_toBottomOf="@+id/aboutMeHeading" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -553,33 +575,44 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/githubImage"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/ic_github_seeklogo_com"
+                        tools:ignore="ContentDescription" />
+
                     <TextView
                         android:id="@+id/textViewGithubHeading"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="12dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
                         android:text="@string/github_heading"
-                        android:textSize="18sp"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/githubImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/textViewGithubCaption"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="5dp"
                         android:paddingBottom="4dp"
-                        android:textColor="?attr/textColor"
                         android:text="@string/github_caption"
+                        android:textColor="?attr/textColor"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/githubImage"
                         app:layout_constraintTop_toBottomOf="@+id/textViewGithubHeading"
                         tools:ignore="SmallSp" />
 
@@ -588,10 +621,73 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardView10"
+                android:id="@+id/versionCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="5dp"
                 android:layout_marginBottom="5dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                tools:ignore="PrivateResource"
+                tools:visibility="visible">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/versionInfoImage"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/ic_build_black_24dp"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/versionHeading"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="5dp"
+                        android:text="@string/version_info"
+                        android:textColor="?attr/textColor"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/versionInfoImage"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/versionSubtitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="4dp"
+                        android:text="@string/this_will_list_the_version_code_and_dependencies_used_in_the_app"
+                        android:textColor="?attr/textColor"
+                        android:textSize="12sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/versionInfoImage"
+                        app:layout_constraintTop_toBottomOf="@+id/versionHeading" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/deleteDataCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
                 app:cardCornerRadius="5dp"
                 app:cardPreventCornerOverlap="false"
@@ -606,39 +702,58 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <ImageView
+                        android:layout_marginStart="12dp"
+                        android:id="@+id/deleteDataImage"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:src="@drawable/ic_delete_black_24dp"
+                        tools:ignore="ContentDescription" />
+
                     <TextView
-                        android:id="@+id/textView38"
-                        android:layout_width="match_parent"
+                        android:id="@+id/deleteDataHeading"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingStart="12dp"
                         android:paddingTop="4dp"
                         android:paddingEnd="5dp"
-                        android:text="@string/version_info"
-                        android:textSize="18sp"
+                        android:text="@string/delete_app_data"
                         android:textColor="?attr/textColor"
+                        android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/deleteDataImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="match_parent"
+                        android:id="@+id/deleteDataSubtitle"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:paddingStart="12dp"
                         android:paddingEnd="5dp"
                         android:paddingBottom="4dp"
+                        android:text="@string/delete_all_cache_and_app_data"
                         android:textColor="?attr/textColor"
-                        android:text="@string/this_will_list_the_version_code_and_dependencies_used_in_the_app"
                         android:textSize="12sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView38" />
-
+                        app:layout_constraintStart_toEndOf="@id/deleteDataImage"
+                        app:layout_constraintTop_toBottomOf="@+id/deleteDataHeading" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/versionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/version_settings"
+                android:textAlignment="center"
+                android:textColor="?attr/textColor"
+                android:textSize="12sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"

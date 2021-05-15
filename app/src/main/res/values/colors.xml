@@ -6,7 +6,6 @@
     <color name="lightBackground">#FFFFFF</color>
     <color name="lightText">#000000</color>
     <color name="darkBackground">#000000</color>
-    <color name="cardDarkBackground">#2C353A</color>
     <color name="darkTextColor">#FFFFFF</color>
     <color name="cardLightBackground">#E8E8E8</color>
     <color name="spinnerLightBackgroundColor">#E8E8E8</color>
@@ -23,4 +22,5 @@
     <color name="spinnerLightTextColor">#000000</color>
     <color name="spinnerLightArrowTint">#000000</color>
     <color name="settingsTextColorAccent">#26A69A</color>
+    <color name="deleteButton">#ce2029</color>
 </resources>

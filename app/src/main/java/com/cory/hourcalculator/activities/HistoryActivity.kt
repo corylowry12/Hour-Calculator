@@ -129,9 +129,15 @@ class HistoryActivity : AppCompatActivity() {
             textViewTotalHours.text = getString(R.string.total_hours_history, output)
 
             if(wagesData.loadWageAmount() != "") {
-                val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
-                val wagesrounded = String.format("%.2f", wages)
-                textViewWages.text = getString(R.string.total_wages, wagesrounded)
+                try {
+                    val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
+                    val wagesrounded = String.format("%.2f", wages)
+                    textViewWages.text = getString(R.string.total_wages, wagesrounded)
+                }
+                catch (e: NumberFormatException) {
+                    e.printStackTrace()
+                    textViewWages.text = getString(R.string.there_is_a_problem_calculating_wages)
+                }
             }
 
             cursor.moveToNext()

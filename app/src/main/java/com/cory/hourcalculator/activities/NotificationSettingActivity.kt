@@ -12,6 +12,7 @@ import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
+import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.ktx.messaging
@@ -34,42 +35,23 @@ class NotificationSettingActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        adView.adSize = AdSize.BANNER
+        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
+
+        }
+
         val enableUpdateNotifications = findViewById<RadioButton>(R.id.notificationEnabled)
         val disableUpdateNotifications = findViewById<RadioButton>(R.id.disableNotification)
 
         vibrationData = VibrationData(this)
 
         val updateData = UpdateData(this)
-        /*val updateSwitch = findViewById<SwitchMaterial>(R.id.switch6)
-        updateSwitch.isChecked = updateData.loadUpdateNotificationState()
-        updateSwitch.setOnCheckedChangeListener { _, isChecked ->
-            vibration(vibrationData)
-            if (isChecked) {
-                updateData.setUpdateNotificationState(true)
-                Snackbar.make(constraintLayout, getString(R.string.enabled_update_notifications), Snackbar.LENGTH_SHORT).show()
-                Firebase.messaging.subscribeToTopic("updates")
-                    .addOnCompleteListener { task ->
-                        var msg = "Subscribed"
-                        if (!task.isSuccessful) {
-                            msg = "Subscribe failed"
-                            updateSwitch.isChecked = false
-                        }
-                        Log.d("Updates", msg)
-                    }
-            } else {
-                updateSwitch.isChecked = false
-                updateData.setUpdateNotificationState(false)
-                Snackbar.make(constraintLayout, getString(R.string.disabled_update_notifications), Snackbar.LENGTH_SHORT).show()
-                Firebase.messaging.unsubscribeFromTopic("updates")
-                    .addOnCompleteListener { task ->
-                        var msg = "Unsubscribed"
-                        if (!task.isSuccessful) {
-                            msg = "Unsubscribe failed"
-                        }
-                        Log.d("Updates", msg)
-                    }
-            }
-        }*/
 
         if (updateData.loadUpdateNotificationState()) {
             enableUpdateNotifications.isChecked = true
@@ -108,6 +90,21 @@ class NotificationSettingActivity : AppCompatActivity() {
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        } else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
 

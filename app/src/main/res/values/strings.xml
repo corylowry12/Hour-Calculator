@@ -1,19 +1,13 @@
 <resources>
     <string name="title_activity_settings">Settings</string>
-    <string name="themeSettings">Theme</string>
-    <string name="recipient" translatable="false">corylowry12@gmail.com</string>
-    <string name="message">"Dear dev,  Here is some features I think need to be added: "</string>
     <string name="view_about_me_to_learn_about_the_developer_of_this_app">View about me to learn about the developer of this app.</string>
     <string name="about_me">About Me</string>
     <string name="report_a_bug_to_let_me_know_if_there_are_any_issues_with_the_app_so_i_can_fix_them">Report a bug to let me know if there are any issues with the app so i can fix them.</string>
     <string name="view_my_other_apps_to_see_if_they_will_benefit_you_at_all">View my other apps to see if they will benefit you at all.</string>
     <string name="other_apps">Other Apps</string>
-    <string name="other">Other</string>
     <string name="report_a_bug">Report a Bug</string>
     <string name="leave_a_review_to_let_me_know_n_what_you_think_about_the_app">Leave a Review to let me know what you think about the app.</string>
-    <string name="feature_request">Feature Request</string>
     <string name="leave_a_review">Leave a Review</string>
-    <string name="request_features_that_you_think_should_be_added_into_the_app">Request Features that you think should be  added into the app.</string>
     <string name="clear">Clear</string>
     <string name="calculate">Calculate</string>
     <string name="out">Out</string>
@@ -23,15 +17,12 @@
     <string name="_9_00" translatable="false">9:00</string>
     <string name="_5_00" translatable="false">5:00</string>
     <string name="_60" translatable="false">60</string>
-    <string name="toggle_break">Toggle Break Text Box</string>
-    <string name="toggle_dark">Toggle Dark Mode</string>
-    <string name="toggle_vibration">Toggle Vibration</string>
     <string name="proper_input">Please Enter the Proper Input</string>
     <string name="dont_leave_anything_blank">"Don't leave anything blank!"</string>
     <string name="cant_be_greater_than_or_equal_to_60">Minutes Can Not Be Greater Than Or Equal To 60</string>
     <string name="cant_be_greater_than_or_equal_to_13">Hours can not be greater than or equal to 13</string>
     <string name="in_time_can_not_be_greater_than_out_time">In time can not be greater than out time!</string>
-    <string name="about_me_message">I am a 20 year old new android dev, only been developing for about a year, the only way for me to make money off of this since there is not in-app purchases is for you to click on the ads. So if you want to help me out. Please click on the ads.</string>
+    <string name="about_me_message">I am a 21 year old new android dev, only been developing for about a year, the only way for me to make money off of this since there is not in-app purchases is for you to click on the ads. So if you want to help me out. Please click on the ads.</string>
     <string name="history">History</string>
     <string name="amount_of_hours_saved">"Amount of Hours Saved: %1$d"</string>
     <string name="total_hours_history">"Total Hours: %1$s"</string>
@@ -95,7 +86,6 @@
     <string name="memorable_places_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.memorableplaces">https://play.google.com/store/apps/details?id=com.cory.memorableplaces</a></string>
     <string name="texarkana_college_link" translatable="false"><a href="https://play.google.com/store/apps/details?id=com.cory.texarkanacollege">https://play.google.com/store/apps/details?id=com.cory.texarkanacollege</a></string>
     <string name="chart_link" translatable="false"><a href="https://github.com/PhilJay/MPAndroidChart">https://github.com/PhilJay/MPAndroidChart</a></string>
-    <string name="toggle_history">Toggle History</string>
     <string name="version_info">Version Info</string>
     <string name="this_will_list_the_version_code_and_dependencies_used_in_the_app">This will list the version code and dependencies used in the app.</string>
     <string name="play_core_in_app_review_dependency">Play Core (In App Review Dependency)</string>
@@ -118,7 +108,7 @@
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version"</string>
-    <string name="version_number" translatable="false">7.0.2</string>
+    <string name="version_number" translatable="false">7.0.3</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
@@ -135,14 +125,10 @@
     <string name="disable_automatic_deletion">You disabled trash automatic deletion</string>
     <string name="cloud_messaging_link" translatable="false"><a href="https://firebase.google.com/docs/cloud-messaging">https://firebase.google.com/docs/cloud-messaging</a></string>
     <string name="cloud_messaging_heading">Firebase Cloud Messaging</string>
-    <string name="toggle_notifications_about_updates">Toggle Notifications About Updates</string>
-    <string name="subject">Feature Request</string>
     <string name="app_name">Hour Calculator</string>
     <string name="layout_settings">Layout Settings</string>
     <string name="total_wages">Total Wages for Hours Stored: %1$s</string>
-    <string name="toggle_trash_automatic_deletion">Toggle Trash Automatic Deletion</string>
     <string name="ok">OK</string>
-    <string name="choose_email">Choose Email Client…</string>
     <string name="disabled_update_notifications">You disabled update notifications</string>
     <string name="enabled_update_notifications">You enabled update notifications</string>
     <string name="am" translatable="false">AM</string>
@@ -168,7 +154,6 @@
     <string name="version_info_label">Version Info</string>
     <string name="graph_label">Graph</string>
     <string name="total_hours_with_and_without_break">Total Hours With Break: %1$s\nTotal Hours Without Break: %2$s</string>
-    <string name="bug_report">"Dear dev,  here are some bugs I have found: "</string>
     <string name="export_hours">Export Hours</string>
     <string name="export_hours_caption">Export all stored hours as a .csv  or .txt file</string>
     <string name="hours_file_name">hours</string>
@@ -217,7 +202,6 @@
     <string name="time_cant_be_five_digits">Time can not be 5 digits without a colon. Check your input.</string>
     <string name="hour_is_saved">Hour is updated</string>
     <string name="edit_label">Edit</string>
-    <string name="toggle_performance_mode">Toggle Performance Mode</string>
     <string name="github_caption">View github repository to stay up to date on app progress or report an issue</string>
     <string name="github_heading">View Github Repository</string>
     <string name="home">Home</string>
@@ -238,7 +222,7 @@
     <string name="cant_edit">Can\'t edit that hour. Something is wrong.</string>
     <string name="layout_settings_subtitle">Customize the layout settings of the app</string>
     <string name="layout">Layout Settings</string>
-    <string name="appearance">Appearance</string>
+    <string name="appearance">Appearance Settings</string>
     <string name="layout_settings_information">All the settings that you can change here will change the basic functionality of the app.</string>
     <string name="notification_subtitle">Change notifications you receive</string>
     <string name="notifications">Notifications</string>
@@ -246,4 +230,33 @@
     <string name="disable_update_notifications">Disable Update Notifications</string>
     <string name="enable_update_notifications">Enable Update Notifications</string>
     <string name="notification_settings">Notification Settings</string>
+    <string name="version_settings">Version: 7.0.3</string>
+    <string name="github_issue_link">https://github.com/corylowry12/Hour-Calculator/issues</string>
+    <string name="delete_all_cache_and_app_data">Delete all cache and app data</string>
+    <string name="delete_app_data">Delete App Data</string>
+    <string name="delete_app_data_warning">Clicking the button below will delete all app data, including hours stored in history and trash and any settings you changed. PROCEED WITH CAUTION!</string>
+    <string name="warning_delete">Warning!</string>
+    <string name="clear_app_data_delete_activity">This will clear all app data and the application will restart</string>
+    <string name="delete_data_label">Delete Data</string>
+    <string name="disable_trash_automatic_deletion">Disable Trash Automatic Deletion</string>
+    <string name="enable_trash_automatic_deletion">Enable Trash Automatic Deletion</string>
+    <string name="trash_automatic_deletion_settings">Trash Automatic Deletion Settings</string>
+    <string name="disable_history">Disable History</string>
+    <string name="enable_history">Enable History</string>
+    <string name="history_settings">History Settings</string>
+    <string name="disable_vibration">Disable Vibration</string>
+    <string name="enable_vibration">Enable Vibration</string>
+    <string name="vibration_settings">Vibration Settings</string>
+    <string name="disable_break_text_box">Disable Break Text Box</string>
+    <string name="enable_break_text_box">Enable Break Text Box</string>
+    <string name="break_text_box_settings">Break Text Box Settings</string>
+    <string name="disable_performance_mode">Disable Performance Mode</string>
+    <string name="enable_performance_mode">Enable Performance Mode</string>
+    <string name="performance_mode_settings">Performance Mode Settings</string>
+    <string name="theme_settings">Theme Settings</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="changing_theme_info">Changing the theme from light to dark will change the background color for the whole app</string>
+    <string name="app_data_cleared_toast">App Data Cleared. App Restarting.</string>
+    <string name="there_is_a_problem_calculating_wages">There is a problem calculating wages</string>
 </resources>

@@ -14,7 +14,7 @@
         android:gravity="center"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
-        android:text="Theme Settings"
+        android:text="@string/theme_settings"
         android:textColor="?attr/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -41,14 +41,14 @@
             android:id="@+id/lightTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Light Theme"
+            android:text="@string/light_theme"
             android:textColor="?attr/textColor"/>
 
         <RadioButton
             android:id="@+id/darkTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Dark Theme"
+            android:text="@string/dark_theme"
             android:textColor="?attr/textColor" />
     </RadioGroup>
     </androidx.cardview.widget.CardView>
@@ -56,11 +56,29 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Changing the theme from light to dark will change the background color for the whole app"
+        android:text="@string/changing_theme_info"
         app:layout_constraintTop_toBottomOf="@id/themeCardView"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

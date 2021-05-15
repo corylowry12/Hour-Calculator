@@ -14,6 +14,7 @@ import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
+import com.google.android.gms.ads.*
 
 class ThemeActivity : AppCompatActivity() {
 
@@ -32,6 +33,19 @@ class ThemeActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        adView.adSize = AdSize.BANNER
+        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
+
+        }
+
+        vibrationData = VibrationData(this)
+
         val lightThemeButton = findViewById<RadioButton>(R.id.lightTheme)
         val darkThemeButton = findViewById<RadioButton>(R.id.darkTheme)
 
@@ -42,12 +56,21 @@ class ThemeActivity : AppCompatActivity() {
         }
 
         lightThemeButton.setOnClickListener {
+            vibration(vibrationData)
             darkThemeData.setDarkModeState(false)
             restartApplication()
         }
         darkThemeButton.setOnClickListener {
+            vibration(vibrationData)
             darkThemeData.setDarkModeState(true)
             restartApplication()
+        }
+    }
+
+    private fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 

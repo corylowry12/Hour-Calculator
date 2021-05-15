@@ -19,7 +19,8 @@
         android:textColor="?attr/textColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="14sp"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/updateNotificationsCardView"
@@ -43,14 +44,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/enable_update_notifications"
-                android:textColor="?attr/textColor"/>
+                android:textColor="?attr/textColor"
+                android:textSize="14sp"/>
 
             <RadioButton
                 android:id="@+id/disableNotification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/disable_update_notifications"
-                android:textColor="?attr/textColor" />
+                android:textColor="?attr/textColor"
+                android:textSize="14sp"/>
         </RadioGroup>
     </androidx.cardview.widget.CardView>
 
@@ -63,5 +66,24 @@
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:textAlignment="center"
-        android:textColor="?attr/textColor"/>
+        android:textColor="?attr/textColor"
+        android:textSize="13sp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

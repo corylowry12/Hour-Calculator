@@ -117,10 +117,10 @@ class TrashActivity : AppCompatActivity() {
         val v = listViewTrash.getChildAt(0)
         val top = if (v == null) 0 else v.top - listViewTrash.paddingTop
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_top_to_bottom)
-        loadIntoListTrash()
         if(!PerformanceModeData(this).loadPerformanceMode()) {
             listViewTrash.startAnimation(slideTopToBottom)
         }
+        loadIntoListTrash()
         listViewTrash.setSelectionFromTop(index, top)
         if(dbHandlerTrash.getCount() == 0) {
              textView8.text = ""
@@ -128,7 +128,6 @@ class TrashActivity : AppCompatActivity() {
     }
 
     private fun loadIntoListTrash() {
-
         dataListTrash.clear()
         val cursor = dbHandlerTrash.getAllRow(this)
         cursor!!.moveToFirst()
@@ -188,6 +187,8 @@ class TrashActivity : AppCompatActivity() {
         super.onResume()
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)
         if(!PerformanceModeData(this).loadPerformanceMode() && dbHandlerTrash.getCount() > 0) {
+            textViewWarning.startAnimation(slideTopToBottom)
+            textView8.startAnimation(slideTopToBottom)
             listViewTrash.startAnimation(slideTopToBottom)
         }
         loadIntoListTrash()
