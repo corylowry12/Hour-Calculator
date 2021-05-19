@@ -227,7 +227,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val donateSelection = arrayOf(getString(R.string.five_dollar))
         var donateSelectedItemIndex = 0
-        var donateSelectedItem = donateSelection[donateSelectedItemIndex]
 
         donateHeading.setOnClickListener {
             vibration(vibrationData)
@@ -235,7 +234,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                     donateSelectedItemIndex = which
-                    donateSelectedItem = donateSelection[which]
                 }
             alertDialog.setPositiveButton(R.string.donate) { _, _ ->
                 vibration(vibrationData)
@@ -255,7 +253,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                 donateSelectedItemIndex = which
-                donateSelectedItem = donateSelection[which]
             }
             alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
                 vibration(vibrationData)
@@ -275,7 +272,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                 donateSelectedItemIndex = which
-                donateSelectedItem = donateSelection[which]
             }
             alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
                 vibration(vibrationData)
@@ -295,8 +291,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val selection = arrayOf(getString(R.string.text_file), getString(R.string.spread_sheet))
 
-        var selectedItem = selection[selectedItemIndex]
-
         exportHeading.setOnClickListener {
             vibration(vibrationData)
             val list = listOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -307,7 +301,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
-                            selectedItem = selection[which]
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
@@ -347,7 +340,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
-                            selectedItem = selection[which]
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
@@ -384,7 +376,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
-                            selectedItem = selection[which]
                             exportData.setExportFormat(selectedItemIndex)
                         }
                         .setPositiveButton(R.string.ok) {_, _ ->
@@ -519,7 +510,8 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         aboutCardView.setOnClickListener {
             vibration(vibrationData)
             val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle(getString(R.string.about_me)).setMessage(getString(R.string.about_me_message))
+            alertDialog.setTitle(getString(R.string.about_me))
+                .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
                 .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
                     vibration(vibrationData)
