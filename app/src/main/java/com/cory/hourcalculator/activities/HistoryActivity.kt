@@ -56,15 +56,14 @@ class HistoryActivity : AppCompatActivity() {
 
         }
 
+        loadIntoList()
+
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
+        if (!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
             listView.startAnimation(slideTopToBottom)
             textViewTotalHours.startAnimation(slideTopToBottom)
             textViewSize.startAnimation(slideTopToBottom)
             textViewWages.startAnimation(slideTopToBottom)
-            textViewWages.text = ""
-            textViewSize.text = ""
-            textViewTotalHours.text = ""
         }
 
         floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
@@ -72,10 +71,9 @@ class HistoryActivity : AppCompatActivity() {
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
 
-                if(firstVisibleItem > 0) {
+                if (firstVisibleItem > 0) {
                     floatingActionButtonHistory.show()
-                }
-                else {
+                } else {
 
                     floatingActionButtonHistory.hide()
                 }
@@ -90,14 +88,14 @@ class HistoryActivity : AppCompatActivity() {
         val v = listView.getChildAt(0)
         val top = if (v == null) 0 else v.top - listView.paddingTop
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_top_to_bottom)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
             listView.startAnimation(slideTopToBottom)
         }
         loadIntoList()
-            listView.setSelectionFromTop(index, top)
-            if(dbHandler.getCount() == 0) {
-                textViewTotalHours.text = ""
-            }
+        listView.setSelectionFromTop(index, top)
+        if (dbHandler.getCount() == 0) {
+            textViewTotalHours.text = ""
+        }
 
     }
 
@@ -128,19 +126,18 @@ class HistoryActivity : AppCompatActivity() {
             val output = String.format("%.2f", y)
             textViewTotalHours.text = getString(R.string.total_hours_history, output)
 
-            if(wagesData.loadWageAmount() != "") {
+            if (wagesData.loadWageAmount() != "") {
                 try {
                     val wages = output.toDouble() * wagesData.loadWageAmount().toString().toDouble()
                     val wagesrounded = String.format("%.2f", wages)
                     textViewWages.text = getString(R.string.total_wages, wagesrounded)
-                }
-                catch (e: NumberFormatException) {
+                } catch (e: NumberFormatException) {
                     e.printStackTrace()
                     textViewWages.text = getString(R.string.there_is_a_problem_calculating_wages)
                 }
             }
-
             cursor.moveToNext()
+
         }
         textViewSize.text = getString(R.string.amount_of_hours_saved, dbHandler.getCount())
         val listView = findViewById<ListView>(R.id.listView)
@@ -174,14 +171,11 @@ class HistoryActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if(!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
+        if (!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
             listView.startAnimation(slideTopToBottom)
             textViewTotalHours.startAnimation(slideTopToBottom)
             textViewSize.startAnimation(slideTopToBottom)
             textViewWages.startAnimation(slideTopToBottom)
-            textViewWages.text = ""
-            textViewSize.text = ""
-            textViewTotalHours.text = ""
         }
         loadIntoList()
     }
@@ -191,11 +185,10 @@ class HistoryActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(0, 0)
+        } else {
+            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
 
@@ -207,10 +200,9 @@ class HistoryActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
+        } else {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
@@ -244,29 +236,27 @@ class HistoryActivity : AppCompatActivity() {
         }
         val search = menu.findItem(R.id.app_bar_search)
         val searchView = search.actionView as SearchView
-        searchView.queryHint = "Search"
+        searchView.queryHint = getString(R.string.search)
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                if(query != "") {
+                if (query != "") {
                     retrieveItems(query)
                     textViewTotalHours.text = ""
                     textViewSize.text = ""
                     textViewWages.text = ""
-                }
-                else if (query == "") {
+                } else if (query == "") {
                     loadIntoList()
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if(newText != "") {
+                if (newText != "") {
                     retrieveItems(newText)
                     textViewTotalHours.text = ""
                     textViewSize.text = ""
                     textViewWages.text = ""
-                }
-                else if (newText == "") {
+                } else if (newText == "") {
                     loadIntoList()
                 }
                 return false
@@ -331,10 +321,9 @@ class HistoryActivity : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -342,10 +331,9 @@ class HistoryActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -353,10 +341,9 @@ class HistoryActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -364,10 +351,9 @@ class HistoryActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -375,10 +361,9 @@ class HistoryActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
