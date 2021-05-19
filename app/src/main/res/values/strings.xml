@@ -169,7 +169,7 @@
     <string name="spread_sheet">Spread Sheet</string>
     <string name="please_donate">Please Donate</string>
     <string name="donate">Donate</string>
-    <string name="five_dollar">Five Dollar</string>
+    <string name="five_dollar">Five Dollars</string>
     <string name="thanks_for_donation">Thank you so much for your donation!</string>
     <string name="please_leave_a_donation">Please leave a donation, I work on the app in my spare time and don\'t want to make the app cost money.</string>
     <string name="whoops_error">Whoops there was an error! Please try again.</string>
@@ -197,7 +197,6 @@
     <string name="moved_all_hours_to_trash">You moved all of your hour history to the trash</string>
     <string name="nothing">Nothing</string>
     <string name="created_by">Created By: Cory Lowry</string>
-    <string name="search">Search</string>
     <string name="minutes_cant_be_three_numbers">Minutes can\'t be three numbers</string>
     <string name="time_cant_be_five_digits">Time can not be 5 digits without a colon. Check your input.</string>
     <string name="hour_is_saved">Hour is updated</string>
@@ -259,4 +258,9 @@
     <string name="changing_theme_info">Changing the theme from light to dark will change the background color for the whole app</string>
     <string name="app_data_cleared_toast">App Data Cleared. App Restarting.</string>
     <string name="there_is_a_problem_calculating_wages">There is a problem calculating wages</string>
+    <string name="permission">android.permission.WRITE_EXTERNAL_STORAGE</string>
+    <string name="manually_enable_permissions">You have to manually enable permissions in the settings</string>
+    <string name="search">Search</string>
+    <string name="permissions_previously_denied">Permissions have previously been denied. So you need to open settings and manually enable file permissions.</string>
+    <string name="open_settings">Open Settings</string>
 </resources>
