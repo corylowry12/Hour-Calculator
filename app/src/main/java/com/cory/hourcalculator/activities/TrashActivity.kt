@@ -30,6 +30,8 @@ class TrashActivity : AppCompatActivity() {
     private val dbHandlerTrash = DBHelperTrash(this, null)
     private val dataListTrash = ArrayList<HashMap<String, String>>()
 
+    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var vibrationData: VibrationData
 
@@ -55,11 +57,12 @@ class TrashActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
+        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
-
         }
 
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation_trash)

@@ -42,6 +42,8 @@ class GraphActivity : AppCompatActivity() {
 
     private lateinit var textViewItemClicked: TextView
 
+    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
@@ -57,11 +59,12 @@ class GraphActivity : AppCompatActivity() {
 
         firebaseAnalytics = Firebase.analytics
 
-        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this)
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
+        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)

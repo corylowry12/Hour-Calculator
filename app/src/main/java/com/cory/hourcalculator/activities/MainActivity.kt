@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var updateData: UpdateData
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
 
-    var testDeviceId = listOf("55AC61F1C7B72939031CF0C8F0256649")
+    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
     private val dbHandler = DBHelper(this, null)
     // private val permissionRequestCode = 1
     //private lateinit var managePermissions: ManagePermissions

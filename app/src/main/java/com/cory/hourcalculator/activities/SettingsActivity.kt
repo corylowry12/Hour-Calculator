@@ -69,11 +69,14 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
+        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
         }
+
         // initializes the vibrationData class
         val vibrationData = VibrationData(this)
 
