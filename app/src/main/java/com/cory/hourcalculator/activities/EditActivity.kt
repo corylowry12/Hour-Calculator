@@ -18,6 +18,7 @@ import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.PerformanceModeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
+import com.google.android.gms.ads.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.jaredrummler.materialspinner.MaterialSpinner
@@ -33,8 +34,9 @@ class EditActivity : AppCompatActivity() {
     private lateinit var spinner2selecteditem: String
 
     private lateinit var darkThemeData: DarkThemeData
-
     private lateinit var vibrationData: VibrationData
+
+    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -47,6 +49,18 @@ class EditActivity : AppCompatActivity() {
         setContentView(R.layout.edit_activity)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
+
+        MobileAds.initialize(this)
+        val adView = AdView(this)
+        adView.adSize = AdSize.BANNER
+        adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
+        MobileAds.setRequestConfiguration(configuration)
+        val mAdView = findViewById<AdView>(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
+        }
 
         main()
 
