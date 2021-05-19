@@ -263,4 +263,6 @@
     <string name="search">Search</string>
     <string name="permissions_previously_denied">Permissions have previously been denied. So you need to open settings and manually enable file permissions.</string>
     <string name="open_settings">Open Settings</string>
+    <string name="save">Save</string>
+    <string name="oneplus_device_id">5E80E48DC2282D372EAE0E3ACDE070CC</string>
 </resources>
