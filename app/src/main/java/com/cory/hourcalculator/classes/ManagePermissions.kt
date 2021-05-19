@@ -1,18 +1,26 @@
 package com.cory.hourcalculator.classes
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.provider.Settings
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class ManagePermissions(private val activity: Activity, private val list: List<String>, private val code:Int) {
 
+    val vibrationData = VibrationData(activity)
+
     // Check permissions at runtime
-    fun checkPermissions() : Boolean {
+    fun checkPermissions(): Boolean {
         return isPermissionsGranted() == PackageManager.PERMISSION_GRANTED
     }
 
@@ -36,31 +44,64 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
         return ""
     }
 
-    fun showAlertSettings(context : Context) {
-            val builder = MaterialAlertDialogBuilder(context )
+    fun showAlertSettings(context: Context) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, activity.getString(R.string.permission))) {
+            requestIfDenied()
+        } else {
+            val builder = AlertDialog.Builder(context)
             builder.setTitle(R.string.need_permissions)
             builder.setMessage(R.string.permissions_needed_caption)
             builder.setCancelable(false)
             builder.setPositiveButton(R.string.ok) { _, _ ->
+                vibration(vibrationData)
                 requestPermissions()
             }
             builder.setNeutralButton(R.string.cancel) { _, _ ->
-                Toast.makeText(context, context.getString(R.string.permission_not_granted), Toast.LENGTH_SHORT)
-                    .show()
+                vibration(vibrationData)
+                Toast.makeText(context, context.getString(R.string.permission_not_granted), Toast.LENGTH_SHORT).show()
             }
-            val dialog = builder.create()
-            dialog.show()
+            val alert = builder.create()
+            alert.show()
+            alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+        }
     }
 
     // Request the permissions at run time
     private fun requestPermissions() {
-        val permission = deniedPermission()
-        if (ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)) {
-            //Toast.makeText(context, "Go into settings and clear app data", Toast.LENGTH_SHORT)
-               // .show()
-            ActivityCompat.requestPermissions(activity, list.toTypedArray(), code)
-        } else {
-            ActivityCompat.requestPermissions(activity, list.toTypedArray(), code)
+        //val permission = deniedPermission()
+        ActivityCompat.requestPermissions(activity, list.toTypedArray(), code)
+    }
+
+    private fun requestIfDenied() {
+        val builder = AlertDialog.Builder(activity)
+        builder.setTitle(R.string.need_permissions)
+        builder.setMessage(activity.getString(R.string.permissions_previously_denied))
+        builder.setCancelable(false)
+        builder.setPositiveButton(activity.getString(R.string.open_settings)) { _, _ ->
+            vibration(vibrationData)
+            val intent = Intent()
+            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+            val uri = Uri.fromParts("package", activity.packageName, null)
+            intent.data = uri
+            Toast.makeText(activity, activity.getString(R.string.manually_enable_permissions), Toast.LENGTH_SHORT).show()
+            activity.startActivity(intent)
+        }
+        builder.setNeutralButton(activity.getString(R.string.cancel)) {dialog, _ ->
+            vibration(vibrationData)
+            Toast.makeText(activity, activity.getString(R.string.permission_not_granted), Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        val alert = builder.create()
+        alert.show()
+        alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+    }
+
+    private fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = activity.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
         }
     }
 }
