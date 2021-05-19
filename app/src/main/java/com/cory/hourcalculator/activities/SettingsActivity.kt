@@ -41,7 +41,8 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
     private var billingAgent: BillingAgent? = null
 
-    @SuppressLint("ObsoleteSdkInt")
+    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // Sets theme before activity is created
         darkThemeData = DarkThemeData(this)
