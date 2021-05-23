@@ -1,6 +1,5 @@
 package com.cory.hourcalculator.activities
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -41,7 +40,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
     private var billingAgent: BillingAgent? = null
 
-    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Sets theme before activity is created
@@ -587,6 +586,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val deleteCardView = findViewById<CardView>(R.id.deleteDataCardView)
         deleteCardView.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -598,6 +598,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val deleteHeading = findViewById<TextView>(R.id.deleteDataHeading)
         deleteHeading.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
@@ -609,6 +610,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         val deleteSubtitle = findViewById<TextView>(R.id.deleteDataSubtitle)
         deleteSubtitle.setOnClickListener {
+            vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
