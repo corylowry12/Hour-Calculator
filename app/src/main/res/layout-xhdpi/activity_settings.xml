@@ -61,7 +61,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/please_donate"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/donateImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +118,7 @@
                         android:paddingEnd="5dp"
                         android:text="Appearance"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/appearanceImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -174,7 +174,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/layout_settings"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/layoutImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -230,7 +230,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/notifications"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/notificationsImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -291,7 +291,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/export_hours"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/exportImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -353,7 +353,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/leave_a_review"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reviewImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -415,7 +415,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/report_a_bug"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/reportABug"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -476,7 +476,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/other_apps"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/otherAppsImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -534,7 +534,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/about_me"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/aboutMeImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -595,7 +595,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/github_heading"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/githubImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -659,7 +659,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/version_info"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/versionInfoImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -721,7 +721,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/delete_app_data"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/deleteDataImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -736,7 +736,7 @@
                         android:paddingBottom="4dp"
                         android:text="@string/delete_all_cache_and_app_data"
                         android:textColor="?attr/textColor"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/deleteDataImage"
                         app:layout_constraintTop_toBottomOf="@+id/deleteDataHeading" />
@@ -752,7 +752,7 @@
                 android:text="@string/version_settings"
                 android:textAlignment="center"
                 android:textColor="?attr/textColor"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
