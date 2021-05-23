@@ -48,12 +48,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-
                 app:cardCornerRadius="5dp"
                 app:cardPreventCornerOverlap="false"
-                app:contentPaddingBottom="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -69,13 +66,14 @@
                         android:id="@+id/linkTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:paddingLeft="20dp"
-                        android:paddingRight="20dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:text="@string/github_link"
                         android:textColor="?attr/textColor"
                         android:textSize="14sp"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
