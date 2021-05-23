@@ -1,6 +1,5 @@
 package com.cory.hourcalculator.activities
 
-import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
 import android.os.*
@@ -27,7 +26,7 @@ class DeleteAppDataActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     private val dbHandlerTrash = DBHelperTrash(this, null)
 
-    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)
@@ -61,7 +60,7 @@ class DeleteAppDataActivity : AppCompatActivity() {
             val alertDialog = AlertDialog.Builder(this)
             alertDialog.setTitle(getString(R.string.warning_delete))
             alertDialog.setMessage(getString(R.string.clear_app_data_delete_activity))
-            alertDialog.setPositiveButton(getString(R.string.yes)) {_, _ ->
+            alertDialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
                 vibration(vibrationData)
                 applicationContext.getSharedPreferences("file", 0).edit().clear().apply()
                 applicationContext.cacheDir.deleteRecursively()
@@ -76,7 +75,7 @@ class DeleteAppDataActivity : AppCompatActivity() {
                     this.finish()
                 }, 1500)
             }
-            alertDialog.setNeutralButton(getString(R.string.no)) {dialog, _ ->
+            alertDialog.setNeutralButton(getString(R.string.no)) { dialog, _ ->
                 vibration(vibrationData)
                 dialog.dismiss()
             }
@@ -111,10 +110,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-        else {
+        } else {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
@@ -143,10 +141,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -154,10 +151,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -165,10 +161,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -176,10 +171,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -187,10 +181,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -198,10 +191,9 @@ class DeleteAppDataActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true

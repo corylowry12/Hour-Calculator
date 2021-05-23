@@ -42,7 +42,7 @@ class GraphActivity : AppCompatActivity() {
 
     private lateinit var textViewItemClicked: TextView
 
-    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         darkThemeData = DarkThemeData(this)

@@ -30,7 +30,7 @@ class TrashActivity : AppCompatActivity() {
     private val dbHandlerTrash = DBHelperTrash(this, null)
     private val dataListTrash = ArrayList<HashMap<String, String>>()
 
-    var testDeviceId = listOf(getString(R.string.oneplus_device_id))
+    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var vibrationData: VibrationData
