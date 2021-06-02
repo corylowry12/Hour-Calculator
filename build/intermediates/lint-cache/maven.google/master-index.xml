@@ -11,6 +11,7 @@
   <androidx.ads/>
   <androidx.annotation/>
   <androidx.appcompat/>
+  <androidx.appsearch/>
   <androidx.arch.core/>
   <androidx.asynclayoutinflater/>
   <androidx.autofill/>
@@ -42,12 +43,14 @@
   <androidx.drawerlayout/>
   <androidx.dynamicanimation/>
   <androidx.emoji/>
+  <androidx.emoji2/>
   <androidx.enterprise/>
   <androidx.exifinterface/>
   <androidx.fragment/>
   <androidx.games/>
   <androidx.gaming/>
   <androidx.gridlayout/>
+  <androidx.health/>
   <androidx.heifwriter/>
   <androidx.hilt/>
   <androidx.interpolator/>
@@ -61,6 +64,8 @@
   <androidx.mediarouter/>
   <androidx.multidex/>
   <androidx.navigation/>
+  <androidx.navigation.safeargs/>
+  <androidx.navigation.safeargs.kotlin/>
   <androidx.paging/>
   <androidx.palette/>
   <androidx.percentlayout/>
@@ -151,6 +156,7 @@
   <com.google.android.enterprise.connectedapps/>
   <com.google.android.exoplayer/>
   <com.google.android.fhir/>
+  <com.google.android.flexbox/>
   <com.google.android.games/>
   <com.google.android.gms/>
   <com.google.android.instantapps/>
@@ -159,6 +165,7 @@
   <com.google.android.libraries.maps/>
   <com.google.android.libraries.places/>
   <com.google.android.material/>
+  <com.google.android.mediahome/>
   <com.google.android.play/>
   <com.google.android.support/>
   <com.google.android.things/>
@@ -168,11 +175,14 @@
   <com.google.ar/>
   <com.google.ar.sceneform/>
   <com.google.ar.sceneform.ux/>
+  <com.google.assistant.appactions/>
   <com.google.assistant.suggestion/>
+  <com.google.chromeos/>
   <com.google.devtools.ksp/>
   <com.google.fhir/>
   <com.google.firebase/>
   <com.google.gms/>
+  <com.google.jacquard/>
   <com.google.mlkit/>
   <com.google.oboe/>
   <com.google.prefab/>

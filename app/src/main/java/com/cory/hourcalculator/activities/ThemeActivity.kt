@@ -8,6 +8,7 @@ import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.DarkThemeData
@@ -24,13 +25,13 @@ class ThemeActivity : AppCompatActivity() {
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_theme)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -60,13 +61,22 @@ class ThemeActivity : AppCompatActivity() {
 
         lightThemeButton.setOnClickListener {
             vibration(vibrationData)
-            darkThemeData.setDarkModeState(false)
-            restartApplication()
+            if(!darkThemeData.loadDarkModeState()) {
+                Toast.makeText(this, getString(R.string.light_theme_is_already_enabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                darkThemeData.setDarkModeState(false)
+                restartApplication()
+            }
         }
         darkThemeButton.setOnClickListener {
             vibration(vibrationData)
-            darkThemeData.setDarkModeState(true)
-            restartApplication()
+            if (darkThemeData.loadDarkModeState()) {
+                Toast.makeText(this, getString(R.string.dark_mode_is_already_enabled), Toast.LENGTH_SHORT).show()
+            } else {
+                darkThemeData.setDarkModeState(true)
+                restartApplication()
+            }
         }
     }
 

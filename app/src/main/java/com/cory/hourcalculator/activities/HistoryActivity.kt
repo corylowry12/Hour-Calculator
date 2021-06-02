@@ -32,13 +32,13 @@ class HistoryActivity : AppCompatActivity() {
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_history)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -99,7 +99,6 @@ class HistoryActivity : AppCompatActivity() {
         if (dbHandler.getCount() == 0) {
             textViewTotalHours.text = ""
         }
-
     }
 
     private fun loadIntoList() {

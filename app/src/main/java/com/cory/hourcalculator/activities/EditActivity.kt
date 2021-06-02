@@ -39,13 +39,13 @@ class EditActivity : AppCompatActivity() {
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.edit_activity)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -859,78 +859,90 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-        val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference = outTimeTotal - inTimeTotal
-        val totalhours = String.format("%.2f", difference).toDouble()
-        if (totalhours < 0) {
-            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-        } else {
-            if (breakTime.text.toString() == "") {
-                Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
-                if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            } else if (breakTime.text.toString() != "") {
-                if (!breakTime.text.isDigitsOnly()) {
-                    Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
-                } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                    val totalHours1 = totalhours - breakTimeDec
-                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                    if (totalHoursWithBreak < 0) {
-                        Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-                    } else if (totalHoursWithBreak > 0) {
-                        Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
-                        if (historyToggleData.loadHistoryState()) {
-                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+        try {
+            val historyToggleData = HistoryToggleData(this)
+            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
+            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
+            val difference = outTimeTotal - inTimeTotal
+            val totalhours = String.format("%.2f", difference).toDouble()
+            if (totalhours < 0) {
+                Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
+            } else {
+                if (breakTime.text.toString() == "") {
+                    Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
+                    if (historyToggleData.loadHistoryState()) {
+                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                    }
+                } else if (breakTime.text.toString() != "") {
+                    if (!breakTime.text.isDigitsOnly()) {
+                        Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
+                    } else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHoursWithBreak < 0) {
+                            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
+                        } else if (totalHoursWithBreak > 0) {
+                            Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
+                            if (historyToggleData.loadHistoryState()) {
+                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                            }
                         }
                     }
                 }
             }
+        }
+        catch (e: NumberFormatException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-        val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-        val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference : Double = outTimeTotal - inTimeTotal
-        val totalhours : Double = if(outTimeHours.toInt() == 12) {
-            String.format("%.2f", difference).toDouble()
-        } else {
-            String.format("%.2f", difference).toDouble() + 12
-        }
-        if (totalhours < 0) {
-            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-        } else {
-            if (breakTime.text.toString() == "") {
-                Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
-                if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            } else if (breakTime.text.toString() != "") {
-                if (!breakTime.text.toString().isDigitsOnly()) {
-                    Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
-                } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                    val totalHours1 = totalhours - breakTimeDec
-                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                    if (totalHours1 < 0) {
-                        Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-                    } else if (totalHours1 > 0) {
-                        Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
-                        if (historyToggleData.loadHistoryState()) {
-                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+        try {
+            val historyToggleData = HistoryToggleData(this)
+            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
+            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
+            val difference: Double = outTimeTotal - inTimeTotal
+            val totalhours: Double = if (outTimeHours.toInt() == 12) {
+                String.format("%.2f", difference).toDouble()
+            } else {
+                String.format("%.2f", difference).toDouble() + 12
+            }
+            if (totalhours < 0) {
+                Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
+            } else {
+                if (breakTime.text.toString() == "") {
+                    Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
+                    if (historyToggleData.loadHistoryState()) {
+                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                    }
+                } else if (breakTime.text.toString() != "") {
+                    if (!breakTime.text.toString().isDigitsOnly()) {
+                        Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
+                    } else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHours1 < 0) {
+                            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
+                        } else if (totalHours1 > 0) {
+                            Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
+                            if (historyToggleData.loadHistoryState()) {
+                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
+                            }
                         }
                     }
                 }
             }
+        }
+        catch (e: NumberFormatException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
         }
     }
 

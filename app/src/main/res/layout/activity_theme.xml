@@ -62,7 +62,8 @@
         android:paddingStart="20dp"
         android:paddingTop="10dp"
         android:textAlignment="center"
-        android:textColor="?attr/textColor"/>
+        android:textColor="?attr/textColor"
+        android:textSize="12sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -23,6 +23,7 @@
         <item name="android:textColor">@color/lightText</item>
         <item name="popupMenuBackground">@color/lightBackground</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleLight</item>
+        <item name="disableTextColor">@color/disableLightTextColor</item>
     </style>
 
     <style name="AMOLED" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -31,7 +32,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="backgroundColor">@color/darkBackground</item>
         <item name="textColor">@color/darkTextColor</item>
-        <item name="cardBackgroundColor">#444E53</item>
+        <item name="cardBackgroundColor">@color/cardDarkBackground</item>
         <item name="android:navigationBarColor">@color/darkNavColor</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">false</item>
         <item name="itemBackground">@color/darkMenuBackground</item>
@@ -52,6 +53,7 @@
         <item name="alertDialogStyle">@style/AlertDialogStyleDark</item>
         <item name="android:alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="android:alertDialogStyle">@style/AlertDialogStyleDark</item>
+        <item name="disableTextColor">@color/disableTextColor</item>
     </style>
 
     <style name="popup" parent="android:ThemeOverlay.Material.Dark">
@@ -63,16 +65,18 @@
         <item name="iconTint">@android:color/black</item>
         <item name="android:textColorPrimary">@android:color/black</item>
         <item name="android:subtitleTextAppearance">@style/subtitleTextDark</item>
+        <item name="android:textColorHint">@color/cardDarkBackground</item>
     </style>
 
     <style name="subtitleTextDark" >
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <style name="ActionBarLight" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="tint">@android:color/white</item>
         <item name="iconTint">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorHint">@color/disableLightTextColor</item>
     </style>
 
     <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
@@ -84,23 +88,23 @@
     <style name="AlertDialogStyleDark" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:background">@color/darkMenuBackground</item>
-        <item name="android:textColor">#ffffff</item>
+        <item name="android:textColor">@android:color/white</item>
         <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
     <style name="AlertDialogStyleLight" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:background">@color/cardLightBackground</item>
-        <item name="android:textColor">#000000</item>
+        <item name="android:textColor">@android:color/black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="textColorAlertDialogListItem">#000000</item>
+        <item name="textColorAlertDialogListItem">@android:color/black</item>
         <item name="android:textColorPrimary">@color/lightText</item>
         <item name="textColor">@color/lightText</item>
     </style>
 
     <style name="SplashScreenThemeLight" parent="Theme.AppCompat.NoActionBar">
-        <item name="backgroundColor">#ffffff</item>
+        <item name="backgroundColor">@android:color/white</item>
     </style>
 
 </resources>

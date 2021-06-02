@@ -192,53 +192,10 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/trashAutomaticDeletionTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cardViewHistory"
-                android:gravity="center"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="@string/trash_automatic_deletion_settings"
-                android:textColor="?attr/textColor"
-                android:textSize="16sp"/>
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewTrashAutomaticDeletion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/trashAutomaticDeletionTextView"
-                app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/enableTrashDeletion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/enable_trash_automatic_deletion"
-                        android:textSize="16sp"/>
-
-                    <RadioButton
-                        android:id="@+id/disableTrashDeletion"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/disable_trash_automatic_deletion"
-                        android:textSize="16sp"/>
-
-                </RadioGroup>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
                 android:id="@+id/wagesTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/cardViewTrashAutomaticDeletion"
+                android:layout_below="@id/cardViewHistory"
                 android:gravity="center"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"

@@ -43,6 +43,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         // Sets theme before activity is created
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
@@ -50,7 +51,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
         // sets the back arrow on the action bar
         val actionBar = supportActionBar
@@ -145,6 +145,43 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         layoutCardView.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+
+        val automaticDeletionCardView = findViewById<CardView>(R.id.deletionCardView)
+        automaticDeletionCardView.setOnClickListener {
+            vibration(vibrationData)
+            val intent = Intent(this, AutomaticDeletionActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val automaticDeletionHeading = findViewById<TextView>(R.id.deletionHeading)
+        automaticDeletionHeading.setOnClickListener {
+            vibration(vibrationData)
+            val intent = Intent(this, AutomaticDeletionActivity::class.java)
+            startActivity(intent)
+            if(!PerformanceModeData(this).loadPerformanceMode()) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            }
+            else {
+                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
+            }
+        }
+        val automaticDeletionSubtitle = findViewById<TextView>(R.id.deletionSubtitle)
+        automaticDeletionSubtitle.setOnClickListener {
+            vibration(vibrationData)
+            val intent = Intent(this, AutomaticDeletionActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

@@ -37,12 +37,12 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
 
 
     // Find the first denied permission
-    private fun deniedPermission(): String {
+    /*private fun deniedPermission(): String {
         for (permission in list) {
             if (ContextCompat.checkSelfPermission(activity, permission) == PackageManager.PERMISSION_DENIED) return permission
         }
         return ""
-    }
+    }*/
 
     fun showAlertSettings(context: Context) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, activity.getString(R.string.permission))) {

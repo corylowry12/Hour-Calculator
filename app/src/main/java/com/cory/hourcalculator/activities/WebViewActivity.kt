@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -14,6 +15,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.WebResourceRequest
+import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
@@ -27,18 +29,18 @@ import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
 
-    private lateinit var darkThemeData : DarkThemeData
-    private lateinit var url : String
+    private lateinit var darkThemeData: DarkThemeData
+    private lateinit var url: String
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_web_view)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -87,7 +89,9 @@ class WebViewActivity : AppCompatActivity() {
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q && darkThemeData.loadDarkModeState()) {
+            webView.settings.forceDark = WebSettings.FORCE_DARK_ON
+        }
         swipeRefreshLayout.setOnRefreshListener {
             webView.reload()
         }
@@ -108,14 +112,12 @@ class WebViewActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (webView.canGoBack()) {
             webView.goBack()
-        }
-        else {
+        } else {
             super.onBackPressed()
             this.finish()
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
+            if (!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-            }
-            else {
+            } else {
                 overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
             }
         }
@@ -165,10 +167,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -177,10 +178,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -189,10 +189,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -201,10 +200,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -213,10 +211,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -225,10 +222,9 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -236,6 +232,7 @@ class WebViewActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
     fun vibration(vibrationData: VibrationData) {
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

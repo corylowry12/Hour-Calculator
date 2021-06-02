@@ -1,12 +1,12 @@
 <resources>
     <string name="title_activity_settings">Settings</string>
-    <string name="view_about_me_to_learn_about_the_developer_of_this_app">View about me to learn about the developer of this app.</string>
+    <string name="view_about_me_to_learn_about_the_developer_of_this_app">View about me to learn about the developer of this app</string>
     <string name="about_me">About Me</string>
     <string name="report_a_bug_to_let_me_know_if_there_are_any_issues_with_the_app_so_i_can_fix_them">Report a bug to let me know if there are any issues with the app so i can fix them.</string>
-    <string name="view_my_other_apps_to_see_if_they_will_benefit_you_at_all">View my other apps to see if they will benefit you at all.</string>
+    <string name="view_my_other_apps_to_see_if_they_will_benefit_you_at_all">View my other apps to see if they will benefit you at all</string>
     <string name="other_apps">Other Apps</string>
     <string name="report_a_bug">Report a Bug</string>
-    <string name="leave_a_review_to_let_me_know_n_what_you_think_about_the_app">Leave a Review to let me know what you think about the app.</string>
+    <string name="leave_a_review_to_let_me_know_n_what_you_think_about_the_app">Leave a Review to let me know what you think about the app</string>
     <string name="leave_a_review">Leave a Review</string>
     <string name="clear">Clear</string>
     <string name="calculate">Calculate</string>
@@ -46,7 +46,6 @@
     <string name="total_ASC" translatable="false">total ASC</string>
     <string name="day_ASC" translatable="false">day ASC</string>
     <string name="click_back_again">Please click BACK again to exit</string>
-    <string name="everything_already_cleared">Everything is already cleared 😃</string>
     <string name="trash">Trash</string>
     <string name="warning_trash_will_automatically_delete_each_hour_when_it_gets_a_week_old">Warning: Trash will automatically delete each hour when it gets a week old</string>
     <string name="amount_of_hours_in_trash">"Amount of Hours in Trash: %1$d"</string>
@@ -107,7 +106,7 @@
     <string name="mpandroid_chart" translatable="false">MPAndroid Chart</string>
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
     <string name="graph">Graph</string>
-    <string name="whats_new">"What's new in version"</string>
+    <string name="whats_new">"What's new in version %1$s"</string>
     <string name="version_number" translatable="false">7.1.0</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
@@ -133,7 +132,7 @@
     <string name="enabled_update_notifications">You enabled update notifications</string>
     <string name="am" translatable="false">AM</string>
     <string name="pm" translatable="false">PM</string>
-    <string name="there_was_an_error_graph">There was an error, please try again or clear data for the app.</string>
+    <string name="there_was_an_error_graph">There was an error, please try again or clear data for the app</string>
     <string name="movie_item_to_trash">Move Item To Trash</string>
     <string name="move_all_to_trash">Move All To Trash</string>
     <string name="delete">Delete</string>
@@ -159,10 +158,10 @@
     <string name="hours_file_name">hours</string>
     <string name="file_not_found">File Not Found</string>
     <string name="error_saving">Error saving</string>
-    <string name="no_hours_stored">You have no hours stored.</string>
+    <string name="no_hours_stored">You have no hours stored</string>
     <string name="need_permissions">Need Permissions</string>
     <string name="permissions_needed_caption">Permissions are required to use the export feature to export a file to a .csv or .txt file.</string>
-    <string name="permission_not_granted">Permissions were not granted.</string>
+    <string name="permission_not_granted">Permissions were not granted</string>
     <string name="cancel">Cancel</string>
     <string name="choose_format">Choose Format</string>
     <string name="text_file">Text File</string>
@@ -172,8 +171,8 @@
     <string name="five_dollar">Five Dollars</string>
     <string name="thanks_for_donation">Thank you so much for your donation!</string>
     <string name="please_leave_a_donation">Please leave a donation, I work on the app in my spare time and don\'t want to make the app cost money.</string>
-    <string name="whoops_error">Whoops there was an error! Please try again.</string>
-    <string name="no_hours_stored_for_graph">There are no hours stored to display in the graph.</string>
+    <string name="whoops_error">Whoops there was an error! Please try again</string>
+    <string name="no_hours_stored_for_graph">There are no hours stored to display in the graph</string>
     <string name="choose_app">Choose app</string>
     <string name="csv_heading">ID,In Time,Out Time,Break Time,Total,Day,Year,Time\\n</string>
     <string name="id_text">"ID: "</string>
@@ -222,7 +221,7 @@
     <string name="layout_settings_subtitle">Customize the layout settings of the app</string>
     <string name="layout">Layout Settings</string>
     <string name="appearance">Appearance Settings</string>
-    <string name="layout_settings_information">All the settings that you can change here will change the basic functionality of the app.</string>
+    <string name="layout_settings_information">All the settings that you can change here will change the basic functionality of the app</string>
     <string name="notification_subtitle">Change notifications you receive</string>
     <string name="notifications">Notifications</string>
     <string name="notification_information">Changing these settings will change the notifications you receive</string>
@@ -230,7 +229,7 @@
     <string name="enable_update_notifications">Enable Update Notifications</string>
     <string name="notification_settings">Notification Settings</string>
     <string name="version_settings">Version: 7.1.0</string>
-    <string name="github_issue_link">https://github.com/corylowry12/Hour-Calculator/issues</string>
+    <string name="github_issue_link" translatable="false">https://github.com/corylowry12/Hour-Calculator/issues</string>
     <string name="delete_all_cache_and_app_data">Delete all cache and app data</string>
     <string name="delete_app_data">Delete App Data</string>
     <string name="delete_app_data_warning">Clicking the button below will delete all app data, including hours stored in history and trash and any settings you changed. PROCEED WITH CAUTION!</string>
@@ -258,11 +257,30 @@
     <string name="changing_theme_info">Changing the theme from light to dark will change the background color for the whole app</string>
     <string name="app_data_cleared_toast">App Data Cleared. App Restarting.</string>
     <string name="there_is_a_problem_calculating_wages">There is a problem calculating wages</string>
-    <string name="permission">android.permission.WRITE_EXTERNAL_STORAGE</string>
+    <string name="permission" translatable="false">android.permission.WRITE_EXTERNAL_STORAGE</string>
     <string name="manually_enable_permissions">You have to manually enable permissions in the settings</string>
     <string name="search">Search</string>
-    <string name="permissions_previously_denied">Permissions have previously been denied. So you need to open settings and manually enable file permissions.</string>
+    <string name="permissions_previously_denied">Permissions have previously been denied. So you need to open settings and manually enable file permissions</string>
     <string name="open_settings">Open Settings</string>
     <string name="save">Save</string>
-    <string name="oneplus_device_id">5E80E48DC2282D372EAE0E3ACDE070CC</string>
+    <string name="there_was_an_error_check_input">There was an error, check your input</string>
+    <string name="change_deletion_settings_subtitle">Change settings that determine if app automatically deletes data</string>
+    <string name="changing_deletion_settings">Changing these settings will change whether or not hours are automatically deleted</string>
+    <string name="trash_automatic_deletion_is_already_enabled">Trash Automatic Deletion is already enabled</string>
+    <string name="trash_automatic_deletion_is_already_disabled">Trash Automatic Deletion is already disabled</string>
+    <string name="performance_mode_is_already_enabled">Performance Mode is already enabled</string>
+    <string name="performance_mode_is_already_disabled">Performance Mode is already disabled</string>
+    <string name="break_text_box_is_already_enabled">Break Text Box is already enabled</string>
+    <string name="break_text_box_is_already_disabled">Break Text Box is already disabled</string>
+    <string name="vibration_is_already_enabled">Vibration is already enabled</string>
+    <string name="vibration_is_already_disabled">Vibration is already disabled</string>
+    <string name="history_is_already_enabled">History is already enabled</string>
+    <string name="history_is_already_disabled">History is already disabled</string>
+    <string name="dark_mode_is_already_enabled">Dark Mode is already enabled</string>
+    <string name="light_theme_is_already_enabled">Light Theme is already enabled</string>
+    <string name="history_automatic_deletion_settings">History Automatic Deletion Settings (Coming Soon)</string>
+    <string name="enable_history_automatic_deletion">Enable History Automatic Deletion</string>
+    <string name="disable_history_automatic_deletion">Disable History Automatic Deletion</string>
+    <string name="automatic_deletion">Automatic Deletion</string>
+    <string name="feature_coming_soon">Feature coming soon</string>
 </resources>

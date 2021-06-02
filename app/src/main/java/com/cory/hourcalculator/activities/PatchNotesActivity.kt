@@ -1,6 +1,5 @@
 package com.cory.hourcalculator.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -25,15 +24,14 @@ class PatchNotesActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics : FirebaseAnalytics
     private lateinit var darkThemeData : DarkThemeData
 
-    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_patch_notes)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -42,7 +40,7 @@ class PatchNotesActivity : AppCompatActivity() {
 
         firebaseAnalytics = Firebase.analytics
 
-        findViewById<TextView>(R.id.textView).text = getString(R.string.whats_new) + " " + getString(R.string.version_number)
+        findViewById<TextView>(R.id.textView).text = getString(R.string.whats_new, getString(R.string.version_number))
 
         val vibrationData = VibrationData(this)
 

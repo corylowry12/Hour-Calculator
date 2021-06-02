@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="14sp"/>
+        android:textSize="12sp"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/themeCardView"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/light_theme"
                 android:textColor="?attr/textColor"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
 
             <RadioButton
                 android:id="@+id/darkTheme"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/dark_theme"
                 android:textColor="?attr/textColor"
-                android:textSize="14sp"/>
+                android:textSize="12sp"/>
         </RadioGroup>
     </androidx.cardview.widget.CardView>
 
@@ -66,7 +66,8 @@
         android:paddingTop="10dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="12sp"/>
+        android:textSize="10sp"
+        tools:ignore="SmallSp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

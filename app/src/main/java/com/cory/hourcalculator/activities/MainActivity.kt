@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             Firebase.messaging.subscribeToTopic("updates")
                 .addOnCompleteListener { task ->
                     var msg = "Subscribed"
-                    if(!task.isSuccessful) {
+                    if (!task.isSuccessful) {
                         msg = "Subscribe failed"
                     }
                     Log.d("Updates", msg)
@@ -114,11 +114,6 @@ class MainActivity : AppCompatActivity() {
 
         main()
 
-        val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm.isAcceptingText) {
-            mAdView.visibility = View.INVISIBLE
-        }
-
         if (!breakData.loadBreakState()) {
             findViewById<TextView>(R.id.textView4).visibility = View.GONE
             findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.GONE
@@ -130,10 +125,9 @@ class MainActivity : AppCompatActivity() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+        if (!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
+        } else {
             overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
         }
     }
@@ -167,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val spinnerState = SpinnerData(this)
-        spinner1selecteditem = if(!spinnerState.loadSpinner1State()) {
+        spinner1selecteditem = if (!spinnerState.loadSpinner1State()) {
             spinner.setItems(getString(R.string.am), getString(R.string.pm))
             getString(R.string.am)
         } else {
@@ -175,7 +169,7 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.pm)
         }
 
-        spinner2selecteditem = if(!spinnerState.loadSpinner2State()) {
+        spinner2selecteditem = if (!spinnerState.loadSpinner2State()) {
             spinner1.setItems(getString(R.string.pm), getString(R.string.am))
             getString(R.string.pm)
         } else {
@@ -193,10 +187,9 @@ class MainActivity : AppCompatActivity() {
         spinner.setOnItemSelectedListener { _, _, _, item ->
             vibration(vibrationData)
             spinner1selecteditem = item as String
-            if(item == getString(R.string.am)) {
+            if (item == getString(R.string.am)) {
                 spinnerState.setSpinner1State(false)
-            }
-            else if (item == getString(R.string.pm)) {
+            } else if (item == getString(R.string.pm)) {
                 spinnerState.setSpinner1State(true)
             }
         }
@@ -204,10 +197,9 @@ class MainActivity : AppCompatActivity() {
         spinner1.setOnItemSelectedListener { _, _, _, item ->
             vibration(vibrationData)
             spinner2selecteditem = item as String
-            if(item == getString(R.string.pm)) {
+            if (item == getString(R.string.pm)) {
                 spinnerState.setSpinner2State(false)
-            }
-            else if (item == getString(R.string.am)) {
+            } else if (item == getString(R.string.am)) {
                 spinnerState.setSpinner2State(true)
             }
         }
@@ -270,9 +262,7 @@ class MainActivity : AppCompatActivity() {
 
         calculateButton1.setOnClickListener {
             vibration(vibrationData)
-
             validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, infoTextView1)
-
             hideKeyboard()
         }
 
@@ -284,7 +274,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun clearTextBoxes(inTime: EditText, outTime: EditText, breakTime: EditText) {
         if (inTime.text.toString() == "" && outTime.text.toString() == "" && breakTime.text.toString() == "" && infoTextView1.text == "") {
-            Toast.makeText(this, getString(R.string.everything_already_cleared), Toast.LENGTH_SHORT).show()
+            inTime.requestFocus()
+            val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.showSoftInput(inTime, InputMethodManager.SHOW_IMPLICIT)
         } else {
             infoTextView1.text = ""
             inTime.text?.clear()
@@ -323,163 +315,158 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(1)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intime:$intimelast")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(1)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intime:$intimelast")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(1)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtime:$outtimelast")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+                        val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+                        val total1 = inTimeHours.toDouble() + rounded.substring(1).toDouble()
+                        val total2 = outTimeHours.toDouble() + rounded1.substring(1).toDouble()
+                        val difference = total2 - total1
+                        val totalhours = String.format("%.2f", difference).toDouble()
+                        if (totalhours < 0) {
+                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
                         } else {
                             aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                         }
-                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(1)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtime:$outtimelast")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-                            val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-                            val total1 = inTimeHours.toDouble() + rounded.substring(1).toDouble()
-                            val total2 = outTimeHours.toDouble() + rounded1.substring(1).toDouble()
-                            val difference = total2 - total1
-                            val totalhours = String.format("%.2f", difference).toDouble()
-                            if (totalhours < 0) {
-                                infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                            } else {
-                                aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                            }
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
+                }
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (inTimeString.length == 5) {
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (inTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        }
-                        else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (outTimeString.length == 4) {
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        }
-                        else if (inTimeMinutes.length == 3 && outTimeMinutes.length == 3) {
-                            infoTextView1.text = "Minutes can't be three numbers"
-                        }
-                        else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (outTimeString.length == 5) {
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.length == 3 && outTimeMinutes.length == 3) {
+                        infoTextView1.text = "Minutes can't be three numbers"
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (outTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
@@ -487,11 +474,9 @@ class MainActivity : AppCompatActivity() {
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                }
-                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
                     infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
-                }
-                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
@@ -509,150 +494,148 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
 
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(1)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intime:$intimelast")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(1)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intime:$intimelast")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
 
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(1)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtime:$outtimelast")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(1)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtime:$outtimelast")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 }
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (inTimeString.length == 5) {
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (inTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (outTimeString.length == 4) {
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (outTimeString.length == 5) {
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (outTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
@@ -660,11 +643,9 @@ class MainActivity : AppCompatActivity() {
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                }
-                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
                     infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
-                }
-                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
@@ -682,148 +663,146 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || inTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || inTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(1)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intime:$intimelast")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(1)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intime:$intimelast")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(1)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtime:$outtimelast")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(1)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtime:$outtimelast")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 }
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (inTimeString.length == 5) {
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (inTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (outTimeString.length == 4) {
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (outTimeString.length == 5) {
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (outTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
@@ -831,11 +810,9 @@ class MainActivity : AppCompatActivity() {
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                }
-                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
                     infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
-                }
-                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
@@ -853,148 +830,146 @@ class MainActivity : AppCompatActivity() {
             }
             if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (inTimeString.length == 3 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(1)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intime:$intimelast")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(1)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intime:$intimelast")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(1)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtime:$outtimelast")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(1)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtime:$outtimelast")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 }
             }
             if (!inTimeString.contains(":") && outTimeString.contains(":")) {
                 if (inTimeString.length == 3) {
-                        val intime = inTimeString.drop(1)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val intime = inTimeString.drop(1)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (inTimeString.length == 4) {
-                        val intime = inTimeString.drop(2)
-                        val intimelast = inTimeString.dropLast(2)
-                        inTime.setText("$intimelast:$intime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (inTimeString.length == 5) {
+                    val intime = inTimeString.drop(2)
+                    val intimelast = inTimeString.dropLast(2)
+                    inTime.setText("$intimelast:$intime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (inTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             }
             if (inTimeString.contains(":") && !outTimeString.contains(":")) {
                 if (outTimeString.length == 3) {
-                        val outtime = outTimeString.drop(1)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
+                    val outtime = outTimeString.drop(1)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
                 } else if (outTimeString.length == 4) {
-                        val outtime = outTimeString.drop(2)
-                        val outtimelast = outTimeString.dropLast(2)
-                        outTime.setText("$outtimelast:$outtime")
-                        val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                        val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                        if (inTimeMinutes == "" || outTimeMinutes == "") {
-                            infoTextView1.text = getString(R.string.proper_input)
-                        } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
-                        } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                            infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
-                        } else {
-                            aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
-                        }
-                }
-                else if (outTimeString.length == 5) {
+                    val outtime = outTimeString.drop(2)
+                    val outtimelast = outTimeString.dropLast(2)
+                    outTime.setText("$outtimelast:$outtime")
+                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
+                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
+                    if (inTimeMinutes == "" || outTimeMinutes == "") {
+                        infoTextView1.text = getString(R.string.proper_input)
+                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
+                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
+                        infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
+                    } else {
+                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, infoTextView1, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (outTimeString.length == 5) {
                     infoTextView1.text = getString(R.string.time_cant_be_five_digits)
                 }
             } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
@@ -1002,11 +977,9 @@ class MainActivity : AppCompatActivity() {
                 val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
                 if (inTimeMinutes == "" || outTimeMinutes == "") {
                     infoTextView1.text = getString(R.string.proper_input)
-                }
-                else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
+                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
                     infoTextView1.text = getString(R.string.minutes_cant_be_three_numbers)
-                }
-                else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
+                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_60)
                 } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
                     infoTextView1.text = getString(R.string.cant_be_greater_than_or_equal_to_13)
@@ -1018,78 +991,88 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
-        val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-        val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference = outTimeTotal - inTimeTotal
-        val totalhours = String.format("%.2f", difference).toDouble()
-        if (totalhours < 0) {
-            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-        } else {
-            if (breakTime.text.toString() == "") {
-                infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
-                if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
-                }
-            } else if (breakTime.text.toString() != "") {
-                if (!breakTime.text.isDigitsOnly()) {
-                    infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
-                } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
-                    val totalHours1 = totalhours - breakTimeDec
-                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                    if (totalHoursWithBreak < 0) {
-                        infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                    } else if (totalHoursWithBreak > 0) {
-                        infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
-                        if (historyToggleData.loadHistoryState()) {
-                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+        try {
+            val historyToggleData = HistoryToggleData(this)
+            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
+            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
+            val difference = outTimeTotal - inTimeTotal
+            val totalhours = String.format("%.2f", difference).toDouble()
+            if (totalhours < 0) {
+                infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+            } else {
+                if (breakTime.text.toString() == "") {
+                    infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
+                    if (historyToggleData.loadHistoryState()) {
+                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (breakTime.text.toString() != "") {
+                    if (!breakTime.text.isDigitsOnly()) {
+                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                    } else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHoursWithBreak < 0) {
+                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                        } else if (totalHoursWithBreak > 0) {
+                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
+                            if (historyToggleData.loadHistoryState()) {
+                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                            }
                         }
                     }
                 }
             }
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
-        val historyToggleData = HistoryToggleData(this)
-        val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
-        val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-        val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-        val difference: Double = outTimeTotal - inTimeTotal
-        val totalhours : Double = if(outTimeHours.toInt() == 12) {
-            String.format("%.2f", difference).toDouble()
-        } else {
-            String.format("%.2f", difference).toDouble() + 12
-        }
-        if (totalhours < 0) {
-            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-        } else {
-            if (breakTime.text.toString() == "") {
-                infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
-                if (historyToggleData.loadHistoryState()) {
-                    savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
-                }
-            } else if (breakTime.text.toString() != "") {
-                if (!breakTime.text.toString().isDigitsOnly()) {
-                    infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
-                } else {
-                    val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
-                    val totalHours1 = totalhours - breakTimeDec
-                    val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                    if (totalHours1 < 0) {
-                        infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
-                    } else if (totalHours1 > 0) {
-                        infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
-                        if (historyToggleData.loadHistoryState()) {
-                            savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+        try {
+            val historyToggleData = HistoryToggleData(this)
+            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
+            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
+            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
+            val difference: Double = outTimeTotal - inTimeTotal
+            val totalhours: Double = if (outTimeHours.toInt() == 12) {
+                String.format("%.2f", difference).toDouble()
+            } else {
+                String.format("%.2f", difference).toDouble() + 12
+            }
+            if (totalhours < 0) {
+                infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+            } else {
+                if (breakTime.text.toString() == "") {
+                    infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
+                    if (historyToggleData.loadHistoryState()) {
+                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                    }
+                } else if (breakTime.text.toString() != "") {
+                    if (!breakTime.text.toString().isDigitsOnly()) {
+                        infoTextView1.text = getString(R.string.something_wrong_with_break_text_box)
+                    } else {
+                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString().toDouble()
+                        val totalHours1 = totalhours - breakTimeDec
+                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
+                        if (totalHours1 < 0) {
+                            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+                        } else if (totalHours1 > 0) {
+                            infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
+                            if (historyToggleData.loadHistoryState()) {
+                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                            }
                         }
                     }
                 }
             }
+        } catch (e: NumberFormatException) {
+            e.printStackTrace()
+            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -1135,7 +1118,7 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, getString(R.string.click_back_again), Toast.LENGTH_SHORT).show()
 
         Handler(Looper.getMainLooper()).postDelayed({
-           doubleBackToExitPressedOnce = false
+            doubleBackToExitPressedOnce = false
         }, 2000)
     }
 
@@ -1160,10 +1143,9 @@ class MainActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -1171,10 +1153,9 @@ class MainActivity : AppCompatActivity() {
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -1182,10 +1163,9 @@ class MainActivity : AppCompatActivity() {
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -1193,10 +1173,9 @@ class MainActivity : AppCompatActivity() {
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true
@@ -1204,10 +1183,9 @@ class MainActivity : AppCompatActivity() {
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
+                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
+                } else {
                     overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
                 }
                 return true

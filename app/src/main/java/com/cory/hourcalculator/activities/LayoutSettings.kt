@@ -10,6 +10,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
@@ -32,13 +33,13 @@ class LayoutSettings : AppCompatActivity() {
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
         if (darkThemeData.loadDarkModeState()) {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
         }
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_settings)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -62,7 +63,6 @@ class LayoutSettings : AppCompatActivity() {
         val breakTextBoxData = BreakData(this)
         val vibrationData = VibrationData(this)
         val historyToggleData = HistoryToggleData(this)
-        val trashAutomaticDeletion = TrashAutomaticDeletion(this)
 
         val enablePerformanceModeButton = findViewById<RadioButton>(R.id.enablePerformanceMode)
         val disablePerformanceModeButton = findViewById<RadioButton>(R.id.disablePerformanceMode)
@@ -75,14 +75,24 @@ class LayoutSettings : AppCompatActivity() {
         }
 
         enablePerformanceModeButton.setOnClickListener {
-            performanceModeData.setPerformanceMode(true)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(performanceModeData.loadPerformanceMode()) {
+                Toast.makeText(this, getString(R.string.performance_mode_is_already_enabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                performanceModeData.setPerformanceMode(true)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
+            }
         }
         disablePerformanceModeButton.setOnClickListener {
-            performanceModeData.setPerformanceMode(false)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_performance_mode), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(!performanceModeData.loadPerformanceMode()) {
+                Toast.makeText(this, getString(R.string.performance_mode_is_already_disabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                performanceModeData.setPerformanceMode(false)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_performance_mode), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         val enableBreakTextBox = findViewById<RadioButton>(R.id.enableBreakTextBox)
@@ -96,14 +106,24 @@ class LayoutSettings : AppCompatActivity() {
         }
 
         enableBreakTextBox.setOnClickListener {
-            breakTextBoxData.setBreakState(true)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_break_text_box), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(breakTextBoxData.loadBreakState()) {
+                Toast.makeText(this, getString(R.string.break_text_box_is_already_enabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                breakTextBoxData.setBreakState(true)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_break_text_box), Snackbar.LENGTH_SHORT).show()
+            }
         }
         disableBreakTextBox.setOnClickListener {
-            breakTextBoxData.setBreakState(false)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_break_text_box), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(!breakTextBoxData.loadBreakState()) {
+                Toast.makeText(this, getString(R.string.break_text_box_is_already_disabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                breakTextBoxData.setBreakState(false)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_break_text_box), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         val enableVibration = findViewById<RadioButton>(R.id.enableVibration)
@@ -117,14 +137,24 @@ class LayoutSettings : AppCompatActivity() {
         }
 
         enableVibration.setOnClickListener {
-            vibrationData.setVibrationState(true)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(vibrationData.loadVibrationState()) {
+                Toast.makeText(this, getString(R.string.vibration_is_already_enabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                vibrationData.setVibrationState(true)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
+            }
         }
         disableVibration.setOnClickListener {
-            vibrationData.setVibrationState(false)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
+            if(!vibrationData.loadVibrationState()) {
+                Toast.makeText(this, getString(R.string.vibration_is_already_disabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                vibrationData.setVibrationState(false)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
+            }
         }
 
         val enableHistory = findViewById<RadioButton>(R.id.enableHistory)
@@ -138,65 +168,53 @@ class LayoutSettings : AppCompatActivity() {
         }
 
         enableHistory.setOnClickListener {
-            historyToggleData.setHistoryToggle(true)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
             vibration(vibrationData)
-            invalidateOptionsMenu()
+            if(historyToggleData.loadHistoryState()) {
+                Toast.makeText(this, getString(R.string.history_is_already_enabled), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                historyToggleData.setHistoryToggle(true)
+                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
+                invalidateOptionsMenu()
+            }
         }
         disableHistory.setOnClickListener {
-            historyToggleData.setHistoryToggle(false)
-            val alertDialog = AlertDialog.Builder(this)
-            alertDialog.setTitle(getString(R.string.history))
-            alertDialog.setMessage(getString(R.string.what_would_you_like_to_do_with_history))
-            alertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
-                dbHandler.deleteAll()
-                Snackbar.make(constraintLayoutSettings, getString(R.string.deleted_all_of_hour_history), Snackbar.LENGTH_SHORT).show()
-            }
-            alertDialog.setNegativeButton(getString(R.string.trash)) { _, _ ->
-                dataList.clear()
-                val cursor1 = dbHandler.getAllRow(this)
-                cursor1!!.moveToFirst()
-
-                while (!cursor1.isAfterLast) {
-                    val intime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_IN))
-                    val outtime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_OUT))
-                    val breaktime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_BREAK))
-                    val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_TOTAL))
-                    val day = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_DAY))
-
-                    dbHandlerTrash.insertRow(intime, outtime, breaktime, totaltime, day)
-
-                    cursor1.moveToNext()
+            vibration(vibrationData)
+            if (!historyToggleData.loadHistoryState()) {
+                Toast.makeText(this, getString(R.string.history_is_already_disabled), Toast.LENGTH_SHORT).show()
+            } else {
+                historyToggleData.setHistoryToggle(false)
+                val alertDialog = AlertDialog.Builder(this)
+                alertDialog.setTitle(getString(R.string.history))
+                alertDialog.setMessage(getString(R.string.what_would_you_like_to_do_with_history))
+                alertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
+                    dbHandler.deleteAll()
+                    Snackbar.make(constraintLayoutSettings, getString(R.string.deleted_all_of_hour_history), Snackbar.LENGTH_SHORT).show()
                 }
-                dbHandler.deleteAll()
-                Snackbar.make(constraintLayoutSettings, getString(R.string.moved_all_hours_to_trash), Snackbar.LENGTH_SHORT).show()
+                alertDialog.setNegativeButton(getString(R.string.trash)) { _, _ ->
+                    dataList.clear()
+                    val cursor1 = dbHandler.getAllRow(this)
+                    cursor1!!.moveToFirst()
+
+                    while (!cursor1.isAfterLast) {
+                        val intime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_IN))
+                        val outtime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_OUT))
+                        val breaktime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_BREAK))
+                        val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_TOTAL))
+                        val day = cursor1.getString(cursor1.getColumnIndex(DBHelper.COLUMN_DAY))
+
+                        dbHandlerTrash.insertRow(intime, outtime, breaktime, totaltime, day)
+
+                        cursor1.moveToNext()
+                    }
+                    dbHandler.deleteAll()
+                    Snackbar.make(constraintLayoutSettings, getString(R.string.moved_all_hours_to_trash), Snackbar.LENGTH_SHORT).show()
+                }
+                alertDialog.setNeutralButton(getString(R.string.nothing), null)
+                alertDialog.create().show()
+                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
+                invalidateOptionsMenu()
             }
-            alertDialog.setNeutralButton(getString(R.string.nothing), null)
-            alertDialog.create().show()
-            vibration(vibrationData)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
-            invalidateOptionsMenu()
-        }
-
-        val enableTrashAutomaticDeletion = findViewById<RadioButton>(R.id.enableTrashDeletion)
-        val disableTrashAutomaticDeletion = findViewById<RadioButton>(R.id.disableTrashDeletion)
-
-        if (trashAutomaticDeletion.loadTrashDeletionState()) {
-            enableTrashAutomaticDeletion.isChecked = true
-        }
-        else if (!trashAutomaticDeletion.loadTrashDeletionState()) {
-            disableTrashAutomaticDeletion.isChecked = true
-        }
-
-        enableTrashAutomaticDeletion.setOnClickListener {
-            trashAutomaticDeletion.setTrashDeletionState(true)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            vibration(vibrationData)
-        }
-        disableTrashAutomaticDeletion.setOnClickListener {
-            trashAutomaticDeletion.setTrashDeletionState(false)
-            Snackbar.make(constraintLayoutSettings, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            vibration(vibrationData)
         }
 
         val wagesData = WagesData(this)

@@ -6,5 +6,5 @@
         <attr name="cardBackground" format="color" />
         <attr name="chartbackground" format="color" />
         <attr name="settingsTextColorAccent" format="color" />
-
+        <attr name="disableTextColor" format="color"/>
 </resources>

@@ -8,19 +8,22 @@
     <color name="darkBackground">#000000</color>
     <color name="darkTextColor">#FFFFFF</color>
     <color name="cardLightBackground">#E8E8E8</color>
+    <color name="cardDarkBackground">#444E53</color>
     <color name="spinnerLightBackgroundColor">#E8E8E8</color>
     <color name="lightIconTint">#000000</color>
     <color name="lightTint">#000000</color>
     <color name="darkNavColor">#000000</color>
     <color name="darkMenuBackground">#2C353A</color>
-    <color name="chartDarkBackground">#2C353A</color>
+    <color name="chartDarkBackground">#444E53</color>
     <color name="darkTint">#ffffff</color>
     <color name="darkIconTint">#ffffff</color>
-    <color name="spinnerDarkBackgroundColor">#2C353A</color>
+    <color name="spinnerDarkBackgroundColor">#444E53</color>
     <color name="spinnerDarkTextColor">#ffffff</color>
     <color name="spinnerDarkArrowTint">#ffffff</color>
     <color name="spinnerLightTextColor">#000000</color>
     <color name="spinnerLightArrowTint">#000000</color>
     <color name="settingsTextColorAccent">#26A69A</color>
     <color name="deleteButton">#ce2029</color>
+    <color name="disableTextColor">#656768</color>
+    <color name="disableLightTextColor">#a1a1a1</color>
 </resources>
