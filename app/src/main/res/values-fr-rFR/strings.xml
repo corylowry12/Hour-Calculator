@@ -211,7 +211,7 @@
     <string name="disable_update_notifications">Désactiver les notifications de mise à jour</string>
     <string name="enable_update_notifications">Activer les notifications de mise à jour</string>
     <string name="notification_settings">Paramètres de notification</string>
-    <string name="version_settings">Version : 7.1.0</string>
+    <string name="version_settings">Version: 7.1.1</string>
     <string name="delete_all_cache_and_app_data">Supprimer toutes les données du cache et de l\'application</string>
     <string name="delete_app_data">Supprimer les données de l\'application</string>
     <string name="delete_app_data_warning">Cliquer sur le bouton ci-dessous supprimera toutes les données de l\'application, y compris les heures stockées dans l\'historique et la corbeille et tous les paramètres que vous avez modifiés. PROCÉDER AVEC PRUDENCE!</string>

@@ -8,8 +8,8 @@ android {
         applicationId "com.cory.hourcalculator"
         minSdkVersion 26
         targetSdkVersion 30
-        versionCode 98
-        versionName "7.1.0"
+        versionCode 99
+        versionName "7.1.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
