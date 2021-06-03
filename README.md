@@ -6,6 +6,50 @@
 # Status
 [![GitHub issues](https://img.shields.io/github/issues-raw/corylowry12/Hour-Calculator?style=for-the-badge)](https://github.com/corylowry12/Hour-Calculator/issues)
 
+# Whats New in Version 7.1.1
+* Fixed issue with text not displaying in history activity on some devices
+* Tweaked left and right padding for warning text view in trash activity
+
+# Whats New in Version 7.1.0
+* Fixed version info not going back if the user clicked a link and went into the web view and the backed out using the back button and then tried to exit the version info activity using the back button
+* Fixed the rare occasion the app would round wrong
+* Now a toast message pops up saying the hour was not saved if you exit the edit activity without clicking the save button
+* Splash screen length is now shorter if you have performance mode enabled
+* Fixed issue where if the user went to the edit activity then used the menu to go to settings and change the theme, and then hit the back button to go back to the edit activity, the theme would not apply
+* Fixed issue where graph activity would not fade in when you went back to it using the back button
+* Fixed issue where there is a slight flash from the activity recreating in the graph activity if you went to it using back button
+* Made app more lightweight by preventing activities from having multiple instances in a stack
+* Added toast messages that pop up when you manage your stored hours. _Ex. *Click Delete* Toast message will pop up saying item deleted_
+* Removed some deprecated dependencies
+* Fixed issue with app showing wrong toast message if the hour you were trying to edit does not contain am or pm
+* Wrapped each hour entry in a card view to make it more consistent to match the settings activity
+* Changed card view shade of gray for dark theme only
+* Removed the line between each entry in history and trash activities
+* Changed the way text is set in history resulting in more optimization and less code
+* All new animation when changing themes. Now it will fade to the other theme
+* Fixed issue with stuff in settings still having a different vibration intensity
+* Tweaked about me dialog text
+* Redesigned settings activity
+* In the process of redesigning settings, the end padding for the subtitle text views are now increased
+* Fixed text views not sliding up in trash on animation if performance mode is disabled
+* Fixed scroll animation in trash being different than history scroll animation
+* Better error checking for wages calculation in history activity to prevent any app crashes
+* Fixed the dialog showing up saying the app needed permissions to export not vibrating when you clicked the buttons
+* Fixed dialog explaining why permissions are needed being different colors than all the other dialogs
+* Fixed the app not re-requesting for permissions if the user denied them. Now it takes you to the settings to manually set permissions
+* Fixed issue with hint in search bar in history not supporting multiple languages
+* Fixed save button in edit activity not supporting multiple languages
+* Added ads to edit activity
+* Now if you deny file permissions in settings, and try to export later, it will take you to settings and you can manually change permissions
+* Tweaked left and right padding for output text view on main activity so it now no longer goes all the way to the edge of the screen
+* Fixed issue with app crashing if you entered a dash in the text boxes in main activity
+* Fixed issue with app crashing if you entered a dash in the text boxes in edit activity
+* Fixed app crashing when launching activity on some devices
+* Will now automatically set focus back to in time text box on clear button clicked whether they're empty or not
+* Removed the everything is cleared toast message if all text boxes were empty
+* Webview for websites will now go to dark them if dark theme is enabled in the app, but only if you have android 11 or higher
+* Fixed search hint in trash and history not being white or black depending on the theme
+
 # Whats New in Version 7.0.2
 * Fixed crashing in webview when it would launch on some devices
 * Now links in version info activity vibrate when you click on them
