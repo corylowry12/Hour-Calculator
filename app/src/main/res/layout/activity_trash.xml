@@ -43,13 +43,14 @@
         android:id="@+id/textViewWarning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:text="@string/warning_trash_will_automatically_delete_each_hour_when_it_gets_a_week_old"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/horizontalGuideline2"
-        android:textColor="?attr/textColor"/>
+        app:layout_constraintTop_toBottomOf="@id/textView8"
+        android:textColor="?attr/textColor"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonTrash"
