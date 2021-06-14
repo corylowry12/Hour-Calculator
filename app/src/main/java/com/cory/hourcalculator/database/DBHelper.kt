@@ -8,6 +8,7 @@ import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import com.cory.hourcalculator.classes.DaysWorkedPerWeek
 import com.cory.hourcalculator.classes.SortData
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
@@ -67,6 +68,14 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.delete(TABLE_NAME, "$COLUMN_ID = ?", arrayOf(row_id))
         db.close()
 
+    }
+
+    fun automaticDeletion(context: Context, numberToDelete: Int): Cursor? {
+        val db = this.writableDatabase
+
+        val daysWorkedPerWeek = DaysWorkedPerWeek(context).loadDaysWorked()
+
+        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day ASC LIMIT $numberToDelete", null)
     }
 
     fun getAllRow(context: Context): Cursor? {
