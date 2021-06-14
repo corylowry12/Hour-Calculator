@@ -278,9 +278,16 @@
     <string name="history_is_already_disabled">History is already disabled</string>
     <string name="dark_mode_is_already_enabled">Dark Mode is already enabled</string>
     <string name="light_theme_is_already_enabled">Light Theme is already enabled</string>
-    <string name="history_automatic_deletion_settings">History Automatic Deletion Settings (Coming Soon)</string>
+    <string name="history_automatic_deletion_settings">History Automatic Deletion Settings</string>
     <string name="enable_history_automatic_deletion">Enable History Automatic Deletion</string>
     <string name="disable_history_automatic_deletion">Disable History Automatic Deletion</string>
     <string name="automatic_deletion">Automatic Deletion</string>
-    <string name="feature_coming_soon">Feature coming soon</string>
+    <string name="history_deletion_disabled_because_you_chose_no">History Automatic Deletion disabled because you chose not to delete hours</string>
+    <string name="delete_hours">Delete Hours?</string>
+    <string name="would_you_like_to_delete_all_hours">Would you like to delete all hours but %1$s?</string>
+    <string name="history_automatic_deletion_already_disabled">History Automatic Deletion is already disabled</string>
+    <string name="history_automatic_deletion_already_enabled">History Automatic Deletion is already enabled</string>
+    <string name="history_automatic_deletion_disabled">History Automatic Deletion Disabled</string>
+    <string name="history_automatic_deletion_enabled">History Automatic Deletion Enabled</string>
+    <string name="android_developers">Android Developers</string>
 </resources>

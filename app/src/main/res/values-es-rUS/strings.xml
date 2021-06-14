@@ -171,11 +171,10 @@
     <string name="item_deleted">Elemento eliminado</string>
     <string name="all_items_moved_to_trash">Todos los elementos movidos a la papelera</string>
     <string name="cant_edit">No se puede editar esa hora. Algo está mal.</string>
-    <string name="feature_coming_soon">Característica próximamente</string>
     <string name="automatic_deletion">Eliminación automática</string>
     <string name="disable_history_automatic_deletion">Deshabilitar la eliminación automática del historial</string>
     <string name="enable_history_automatic_deletion">Habilitar la eliminación automática del historial</string>
-    <string name="history_automatic_deletion_settings">Configuración de eliminación automática del historial (próximamente)</string>
+    <string name="history_automatic_deletion_settings">"Configuración de eliminación automática del historial "</string>
     <string name="light_theme_is_already_enabled">Light Theme ya está habilitado</string>
     <string name="dark_mode_is_already_enabled">El modo oscuro ya está habilitado</string>
     <string name="history_is_already_disabled">El historial ya está deshabilitado</string>
@@ -232,4 +231,12 @@
     <string name="break_text_box_settings">Romper la configuración del cuadro de texto</string>
     <string name="disable_performance_mode">Desactivar el modo de rendimiento</string>
     <string name="enable_performance_mode">Habilitar el modo de rendimiento</string>
+    <string name="history_deletion_disabled_because_you_chose_no">Eliminación automática del historial deshabilitada porque eligió no eliminar las horas</string>
+    <string name="delete_hours">¿Eliminar horas?</string>
+    <string name="would_you_like_to_delete_all_hours">¿Quieres eliminar todas las horas menos %1$s?</string>
+    <string name="history_automatic_deletion_already_disabled">La eliminación automática del historial ya está deshabilitada</string>
+    <string name="history_automatic_deletion_already_enabled">La eliminación automática del historial ya está habilitada</string>
+    <string name="history_automatic_deletion_disabled">Eliminación automática del historial deshabilitada</string>
+    <string name="history_automatic_deletion_enabled">Eliminación automática de historial habilitada</string>
+    <string name="android_developers">Desarrolladores de Android</string>
 </resources>

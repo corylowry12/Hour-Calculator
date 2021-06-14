@@ -171,11 +171,10 @@
     <string name="item_deleted">Élément supprimé</string>
     <string name="all_items_moved_to_trash">Tous les éléments placés dans la corbeille</string>
     <string name="cant_edit">Impossible de modifier cette heure. Quelque chose ne va pas.</string>
-    <string name="feature_coming_soon">Fonctionnalité à venir</string>
     <string name="automatic_deletion">Suppression automatique</string>
     <string name="disable_history_automatic_deletion">Désactiver la suppression automatique de l\'historique</string>
     <string name="enable_history_automatic_deletion">Activer la suppression automatique de l\'historique</string>
-    <string name="history_automatic_deletion_settings">Paramètres de suppression automatique de l\'historique (à venir)</string>
+    <string name="history_automatic_deletion_settings">Paramètres de suppression automatique de l\'historique</string>
     <string name="light_theme_is_already_enabled">Le thème lumineux est déjà activé</string>
     <string name="dark_mode_is_already_enabled">Le mode sombre est déjà activé</string>
     <string name="history_is_already_disabled">L\'historique est déjà désactivé</string>
@@ -232,4 +231,12 @@
     <string name="break_text_box_settings">Paramètres de la zone de texte de rupture</string>
     <string name="disable_performance_mode">Désactiver le mode performances</string>
     <string name="enable_performance_mode">Activer le mode Performance</string>
+    <string name="history_deletion_disabled_because_you_chose_no">Suppression automatique de l\'historique désactivée car vous avez choisi de ne pas supprimer les heures</string>
+    <string name="delete_hours">Supprimer les heures ?</string>
+    <string name="would_you_like_to_delete_all_hours">Souhaitez-vous supprimer toutes les heures sauf %1$s?</string>
+    <string name="history_automatic_deletion_already_disabled">La suppression automatique de l\'historique est déjà désactivée</string>
+    <string name="history_automatic_deletion_already_enabled">La suppression automatique de l\'historique est déjà activée</string>
+    <string name="history_automatic_deletion_disabled">Suppression automatique de l\'historique désactivée</string>
+    <string name="history_automatic_deletion_enabled">Suppression automatique de l\'historique activée</string>
+    <string name="android_developers">Développeurs Android</string>
 </resources>
