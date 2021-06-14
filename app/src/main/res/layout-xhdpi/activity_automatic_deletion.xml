@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/enable_history_automatic_deletion"
-                android:textColor="?attr/disableTextColor"
+                android:textColor="?attr/textColor"
                 android:textSize="14sp"/>
 
             <RadioButton
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/disable_history_automatic_deletion"
-                android:textColor="?attr/disableTextColor"
+                android:textColor="?attr/textColor"
                 android:textSize="14sp"/>
         </RadioGroup>
     </androidx.cardview.widget.CardView>
@@ -112,19 +112,16 @@
         app:layout_constraintTop_toBottomOf="@id/historyDeletionCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/constraintlayoutTextBox"
-        android:visibility="gone"
-        tools:visibility="visible">
+        android:id="@+id/constraintlayoutTextBox">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/wagesTextInputLayout"
+            android:id="@+id/daysWorkedTextInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4sp"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:paddingBottom="4dp"
             app:endIconMode="clear_text"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -132,31 +129,33 @@
             app:layout_constraintBottom_toBottomOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/Wages"
+                android:id="@+id/daysWorked"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="8.75"
+                android:hint="5"
                 android:imeOptions="actionGo"
-                android:inputType="numberDecimal"
-                android:maxLength="5"
+                android:inputType="number"
+                android:maxLength="1"
                 android:textColor="?attr/textColor"
-                android:textSize="16sp" />
+                android:textSize="14sp"
+                android:digits="1234567"/>
         </com.google.android.material.textfield.TextInputLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
+        android:id="@+id/layout_settings_warning"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/changing_deletion_settings"
         app:layout_constraintTop_toBottomOf="@id/constraintlayoutTextBox"
         android:paddingEnd="20dp"
         android:paddingStart="20dp"
-        android:paddingTop="10dp"
+        android:paddingTop="20dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="12sp"
+        android:textSize="10sp"
         tools:ignore="SmallSp" />
 
     <RelativeLayout
