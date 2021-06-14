@@ -63,6 +63,9 @@ class WebViewActivity : AppCompatActivity() {
             url.contains("admob") -> {
                 supportActionBar!!.subtitle = getString(R.string.admob)
             }
+            url.contains("playcore") -> {
+                supportActionBar!!.subtitle = getString(R.string.android_developers)
+            }
         }
 
         webView.onResume()
