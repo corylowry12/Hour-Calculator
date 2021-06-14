@@ -88,6 +88,14 @@ class MainActivity : AppCompatActivity() {
         mAdView.adListener = object : AdListener() {
         }
 
+        val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
+        val historyDeletion = HistoryDeletion(this)
+        val daysWorked = DaysWorkedPerWeek(this)
+
+        if(daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
+            historyDeletion.deletion(this)
+        }
+
         if (UpdateData(this).loadUpdateNotificationState()) {
             Firebase.messaging.subscribeToTopic("updates")
                 .addOnCompleteListener { task ->
