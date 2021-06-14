@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/enable_history_automatic_deletion"
-                android:textColor="?attr/disableTextColor"
+                android:textColor="?attr/textColor"
                 android:textSize="14sp"/>
 
             <RadioButton
@@ -101,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/disable_history_automatic_deletion"
-                android:textColor="?attr/disableTextColor"
+                android:textColor="?attr/textColor"
                 android:textSize="14sp"/>
         </RadioGroup>
     </androidx.cardview.widget.CardView>
