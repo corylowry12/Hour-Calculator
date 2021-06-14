@@ -59,6 +59,14 @@ class HistoryActivity : AppCompatActivity() {
         mAdView.adListener = object : AdListener() {
         }
 
+        val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
+        val historyDeletion = HistoryDeletion(this)
+        val daysWorked = DaysWorkedPerWeek(this)
+
+        if(daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
+            historyDeletion.deletion(this)
+        }
+
         loadIntoList()
 
         val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
