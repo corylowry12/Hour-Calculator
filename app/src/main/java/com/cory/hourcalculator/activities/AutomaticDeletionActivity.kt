@@ -105,40 +105,15 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 if (daysWorked.toString() != "") {
                     if (dbHandler.getCount() > daysWorkedPerWeek.loadDaysWorked().toString().toInt()) {
-                        val numberToDelete = dbHandler.getCount() - daysWorkedPerWeek.loadDaysWorked().toString().toInt()
+                        //val numberToDelete = dbHandler.getCount() - daysWorkedPerWeek.loadDaysWorked().toString().toInt()
                         daysWorkedPerWeek.setDaysWorked(daysWorked.text.toString())
                         val alertDialog = AlertDialog.Builder(this)
                         alertDialog.setTitle(getString(R.string.delete_hours))
                         alertDialog.setMessage(getString(R.string.would_you_like_to_delete_all_hours, daysWorkedPerWeek.loadDaysWorked().toString()))
-                        alertDialog.setPositiveButton(getString(R.string.yes)) { dialog, which ->
-                            /*dataList.clear()
-                            val cursor = dbHandler.automaticDeletion(this, numberToDelete)
-                            Toast.makeText(this, cursor.toString(), Toast.LENGTH_SHORT).show()
-                            cursor!!.moveToFirst()
-
-                            val map = HashMap<String, String>()
-                            while (!cursor.isAfterLast) {
-
-                                map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
-                                map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
-                                map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-                                map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
-                                map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
-                                map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
-                                dataList.add(map)
-
-                                dbHandlerTrash.insertRow(
-                                    map["intime"].toString(), map["out"].toString(),
-                                    map["break"].toString(), map["total"].toString(), map["day"].toString()
-                                )
-                                dbHandler.deleteRow(map["id"].toString())
-                                Toast.makeText(this, cursor.position.toString(), Toast.LENGTH_SHORT).show()
-
-                                cursor.moveToNext()
-                            }*/
+                        alertDialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
                             historyDeletion.deletion(this)
                         }
-                        alertDialog.setNegativeButton(getString(R.string.no)) {dialog, which ->
+                        alertDialog.setNegativeButton(getString(R.string.no)) {_, _ ->
                             disableHistoryDeletion.isChecked = true
                             val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
                             val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
@@ -197,6 +172,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                 constraintlayoutTextBox.startAnimation(slideAnimation)
                 layout_settings_warning.startAnimation(slideAnimation)
+                relativeLayoutDeletionSettings.startAnimation(slideAnimation)
                 historyAutomaticDeletion.setHistoryDeletionState(true)
                 val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                 daysWorked.text = editable
@@ -208,6 +184,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                     val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                     constraintlayoutTextBox.startAnimation(slideAnimation)
                     layout_settings_warning.startAnimation(slideAnimation)
+                    relativeLayoutDeletionSettings.startAnimation(slideAnimation)
                     historyAutomaticDeletion.setHistoryDeletionState(true)
                     val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                     daysWorked.text = editable
@@ -221,13 +198,9 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
                 constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
                 layout_settings_warning.startAnimation(slideUpTextBox)
-                /*val animateTextView = TranslateAnimation(0f, 0f, layout_settings_warning.height.toFloat(), 0f)
-                animateTextView.duration = 600
-                animateTextView.fillAfter = true
-                layout_settings_warning.startAnimation(animateTextView)*/
+                relativeLayoutDeletionSettings.startAnimation(slideUpTextBox)
                 historyAutomaticDeletion.setHistoryDeletionState(false)
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.history_automatic_deletion_disabled), Snackbar.LENGTH_SHORT).show()
-                //constraintlayoutTextBox.visibility = View.GONE
                 constraintlayoutTextBox.visibility = View.GONE
             }
             else {
