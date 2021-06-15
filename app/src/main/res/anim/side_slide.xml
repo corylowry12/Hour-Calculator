@@ -5,11 +5,11 @@
     <!--THIS CODE IS FOR SIDE ANIMATION-->
     <translate
         android:duration="1500"
-        android:fromXDelta="-50%"
+        android:fromXDelta="-60%p"
         android:fromYDelta="0%" />
 
     <alpha
         android:duration="1500"
-        android:fromAlpha="0.1"
+        android:fromAlpha="0"
         android:toAlpha="1.0" />
 </set>
