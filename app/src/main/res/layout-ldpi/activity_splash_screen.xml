@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/SplashScreenImage"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             app:srcCompat="@drawable/hourcalculatorlogo"
             android:contentDescription="Splash Screen Image" />
     </androidx.cardview.widget.CardView>
@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Hour Calculator"
-        android:textSize="24sp"
+        android:textSize="20sp"
         android:textColor="@android:color/white"/>
 
     <TextView
