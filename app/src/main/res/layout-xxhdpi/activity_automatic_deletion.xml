@@ -2,176 +2,192 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/automaticDeletionConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ThemeActivity"
     android:background="?attr/backgroundColor"
-    android:id="@+id/automaticDeletionConstraint">
+    tools:context=".activities.ThemeActivity">
 
-    <TextView
-        android:id="@+id/themeSettingsTextView"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/trash_automatic_deletion_settings"
-        android:textColor="?attr/textColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:textSize="16sp"/>
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/trashDeletionCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/themeSettingsTextView"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="5dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/enableTrashDeletion"
+            <TextView
+                android:id="@+id/themeSettingsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/enable_trash_automatic_deletion"
-                android:textColor="?attr/textColor"
-                android:textSize="16sp"/>
-
-            <RadioButton
-                android:id="@+id/disableTrashDeletion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/disable_trash_automatic_deletion"
-                android:textColor="?attr/textColor"
-                android:textSize="16sp"/>
-        </RadioGroup>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:id="@+id/historyDeletionTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/history_automatic_deletion_settings"
-        android:textColor="?attr/textColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/trashDeletionCardView"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textSize="16sp"/>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/historyDeletionCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/historyDeletionTextView"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="5dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true">
-
-        <RadioGroup
-            android:id="@+id/historyDeletionRadioGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RadioButton
-                android:id="@+id/enableHistoryDeletion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/enable_history_automatic_deletion"
-                android:textColor="?attr/textColor"
-                android:textSize="16sp"/>
-
-            <RadioButton
-                android:id="@+id/disableHistoryDeletion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/disable_history_automatic_deletion"
-                android:textColor="?attr/textColor"
-                android:textSize="16sp"/>
-        </RadioGroup>
-    </androidx.cardview.widget.CardView>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/historyDeletionCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:id="@+id/constraintlayoutTextBox">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/daysWorkedTextInputLayout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4sp"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            app:endIconMode="clear_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/daysWorked"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="5"
-                android:imeOptions="actionGo"
-                android:inputType="number"
-                android:maxLength="1"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/trash_automatic_deletion_settings"
                 android:textColor="?attr/textColor"
                 android:textSize="16sp"
-                android:digits="1234567"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/trashDeletionCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="5dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/themeSettingsTextView">
 
-    <TextView
-        android:id="@+id/layout_settings_warning"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/changing_deletion_settings"
-        app:layout_constraintTop_toBottomOf="@id/constraintlayoutTextBox"
-        android:paddingEnd="20dp"
-        android:paddingStart="20dp"
-        android:paddingTop="20dp"
-        android:textAlignment="center"
-        android:textColor="?attr/textColor"
-        android:textSize="12sp" />
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+                    <RadioButton
+                        android:id="@+id/enableTrashDeletion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enable_trash_automatic_deletion"
+                        android:textColor="?attr/textColor"
+                        android:textSize="16sp" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="false"
-            android:layout_centerHorizontal="true"
-            app:adSize="BANNER"
-            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+                    <RadioButton
+                        android:id="@+id/disableTrashDeletion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/disable_trash_automatic_deletion"
+                        android:textColor="?attr/textColor"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </androidx.cardview.widget.CardView>
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/historyDeletionTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/history_automatic_deletion_settings"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/trashDeletionCardView" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/historyDeletionCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="5dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/historyDeletionTextView">
+
+                <RadioGroup
+                    android:id="@+id/historyDeletionRadioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/enableHistoryDeletion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/enable_history_automatic_deletion"
+                        android:textColor="?attr/textColor"
+                        android:textSize="16sp" />
+
+                    <RadioButton
+                        android:id="@+id/disableHistoryDeletion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/disable_history_automatic_deletion"
+                        android:textColor="?attr/textColor"
+                        android:textSize="16sp" />
+                </RadioGroup>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintlayoutTextBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/historyDeletionCardView">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/daysWorkedTextInputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4sp"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    app:endIconMode="clear_text"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/daysWorked"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="1234567"
+                        android:ems="10"
+                        android:hint="5"
+                        android:imeOptions="actionGo"
+                        android:inputType="number"
+                        android:maxLength="1"
+                        android:textColor="?attr/textColor"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/layout_settings_warning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:text="@string/changing_deletion_settings"
+                android:textAlignment="center"
+                android:textColor="?attr/textColor"
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/constraintlayoutTextBox" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayoutDeletionSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingBottom="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_settings_warning">
+
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="false"
+                    android:layout_centerHorizontal="true"
+                    app:adSize="BANNER"
+                    app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
