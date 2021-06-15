@@ -33,7 +33,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Hour Calculator"
-        android:textSize="24sp"
+        android:textSize="26sp"
         android:textColor="@android:color/white"/>
 
     <TextView
