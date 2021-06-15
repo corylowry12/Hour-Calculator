@@ -6,6 +6,32 @@
 # Status
 [![GitHub issues](https://img.shields.io/github/issues-raw/corylowry12/Hour-Calculator?style=for-the-badge)](https://github.com/corylowry12/Hour-Calculator/issues)
 
+Use this app to take input time, out time time and/or break time, to display your time in a decimal format, rounded to the second decimal place.
+
+This app will also store the hours in a SQLite database, as well as let you view it and calculate total pay, and how many hours are stored, and the total hours of all the hours combined.
+
+It also has various customization options to make the app suit your needs. 
+
+Has an activity that displays a graph to visualize the hours yuo have worked on a bar graph.
+
+I created this app in order to help me calculate my hours at work.
+
+# Screenshots
+<p float="left">
+<img src=/Screenshots/screenshot1.png width="200" height="400"/>
+<img src=/Screenshots/screenshot2.png width="200" height="400"/>
+<img src=/Screenshots/screenshot3.png width="200" height="400"/>
+<img src=/Screenshots/screenshot4.png width="200" height="400"/>
+<img src=/Screenshots/screenshot5.png width="200" height="400"/>
+</p>
+
+# Whats New in Version 7.1.2
+* Dependency Updates
+* Added a feature that automatically moves history to trash after a certain amount of the days set by the user
+* Fixed issue where web view wouldn't have a subtitle if the user clicked on the Play Core link
+* Tweaked splash screen slightly on every device size
+* Tweaked splash screen animation
+
 # Whats New in Version 7.1.1
 * Fixed issue with text not displaying in history activity on some devices
 * Tweaked left and right padding for warning text view in trash activity
@@ -160,22 +186,3 @@ There is only one global, one.
 * Fixed issue with 3 dot menu for delete, move to trash, etc in the history icon being white in certain layouts no matter the theme
 * Now if the wages edit text will lose focus if you press the back button while it has focus
 * Now the 3 dot menu in history and trash will vibrate when clicked
-
-Use this app to take input time, out time time and/or break time, to display your time in a decimal format, rounded to the second decimal place.
-
-This app will also store the hours in a SQLite database, as well as let you view it and calculate total pay, and how many hours are stored, and the total hours of all the hours combined.
-
-It also has various customization options to make the app suit your needs. 
-
-Has an activity that displays a graph to visualize the hours yuo have worked on a bar graph.
-
-I created this app in order to help me calculate my hours at work.
-
-# Screenshots
-<p float="left">
-<img src=/Screenshots/screenshot1.png width="200" height="400"/>
-<img src=/Screenshots/screenshot2.png width="200" height="400"/>
-<img src=/Screenshots/screenshot3.png width="200" height="400"/>
-<img src=/Screenshots/screenshot4.png width="200" height="400"/>
-<img src=/Screenshots/screenshot5.png width="200" height="400"/>
-</p>
