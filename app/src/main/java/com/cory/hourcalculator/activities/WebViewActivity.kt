@@ -21,15 +21,14 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.PerformanceModeData
-import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.classes.*
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
+
     private lateinit var url: String
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -40,6 +39,21 @@ class WebViewActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_web_view)
         val actionBar = supportActionBar

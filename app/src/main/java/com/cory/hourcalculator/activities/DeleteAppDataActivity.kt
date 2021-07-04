@@ -10,10 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.PerformanceModeData
-import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
@@ -21,6 +18,7 @@ import com.google.android.gms.ads.*
 class DeleteAppDataActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
 
     private val dbHandler = DBHelper(this, null)
@@ -35,6 +33,21 @@ class DeleteAppDataActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_delete_app_data)
         val actionBar = supportActionBar

@@ -239,4 +239,9 @@
     <string name="history_automatic_deletion_disabled">Suppression automatique de l\'historique désactivée</string>
     <string name="history_automatic_deletion_enabled">Suppression automatique de l\'historique activée</string>
     <string name="android_developers">Développeurs Android</string>
+    <string name="accent_color">Couleur d\'accent</string>
+    <string name="teal">Sarcelle (par défaut)</string>
+    <string name="pink">Rose</string>
+    <string name="orange">Orange</string>
+    <string name="red">rouge</string>
 </resources>

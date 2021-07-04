@@ -26,6 +26,8 @@ import kotlinx.android.synthetic.main.activity_settings.*
 class LayoutSettings : AppCompatActivity() {
 
     private lateinit var darkThemeData : DarkThemeData
+    private lateinit var accentColor: AccentColor
+
     private val dbHandler = DBHelper(this, null)
     private val dbHandlerTrash = DBHelperTrash(this, null)
     private val dataList = ArrayList<HashMap<String, String>>()
@@ -39,6 +41,21 @@ class LayoutSettings : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_layout_settings)
         val actionBar = supportActionBar

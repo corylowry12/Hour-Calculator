@@ -24,6 +24,7 @@
     <color name="spinnerLightArrowTint">#000000</color>
     <color name="settingsTextColorAccent">#26A69A</color>
     <color name="deleteButton">#ce2029</color>
-    <color name="disableTextColor">#656768</color>
-    <color name="disableLightTextColor">#a1a1a1</color>
+    <color name="pinkAccent">#fc7ebd</color>
+    <color name="orangeAccent">#ff9900</color>
+    <color name="redAccent">#E53935</color>
 </resources>

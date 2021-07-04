@@ -61,7 +61,7 @@
             android:imeOptions="actionNext"
             android:inputType="time"
             android:maxLength="5"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -71,7 +71,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout1"
@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4sp"
         android:layout_marginTop="12dp"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
@@ -130,7 +130,7 @@
             android:imeOptions="actionGo"
             android:inputType="time"
             android:maxLength="5"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -166,7 +166,7 @@
             android:hint="@string/_60"
             android:inputType="time"
             android:maxLength="3"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

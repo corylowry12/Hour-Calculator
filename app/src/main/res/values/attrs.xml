@@ -7,4 +7,6 @@
         <attr name="chartbackground" format="color" />
         <attr name="settingsTextColorAccent" format="color" />
         <attr name="disableTextColor" format="color"/>
+        <attr name="tealTextColor" format="color" />
+        <attr name="pinkTextColor" format="color" />
 </resources>

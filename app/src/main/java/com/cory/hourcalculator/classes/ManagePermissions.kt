@@ -48,7 +48,8 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
         if (ActivityCompat.shouldShowRequestPermissionRationale(activity, activity.getString(R.string.permission))) {
             requestIfDenied()
         } else {
-            val builder = AlertDialog.Builder(context)
+            val accentColor = AccentColor(context)
+            val builder = AlertDialog.Builder(context, accentColor.alertTheme(activity))
             builder.setTitle(R.string.need_permissions)
             builder.setMessage(R.string.permissions_needed_caption)
             builder.setCancelable(false)
@@ -62,8 +63,24 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
             }
             val alert = builder.create()
             alert.show()
-            alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
-            alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+            when {
+                accentColor.loadAccent() == 0 -> {
+                    alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                    alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.colorPrimary))
+                }
+                accentColor.loadAccent() == 1 -> {
+                    alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.pinkAccent))
+                    alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.pinkAccent))
+                }
+                accentColor.loadAccent() == 2 -> {
+                    alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.orangeAccent))
+                    alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.orangeAccent))
+                }
+                accentColor.loadAccent() == 3 -> {
+                    alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.redAccent))
+                    alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.redAccent))
+                }
+            }
         }
     }
 
@@ -74,7 +91,8 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
     }
 
     private fun requestIfDenied() {
-        val builder = AlertDialog.Builder(activity)
+        val accentColor = AccentColor(activity)
+        val builder = AlertDialog.Builder(activity, accentColor.alertTheme(activity))
         builder.setTitle(R.string.need_permissions)
         builder.setMessage(activity.getString(R.string.permissions_previously_denied))
         builder.setCancelable(false)
@@ -94,8 +112,24 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
         }
         val alert = builder.create()
         alert.show()
-        alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
-        alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+        when {
+            accentColor.loadAccent() == 0 -> {
+                alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+                alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.colorPrimary))
+            }
+            accentColor.loadAccent() == 1 -> {
+                alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.pinkAccent))
+                alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.pinkAccent))
+            }
+            accentColor.loadAccent() == 2 -> {
+                alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.orangeAccent))
+                alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.orangeAccent))
+            }
+            accentColor.loadAccent() == 3 -> {
+                alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.redAccent))
+                alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.redAccent))
+            }
+        }
     }
 
     private fun vibration(vibrationData: VibrationData) {

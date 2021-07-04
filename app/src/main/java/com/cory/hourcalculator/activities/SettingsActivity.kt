@@ -33,7 +33,10 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
     // Not initialized variables
     private lateinit var firebaseAnalytics: FirebaseAnalytics
+
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
+
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
@@ -50,6 +53,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_settings)
         // sets the back arrow on the action bar
@@ -270,7 +288,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         donateHeading.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                     donateSelectedItemIndex = which
@@ -289,7 +307,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         donateSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                 donateSelectedItemIndex = which
@@ -308,7 +326,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         donateCardView.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.please_donate))
             alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
                 donateSelectedItemIndex = which
@@ -337,7 +355,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
-                    val alertDialog = AlertDialog.Builder(this)
+                    val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
@@ -376,7 +394,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
-                    val alertDialog = AlertDialog.Builder(this)
+                    val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
@@ -412,7 +430,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val managePermissions = ManagePermissions(this, list, permissionRequestCode)
             if (dbHandler.getCount() > 0) {
                 if (managePermissions.checkPermissions()) {
-                    val alertDialog = AlertDialog.Builder(this)
+                    val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
                             selectedItemIndex = which
@@ -549,7 +567,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         aboutCardView.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.about_me))
                 .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
@@ -562,7 +580,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         aboutMeHeading.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.about_me))
                 .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)
@@ -575,7 +593,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         }
         aboutMeSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this)
+            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
             alertDialog.setTitle(getString(R.string.about_me))
                 .setMessage(getString(R.string.about_me_message))
                 .setCancelable(false)

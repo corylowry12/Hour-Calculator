@@ -11,15 +11,13 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.PerformanceModeData
-import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.classes.*
 import com.google.android.gms.ads.*
 
 class ThemeActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
@@ -31,6 +29,21 @@ class ThemeActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_theme)
         val actionBar = supportActionBar
@@ -77,6 +90,45 @@ class ThemeActivity : AppCompatActivity() {
                 darkThemeData.setDarkModeState(true)
                 restartApplication()
             }
+        }
+
+        val tealAccentButton = findViewById<RadioButton>(R.id.Teal)
+        val pinkAccentButton = findViewById<RadioButton>(R.id.Pink)
+        val orangeAccentButton = findViewById<RadioButton>(R.id.Orange)
+        val redAccentButton = findViewById<RadioButton>(R.id.Red)
+
+        if (accentColor.loadAccent() == 0) {
+            tealAccentButton.isChecked = true
+        }
+        else if (accentColor.loadAccent() == 1) {
+            pinkAccentButton.isChecked = true
+        }
+        else if (accentColor.loadAccent() == 2) {
+            orangeAccentButton.isChecked = true
+        }
+        else if (accentColor.loadAccent() == 3) {
+            redAccentButton.isChecked = true
+        }
+
+        tealAccentButton.setOnClickListener {
+            vibration(vibrationData)
+            accentColor.setAccentState(0)
+            restartApplication()
+        }
+        pinkAccentButton.setOnClickListener {
+            vibration(vibrationData)
+            accentColor.setAccentState(1)
+            restartApplication()
+        }
+        orangeAccentButton.setOnClickListener {
+            vibration(vibrationData)
+            accentColor.setAccentState(2)
+            restartApplication()
+        }
+        redAccentButton.setOnClickListener {
+            vibration(vibrationData)
+            accentColor.setAccentState(3)
+            restartApplication()
         }
     }
 

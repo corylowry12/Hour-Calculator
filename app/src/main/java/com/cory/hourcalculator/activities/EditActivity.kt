@@ -13,10 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.PerformanceModeData
-import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
 import com.google.android.material.button.MaterialButton
@@ -34,6 +31,8 @@ class EditActivity : AppCompatActivity() {
     private lateinit var spinner2selecteditem: String
 
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
+
     private lateinit var vibrationData: VibrationData
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
@@ -45,6 +44,21 @@ class EditActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.edit_activity)
         val actionBar = supportActionBar

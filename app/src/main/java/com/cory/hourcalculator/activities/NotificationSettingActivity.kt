@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.activity_notification_setting.*
 class NotificationSettingActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData : DarkThemeData
+    private lateinit var accentColor: AccentColor
+
     private lateinit var vibrationData: VibrationData
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
@@ -32,6 +34,21 @@ class NotificationSettingActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_notification_setting)
         val actionBar = supportActionBar

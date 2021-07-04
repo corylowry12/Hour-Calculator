@@ -16,6 +16,9 @@ import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
+import com.github.javiersantos.appupdater.AppUpdater
+import com.github.javiersantos.appupdater.enums.Display
+import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.gms.ads.*
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.textfield.TextInputEditText
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     // private lateinit var vibrationData: VibrationData
     private lateinit var vibrationData: VibrationData
     private lateinit var darkThemeData: DarkThemeData
+    private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
     private lateinit var updateData: UpdateData
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
@@ -68,9 +72,37 @@ class MainActivity : AppCompatActivity() {
         } else {
             setTheme(R.style.AppTheme)
         }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
+        }
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_main)
+
+        val appUpdater = AppUpdater(this)
+            .setDisplay(Display.DIALOG)
+            .setCancelable(false)
+            .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
+            .showEvery(1)
+            .showAppUpdated(true)
+            .setTitleOnUpdateAvailable(getString(R.string.update_available))
+            .setContentOnUpdateAvailable(getString(R.string.check_out_latest_version))
+            .setButtonUpdate(getString(R.string.update))
+            .setButtonDismiss(getString(R.string.maybe_later))
+            .setButtonDoNotShowAgain("")
+        appUpdater.start()
 
         historyToggleData = HistoryToggleData(this)
         updateData = UpdateData(this)

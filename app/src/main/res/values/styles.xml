@@ -23,7 +23,6 @@
         <item name="android:textColor">@color/lightText</item>
         <item name="popupMenuBackground">@color/lightBackground</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleLight</item>
-        <item name="disableTextColor">@color/disableLightTextColor</item>
     </style>
 
     <style name="AMOLED" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -51,9 +50,6 @@
         <item name="settingsTextColorAccent">@color/settingsTextColorAccent</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="alertDialogStyle">@style/AlertDialogStyleDark</item>
-        <item name="android:alertDialogTheme">@style/AlertDialogStyleDark</item>
-        <item name="android:alertDialogStyle">@style/AlertDialogStyleDark</item>
-        <item name="disableTextColor">@color/disableTextColor</item>
     </style>
 
     <style name="popup" parent="android:ThemeOverlay.Material.Dark">
@@ -76,7 +72,6 @@
         <item name="tint">@android:color/white</item>
         <item name="iconTint">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorHint">@color/disableLightTextColor</item>
     </style>
 
     <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
@@ -103,8 +98,84 @@
         <item name="textColor">@color/lightText</item>
     </style>
 
+    <style name="AlertDialogStyleDark_pink" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/pinkAccent</item>
+        <item name="android:background">@color/darkMenuBackground</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorPrimary">@color/pinkAccent</item>
+    </style>
+
+    <style name="AlertDialogStyleLight_pink" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/pinkAccent</item>
+        <item name="android:background">@color/cardLightBackground</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/pinkAccent</item>
+        <item name="textColorAlertDialogListItem">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="textColor">@color/lightText</item>
+    </style>
+
+    <style name="AlertDialogStyleDark_orange" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/orangeAccent</item>
+        <item name="android:background">@color/darkMenuBackground</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorPrimary">@color/orangeAccent</item>
+    </style>
+
+    <style name="AlertDialogStyleLight_orange" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/orangeAccent</item>
+        <item name="android:background">@color/cardLightBackground</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/orangeAccent</item>
+        <item name="textColorAlertDialogListItem">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="textColor">@color/lightText</item>
+    </style>
+
+    <style name="AlertDialogStyleDark_red" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/redAccent</item>
+        <item name="android:background">@color/darkMenuBackground</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorPrimary">@color/redAccent</item>
+    </style>
+
+    <style name="AlertDialogStyleLight_red" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/redAccent</item>
+        <item name="android:background">@color/cardLightBackground</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/redAccent</item>
+        <item name="textColorAlertDialogListItem">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="textColor">@color/lightText</item>
+    </style>
+
     <style name="SplashScreenThemeLight" parent="Theme.AppCompat.NoActionBar">
         <item name="backgroundColor">@android:color/white</item>
+    </style>
+
+    <style name="pink_accent">
+        <item name="colorPrimary">@color/pinkAccent</item>
+        <item name="colorAccent">@color/pinkAccent</item>
+    </style>
+
+    <style name="teal_accent">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="orange_accent">
+        <item name="colorPrimary">@color/orangeAccent</item>
+        <item name="colorAccent">@color/orangeAccent</item>
+    </style>
+
+    <style name="red_accent">
+        <item name="colorPrimary">@color/redAccent</item>
+        <item name="colorAccent">@color/redAccent</item>
+        <item name="android:alertDialogTheme">@style/AlertDialogStyleDark</item>
+        <item name="android:alertDialogStyle">@style/AlertDialogStyleDark</item>
     </style>
 
 </resources>

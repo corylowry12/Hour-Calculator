@@ -10,10 +10,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
-import com.cory.hourcalculator.classes.PerformanceModeData
-import com.cory.hourcalculator.classes.VibrationData
+import com.cory.hourcalculator.classes.*
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -22,7 +19,9 @@ import kotlinx.android.synthetic.main.activity_patch_notes.*
 class PatchNotesActivity : AppCompatActivity() {
 
     private lateinit var firebaseAnalytics : FirebaseAnalytics
+
     private lateinit var darkThemeData : DarkThemeData
+    private lateinit var accentColor: AccentColor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +30,21 @@ class PatchNotesActivity : AppCompatActivity() {
             setTheme(R.style.AMOLED)
         } else {
             setTheme(R.style.AppTheme)
+        }
+        accentColor = AccentColor(this)
+        when {
+            accentColor.loadAccent() == 0 -> {
+                theme.applyStyle(R.style.teal_accent, true)
+            }
+            accentColor.loadAccent() == 1 -> {
+                theme.applyStyle(R.style.pink_accent, true)
+            }
+            accentColor.loadAccent() == 2 -> {
+                theme.applyStyle(R.style.orange_accent, true)
+            }
+            accentColor.loadAccent() == 3 -> {
+                theme.applyStyle(R.style.red_accent, true)
+            }
         }
         setContentView(R.layout.activity_patch_notes)
         val actionBar = supportActionBar
