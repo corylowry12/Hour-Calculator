@@ -244,4 +244,8 @@
     <string name="pink">Rose</string>
     <string name="orange">Orange</string>
     <string name="red">rouge</string>
+    <string name="update_available">Mise à jour disponible</string>
+    <string name="check_out_latest_version">Découvrez la dernière version de mon application !</string>
+    <string name="update">Mettre à jour</string>
+    <string name="maybe_later">Peut-être plus tard</string>
 </resources>

@@ -95,13 +95,11 @@ class MainActivity : AppCompatActivity() {
             .setDisplay(Display.DIALOG)
             .setCancelable(false)
             .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
-            .showEvery(1)
             .showAppUpdated(true)
             .setTitleOnUpdateAvailable(getString(R.string.update_available))
             .setContentOnUpdateAvailable(getString(R.string.check_out_latest_version))
             .setButtonUpdate(getString(R.string.update))
             .setButtonDismiss(getString(R.string.maybe_later))
-            .setButtonDoNotShowAgain("")
         appUpdater.start()
 
         historyToggleData = HistoryToggleData(this)
