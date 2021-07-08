@@ -107,7 +107,7 @@
     <string name="warning_graph_will_only_display_7_entries_max_n_and_it_will_be_the_most_recent_entries">Warning: Graph Will Only Display 7 Entries Max   and It Will Be The Most Recent Entries</string>
     <string name="graph">Graph</string>
     <string name="whats_new">"What's new in version %1$s"</string>
-    <string name="version_number" translatable="false">7.1.3.1</string>
+    <string name="version_number" translatable="false">7.1.5</string>
     <string name="memorable_places_logo">Memorable Places Logo</string>
     <string name="texarkana_college_logo">Texarkana College Logo</string>
     <string name="tip_calculator_image">Tip Calculator Image</string>
@@ -228,7 +228,7 @@
     <string name="disable_update_notifications">Disable Update Notifications</string>
     <string name="enable_update_notifications">Enable Update Notifications</string>
     <string name="notification_settings">Notification Settings</string>
-    <string name="version_settings">Version: 7.1.3.1</string>
+    <string name="version_settings">Version: 7.1.5</string>
     <string name="github_issue_link" translatable="false">https://github.com/corylowry12/Hour-Calculator/issues</string>
     <string name="delete_all_cache_and_app_data">Delete all cache and app data</string>
     <string name="delete_app_data">Delete App Data</string>

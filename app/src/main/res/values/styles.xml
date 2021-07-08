@@ -159,23 +159,25 @@
     <style name="pink_accent">
         <item name="colorPrimary">@color/pinkAccent</item>
         <item name="colorAccent">@color/pinkAccent</item>
+        <item name="colorPrimaryDark">#B35F88</item>
     </style>
 
     <style name="teal_accent">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimaryDark">#1E7C73</item>
     </style>
 
     <style name="orange_accent">
         <item name="colorPrimary">@color/orangeAccent</item>
         <item name="colorAccent">@color/orangeAccent</item>
+        <item name="colorPrimaryDark">#B16A00</item>
     </style>
 
     <style name="red_accent">
         <item name="colorPrimary">@color/redAccent</item>
         <item name="colorAccent">@color/redAccent</item>
-        <item name="android:alertDialogTheme">@style/AlertDialogStyleDark</item>
-        <item name="android:alertDialogStyle">@style/AlertDialogStyleDark</item>
+       <item name="colorPrimaryDark">#8E2421</item>
     </style>
 
 </resources>
