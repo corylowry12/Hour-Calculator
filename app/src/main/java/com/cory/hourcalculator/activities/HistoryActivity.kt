@@ -2,6 +2,8 @@ package com.cory.hourcalculator.activities
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.*
 import android.view.Menu
 import android.view.MenuItem
@@ -94,6 +96,21 @@ class HistoryActivity : AppCompatActivity() {
         }
 
         floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
+
+        when {
+            accentColor.loadAccent() == 0 -> {
+                floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(Color.rgb(38, 166, 154))
+            }
+            accentColor.loadAccent() == 1 -> {
+                floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(Color.rgb(252, 126, 189))
+            }
+            accentColor.loadAccent() == 2 -> {
+                floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(Color.rgb(255, 153, 0))
+            }
+            accentColor.loadAccent() == 3 -> {
+                floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(Color.rgb(229, 57, 53))
+            }
+        }
 
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
             override fun onScroll(view: AbsListView?, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {

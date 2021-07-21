@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity() {
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
     private val dbHandler = DBHelper(this, null)
-    // private val permissionRequestCode = 1
-    //private lateinit var managePermissions: ManagePermissions
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -94,7 +92,7 @@ class MainActivity : AppCompatActivity() {
         val appUpdater = AppUpdater(this)
             .setDisplay(Display.DIALOG)
             .setCancelable(false)
-            .showEvery(1)
+            .showEvery(5)
             .setUpdateFrom(UpdateFrom.GOOGLE_PLAY)
             .setTitleOnUpdateAvailable(getString(R.string.update_available))
             .setContentOnUpdateAvailable(getString(R.string.check_out_latest_version))
@@ -1036,8 +1034,16 @@ class MainActivity : AppCompatActivity() {
             val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
             val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
             val difference = outTimeTotal - inTimeTotal
-            val totalhours = String.format("%.2f", difference).toDouble()
+            val totalhours: Double = if (outTimeHours.toInt() != 12 && inTimeHours.toInt() != 12) {
+                String.format("%.2f", difference).toDouble() + 12
+            } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
+                String.format("%.2f", difference).toDouble()
+            }
+            else {
+                String.format("%.2f", difference).toDouble()
+            }
             if (totalhours < 0) {
+
                 infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
             } else {
                 if (breakTime.text.toString() == "") {
@@ -1077,12 +1083,15 @@ class MainActivity : AppCompatActivity() {
             val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
             val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
             val difference: Double = outTimeTotal - inTimeTotal
-            val totalhours: Double = if (outTimeHours.toInt() == 12) {
-                String.format("%.2f", difference).toDouble()
-            } else {
+            val totalhours: Double = if (outTimeHours.toInt() != 12 && inTimeHours.toInt() != 12) {
+                String.format("%.2f", difference).toDouble() + 12
+            } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble() + 12
             }
-            if (totalhours < 0) {
+            else {
+                String.format("%.2f", difference).toDouble()
+            }
+           if (totalhours < 0) {
                 infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
             } else {
                 if (breakTime.text.toString() == "") {
