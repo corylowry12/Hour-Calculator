@@ -1035,12 +1035,12 @@ class MainActivity : AppCompatActivity() {
             val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
             val difference = outTimeTotal - inTimeTotal
             val totalhours: Double = if (outTimeHours.toInt() != 12 && inTimeHours.toInt() != 12) {
-                String.format("%.2f", difference).toDouble() + 12
+                String.format("%.2f", difference).toDouble()
             } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble()
             }
             else {
-                String.format("%.2f", difference).toDouble()
+                String.format("%.2f", difference).toDouble() + 12
             }
             if (totalhours < 0) {
 
@@ -1087,6 +1087,9 @@ class MainActivity : AppCompatActivity() {
                 String.format("%.2f", difference).toDouble() + 12
             } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble() + 12
+            }
+            else if (outTimeHours.toInt() != 12 && inTimeHours.toInt() == 12) {
+                String.format("%.2f", difference).toDouble() + 24
             }
             else {
                 String.format("%.2f", difference).toDouble()
