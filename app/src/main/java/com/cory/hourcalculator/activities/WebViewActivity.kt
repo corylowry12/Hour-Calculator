@@ -21,7 +21,10 @@ import android.webkit.WebViewClient
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.*
+import com.cory.hourcalculator.classes.AccentColor
+import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.VibrationData
 import kotlinx.android.synthetic.main.activity_web_view.*
 
 class WebViewActivity : AppCompatActivity() {
@@ -132,11 +135,7 @@ class WebViewActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
             this.finish()
-            if (!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-            } else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
     }
 
@@ -146,10 +145,6 @@ class WebViewActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -184,66 +179,32 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.Settings -> {
                 vibration(vibrationData)
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.changelog -> {
                 vibration(vibrationData)
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.history -> {
                 vibration(vibrationData)
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                vibration(vibrationData)
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                vibration(vibrationData)
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

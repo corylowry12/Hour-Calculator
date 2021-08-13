@@ -7,11 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.*
 import android.util.Log
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
@@ -19,21 +20,14 @@ import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.gms.ads.*
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.messaging.FirebaseMessaging
-import com.google.firebase.messaging.ktx.messaging
-import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.edit_activity.*
-import java.io.*
 import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +36,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
-    private lateinit var updateData: UpdateData
     private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
@@ -55,9 +48,6 @@ class MainActivity : AppCompatActivity() {
     //private val spinner1: MaterialSpinner by lazy { findViewById(R.id.material_spinner_2) }
     private lateinit var spinner1selecteditem: String
     private lateinit var spinner2selecteditem: String
-
-    // Break data lazy initializer
-    private val breakData by lazy { BreakData(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
@@ -102,7 +92,6 @@ class MainActivity : AppCompatActivity() {
         appUpdater.start()
 
         historyToggleData = HistoryToggleData(this)
-        updateData = UpdateData(this)
         trashAutomaticDeletion = TrashAutomaticDeletion(this)
 
         MobileAds.initialize(this)
@@ -121,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         val historyDeletion = HistoryDeletion(this)
         val daysWorked = DaysWorkedPerWeek(this)
 
-        if(daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
+        if (daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
             historyDeletion.deletion(this)
         }
 
@@ -145,48 +134,24 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (UpdateData(this).loadUpdateNotificationState()) {
-            Firebase.messaging.subscribeToTopic("updates")
-                .addOnCompleteListener { task ->
-                    var msg = "Subscribed"
-                    if (!task.isSuccessful) {
-                        msg = "Subscribe failed"
-                    }
-                    Log.d("Updates", msg)
-                }
-        }
-
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                Log.w("FCM", "Fetching fcm registration token failed", task.exception)
-                return@OnCompleteListener
-            }
-
-            Log.d("FCM", task.result.toString())
-        })
-
         vibrationData = VibrationData(this)
 
         //requestFocus()
 
         main()
 
-       /* if (!breakData.loadBreakState()) {
-            findViewById<TextView>(R.id.textView4).visibility = View.GONE
-            findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.GONE
-            findViewById<TextInputEditText>(R.id.breakTime).visibility = View.GONE
-        }*/
+        /* if (!breakData.loadBreakState()) {
+             findViewById<TextView>(R.id.textView4).visibility = View.GONE
+             findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.GONE
+             findViewById<TextInputEditText>(R.id.breakTime).visibility = View.GONE
+         }*/
     }
 
     override fun onRestart() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
         startActivity(intent)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onResume() {
@@ -336,11 +301,10 @@ class MainActivity : AppCompatActivity() {
         val outTimeMinutes = timePickerOutTime.minute
         val outTimeHours = timePickerOutTime.hour
 
-        var inTimeTotal : String = ""
-        var outTimeTotal : String = ""
-        var totalTime : String = ""
+        var inTimeTotal = ""
+        var outTimeTotal  = ""
 
-        var minutesDecimal : Double = (outTimeMinutes - inTimeMinutes) / 60.0
+        var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
         var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
         if (minutesDecimal < 0) {
@@ -360,13 +324,11 @@ class MainActivity : AppCompatActivity() {
             val inTime = inTimeHours - 12
             val amOrPm = getString(R.string.pm)
             inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-        }
-        else if (inTimeHours == 0) {
+        } else if (inTimeHours == 0) {
             val inTime = inTimeHours + 12
             val amOrPm = getString(R.string.am)
             inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-        }
-        else {
+        } else {
             val amOrPm = getString(R.string.am)
             inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
         }
@@ -374,13 +336,11 @@ class MainActivity : AppCompatActivity() {
             val outTime = outTimeHours - 12
             val amOrPm = getString(R.string.pm)
             outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-        }
-        else if (outTimeHours == 0) {
+        } else if (outTimeHours == 0) {
             val outTime = outTimeHours + 12
             val amOrPm = getString(R.string.am)
             outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-        }
-        else {
+        } else {
             val amOrPm = getString(R.string.am)
             outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
         }
@@ -1103,7 +1063,7 @@ class MainActivity : AppCompatActivity() {
         }
     }*/
 
-    private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
+   /* private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         try {
             val historyToggleData = HistoryToggleData(this)
             val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(3, RoundingMode.HALF_EVEN).toString()
@@ -1115,8 +1075,7 @@ class MainActivity : AppCompatActivity() {
                 String.format("%.2f", difference).toDouble()
             } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble()
-            }
-            else {
+            } else {
                 String.format("%.2f", difference).toDouble() + 12
             }
             if (totalhours < 0) {
@@ -1126,7 +1085,7 @@ class MainActivity : AppCompatActivity() {
                 if (breakTime.text.toString() == "") {
                     infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                     if (historyToggleData.loadHistoryState()) {
-                       // savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                        // savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (breakTime.text.toString() != "") {
                     if (!breakTime.text.isDigitsOnly()) {
@@ -1164,14 +1123,12 @@ class MainActivity : AppCompatActivity() {
                 String.format("%.2f", difference).toDouble() + 12
             } else if (outTimeHours.toInt() == 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble() + 12
-            }
-            else if (outTimeHours.toInt() != 12 && inTimeHours.toInt() == 12) {
+            } else if (outTimeHours.toInt() != 12 && inTimeHours.toInt() == 12) {
                 String.format("%.2f", difference).toDouble() + 24
-            }
-            else {
+            } else {
                 String.format("%.2f", difference).toDouble()
             }
-           if (totalhours < 0) {
+            if (totalhours < 0) {
                 infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
             } else {
                 if (breakTime.text.toString() == "") {
@@ -1201,7 +1158,7 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
         }
-    }
+    }*/
 
     /*private fun hideKeyboard() {
         val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -1231,7 +1188,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun requestFocus() {
         //inTime.requestFocus()
-       // window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        // window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 
     private var doubleBackToExitPressedOnce = false
@@ -1255,10 +1212,6 @@ class MainActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -1270,51 +1223,22 @@ class MainActivity : AppCompatActivity() {
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

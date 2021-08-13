@@ -9,7 +9,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.PerformanceModeData
 
 class SplashScreen : AppCompatActivity() {
 
@@ -23,7 +22,6 @@ class SplashScreen : AppCompatActivity() {
 
     fun load() {
 
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
             val cardView: CardView = findViewById(R.id.cardView)
             val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
             cardView.startAnimation(slideAnimation)
@@ -36,15 +34,6 @@ class SplashScreen : AppCompatActivity() {
                 finish()
             }, 3000)
         }
-        else {
-            Handler(Looper.getMainLooper()).postDelayed({
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                finish()
-            }, 1500)
-        }
-    }
 
     override fun onResume() {
         super.onResume()

@@ -15,7 +15,6 @@ import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
-import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
 
 class DeleteAppDataActivity : AppCompatActivity() {
@@ -25,7 +24,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
     private lateinit var vibrationData: VibrationData
 
     private val dbHandler = DBHelper(this, null)
-    private val dbHandlerTrash = DBHelperTrash(this, null)
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -81,7 +79,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
                 applicationContext.getSharedPreferences("file", 0).edit().clear().apply()
                 applicationContext.cacheDir.deleteRecursively()
                 dbHandler.deleteAll()
-                dbHandlerTrash.deleteAll()
                 Toast.makeText(this, getString(R.string.app_data_cleared_toast), Toast.LENGTH_LONG).show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
@@ -132,10 +129,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -170,20 +163,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 

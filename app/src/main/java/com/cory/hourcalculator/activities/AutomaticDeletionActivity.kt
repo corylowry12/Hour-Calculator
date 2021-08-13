@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -147,34 +146,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             false
         })
 
-        val enableTrashAutomaticDeletion = findViewById<RadioButton>(R.id.enableTrashDeletion)
-        val disableTrashAutomaticDeletion = findViewById<RadioButton>(R.id.disableTrashDeletion)
-
-        if (trashAutomaticDeletion.loadTrashDeletionState()) {
-            enableTrashAutomaticDeletion.isChecked = true
-        } else if (!trashAutomaticDeletion.loadTrashDeletionState()) {
-            disableTrashAutomaticDeletion.isChecked = true
-        }
-
-        enableTrashAutomaticDeletion.setOnClickListener {
-            vibration(vibrationData)
-            if (trashAutomaticDeletion.loadTrashDeletionState()) {
-                Toast.makeText(this, getString(R.string.trash_automatic_deletion_is_already_enabled), Toast.LENGTH_SHORT).show()
-            } else {
-                trashAutomaticDeletion.setTrashDeletionState(true)
-                Snackbar.make(automaticDeletionConstraint, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-        disableTrashAutomaticDeletion.setOnClickListener {
-            vibration(vibrationData)
-            if (!trashAutomaticDeletion.loadTrashDeletionState()) {
-                Toast.makeText(this, getString(R.string.trash_automatic_deletion_is_already_disabled), Toast.LENGTH_SHORT).show()
-            } else {
-                trashAutomaticDeletion.setTrashDeletionState(false)
-                Snackbar.make(automaticDeletionConstraint, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
         enableHistoryDeletion.setOnClickListener {
             if (!historyAutomaticDeletion.loadHistoryDeletionState()) {
                 constraintlayoutTextBox.visibility = View.VISIBLE
@@ -252,10 +223,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -290,20 +257,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 

@@ -2,185 +2,112 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.EditActivity"
-    android:background="?attr/backgroundColor">
+    android:background="?attr/backgroundColor"
+    tools:context=".activities.MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:itemIconSize="24dp"
+        app:elevation="2dp"
+        app:menu="@menu/menu_bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
+        />
+
+    <TimePicker
+        android:id="@+id/timePickerInTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/in"
-        android:textColor="?attr/textColor"
-        android:gravity="center"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textStyle="bold"
-        android:layout_marginTop="4dp"/>
-
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/material_spinner_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="14dp"
-        android:textSize="14sp"
+        android:timePickerMode="spinner"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout1"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/material_spinner_2"
-        android:layout_width="wrap_content"
+    <TimePicker
+        android:id="@+id/timePickerOutTime"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="14dp"
-        android:textSize="14sp"
+        android:timePickerMode="spinner"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@id/textView2" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/material_spinner_1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inTime"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/_9_00"
-            android:imeOptions="actionNext"
-            android:inputType="time"
-            android:maxLength="5"
-            android:textSize="16sp" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8sp"
         android:text="@string/out"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout1"
-        android:gravity="center"
+        android:textAlignment="center"
         android:textColor="?attr/textColor"
+        android:textSize="14sp"
         android:textStyle="bold"
-        android:layout_marginTop="2dp"/>
+        app:layout_constraintBottom_toBottomOf="@+id/timePickerInTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="4dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/material_spinner_2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outTime"
-            android:layout_width="175dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/infoTextView1"
-            android:layout_centerHorizontal="true"
-            android:ems="10"
-            android:hint="@string/_5_00"
-            android:imeOptions="actionGo"
-            android:inputType="time"
-            android:maxLength="5"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textView3"
+    <Button
+        android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout2"
-        android:text="@string/break_time"
-        android:gravity="center"
-        android:textColor="?attr/textColor"
-        android:textStyle="bold"
-        android:layout_marginTop="2dp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/breakTime"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/_60"
-            android:inputType="time"
-            android:maxLength="5"
-            android:textSize="16sp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textViewDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/day"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout3"
-        android:gravity="center"
-        android:textColor="?attr/textColor"
-        android:textStyle="bold"
-        android:layout_marginTop="2dp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDay">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/date"
-            android:layout_width="225dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Date"
-            android:inputType="time"
-            android:textSize="16sp"
-            android:enabled="false"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/save"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:hapticFeedbackEnabled="true"
+        android:text="@string/calculate"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timePickerOutTime" />
+
+    <TextView
+        android:id="@+id/infoTextView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4sp"
+        android:gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="?attr/textColor"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveButton"
+        tools:hint="Total Hours: 6.42"
+        tools:visibility="visible"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8sp"
+        android:text="@string/in"
+        android:textAlignment="center"
+        android:textColor="?attr/textColor"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/timePickerInTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginTop="8dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -198,3 +125,4 @@
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

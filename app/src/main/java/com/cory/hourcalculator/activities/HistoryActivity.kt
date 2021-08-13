@@ -20,7 +20,6 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_trash.*
 import kotlinx.android.synthetic.main.list_row.*
 
 
@@ -102,19 +101,19 @@ class HistoryActivity : AppCompatActivity() {
         val historyDeletion = HistoryDeletion(this)
         val daysWorked = DaysWorkedPerWeek(this)
 
-        if(daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
+        if (daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
             historyDeletion.deletion(this)
         }
 
         loadIntoList()
 
-        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if (!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
-            listView.startAnimation(slideTopToBottom)
-            textViewTotalHours.startAnimation(slideTopToBottom)
-            textViewSize.startAnimation(slideTopToBottom)
-            textViewWages.startAnimation(slideTopToBottom)
-        }
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.fade_in_listview_history)
+
+        listView.startAnimation(slideTopToBottom)
+        textViewTotalHours.startAnimation(slideTopToBottom)
+        textViewSize.startAnimation(slideTopToBottom)
+        textViewWages.startAnimation(slideTopToBottom)
+
 
         floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
 
@@ -152,10 +151,10 @@ class HistoryActivity : AppCompatActivity() {
         val index = listView.firstVisiblePosition
         val v = listView.getChildAt(0)
         val top = if (v == null) 0 else v.top - listView.paddingTop
-        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_top_to_bottom)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            listView.startAnimation(slideTopToBottom)
-        }
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.fade_in_listview_history)
+
+        listView.startAnimation(slideTopToBottom)
+
         loadIntoList()
         listView.setSelectionFromTop(index, top)
         if (dbHandler.getCount() == 0) {
@@ -232,13 +231,13 @@ class HistoryActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.list_view_load_animation)
-        if (!PerformanceModeData(this).loadPerformanceMode() && dbHandler.getCount() > 0) {
-            listView.startAnimation(slideTopToBottom)
-            textViewTotalHours.startAnimation(slideTopToBottom)
-            textViewSize.startAnimation(slideTopToBottom)
-            textViewWages.startAnimation(slideTopToBottom)
-        }
+        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.fade_in_listview_history)
+
+        listView.startAnimation(slideTopToBottom)
+        textViewTotalHours.startAnimation(slideTopToBottom)
+        textViewSize.startAnimation(slideTopToBottom)
+        textViewWages.startAnimation(slideTopToBottom)
+
         loadIntoList()
     }
 
@@ -247,11 +246,8 @@ class HistoryActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -262,22 +258,13 @@ class HistoryActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_menu_history, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
-        }
+
         val sortData = SortData(this)
         val sort = sortData.loadSortState()
         if (sort == getString(R.string.day_DESC)) {
@@ -296,34 +283,7 @@ class HistoryActivity : AppCompatActivity() {
             val item = menu.findItem(R.id.menuSortByMostHours)
             item.title = getString(R.string.most_hours)
         }
-        val search = menu.findItem(R.id.app_bar_search)
-        val searchView = search.actionView as SearchView
-        searchView.queryHint = getString(R.string.search)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                if (query != "") {
-                    retrieveItems(query)
-                    textViewTotalHours.text = ""
-                    textViewSize.text = ""
-                    textViewWages.text = ""
-                } else if (query == "") {
-                    loadIntoList()
-                }
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String): Boolean {
-                if (newText != "") {
-                    retrieveItems(newText)
-                    textViewTotalHours.text = ""
-                    textViewSize.text = ""
-                    textViewWages.text = ""
-                } else if (newText == "") {
-                    loadIntoList()
-                }
-                return false
-            }
-        })
         return true
     }
 
@@ -383,51 +343,25 @@ class HistoryActivity : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

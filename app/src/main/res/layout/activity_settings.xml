@@ -59,7 +59,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/theme"

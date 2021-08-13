@@ -130,36 +130,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val themeSubtitle = findViewById<TextView>(R.id.themeSubtitle)
         themeSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val themeCardView = findViewById<CardView>(R.id.themeCardView)
         themeCardView.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
 
         val layout = findViewById<TextView>(R.id.layout)
@@ -167,36 +152,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val layoutSubtitle = findViewById<TextView>(R.id.layoutSubtitle)
         layoutSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val layoutCardView = findViewById<CardView>(R.id.layoutCardView)
         layoutCardView.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
 
         val automaticDeletionCardView = findViewById<CardView>(R.id.deletionCardView)
@@ -204,73 +174,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, AutomaticDeletionActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val automaticDeletionHeading = findViewById<TextView>(R.id.deletionHeading)
         automaticDeletionHeading.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, AutomaticDeletionActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val automaticDeletionSubtitle = findViewById<TextView>(R.id.deletionSubtitle)
         automaticDeletionSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, AutomaticDeletionActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-
-        val notificationCardView = findViewById<CardView>(R.id.notificationsCardView)
-        notificationCardView.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, NotificationSettingActivity::class.java)
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-        val notificationTitle = findViewById<TextView>(R.id.notifications)
-        notificationTitle.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, NotificationSettingActivity::class.java)
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-        val notificationSubtitle = findViewById<TextView>(R.id.notificationsSubtitle)
-        notificationSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, NotificationSettingActivity::class.java)
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
 
         cardViewGithub.setOnClickListener {
@@ -278,40 +196,22 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         textViewGithubHeading.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         textViewGithubCaption.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
-
-        val donateSelection = arrayOf(getString(R.string.five_dollar))
-        var donateSelectedItemIndex = 0
 
         val exportData = ExportData(this)
 
@@ -486,36 +386,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         bugHeading.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         bugSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
 
         val deleteCardView = findViewById<CardView>(R.id.deleteDataCardView)
@@ -523,36 +408,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val deleteHeading = findViewById<TextView>(R.id.deleteDataHeading)
         deleteHeading.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
         val deleteSubtitle = findViewById<TextView>(R.id.deleteDataSubtitle)
         deleteSubtitle.setOnClickListener {
             vibration(vibrationData)
             val intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
         }
     }
 
@@ -720,12 +590,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
     }
 
     override fun onDestroy() {
@@ -740,12 +605,7 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-        else {
-            overridePendingTransition(0, 0)
-        }
     }
 
     override fun onTokenConsumed() {
@@ -758,10 +618,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -776,56 +632,21 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

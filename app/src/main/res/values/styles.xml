@@ -17,10 +17,9 @@
         <item name="android:windowBackground">@android:color/black</item>
         <!--<item name="iconTint">@color/lightIconTint</item>
         <item name="tint">@color/lightTint</item>-->
+        <item name="settingsIconTint">@color/lightIconTint</item>
         <item name="notSelectedTint">@color/lightTint</item>
-        <item name="chartbackground">@color/cardLightBackground</item>
         <item name="actionBarTheme">@style/ActionBarLight</item>
-        <item name="settingsTextColorAccent">@color/settingsTextColorAccent</item>
         <item name="android:textColor">@color/lightText</item>
         <item name="popupMenuBackground">@color/lightBackground</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleLight</item>
@@ -41,14 +40,14 @@
         <item name="ms_arrow_tint">@color/spinnerDarkArrowTint</item>
         <item name="ms_text_color">@color/spinnerDarkTextColor</item>
         <item name="ms_background_color">@color/spinnerDarkBackgroundColor</item>
-        <item name="iconTint">@color/darkIconTint</item>
-        <item name="tint">@color/darkTint</item>
+        <!--<item name="iconTint">@color/darkIconTint</item>
+        <item name="tint">@color/darkTint</item>-->
+        <item name="settingsIconTint">@color/darkIconTint</item>
+        <item name="notSelectedTint">@color/darkTint</item>
         <item name="actionBarTheme">@style/ActionBarDark</item>
-        <item name="chartbackground">@color/chartDarkBackground</item>
         <item name="actionOverflowMenuStyle">@style/Widget.MaterialComponents.PopupMenu.Overflow</item>
         <item name="android:popupMenuStyle">@style/popup</item>
         <item name="switchStyle">@style/Widget.MaterialComponents.CompoundButton.Switch</item>
-        <item name="settingsTextColorAccent">@color/settingsTextColorAccent</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="alertDialogStyle">@style/AlertDialogStyleDark</item>
     </style>
@@ -73,12 +72,6 @@
         <item name="tint">@android:color/white</item>
         <item name="iconTint">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
-    </style>
-
-    <style name="BottomSheetTheme" parent="Theme.Design.BottomSheetDialog">
-        <item name="cornerFamily">rounded</item>
-        <item name="textColor">?attr/textColor</item>
-        <item name="bottomSheetStyle">@drawable/sheet_background_rounded</item>
     </style>
 
     <style name="AlertDialogStyleDark" parent="Theme.MaterialComponents.Dialog.Alert">
@@ -161,18 +154,21 @@
         <item name="colorPrimary">@color/pinkAccent</item>
         <item name="colorAccent">@color/pinkAccent</item>
         <item name="colorPrimaryDark">#B35F88</item>
+        <item name="selectedTint">@color/pinkAccent</item>
     </style>
 
     <style name="teal_accent">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorPrimaryDark">#1E7C73</item>
+        <item name="selectedTint">@color/colorPrimary</item>
     </style>
 
     <style name="orange_accent">
         <item name="colorPrimary">@color/orangeAccent</item>
         <item name="colorAccent">@color/orangeAccent</item>
         <item name="colorPrimaryDark">#B16A00</item>
+        <item name="selectedTint">@color/orangeAccent</item>
     </style>
 
     <style name="red_accent">

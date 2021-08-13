@@ -2,16 +2,14 @@ package com.cory.hourcalculator.classes
 
 import android.content.Context
 import com.cory.hourcalculator.database.DBHelper
-import com.cory.hourcalculator.database.DBHelperTrash
 
 class HistoryDeletion(context: Context) {
 
     private val dbHandler = DBHelper(context, null)
-    private val dbHandlerTrash = DBHelperTrash(context, null)
 
     private val dataList = ArrayList<HashMap<String, String>>()
 
-    val daysWorkedPerWeek = DaysWorkedPerWeek(context)
+    private val daysWorkedPerWeek = DaysWorkedPerWeek(context)
 
     fun deletion(context: Context) {
         val numberToDelete = dbHandler.getCount() - daysWorkedPerWeek.loadDaysWorked().toString().toInt()
@@ -30,10 +28,6 @@ class HistoryDeletion(context: Context) {
             map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
             dataList.add(map)
 
-            dbHandlerTrash.insertRow(
-                map["intime"].toString(), map["out"].toString(),
-                map["break"].toString(), map["total"].toString(), map["day"].toString()
-            )
             dbHandler.deleteRow(map["id"].toString())
 
             cursor.moveToNext()

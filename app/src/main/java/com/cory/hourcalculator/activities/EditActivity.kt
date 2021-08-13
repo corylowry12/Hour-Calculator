@@ -1,6 +1,5 @@
 package com.cory.hourcalculator.activities
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,10 +7,9 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.EditText
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
@@ -19,9 +17,6 @@ import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.textfield.TextInputEditText
-import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.edit_activity.*
 import java.math.RoundingMode
 
@@ -37,6 +32,8 @@ class EditActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
 
     private lateinit var vibrationData: VibrationData
+
+    private lateinit var date : String
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -87,12 +84,8 @@ class EditActivity : AppCompatActivity() {
 
     fun main() {
 
-        val inTime = findViewById<TextInputEditText>(R.id.inTime)
-        val outTime = findViewById<TextInputEditText>(R.id.outTime)
-        val breakTime = findViewById<TextInputEditText>(R.id.breakTime)
-        val spinner1 = findViewById<MaterialSpinner>(R.id.material_spinner_1)
-        val spinner2 = findViewById<MaterialSpinner>(R.id.material_spinner_2)
-        val dateEditText = findViewById<TextInputEditText>(R.id.date)
+        val inTime = findViewById<TimePicker>(R.id.timePickerInTime)
+        val outTime = findViewById<TimePicker>(R.id.timePickerOutTime)
 
         val id = intent.getStringExtra("id").toString()
 
@@ -106,7 +99,6 @@ class EditActivity : AppCompatActivity() {
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
             map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
             map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
             dataList.add(map)
@@ -116,849 +108,109 @@ class EditActivity : AppCompatActivity() {
         }
         val idMap = map["id"].toString()
 
-        inTime.setText(map["intime"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
-        outTime.setText(map["out"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
-        breakTime.setText(map["break"].toString())
-        if (map["intime"].toString().contains(this.getString(R.string.am))) {
-            material_spinner_1.setItems(getString(R.string.am), getString(R.string.pm))
-            spinner1selecteditem = getString(R.string.am)
-        } else if (map["intime"].toString().contains(this.getString(R.string.pm))) {
-            material_spinner_1.setItems(getString(R.string.pm), getString(R.string.am))
-            spinner1selecteditem = getString(R.string.pm)
-        }
-        if (map["out"].toString().contains(getString(R.string.am))) {
-            material_spinner_2.setItems(getString(R.string.am), getString(R.string.pm))
-            spinner2selecteditem = getString(R.string.am)
-        } else if (map["out"].toString().contains(getString(R.string.pm))) {
-            material_spinner_2.setItems(getString(R.string.pm), getString(R.string.am))
-            spinner2selecteditem = getString(R.string.pm)
-        }
+        date = map["day"].toString()
 
-        dateEditText.setText(map["day"].toString())
+        //inTime.setText(map["intime"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
+        //outTime.setText(map["out"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
 
-        inTime.setOnClickListener {
-            vibration(vibrationData)
+        var (inTimeHours, inTimeMinutes) = map["intime"].toString().split(":")
+        var (outTimeHours, outTimeMinutes) = map["out"].toString().split(":")
+
+        var inTimeHoursInteger : Int = inTimeHours.toInt()
+        var outTimeHoursInteger : Int = outTimeHours.toInt()
+
+        val inTimeMinutesNumbers : Int
+        val outTimeMinutesNumbers : Int
+
+        if (map["intime"].toString().contains(getString(R.string.pm))) {
+            inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
+            inTimeHoursInteger += 12
         }
-
-        outTime.setOnClickListener {
-            vibration(vibrationData)
+        else {
+            inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
+            if (inTimeHours.toInt() == 12) {
+                inTimeHoursInteger -= 12
+            }
         }
 
-        breakTime.setOnClickListener {
-            vibration(vibrationData)
+        if (map["out"].toString().contains(getString(R.string.pm))) {
+            outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
+            outTimeHoursInteger += 12
+        }
+        else {
+            outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
+            if (outTimeHours.toInt() == 12) {
+                outTimeHoursInteger -= 12
+            }
         }
 
-        spinner1.setOnClickListener {
-            vibration(vibrationData)
-        }
+        timePickerInTime.hour = inTimeHoursInteger
+        timePickerInTime.minute = inTimeMinutesNumbers
+        timePickerOutTime.hour = outTimeHoursInteger
+        timePickerOutTime.minute = outTimeMinutesNumbers
 
-        spinner2.setOnClickListener {
-            vibration(vibrationData)
-        }
-
-        spinner1.setOnItemSelectedListener { _, _, _, item ->
-            spinner1selecteditem = item as String
-        }
-
-        spinner2.setOnItemSelectedListener { _, _, _, item ->
-            vibration(vibrationData)
-            spinner2selecteditem = item as String
-        }
-
-        spinner1.setOnNothingSelectedListener {
-            vibration(vibrationData)
-        }
-
-        spinner2.setOnNothingSelectedListener {
-            vibration(vibrationData)
-        }
-
-        val saveButton = findViewById<MaterialButton>(R.id.buttonSave)
         saveButton.setOnClickListener {
             vibration(vibrationData)
-            validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, idMap)
+            calculate(idMap, map["day"].toString())
         }
     }
 
-    @SuppressLint("SetTextI18n")
-    private fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        if (inTime.text.toString().contains(",")) {
-            Toast.makeText(this, getString(R.string.theres_a_comman_in_text_box), Toast.LENGTH_LONG).show()
-        } else if (outTime.text.toString().contains(",")) {
-            Toast.makeText(this, getString(R.string.theres_a_comman_in_text_box), Toast.LENGTH_LONG).show()
-        }
-        if (spinner1selecteditem == getString(R.string.am) && spinner2selecteditem == getString(R.string.am)) {
-            if (inTimeString.length == 2 || outTimeString.length == 2) {
-                Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-            }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
-                Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
-            }
-            if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(1)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intime:$intimelast")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(1)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtime:$outtimelast")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        val rounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-                        val rounded1 = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-                        val total1 = inTimeHours.toDouble() + rounded.substring(1).toDouble()
-                        val total2 = outTimeHours.toDouble() + rounded1.substring(1).toDouble()
-                        val difference = total2 - total1
-                        val totalhours = String.format("%.2f", difference).toDouble()
-                        if (totalhours < 0) {
-                            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-                        } else {
-                            aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                        }
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                }
-            }
-            if (!inTimeString.contains(":") && outTimeString.contains(":")) {
-                if (inTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            }
-            if (inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (outTimeString.length == 3) {
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 4) {
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
-                val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                if (inTimeMinutes == "" || outTimeMinutes == "") {
-                    Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
-                    Toast.makeText(this, getString(R.string.minutes_cant_be_three_numbers), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                } else {
-                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            }
-        }
-        if (spinner1selecteditem == getString(R.string.pm) && spinner2selecteditem == getString(R.string.pm)) {
-            if (inTimeString.length <= 2 || outTimeString.length <= 2) {
-                Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-            }
-            if (inTime.text.toString() == "" || outTime.text.toString() == "") {
-                Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
-            }
-            if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(1)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intime:$intimelast")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(1)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtime:$outtimelast")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                }
-            }
-            if (!inTimeString.contains(":") && outTimeString.contains(":")) {
-                if (inTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            }
-            if (inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (outTimeString.length == 3) {
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 4) {
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
-                val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                if (inTimeMinutes == "" || outTimeMinutes == "") {
-                    Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
-                    Toast.makeText(this, getString(R.string.minutes_cant_be_three_numbers), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                } else {
-                    aMandAMandPMandPM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            }
-        }
-        if (spinner1selecteditem == getString(R.string.am) && spinner2selecteditem == getString(R.string.pm)) {
-            if (inTimeString.length == 2 || outTimeString.length == 2) {
-                Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-            }
-            if (inTimeString == "" || outTimeString == "") {
-                Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
-            }
-            if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || inTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(1)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intime:$intimelast")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(1)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtime:$outtimelast")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                }
-            }
-            if (!inTimeString.contains(":") && outTimeString.contains(":")) {
-                if (inTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            }
-            if (inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (outTimeString.length == 3) {
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 4) {
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
-                val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                if (inTimeMinutes == "" || outTimeMinutes == "") {
-                    Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
-                    Toast.makeText(this, getString(R.string.minutes_cant_be_three_numbers), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                } else {
-                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            }
-        }
-        if (spinner1selecteditem == getString(R.string.pm) && spinner2selecteditem == getString(R.string.am)) {
-            if (inTimeString.length == 2 || outTimeString.length == 2) {
-                Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-            }
-            if (inTimeString == "" || outTimeString == "") {
-                Toast.makeText(this, getString(R.string.dont_leave_anything_blank), Toast.LENGTH_LONG).show()
-            }
-            if (!inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (inTimeString.length == 3 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 3 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(1)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intime:$intimelast")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 3) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(1)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtime:$outtimelast")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4 && outTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                }
-            }
-            if (!inTimeString.contains(":") && outTimeString.contains(":")) {
-                if (inTimeString.length == 3) {
-                    val intime = inTimeString.drop(1)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 4) {
-                    val intime = inTimeString.drop(2)
-                    val intimelast = inTimeString.dropLast(2)
-                    inTime.setText("$intimelast:$intime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (inTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            }
-            if (inTimeString.contains(":") && !outTimeString.contains(":")) {
-                if (outTimeString.length == 3) {
-                    val outtime = outTimeString.drop(1)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 4) {
-                    val outtime = outTimeString.drop(2)
-                    val outtimelast = outTimeString.dropLast(2)
-                    outTime.setText("$outtimelast:$outtime")
-                    val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                    val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                    if (inTimeMinutes == "" || outTimeMinutes == "") {
-                        Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                    } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                    } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                        Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                    } else {
-                        aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (outTimeString.length == 5) {
-                    Toast.makeText(this, getString(R.string.time_cant_be_five_digits), Toast.LENGTH_LONG).show()
-                }
-            } else if (inTimeString.contains(":") && outTimeString.contains(":")) {
-                val (inTimeHours, inTimeMinutes) = inTime.text.toString().split(":")
-                val (outTimeHours, outTimeMinutes) = outTime.text.toString().split(":")
-                if (inTimeMinutes == "" || outTimeMinutes == "") {
-                    Toast.makeText(this, getString(R.string.proper_input), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.length == 3 || outTimeMinutes.length == 3) {
-                    Toast.makeText(this, getString(R.string.minutes_cant_be_three_numbers), Toast.LENGTH_LONG).show()
-                } else if (inTimeMinutes.toDouble() >= 60 || outTimeMinutes.toDouble() >= 60) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_60), Toast.LENGTH_LONG).show()
-                } else if (inTimeHours.toDouble() >= 13 || outTimeHours.toDouble() >= 13) {
-                    Toast.makeText(this, getString(R.string.cant_be_greater_than_or_equal_to_13), Toast.LENGTH_LONG).show()
-                } else {
-                    aMandPMandPMandAM(inTimeHours, inTimeMinutes, outTimeHours, outTimeMinutes, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                }
-            }
-        }
-    }
+        private fun calculate(id: String, dayOfWeek: String) {
+            val inTimeMinutes = timePickerInTime.minute
+            val inTimeHours = timePickerInTime.hour
+            val outTimeMinutes = timePickerOutTime.minute
+            val outTimeHours = timePickerOutTime.hour
 
-    private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        try {
-            val historyToggleData = HistoryToggleData(this)
-            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-            val difference = outTimeTotal - inTimeTotal
-            val totalhours = String.format("%.2f", difference).toDouble()
-            if (totalhours < 0) {
-                Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
+            var inTimeTotal = ""
+            var outTimeTotal  = ""
+
+            var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
+            minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
+            var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
+            if (minutesDecimal < 0) {
+                minutesWithoutFirstDecimal = (1.0 - minutesWithoutFirstDecimal.toDouble()).toString()
+                minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+                minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
+            }
+            var hoursDifference = outTimeHours - inTimeHours
+            if (minutesDecimal < 0) {
+                hoursDifference -= 1
+            }
+            if (hoursDifference < 0) {
+                hoursDifference += 24
+            }
+
+            if (inTimeHours > 12) {
+                val inTime = inTimeHours - 12
+                val amOrPm = getString(R.string.pm)
+                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+            } else if (inTimeHours == 0) {
+                val inTime = inTimeHours + 12
+                val amOrPm = getString(R.string.am)
+                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
             } else {
-                if (breakTime.text.toString() == "") {
-                    Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
-                    if (historyToggleData.loadHistoryState()) {
-                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (breakTime.text.toString() != "") {
-                    if (!breakTime.text.isDigitsOnly()) {
-                        Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
-                    } else {
-                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        val totalHours1 = totalhours - breakTimeDec
-                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                        if (totalHoursWithBreak < 0) {
-                            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-                        } else if (totalHoursWithBreak > 0) {
-                            Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
-                            if (historyToggleData.loadHistoryState()) {
-                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                            }
-                        }
-                    }
-                }
+                val amOrPm = getString(R.string.am)
+                inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
             }
-        } catch (e: NumberFormatException) {
-            e.printStackTrace()
-            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
-        }
-    }
-
-    private fun aMandPMandPMandAM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        try {
-            val historyToggleData = HistoryToggleData(this)
-            val inTimeMinutesRounded = (inTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-            val outTimeMinutesRounded = (outTimeMinutes.toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-            val inTimeTotal = inTimeHours.toDouble() + inTimeMinutesRounded.substring(1).toDouble()
-            val outTimeTotal = outTimeHours.toDouble() + outTimeMinutesRounded.substring(1).toDouble()
-            val difference: Double = outTimeTotal - inTimeTotal
-            val totalhours: Double = if (outTimeHours.toInt() == 12) {
-                String.format("%.2f", difference).toDouble()
+            if (outTimeHours > 12) {
+                val outTime = outTimeHours - 12
+                val amOrPm = getString(R.string.pm)
+                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+            } else if (outTimeHours == 0) {
+                val outTime = outTimeHours + 12
+                val amOrPm = getString(R.string.am)
+                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
             } else {
-                String.format("%.2f", difference).toDouble() + 12
+                val amOrPm = getString(R.string.am)
+                outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
             }
-            if (totalhours < 0) {
-                Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-            } else {
-                if (breakTime.text.toString() == "") {
-                    Toast.makeText(this, getString(R.string.total_hours, totalhours.toString()), Toast.LENGTH_LONG).show()
-                    if (historyToggleData.loadHistoryState()) {
-                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                    }
-                } else if (breakTime.text.toString() != "") {
-                    if (!breakTime.text.toString().isDigitsOnly()) {
-                        Toast.makeText(this, getString(R.string.something_wrong_with_break_text_box), Toast.LENGTH_LONG).show()
-                    } else {
-                        val breakTimeDec: Double = (breakTime.text.toString().toDouble() / 60).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString().toDouble()
-                        val totalHours1 = totalhours - breakTimeDec
-                        val totalHoursWithBreak = String.format("%.2f", totalHours1).toDouble()
-                        if (totalHours1 < 0) {
-                            Toast.makeText(this, getString(R.string.in_time_can_not_be_greater_than_out_time), Toast.LENGTH_LONG).show()
-                        } else if (totalHours1 > 0) {
-                            Toast.makeText(this, getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString()), Toast.LENGTH_LONG).show()
-                            if (historyToggleData.loadHistoryState()) {
-                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem, id)
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (e: NumberFormatException) {
-            e.printStackTrace()
-            Toast.makeText(this, getString(R.string.there_was_an_error_check_input), Toast.LENGTH_SHORT).show()
+            val totalHours = "$hoursDifference.$minutesWithoutFirstDecimal".toDouble()
+            savingHours(totalHours, inTimeTotal, outTimeTotal, id, dayOfWeek)
+            infoTextView1.text = getString(R.string.total_hours, "$hoursDifference.$minutesWithoutFirstDecimal")
         }
-    }
 
-    private fun savingHours(totalHours3: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String, id: String) {
-        var break1 = breakTime.text.toString()
-        if (breakTime.text.toString() == "") {
-            break1 = getString(R.string.break_zero)
-        }
-        dbHandler.update(id, inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, totalHours3.toString(), findViewById<TextInputEditText>(R.id.date).text.toString())
+    private fun savingHours(totalHours3: Double, inTime: String, outTime: String, id: String, dayOfWeek: String) {
+        dbHandler.update(id, inTime, outTime, totalHours3.toString(), dayOfWeek)
         this.finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
@@ -1001,10 +253,6 @@ class EditActivity : AppCompatActivity() {
         if (!historyToggleData.loadHistoryState()) {
             val history = menu.findItem(R.id.history)
             history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
         }
         return true
     }
@@ -1039,22 +287,6 @@ class EditActivity : AppCompatActivity() {
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 

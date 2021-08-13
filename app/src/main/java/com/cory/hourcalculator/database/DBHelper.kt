@@ -40,18 +40,15 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun update(id : String, intime: String, outtime: String, breaktime: String, total: String, dayOfWeek: String) {
+    fun update(id : String, intime: String, outtime: String, total: String, dayOfWeek: String) {
         val values = ContentValues()
-        //values.put(COLUMN_ID, id)
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
-        values.put(COLUMN_BREAK, breaktime)
         values.put(COLUMN_TOTAL, total)
         values.put(COLUMN_DAY, dayOfWeek)
 
         val db = this.writableDatabase
-        /*db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(id))
-        db.close()*/
+
         db.update(TABLE_NAME, values,"$COLUMN_ID=?", arrayOf(id))
 
     }
