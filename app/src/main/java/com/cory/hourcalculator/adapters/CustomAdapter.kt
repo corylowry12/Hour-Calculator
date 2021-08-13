@@ -40,7 +40,6 @@ class CustomAdapter(private val context: Context,
 
         rowView.findViewById<TextView>(R.id.row_in).text = context.getString(R.string.in_time_adapter, dataitem["intime"])
         rowView.findViewById<TextView>(R.id.row_out).text = context.getString(R.string.out_time_adapter, dataitem["out"])
-        rowView.findViewById<TextView>(R.id.row_break).text = context.getString(R.string.break_time_adapter, dataitem["break"])
         rowView.findViewById<TextView>(R.id.row_total).text = context.getString(R.string.total_time_adapter, dataitem["total"])
         rowView.findViewById<TextView>(R.id.row_day).text = context.getString(R.string.date_adapter, dataitem["day"])
 

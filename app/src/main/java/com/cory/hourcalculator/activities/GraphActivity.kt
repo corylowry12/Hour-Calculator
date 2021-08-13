@@ -11,7 +11,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.*
+import com.cory.hourcalculator.classes.AccentColor
+import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -99,9 +102,8 @@ class GraphActivity : AppCompatActivity() {
         barChart.moveViewToX(0f)
         barChart.setTouchEnabled(true)
         barChart.isDoubleTapToZoomEnabled = false
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
             barChart.animateY(400)
-        }
+
 
         // Makes all X Axis labels fit on one page
         val xAxis = barChart.xAxis
@@ -812,12 +814,8 @@ class GraphActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
+
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(0, 0)
-        }
     }
 
     private fun vibration(vibrationData: VibrationData) {
@@ -845,56 +843,36 @@ class GraphActivity : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)
@@ -909,12 +887,7 @@ class GraphActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
     }
 
 }

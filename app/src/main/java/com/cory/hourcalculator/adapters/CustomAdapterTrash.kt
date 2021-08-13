@@ -75,7 +75,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
 
                             dbHandler.insertRow(
                                 map["intime"].toString(), map["out"].toString(),
-                                map["break"].toString(), map["total"].toString(), map["day"].toString()
+                                map["total"].toString(), map["day"].toString()
                             )
                             dbHandlerTrash.deleteRow(map["id"].toString())
 
@@ -132,7 +132,7 @@ class CustomAdapterTrash(private val context: Context, private val dataList: Arr
                                     val totaltime = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_TOTAL_TRASH))
                                     val day = cursor1.getString(cursor1.getColumnIndex(DBHelperTrash.COLUMN_DAY_TRASH))
 
-                                    dbHandler.insertRow(intime, outtime, breaktime, totaltime, day)
+                                    dbHandler.insertRow(intime, outtime, totaltime, day)
 
                                     cursor1.moveToNext()
                                 }

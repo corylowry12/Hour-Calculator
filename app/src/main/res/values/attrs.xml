@@ -9,4 +9,6 @@
         <attr name="disableTextColor" format="color"/>
         <attr name="tealTextColor" format="color" />
         <attr name="pinkTextColor" format="color" />
+        <attr name="notSelectedTint" format="color" />
+        <attr name="selectedTint" format="color" />
 </resources>

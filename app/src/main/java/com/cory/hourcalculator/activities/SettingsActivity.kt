@@ -74,7 +74,25 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        billingAgent = BillingAgent(this, this)
+        bottomNav_settings.menu.findItem(R.id.menu_settings).isChecked = true
+
+        bottomNav_settings.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    true
+                }
+                R.id.menu_history -> {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    true
+                }
+                else -> false
+            }
+        }
 
         // sets background to null to prevent overdraw
         window.setBackgroundDrawable(null)
@@ -95,6 +113,15 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
         mAdView.adListener = object : AdListener() {
         }
 
+        main()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        main()
+    }
+
+    private fun main() {
         // initializes the vibrationData class
         val vibrationData = VibrationData(this)
 
@@ -285,63 +312,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
 
         val donateSelection = arrayOf(getString(R.string.five_dollar))
         var donateSelectedItemIndex = 0
-
-        donateHeading.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.please_donate))
-            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
-                    donateSelectedItemIndex = which
-                }
-            alertDialog.setPositiveButton(R.string.donate) { _, _ ->
-                vibration(vibrationData)
-                billingAgent?.purchaseView(0)
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(vibrationData)
-                dialog.dismiss()
-            }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-
-        donateSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.please_donate))
-            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
-                donateSelectedItemIndex = which
-            }
-            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
-                vibration(vibrationData)
-                billingAgent?.purchaseView(0)
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(vibrationData)
-                dialog.dismiss()
-            }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-
-        donateCardView.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.please_donate))
-            alertDialog.setSingleChoiceItems(donateSelection, donateSelectedItemIndex) { _, which ->
-                donateSelectedItemIndex = which
-            }
-            alertDialog.setPositiveButton(getString(R.string.donate)) { _, _ ->
-                vibration(vibrationData)
-                billingAgent?.purchaseView(0)
-            }
-            alertDialog.setNegativeButton(R.string.cancel) { dialog, _ ->
-                vibration(vibrationData)
-                dialog.dismiss()
-            }
-            val alert = alertDialog.create()
-            alert.show()
-        }
 
         val exportData = ExportData(this)
 
@@ -539,97 +509,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             vibration(vibrationData)
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-
-        otherAppsCardView.setOnClickListener {
-            vibration(vibrationData)
-            val fragment = BottomSheet.newInstance()
-            fragment.show(supportFragmentManager, "my_bs")
-        }
-        otherAppHeading.setOnClickListener {
-            vibration(vibrationData)
-            val fragment = BottomSheet.newInstance()
-            fragment.show(supportFragmentManager, "my_bs")
-        }
-
-        otherAppsSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val fragment = BottomSheet.newInstance()
-            fragment.show(supportFragmentManager, "my_bs")
-        }
-
-        aboutCardView.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.about_me))
-                .setMessage(getString(R.string.about_me_message))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                    vibration(vibrationData)
-                    dialog.cancel()
-                }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-        aboutMeHeading.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.about_me))
-                .setMessage(getString(R.string.about_me_message))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                    vibration(vibrationData)
-                    dialog.cancel()
-                }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-        aboutMeSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alertDialog.setTitle(getString(R.string.about_me))
-                .setMessage(getString(R.string.about_me_message))
-                .setCancelable(false)
-                .setPositiveButton(getString(R.string.ok)) { dialog, _ ->
-                    vibration(vibrationData)
-                    dialog.cancel()
-                }
-            val alert = alertDialog.create()
-            alert.show()
-        }
-
-        findViewById<CardView>(R.id.versionCardView).setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, VersionInfoActivity::class.java)
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-        versionHeading.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, VersionInfoActivity::class.java)
-            startActivity(intent)
-            if(!PerformanceModeData(this).loadPerformanceMode()) {
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-            }
-            else {
-                overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-            }
-        }
-        versionSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, VersionInfoActivity::class.java)
             startActivity(intent)
             if(!PerformanceModeData(this).loadPerformanceMode()) {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)

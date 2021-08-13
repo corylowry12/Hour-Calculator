@@ -15,8 +15,9 @@
         <item name="ms_text_color">@color/spinnerLightTextColor</item>
         <item name="ms_background_color">@color/spinnerLightBackgroundColor</item>
         <item name="android:windowBackground">@android:color/black</item>
-        <item name="iconTint">@color/lightIconTint</item>
-        <item name="tint">@color/lightTint</item>
+        <!--<item name="iconTint">@color/lightIconTint</item>
+        <item name="tint">@color/lightTint</item>-->
+        <item name="notSelectedTint">@color/lightTint</item>
         <item name="chartbackground">@color/cardLightBackground</item>
         <item name="actionBarTheme">@style/ActionBarLight</item>
         <item name="settingsTextColorAccent">@color/settingsTextColorAccent</item>
@@ -178,6 +179,7 @@
         <item name="colorPrimary">@color/redAccent</item>
         <item name="colorAccent">@color/redAccent</item>
        <item name="colorPrimaryDark">#8E2421</item>
+        <item name="selectedTint">@color/redAccent</item>
     </style>
 
 </resources>

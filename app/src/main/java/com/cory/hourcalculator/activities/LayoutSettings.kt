@@ -25,7 +25,7 @@ import kotlinx.android.synthetic.main.activity_settings.*
 
 class LayoutSettings : AppCompatActivity() {
 
-    private lateinit var darkThemeData : DarkThemeData
+    private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
 
     private val dbHandler = DBHelper(this, null)
@@ -76,99 +76,32 @@ class LayoutSettings : AppCompatActivity() {
         // prevents keyboard from opening when activity is launched
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
-        val performanceModeData = PerformanceModeData(this)
-        val breakTextBoxData = BreakData(this)
         val vibrationData = VibrationData(this)
         val historyToggleData = HistoryToggleData(this)
-
-        val enablePerformanceModeButton = findViewById<RadioButton>(R.id.enablePerformanceMode)
-        val disablePerformanceModeButton = findViewById<RadioButton>(R.id.disablePerformanceMode)
-
-        if (performanceModeData.loadPerformanceMode()) {
-            enablePerformanceModeButton.isChecked = true
-        }
-        else if (!performanceModeData.loadPerformanceMode()) {
-            disablePerformanceModeButton.isChecked = true
-        }
-
-        enablePerformanceModeButton.setOnClickListener {
-            vibration(vibrationData)
-            if(performanceModeData.loadPerformanceMode()) {
-                Toast.makeText(this, getString(R.string.performance_mode_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
-                performanceModeData.setPerformanceMode(true)
-                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_performance_mode), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-        disablePerformanceModeButton.setOnClickListener {
-            vibration(vibrationData)
-            if(!performanceModeData.loadPerformanceMode()) {
-                Toast.makeText(this, getString(R.string.performance_mode_is_already_disabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
-                performanceModeData.setPerformanceMode(false)
-                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_performance_mode), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
-        val enableBreakTextBox = findViewById<RadioButton>(R.id.enableBreakTextBox)
-        val disableBreakTextBox = findViewById<RadioButton>(R.id.disableBreakTextBox)
-
-        if (breakTextBoxData.loadBreakState()) {
-            enableBreakTextBox.isChecked = true
-        }
-        else if (!breakTextBoxData.loadBreakState()) {
-            disableBreakTextBox.isChecked = true
-        }
-
-        enableBreakTextBox.setOnClickListener {
-            vibration(vibrationData)
-            if(breakTextBoxData.loadBreakState()) {
-                Toast.makeText(this, getString(R.string.break_text_box_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
-                breakTextBoxData.setBreakState(true)
-                Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_break_text_box), Snackbar.LENGTH_SHORT).show()
-            }
-        }
-        disableBreakTextBox.setOnClickListener {
-            vibration(vibrationData)
-            if(!breakTextBoxData.loadBreakState()) {
-                Toast.makeText(this, getString(R.string.break_text_box_is_already_disabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
-                breakTextBoxData.setBreakState(false)
-                Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_break_text_box), Snackbar.LENGTH_SHORT).show()
-            }
-        }
 
         val enableVibration = findViewById<RadioButton>(R.id.enableVibration)
         val disableVibration = findViewById<RadioButton>(R.id.disableVibration)
 
         if (vibrationData.loadVibrationState()) {
             enableVibration.isChecked = true
-        }
-        else if (!vibrationData.loadVibrationState()) {
+        } else if (!vibrationData.loadVibrationState()) {
             disableVibration.isChecked = true
         }
 
         enableVibration.setOnClickListener {
             vibration(vibrationData)
-            if(vibrationData.loadVibrationState()) {
+            if (vibrationData.loadVibrationState()) {
                 Toast.makeText(this, getString(R.string.vibration_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 vibrationData.setVibrationState(true)
                 Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_vibration), Snackbar.LENGTH_SHORT).show()
             }
         }
         disableVibration.setOnClickListener {
             vibration(vibrationData)
-            if(!vibrationData.loadVibrationState()) {
+            if (!vibrationData.loadVibrationState()) {
                 Toast.makeText(this, getString(R.string.vibration_is_already_disabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 vibrationData.setVibrationState(false)
                 Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_vibration), Snackbar.LENGTH_SHORT).show()
             }
@@ -179,17 +112,15 @@ class LayoutSettings : AppCompatActivity() {
 
         if (historyToggleData.loadHistoryState()) {
             enableHistory.isChecked = true
-        }
-        else if (!historyToggleData.loadHistoryState()) {
+        } else if (!historyToggleData.loadHistoryState()) {
             disableHistory.isChecked = true
         }
 
         enableHistory.setOnClickListener {
             vibration(vibrationData)
-            if(historyToggleData.loadHistoryState()) {
+            if (historyToggleData.loadHistoryState()) {
                 Toast.makeText(this, getString(R.string.history_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 historyToggleData.setHistoryToggle(true)
                 Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
                 invalidateOptionsMenu()
@@ -293,12 +224,7 @@ class LayoutSettings : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -309,11 +235,7 @@ class LayoutSettings : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -340,67 +262,42 @@ class LayoutSettings : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 return true
             }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

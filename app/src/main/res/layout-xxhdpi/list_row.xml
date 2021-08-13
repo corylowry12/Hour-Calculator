@@ -47,22 +47,13 @@
         android:layout_below="@id/row_in"/>
 
     <TextView
-        android:id="@+id/row_break"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/break_time"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"
-        android:layout_below="@id/row_out"/>
-
-    <TextView
         android:id="@+id/row_total"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/total"
         android:textSize="16sp"
         android:textColor="?attr/textColor"
-        android:layout_below="@id/row_break"/>
+        android:layout_below="@id/row_out"/>
 
     <TextView
         android:id="@+id/row_day"

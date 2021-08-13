@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class AutomaticDeletionActivity : AppCompatActivity() {
 
-    private lateinit var darkThemeData : DarkThemeData
+    private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
 
     private val dbHandler = DBHelper(this, null)
@@ -79,23 +79,20 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         val daysWorkedPerWeek = DaysWorkedPerWeek(this)
         val historyDeletion = HistoryDeletion(this)
 
-        if(historyAutomaticDeletion.loadHistoryDeletionState()) {
+        if (historyAutomaticDeletion.loadHistoryDeletionState()) {
             try {
                 enableHistoryDeletion.isChecked = true
                 constraintlayoutTextBox.visibility = View.VISIBLE
                 val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                 daysWorked.text = editable
-            }
-            catch (e:Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-        }
-        else if (!historyAutomaticDeletion.loadHistoryDeletionState()) {
+        } else if (!historyAutomaticDeletion.loadHistoryDeletionState()) {
             try {
                 disableHistoryDeletion.isChecked = true
                 constraintlayoutTextBox.visibility = View.GONE
-            }
-            catch (e:Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -128,7 +125,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                         alertDialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
                             historyDeletion.deletion(this)
                         }
-                        alertDialog.setNegativeButton(getString(R.string.no)) {_, _ ->
+                        alertDialog.setNegativeButton(getString(R.string.no)) { _, _ ->
                             disableHistoryDeletion.isChecked = true
                             val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
                             val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
@@ -155,34 +152,31 @@ class AutomaticDeletionActivity : AppCompatActivity() {
 
         if (trashAutomaticDeletion.loadTrashDeletionState()) {
             enableTrashAutomaticDeletion.isChecked = true
-        }
-        else if (!trashAutomaticDeletion.loadTrashDeletionState()) {
+        } else if (!trashAutomaticDeletion.loadTrashDeletionState()) {
             disableTrashAutomaticDeletion.isChecked = true
         }
 
         enableTrashAutomaticDeletion.setOnClickListener {
             vibration(vibrationData)
-            if(trashAutomaticDeletion.loadTrashDeletionState()) {
+            if (trashAutomaticDeletion.loadTrashDeletionState()) {
                 Toast.makeText(this, getString(R.string.trash_automatic_deletion_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 trashAutomaticDeletion.setTrashDeletionState(true)
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.enable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
             }
         }
         disableTrashAutomaticDeletion.setOnClickListener {
             vibration(vibrationData)
-            if(!trashAutomaticDeletion.loadTrashDeletionState()) {
+            if (!trashAutomaticDeletion.loadTrashDeletionState()) {
                 Toast.makeText(this, getString(R.string.trash_automatic_deletion_is_already_disabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 trashAutomaticDeletion.setTrashDeletionState(false)
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.disable_automatic_deletion), Snackbar.LENGTH_SHORT).show()
             }
         }
 
         enableHistoryDeletion.setOnClickListener {
-            if(!historyAutomaticDeletion.loadHistoryDeletionState()) {
+            if (!historyAutomaticDeletion.loadHistoryDeletionState()) {
                 constraintlayoutTextBox.visibility = View.VISIBLE
                 val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                 constraintlayoutTextBox.startAnimation(slideAnimation)
@@ -192,9 +186,8 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                 daysWorked.text = editable
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.history_automatic_deletion_enabled), Snackbar.LENGTH_SHORT).show()
-            }
-            else {
-                if(daysWorkedTextInputLayout.visibility == View.GONE) {
+            } else {
+                if (daysWorkedTextInputLayout.visibility == View.GONE) {
                     constraintlayoutTextBox.visibility = View.VISIBLE
                     val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                     constraintlayoutTextBox.startAnimation(slideAnimation)
@@ -208,7 +201,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             }
         }
         disableHistoryDeletion.setOnClickListener {
-            if(historyAutomaticDeletion.loadHistoryDeletionState()) {
+            if (historyAutomaticDeletion.loadHistoryDeletionState()) {
                 val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
                 val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
                 constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
@@ -217,8 +210,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 historyAutomaticDeletion.setHistoryDeletionState(false)
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.history_automatic_deletion_disabled), Snackbar.LENGTH_SHORT).show()
                 constraintlayoutTextBox.visibility = View.GONE
-            }
-            else {
+            } else {
                 Toast.makeText(this, getString(R.string.history_automatic_deletion_already_disabled), Toast.LENGTH_SHORT).show()
             }
         }
@@ -236,12 +228,9 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -252,12 +241,9 @@ class AutomaticDeletionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if(!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        }
-        else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -284,67 +270,43 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             R.id.home -> {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.Settings -> {
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.changelog -> {
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.history -> {
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.trash -> {
                 val intent = Intent(this, TrashActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             R.id.graph -> {
                 val intent = Intent(this, GraphActivity::class.java)
                 startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
                 return true
             }
             else -> super.onOptionsItemSelected(item)

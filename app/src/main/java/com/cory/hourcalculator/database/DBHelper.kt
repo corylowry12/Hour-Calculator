@@ -27,11 +27,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun insertRow(intime: String, outtime:String, breaktime: String, total: String, dayOfWeek: String) {
+    fun insertRow(intime: String, outtime:String, total: String, dayOfWeek: String) {
         val values = ContentValues()
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
-        values.put(COLUMN_BREAK, breaktime)
         values.put(COLUMN_TOTAL, total)
         values.put(COLUMN_DAY, dayOfWeek)
 
@@ -129,7 +128,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     }
 
     companion object {
-        const val DATABASE_VERSION = 1
+        const val DATABASE_VERSION = 2
         const val DATABASE_NAME = "myDBfile.db"
         const val TABLE_NAME = "users"
 

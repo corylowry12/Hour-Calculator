@@ -11,7 +11,6 @@ import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.text.isDigitsOnly
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
@@ -21,16 +20,14 @@ import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
 import com.google.android.gms.ads.*
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.ktx.messaging
-import com.jaredrummler.materialspinner.MaterialSpinner
 import kotlinx.android.synthetic.main.activity_history.*
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.edit_activity.*
 import java.io.*
 import java.math.RoundingMode
 import java.time.LocalDateTime
@@ -54,8 +51,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     // Spinner lazy and lateinit initializers
-    private val spinner: MaterialSpinner by lazy { findViewById(R.id.material_spinner_1) }
-    private val spinner1: MaterialSpinner by lazy { findViewById(R.id.material_spinner_2) }
+    //private val spinner: MaterialSpinner by lazy { findViewById(R.id.material_spinner_1) }
+    //private val spinner1: MaterialSpinner by lazy { findViewById(R.id.material_spinner_2) }
     private lateinit var spinner1selecteditem: String
     private lateinit var spinner2selecteditem: String
 
@@ -89,6 +86,10 @@ class MainActivity : AppCompatActivity() {
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_main)
 
+        timePickerInTime.setOnTimeChangedListener { view, hourOfDay, minute ->
+            Log.i("Hour of day", hourOfDay.toString())
+        }
+
         val appUpdater = AppUpdater(this)
             .setDisplay(Display.DIALOG)
             .setCancelable(false)
@@ -112,9 +113,9 @@ class MainActivity : AppCompatActivity() {
         MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
-        mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
+        //mAdView.loadAd(adRequest)
+        //mAdView.adListener = object : AdListener() {
+        //}
 
         val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
         val historyDeletion = HistoryDeletion(this)
@@ -122,6 +123,26 @@ class MainActivity : AppCompatActivity() {
 
         if(daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
             historyDeletion.deletion(this)
+        }
+
+        bottomNav.menu.findItem(R.id.menu_home).isChecked = true
+
+        bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_history -> {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    true
+                }
+                R.id.menu_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    true
+                }
+                else -> false
+            }
         }
 
         if (UpdateData(this).loadUpdateNotificationState()) {
@@ -146,15 +167,15 @@ class MainActivity : AppCompatActivity() {
 
         vibrationData = VibrationData(this)
 
-        requestFocus()
+        //requestFocus()
 
         main()
 
-        if (!breakData.loadBreakState()) {
+       /* if (!breakData.loadBreakState()) {
             findViewById<TextView>(R.id.textView4).visibility = View.GONE
             findViewById<TextInputLayout>(R.id.textInputLayout3).visibility = View.GONE
             findViewById<TextInputEditText>(R.id.breakTime).visibility = View.GONE
-        }
+        }*/
     }
 
     override fun onRestart() {
@@ -175,16 +196,16 @@ class MainActivity : AppCompatActivity() {
 
     fun main() {
 
-        findViewById<ConstraintLayout>(R.id.constraintLayout).setOnClickListener {
+        /*findViewById<ConstraintLayout>(R.id.constraintLayout).setOnClickListener {
             if (findViewById<TextInputEditText>(R.id.inTime).hasFocus() || findViewById<TextInputEditText>(R.id.outTime).hasFocus() || findViewById<TextInputEditText>(R.id.breakTime).hasFocus()) {
-                hideKeyboard()
+                //hideKeyboard()
             }
             findViewById<TextInputEditText>(R.id.inTime).clearFocus()
             findViewById<TextInputEditText>(R.id.outTime).clearFocus()
             findViewById<TextInputEditText>(R.id.breakTime).clearFocus()
-        }
+        }*/
 
-        inTime.setOnClickListener {
+        /*inTime.setOnClickListener {
             vibration(vibrationData)
         }
 
@@ -194,9 +215,9 @@ class MainActivity : AppCompatActivity() {
 
         breakTime.setOnClickListener {
             vibration(vibrationData)
-        }
+        }*/
 
-        val spinnerState = SpinnerData(this)
+        /*val spinnerState = SpinnerData(this)
         spinner1selecteditem = if (!spinnerState.loadSpinner1State()) {
             spinner.setItems(getString(R.string.am), getString(R.string.pm))
             getString(R.string.am)
@@ -246,9 +267,9 @@ class MainActivity : AppCompatActivity() {
 
         spinner1.setOnNothingSelectedListener {
             vibration(vibrationData)
-        }
+        }*/
 
-        inTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
+        /*inTime.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
 
@@ -294,18 +315,78 @@ class MainActivity : AppCompatActivity() {
                 return@OnKeyListener true
             }
             false
-        })
+        })*/
 
         calculateButton1.setOnClickListener {
             vibration(vibrationData)
-            validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, infoTextView1)
-            hideKeyboard()
+            //validation(inTime.text.toString(), outTime.text.toString(), spinner1selecteditem, spinner2selecteditem, infoTextView1)
+            //hideKeyboard()
+            calculate()
         }
 
-        btnClear.setOnClickListener {
+        /*btnClear.setOnClickListener {
             vibration(vibrationData)
             clearTextBoxes(inTime, outTime, breakTime)
+        }*/
+    }
+
+    private fun calculate() {
+        val inTimeMinutes = timePickerInTime.minute
+        val inTimeHours = timePickerInTime.hour
+        val outTimeMinutes = timePickerOutTime.minute
+        val outTimeHours = timePickerOutTime.hour
+
+        var inTimeTotal : String = ""
+        var outTimeTotal : String = ""
+        var totalTime : String = ""
+
+        var minutesDecimal : Double = (outTimeMinutes - inTimeMinutes) / 60.0
+        minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
+        if (minutesDecimal < 0) {
+            minutesWithoutFirstDecimal = (1.0 - minutesWithoutFirstDecimal.toDouble()).toString()
+            minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
         }
+        var hoursDifference = outTimeHours - inTimeHours
+        if (minutesDecimal < 0) {
+            hoursDifference -= 1
+        }
+        if (hoursDifference < 0) {
+            hoursDifference += 24
+        }
+
+        if (inTimeHours > 12) {
+            val inTime = inTimeHours - 12
+            val amOrPm = getString(R.string.pm)
+            inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+        }
+        else if (inTimeHours == 0) {
+            val inTime = inTimeHours + 12
+            val amOrPm = getString(R.string.am)
+            inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+        }
+        else {
+            val amOrPm = getString(R.string.am)
+            inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
+        }
+        if (outTimeHours > 12) {
+            val outTime = outTimeHours - 12
+            val amOrPm = getString(R.string.pm)
+            outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+        }
+        else if (outTimeHours == 0) {
+            val outTime = outTimeHours + 12
+            val amOrPm = getString(R.string.am)
+            outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+        }
+        else {
+            val amOrPm = getString(R.string.am)
+            outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
+        }
+        val totalHours = "$hoursDifference.$minutesWithoutFirstDecimal".toDouble()
+        savingHours(totalHours, inTimeTotal, outTimeTotal)
+        infoTextView1.text = getString(R.string.total_hours, "$hoursDifference.$minutesWithoutFirstDecimal")
     }
 
     private fun clearTextBoxes(inTime: EditText, outTime: EditText, breakTime: EditText) {
@@ -324,19 +405,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun savingHours(totalHours3: Double, inTime: EditText, outTime: EditText, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
-        var break1 = breakTime.text.toString()
-        if (breakTime.text.toString() == "") {
-            break1 = getString(R.string.break_zero)
-        }
+    private fun savingHours(totalHours3: Double, inTime: String, outTime: String) {
         val day = LocalDateTime.now()
         val day2 = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM)
         val dayOfWeek = day.format(day2)
-        dbHandler.insertRow(inTime.text.toString() + " " + spinner1selecteditem, outTime.text.toString() + " " + spinner2selecteditem, break1, totalHours3.toString(), dayOfWeek)
+        dbHandler.insertRow(inTime, outTime, totalHours3.toString(), dayOfWeek)
     }
 
     @SuppressLint("SetTextI18n")
-    fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, infoTextView1: TextView) {
+    /*fun validation(inTimeString: String, outTimeString: String, spinner1selecteditem: String, spinner2selecteditem: String, infoTextView1: TextView) {
         if (inTime.text.toString().contains(",")) {
             infoTextView1.text = getString(R.string.theres_a_comman_in_text_box)
         } else if (outTime.text.toString().contains(",")) {
@@ -1024,7 +1101,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 
     private fun aMandAMandPMandPM(inTimeHours: String, inTimeMinutes: String, outTimeHours: String, outTimeMinutes: String, infoTextView1: TextView, breakTime: EditText, spinner1selecteditem: String, spinner2selecteditem: String) {
         try {
@@ -1049,7 +1126,7 @@ class MainActivity : AppCompatActivity() {
                 if (breakTime.text.toString() == "") {
                     infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                     if (historyToggleData.loadHistoryState()) {
-                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                       // savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (breakTime.text.toString() != "") {
                     if (!breakTime.text.isDigitsOnly()) {
@@ -1063,7 +1140,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (totalHoursWithBreak > 0) {
                             infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
                             if (historyToggleData.loadHistoryState()) {
-                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                                //savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                             }
                         }
                     }
@@ -1100,7 +1177,7 @@ class MainActivity : AppCompatActivity() {
                 if (breakTime.text.toString() == "") {
                     infoTextView1.text = getString(R.string.total_hours, totalhours.toString())
                     if (historyToggleData.loadHistoryState()) {
-                        savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                        //savingHours(totalhours, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                     }
                 } else if (breakTime.text.toString() != "") {
                     if (!breakTime.text.toString().isDigitsOnly()) {
@@ -1114,7 +1191,7 @@ class MainActivity : AppCompatActivity() {
                         } else if (totalHours1 > 0) {
                             infoTextView1.text = getString(R.string.total_hours_with_and_without_break, totalHoursWithBreak.toString(), totalhours.toString())
                             if (historyToggleData.loadHistoryState()) {
-                                savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
+                                //savingHours(totalHoursWithBreak, inTime, outTime, breakTime, spinner1selecteditem, spinner2selecteditem)
                             }
                         }
                     }
@@ -1126,7 +1203,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun hideKeyboard() {
+    /*private fun hideKeyboard() {
         val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         val focusedView = this.currentFocus
         if (focusedView != null) {
@@ -1143,7 +1220,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-    }
+    }*/
 
     fun vibration(vibrationData: VibrationData) {
         if (vibrationData.loadVibrationState()) {
@@ -1153,8 +1230,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestFocus() {
-        inTime.requestFocus()
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+        //inTime.requestFocus()
+       // window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
     }
 
     private var doubleBackToExitPressedOnce = false
