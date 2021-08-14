@@ -178,15 +178,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculate() {
-        val inTimeMinutes = timePickerInTime.minute
-        val inTimeHours = timePickerInTime.hour
-        val outTimeMinutes = timePickerOutTime.minute
-        val outTimeHours = timePickerOutTime.hour
+        var inTimeMinutes = timePickerInTime.minute.toString()
+        val inTimeHours = timePickerInTime.hour.toString()
+        var outTimeMinutes = timePickerOutTime.minute.toString()
+        val outTimeHours = timePickerOutTime.hour.toString()
 
+        if (inTimeMinutes.length == 1) {
+            inTimeMinutes = "0$inTimeMinutes"
+        }
+
+        if (outTimeMinutes.length == 1) {
+            outTimeMinutes = "0$outTimeMinutes"
+        }
         var inTimeTotal = ""
         var outTimeTotal  = ""
 
-        var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
+        var minutesDecimal: Double = (outTimeMinutes.toInt() - inTimeMinutes.toInt()) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
         var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
         if (minutesDecimal < 0) {
@@ -194,7 +201,7 @@ class MainActivity : AppCompatActivity() {
             minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
             minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
         }
-        var hoursDifference = outTimeHours - inTimeHours
+        var hoursDifference = outTimeHours.toInt() - inTimeHours.toInt()
         if (minutesDecimal < 0) {
             hoursDifference -= 1
         }
@@ -202,11 +209,11 @@ class MainActivity : AppCompatActivity() {
             hoursDifference += 24
         }
 
-        if (inTimeHours > 12) {
-            val inTime = inTimeHours - 12
+        if (inTimeHours.toInt() > 12) {
+            val inTime = inTimeHours.toInt() - 12
             val amOrPm = getString(R.string.pm)
             inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-        } else if (inTimeHours == 0) {
+        } else if (inTimeHours.toInt() == 0) {
             val inTime = inTimeHours + 12
             val amOrPm = getString(R.string.am)
             inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
@@ -214,11 +221,11 @@ class MainActivity : AppCompatActivity() {
             val amOrPm = getString(R.string.am)
             inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
         }
-        if (outTimeHours > 12) {
-            val outTime = outTimeHours - 12
+        if (outTimeHours.toInt() > 12) {
+            val outTime = outTimeHours.toInt() - 12
             val amOrPm = getString(R.string.pm)
             outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-        } else if (outTimeHours == 0) {
+        } else if (outTimeHours.toInt() == 0) {
             val outTime = outTimeHours + 12
             val amOrPm = getString(R.string.am)
             outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"

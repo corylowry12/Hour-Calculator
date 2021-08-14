@@ -149,9 +149,9 @@ class HistoryActivity : AppCompatActivity() {
         val index = listView.firstVisiblePosition
         val v = listView.getChildAt(0)
         val top = if (v == null) 0 else v.top - listView.paddingTop
-        val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.fade_in_listview_history)
+        //val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_out)
 
-        listView.startAnimation(slideTopToBottom)
+        //listView.startAnimation(slideTopToBottom)
 
         loadIntoList()
         listView.setSelectionFromTop(index, top)
