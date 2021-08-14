@@ -58,8 +58,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:src="@drawable/ic_dark_mode_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        android:src="@drawable/ic_baseline_color_lens_24"
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/theme"
@@ -116,7 +117,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_dashboard_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/layout"
@@ -173,7 +175,9 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_auto_delete_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
+
                     <TextView
                         android:id="@+id/deletionHeading"
                         android:layout_width="wrap_content"
@@ -233,7 +237,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_save_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/exportHeading"
@@ -296,7 +301,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_feedback_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/reviewHeading"
@@ -359,7 +365,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_bug_report_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/bugHeading"
@@ -421,7 +428,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_github_seeklogo_com"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/textViewGithubHeading"
@@ -484,7 +492,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         android:src="@drawable/ic_delete_black_24dp"
-                        tools:ignore="ContentDescription" />
+                        tools:ignore="ContentDescription"
+                        app:tint="?attr/settingsIconTint"/>
 
                     <TextView
                         android:id="@+id/deleteDataHeading"

@@ -16,8 +16,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.billing.BillingAgent
-import com.cory.hourcalculator.billing.BillingCallback
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
@@ -29,7 +27,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_settings.*
 import java.io.*
 
-class SettingsActivity : AppCompatActivity(), BillingCallback {
+class SettingsActivity : AppCompatActivity() {
 
     // Not initialized variables
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -40,8 +38,6 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
-
-    private var billingAgent: BillingAgent? = null
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -81,13 +77,13 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
                 R.id.menu_home -> {
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 else -> false
@@ -593,23 +589,12 @@ class SettingsActivity : AppCompatActivity(), BillingCallback {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
-    override fun onDestroy() {
-        billingAgent?.onDestroy()
-        billingAgent = null
-        super.onDestroy()
-
-    }
-
     override fun onRestart() {
         super.onRestart()
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
-
-    override fun onTokenConsumed() {
-        Toast.makeText(this, getString(R.string.thanks_for_donation), Toast.LENGTH_LONG).show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
