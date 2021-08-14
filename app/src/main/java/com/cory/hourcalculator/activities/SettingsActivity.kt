@@ -7,14 +7,10 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
@@ -38,7 +34,7 @@ class SettingsActivity : AppCompatActivity() {
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
-
+    
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,22 +62,21 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_settings)
-        // sets the back arrow on the action bar
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
+        
+        var intent : Intent
+        val historyToggleData = HistoryToggleData(this)
         bottomNav_settings.menu.findItem(R.id.menu_settings).isChecked = true
-
+        bottomNav_settings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
         bottomNav_settings.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
-                    val intent = Intent(this, MainActivity::class.java)
+                    intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
-                    val intent = Intent(this, HistoryActivity::class.java)
+                    intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
@@ -121,92 +116,110 @@ class SettingsActivity : AppCompatActivity() {
         // initializes the vibrationData class
         val vibrationData = VibrationData(this)
 
-        val theme = findViewById<TextView>(R.id.theme)
-        theme.setOnClickListener {
+        themeHeading.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, ThemeActivity::class.java)
+            intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val themeSubtitle = findViewById<TextView>(R.id.themeSubtitle)
+
         themeSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, ThemeActivity::class.java)
+            intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val themeCardView = findViewById<CardView>(R.id.themeCardView)
+
         themeCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, ThemeActivity::class.java)
+            intent = Intent(this, ThemeActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
-        val layout = findViewById<TextView>(R.id.layout)
         layout.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, LayoutSettings::class.java)
+            intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        }
-        val layoutSubtitle = findViewById<TextView>(R.id.layoutSubtitle)
-        layoutSubtitle.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, LayoutSettings::class.java)
-            startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
-        }
-        val layoutCardView = findViewById<CardView>(R.id.layoutCardView)
-        layoutCardView.setOnClickListener {
-            vibration(vibrationData)
-            val intent = Intent(this, LayoutSettings::class.java)
-            startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
-        val automaticDeletionCardView = findViewById<CardView>(R.id.deletionCardView)
-        automaticDeletionCardView.setOnClickListener {
+       layoutSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, AutomaticDeletionActivity::class.java)
+            intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val automaticDeletionHeading = findViewById<TextView>(R.id.deletionHeading)
-        automaticDeletionHeading.setOnClickListener {
+
+        layoutCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, AutomaticDeletionActivity::class.java)
+            intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val automaticDeletionSubtitle = findViewById<TextView>(R.id.deletionSubtitle)
-        automaticDeletionSubtitle.setOnClickListener {
+
+        deletionCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, AutomaticDeletionActivity::class.java)
+            intent = Intent(this, AutomaticDeletionActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        deletionHeading.setOnClickListener {
+            vibration(vibrationData)
+            intent = Intent(this, AutomaticDeletionActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        deletionSubtitle.setOnClickListener {
+            vibration(vibrationData)
+            intent = Intent(this, AutomaticDeletionActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        patchNotesCardView.setOnClickListener {
+            vibration(vibrationData)
+            intent = Intent(this, PatchNotesActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+        patchNotesHeading.setOnClickListener {
+            vibration(vibrationData)
+            intent = Intent(this, PatchNotesActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        }
+
+       patchNotesSubtitle.setOnClickListener {
+            vibration(vibrationData)
+            intent = Intent(this, PatchNotesActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
         cardViewGithub.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         textViewGithubHeading.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         textViewGithubCaption.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
         val exportData = ExportData(this)
@@ -379,46 +392,45 @@ class SettingsActivity : AppCompatActivity() {
 
         bugCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         bugHeading.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
         bugSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, WebViewActivity::class.java)
+            intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_issue_link))
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
-        val deleteCardView = findViewById<CardView>(R.id.deleteDataCardView)
-        deleteCardView.setOnClickListener {
+        deleteDataCardView.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, DeleteAppDataActivity::class.java)
+            intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val deleteHeading = findViewById<TextView>(R.id.deleteDataHeading)
-        deleteHeading.setOnClickListener {
+
+        deleteDataHeading.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, DeleteAppDataActivity::class.java)
+            intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
-        val deleteSubtitle = findViewById<TextView>(R.id.deleteDataSubtitle)
-        deleteSubtitle.setOnClickListener {
+
+        deleteDataSubtitle.setOnClickListener {
             vibration(vibrationData)
-            val intent = Intent(this, DeleteAppDataActivity::class.java)
+            intent = Intent(this, DeleteAppDataActivity::class.java)
             startActivity(intent)
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 
@@ -431,7 +443,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun createFileTEXT() {
         try {
-            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "text/plain"
                 putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".txt")
@@ -449,7 +461,7 @@ class SettingsActivity : AppCompatActivity() {
 
     private fun createFileCSV() {
         try {
-            val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 addCategory(Intent.CATEGORY_OPENABLE)
                 type = "text/csv"
                 putExtra(Intent.EXTRA_TITLE, getString(R.string.hours_file_name) + ".csv")
@@ -551,7 +563,7 @@ class SettingsActivity : AppCompatActivity() {
                 bw.append(text)
                 bw.flush()
                 bw.close()
-                val intent = Intent()
+                intent = Intent()
                     .setType("text/csv")
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
@@ -567,7 +579,7 @@ class SettingsActivity : AppCompatActivity() {
                 bw.write(text)
                 bw.flush()
                 bw.close()
-                val intent = Intent()
+                intent = Intent()
                     .setType("text/plain")
                     .setAction(Intent.ACTION_SEND)
                     .putExtra(Intent.EXTRA_STREAM, Uri.parse(uri.toString()))
@@ -578,11 +590,6 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
@@ -591,50 +598,9 @@ class SettingsActivity : AppCompatActivity() {
 
     override fun onRestart() {
         super.onRestart()
-        val intent = Intent(this, this::class.java)
+        intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_settings, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
-        if (vibrationData.loadVibrationState()) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-        return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

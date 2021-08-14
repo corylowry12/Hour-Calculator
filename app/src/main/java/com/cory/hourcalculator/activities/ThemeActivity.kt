@@ -5,17 +5,15 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
+import kotlinx.android.synthetic.main.activity_theme.*
 
 class ThemeActivity : AppCompatActivity() {
 
@@ -62,6 +60,32 @@ class ThemeActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
+        }
+
+        bottomNav_theme.menu.findItem(R.id.menu_settings).isChecked = true
+
+        bottomNav_theme.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_history -> {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                else -> false
+            }
         }
 
         vibrationData = VibrationData(this)
@@ -167,54 +191,5 @@ class ThemeActivity : AppCompatActivity() {
         super.onBackPressed()
         this.finish()
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_appearance_settings, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        vibrationData = VibrationData(this)
-        if (vibrationData.loadVibrationState()) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-        return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.Settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

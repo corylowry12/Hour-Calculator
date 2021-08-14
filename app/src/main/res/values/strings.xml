@@ -302,4 +302,5 @@
     <string name="check_out_latest_version">Check out the latest version of my app!</string>
     <string name="update">Update</string>
     <string name="maybe_later">Maybe Later</string>
+    <string name="view_changes_in_this_update">View changes in this update</string>
 </resources>

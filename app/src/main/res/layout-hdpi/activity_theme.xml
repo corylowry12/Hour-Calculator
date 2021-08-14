@@ -7,6 +7,20 @@
     tools:context=".activities.ThemeActivity"
     android:background="?attr/backgroundColor">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_theme"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:itemIconSize="24dp"
+        app:elevation="2dp"
+        app:menu="@menu/menu_bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
+        />
+
     <TextView
         android:id="@+id/themeSettingsTextView"
         android:layout_width="match_parent"

@@ -6,8 +6,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.*
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
@@ -97,9 +95,9 @@ class MainActivity : AppCompatActivity() {
         MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
-        //mAdView.loadAd(adRequest)
-        //mAdView.adListener = object : AdListener() {
-        //}
+        mAdView.loadAd(adRequest)
+        mAdView.adListener = object : AdListener() {
+        }
 
         val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
         val historyDeletion = HistoryDeletion(this)
@@ -108,8 +106,32 @@ class MainActivity : AppCompatActivity() {
         if (daysWorked.loadDaysWorked() != "" && historyAutomaticDeletion.loadHistoryDeletionState() && dbHandler.getCount() > daysWorked.loadDaysWorked().toString().toInt()) {
             historyDeletion.deletion(this)
         }
+        val dateData = DateData(this)
+        if (dateData.loadMinutes1() != "") {
+            timePickerInTime.minute = dateData.loadMinutes1()!!.toInt()
+        }
+        if (dateData.loadHours1() != "") {
+            timePickerInTime.hour = dateData.loadHours1()!!.toInt()
+        }
+        if (dateData.loadMinutes2() != "") {
+            timePickerOutTime.minute = dateData.loadMinutes2()!!.toInt()
+        }
+        if (dateData.loadHours2() != "") {
+            timePickerOutTime.hour = dateData.loadHours2()!!.toInt()
+        }
+
+        timePickerInTime.setOnTimeChangedListener { _, hourOfDay, minute ->
+            dateData.setMinutes1(minute.toString())
+            dateData.setHours1(hourOfDay.toString())
+        }
+
+        timePickerOutTime.setOnTimeChangedListener { _, hourOfDay, minute ->
+            dateData.setMinutes2(minute.toString())
+            dateData.setHours2(hourOfDay.toString())
+        }
 
         bottomNav.menu.findItem(R.id.menu_home).isChecked = true
+        bottomNav.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -236,44 +258,5 @@ class MainActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             doubleBackToExitPressedOnce = false
         }, 2000)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_home, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
-        vibration(vibrationData)
-        return when (item.itemId) {
-            R.id.Settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

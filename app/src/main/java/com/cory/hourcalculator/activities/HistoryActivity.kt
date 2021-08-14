@@ -58,8 +58,6 @@ class HistoryActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_history)
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
 
         window.setBackgroundDrawable(null)
 
@@ -248,11 +246,6 @@ class HistoryActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 
     override fun onBackPressed() {

@@ -1,19 +1,15 @@
 package com.cory.hourcalculator.activities
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
-import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
@@ -246,55 +242,4 @@ class EditActivity : AppCompatActivity() {
 
         Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
     }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_edit, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
-        vibration(vibrationData)
-        return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.Settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
 }
