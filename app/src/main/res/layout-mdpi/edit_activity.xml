@@ -26,7 +26,7 @@
     <TimePicker
         android:id="@+id/timePickerInTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:timePickerMode="spinner"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
     <TimePicker
         android:id="@+id/timePickerOutTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:timePickerMode="spinner"
         app:layout_constraintTop_toBottomOf="@id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,14 +46,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8sp"
         android:text="@string/out"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/timePickerInTime"
+        app:layout_constraintTop_toBottomOf="@+id/timePickerInTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,7 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:hapticFeedbackEnabled="true"
