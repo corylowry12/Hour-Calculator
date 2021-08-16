@@ -149,9 +149,6 @@ class HistoryActivity : AppCompatActivity() {
         val index = listView.firstVisiblePosition
         val v = listView.getChildAt(0)
         val top = if (v == null) 0 else v.top - listView.paddingTop
-        //val slideTopToBottom = AnimationUtils.loadAnimation(this, R.anim.slide_out)
-
-        //listView.startAnimation(slideTopToBottom)
 
         loadIntoList()
         listView.setSelectionFromTop(index, top)
@@ -200,28 +197,6 @@ class HistoryActivity : AppCompatActivity() {
 
         }
         textViewSize.text = getString(R.string.amount_of_hours_saved, dbHandler.getCount())
-        val listView = findViewById<ListView>(R.id.listView)
-        listView.adapter = CustomAdapter(this@HistoryActivity, dataList)
-
-    }
-
-    fun retrieveItems(query: String) {
-        dataList.clear()
-        val cursor = dbHandler.retrieve(query)
-        cursor.moveToFirst()
-
-        while (!cursor.isAfterLast) {
-            val map = HashMap<String, String>()
-            map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
-            map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
-            map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-            map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
-            map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
-            dataList.add(map)
-
-            cursor.moveToNext()
-        }
-
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = CustomAdapter(this@HistoryActivity, dataList)
 
