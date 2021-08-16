@@ -8,10 +8,24 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.LayoutSettings">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_layoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:itemIconSize="24dp"
+        app:elevation="2dp"
+        app:menu="@menu/menu_bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:labelVisibilityMode="labeled"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/relative_layoutSettings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vibrationTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -50,14 +64,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/enable_vibration"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
 
                     <RadioButton
                         android:id="@+id/disableVibration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/disable_vibration"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
 
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
@@ -80,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/historyTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -93,14 +109,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/enable_history"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
 
                     <RadioButton
                         android:id="@+id/disableHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/disable_history"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:layout_marginStart="5dp"/>
 
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
@@ -123,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/wagesTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -167,17 +185,25 @@
                 android:textColor="?attr/textColor"
                 android:textSize="14sp" />
 
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/adView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/information"
-                android:layout_alignParentBottom="false"
-                android:layout_centerHorizontal="true"
-                app:adSize="BANNER"
-                app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
-
         </RelativeLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/relative_layoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav_layoutSettings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

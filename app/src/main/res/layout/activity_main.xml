@@ -21,7 +21,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:labelVisibilityMode="labeled"
-        android:animateLayoutChanges="false"
         />
 
     <TimePicker
@@ -113,7 +112,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -124,7 +123,6 @@
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
     </RelativeLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
