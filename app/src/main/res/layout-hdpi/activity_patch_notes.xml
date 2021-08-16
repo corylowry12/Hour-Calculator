@@ -63,7 +63,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
