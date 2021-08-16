@@ -8,7 +8,6 @@ import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.cory.hourcalculator.classes.DaysWorkedPerWeek
 import com.cory.hourcalculator.classes.SortData
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
@@ -69,8 +68,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
     fun automaticDeletion(context: Context, numberToDelete: Int): Cursor? {
         val db = this.writableDatabase
 
-        val daysWorkedPerWeek = DaysWorkedPerWeek(context).loadDaysWorked()
-
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day ASC LIMIT $numberToDelete", null)
     }
 
@@ -81,47 +78,11 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $sorttype", null)
     }
 
-    fun returntop7(): Cursor? {
-        val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day DESC LIMIT 7", null)
-    }
-
     fun deleteAll() {
         val db = this.writableDatabase
         db.delete(TABLE_NAME, null, null)
         db.execSQL("delete from $TABLE_NAME")
         db.close()
-    }
-
-    fun retrieve(query: String): Cursor {
-
-        var cursor: Cursor
-        val db = this.writableDatabase
-        val columns = listOf(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
-
-        if (query != "" && query.isNotEmpty()) {
-            val sql = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_IN LIKE '%$query%' " +
-                    " OR $COLUMN_OUT LIKE '%$query%' " +
-                    " OR $COLUMN_BREAK LIKE '%$query%' " +
-                    " OR $COLUMN_TOTAL LIKE '%$query%' " +
-                    " OR $COLUMN_DAY LIKE '%$query%' "
-
-            cursor = db.rawQuery(sql, null)
-            return cursor
-        }
-
-        cursor = db.query(TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
-        return cursor
-
-
-    }
-
-    fun itemClicked(index: Int): Cursor {
-
-        val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID=$index", null)
     }
 
     companion object {
