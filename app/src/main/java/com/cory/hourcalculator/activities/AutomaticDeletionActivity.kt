@@ -218,7 +218,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
 
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
     }
 
@@ -230,8 +230,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }
