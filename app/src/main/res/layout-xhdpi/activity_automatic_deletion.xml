@@ -8,12 +8,27 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.ThemeActivity">
 
-    <ScrollView
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_automaticDeletion"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:itemIconSize="24dp"
+        app:elevation="2dp"
+        app:menu="@menu/menu_bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:labelVisibilityMode="labeled"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/relativeLayoutDeletionSettings">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -31,19 +46,21 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/historyDeletionCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/historyDeletionTextView">
+                app:layout_constraintTop_toBottomOf="@id/historyDeletionTextView"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <RadioGroup
                     android:id="@+id/historyDeletionRadioGroup"
@@ -56,7 +73,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/enable_history_automatic_deletion"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:layout_marginStart="5dp"/>
 
                     <RadioButton
                         android:id="@+id/disableHistoryDeletion"
@@ -64,7 +82,8 @@
                         android:layout_height="wrap_content"
                         android:text="@string/disable_history_automatic_deletion"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+                        android:layout_marginStart="5dp"/>
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
 
@@ -84,6 +103,7 @@
                     android:layout_marginTop="4sp"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
                     app:endIconMode="clear_text"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +121,7 @@
                         android:inputType="number"
                         android:maxLength="1"
                         android:textColor="?attr/textColor"
-                        android:textSize="14sp" />
+                        android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -113,33 +133,33 @@
                 android:paddingStart="20dp"
                 android:paddingTop="20dp"
                 android:paddingEnd="20dp"
+                android:paddingBottom="80dp"
                 android:text="@string/changing_deletion_settings"
                 android:textAlignment="center"
                 android:textColor="?attr/textColor"
-                android:textSize="10sp"
-                app:layout_constraintTop_toBottomOf="@id/constraintlayoutTextBox"
-                tools:ignore="SmallSp" />
+                android:textSize="12sp"
+                app:layout_constraintTop_toBottomOf="@id/constraintlayoutTextBox" />
 
-            <RelativeLayout
-                android:id="@+id/relativeLayoutDeletionSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:paddingBottom="70dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_settings_warning">
 
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/adView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerHorizontal="true"
-                    app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
-
-            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayoutDeletionSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav_automaticDeletion">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

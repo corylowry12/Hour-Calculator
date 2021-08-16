@@ -26,7 +26,7 @@
     <TimePicker
         android:id="@+id/timePickerInTime"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:timePickerMode="spinner"
         app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
     <TimePicker
         android:id="@+id/timePickerOutTime"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:timePickerMode="spinner"
         app:layout_constraintTop_toBottomOf="@id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,8 +46,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8sp"
         android:text="@string/out"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
@@ -63,12 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_centerHorizontal="true"
         android:hapticFeedbackEnabled="true"
         android:text="@string/calculate"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timePickerOutTime" />
@@ -82,7 +79,7 @@
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +109,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -123,7 +120,6 @@
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
     </RelativeLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

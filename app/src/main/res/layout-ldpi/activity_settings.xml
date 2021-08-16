@@ -19,8 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:labelVisibilityMode="labeled"
-        />
+        app:labelVisibilityMode="labeled" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -29,22 +28,26 @@
         app:layout_constraintBottom_toTopOf="@id/relativeLayout_settings"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/themeCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -71,7 +74,7 @@
                         android:paddingEnd="5dp"
                         android:text="Appearance"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/appearanceImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,7 +89,7 @@
                         android:paddingBottom="4dp"
                         android:text="Customize the theme of the app"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/chevronImage"
                         app:layout_constraintStart_toEndOf="@id/appearanceImage"
                         app:layout_constraintTop_toBottomOf="@id/themeHeading" />
 
@@ -103,17 +106,19 @@
                         tools:ignore="ContentDescription"
                         app:tint="?attr/settingsIconTint"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/layoutCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -140,7 +145,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/layout_settings"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/layoutImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -155,11 +160,12 @@
                         android:paddingBottom="4dp"
                         android:text="@string/layout_settings_subtitle"
                         android:textSize="12sp"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/layoutChevron"
                         app:layout_constraintStart_toEndOf="@id/layoutImage"
                         app:layout_constraintTop_toBottomOf="@id/layout" />
 
                     <ImageView
+                        android:id="@+id/layoutChevron"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginStart="12dp"
@@ -171,17 +177,19 @@
                         tools:ignore="ContentDescription"
                         app:tint="?attr/settingsIconTint"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/deletionCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -208,7 +216,7 @@
                         android:paddingEnd="5dp"
                         android:text="Automatic Deletion"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/deletionImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -240,17 +248,19 @@
                         tools:ignore="ContentDescription"
                         app:tint="?attr/settingsIconTint"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
-            <androidx.cardview.widget.CardView
+            <com.google.android.material.card.MaterialCardView
                 android:id="@+id/patchNotesCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
+                app:cardUseCompatPadding="true"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -277,7 +287,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/change_log"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintStart_toEndOf="@id/patchNotesImage"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -309,7 +319,7 @@
                         tools:ignore="ContentDescription"
                         app:tint="?attr/settingsIconTint"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
 
             <com.google.android.material.card.MaterialCardView
@@ -318,14 +328,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView11"
                 tools:ignore="PrivateResource"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -352,7 +364,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/export_hours"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/exportChevron"
                         app:layout_constraintStart_toEndOf="@id/exportImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -394,14 +406,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView5"
                 tools:ignore="PrivateResource"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -428,7 +442,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/leave_a_review"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/leaveAReviewChevron"
                         app:layout_constraintStart_toEndOf="@id/reviewImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -469,14 +483,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/reviewCardView"
                 tools:ignore="PrivateResource"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -503,7 +519,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/report_a_bug"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/reportABugChevron"
                         app:layout_constraintStart_toEndOf="@id/reportABug"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -544,14 +560,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2"
                 tools:ignore="PrivateResource"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -578,7 +596,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/github_heading"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/githubChevron"
                         app:layout_constraintStart_toEndOf="@id/githubImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -619,14 +637,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/cardView2"
                 tools:ignore="PrivateResource"
-                tools:visibility="visible">
+                tools:visibility="visible"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -653,7 +673,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/delete_app_data"
                         android:textColor="?attr/textColor"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         app:layout_constraintEnd_toStartOf="@id/deleteDataChevron"
                         app:layout_constraintStart_toEndOf="@id/deleteDataImage"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -688,14 +708,95 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/versionTextView"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/versionInfoCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/version_settings"
-                android:textAlignment="center"
-                android:textColor="?attr/textColor"
-                android:textSize="12sp" />
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2"
+                android:layout_marginEnd="5dp"
+                android:layout_marginStart="5dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/versionNumber"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/version_settings"
+                        android:textColor="?attr/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:paddingStart="20dp" />
+
+                    <View
+                        android:id="@+id/viewSeparator1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/backgroundColor"
+                        app:layout_constraintTop_toBottomOf="@id/versionNumber"
+                        app:layout_constraintBottom_toTopOf="@id/versionBuild"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp" />
+
+                    <TextView
+                        android:id="@+id/versionBuild"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="5dp"
+                        android:text="@string/build_version"
+                        android:textColor="?attr/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/viewSeparator1"
+                        android:paddingStart="20dp" />
+
+                    <View
+                        android:id="@+id/viewSeparator2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?attr/backgroundColor"
+                        app:layout_constraintTop_toBottomOf="@id/versionBuild"
+                        app:layout_constraintBottom_toTopOf="@id/dateUpdated"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp" />
+
+                    <TextView
+                        android:id="@+id/dateUpdated"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="5dp"
+                        android:paddingBottom="6dp"
+                        android:text="@string/date"
+                        android:textColor="?attr/textColor"
+                        android:textSize="14sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/viewSeparator2"
+                        android:paddingStart="20dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
     </ScrollView>
