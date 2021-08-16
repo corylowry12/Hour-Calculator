@@ -13,6 +13,7 @@ class DateData(context: Context) {
         editor.putString("Spinner1Minutes", state)
         editor.apply()
     }
+
     // this will load the night mode state
     fun loadMinutes1(): String? {
         val state = sharedPreferences.getString("Spinner1Minutes", "")
@@ -24,6 +25,7 @@ class DateData(context: Context) {
         editor.putString("Spinner1Hours", state)
         editor.apply()
     }
+
     // this will load the night mode state
     fun loadHours1(): String? {
         val state = sharedPreferences.getString("Spinner1Hours", "")
@@ -35,6 +37,7 @@ class DateData(context: Context) {
         editor.putString("Spinner2Minutes", state)
         editor.apply()
     }
+
     // this will load the night mode state
     fun loadMinutes2(): String? {
         val state = sharedPreferences.getString("Spinner2Minutes", "")
@@ -46,6 +49,7 @@ class DateData(context: Context) {
         editor.putString("Spinner2Hours", state)
         editor.apply()
     }
+
     // this will load the night mode state
     fun loadHours2(): String? {
         val state = sharedPreferences.getString("Spinner2Hours", "")
