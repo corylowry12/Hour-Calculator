@@ -60,6 +60,34 @@ class DeleteAppDataActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+        val historyToggleData = HistoryToggleData(this)
+
+        bottomNav_deleteAppData.menu.findItem(R.id.menu_settings).isChecked = true
+        bottomNav_deleteAppData.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
+
+        bottomNav_deleteAppData.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_history -> {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                else -> false
+            }
         }
 
         vibrationData = VibrationData(this)
