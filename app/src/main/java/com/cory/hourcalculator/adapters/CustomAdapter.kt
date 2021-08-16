@@ -19,13 +19,23 @@ import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import kotlinx.android.synthetic.main.list_row.view.*
 
-class CustomAdapter(private val context: Context,
-                    private val dataList: ArrayList<HashMap<String, String>>) : BaseAdapter() {
+class CustomAdapter(
+    private val context: Context,
+    private val dataList: ArrayList<HashMap<String, String>>
+) : BaseAdapter() {
 
     private val inflater: LayoutInflater = this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    override fun getCount(): Int { return dataList.size }
-    override fun getItem(position: Int): Int { return position }
-    override fun getItemId(position: Int): Long { return position.toLong() }
+    override fun getCount(): Int {
+        return dataList.size
+    }
+
+    override fun getItem(position: Int): Int {
+        return position
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
 
     @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -110,16 +120,16 @@ class CustomAdapter(private val context: Context,
                             cursor.moveToNext()
 
                         }
-                           if ((map["intime"].toString().contains(context.getString(R.string.am)) || map["intime"].toString().contains(context.getString(R.string.pm))) &&
-                               (map["out"].toString().contains(context.getString(R.string.am)) || map["out"].toString().contains(context.getString(R.string.pm))))     {
-                               val intent = Intent(context, EditActivity::class.java)
-                               intent.putExtra("id", position.toString())
-                               (context as HistoryActivity).startActivity(intent)
-                                   (context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        if ((map["intime"].toString().contains(context.getString(R.string.am)) || map["intime"].toString().contains(context.getString(R.string.pm))) &&
+                            (map["out"].toString().contains(context.getString(R.string.am)) || map["out"].toString().contains(context.getString(R.string.pm)))
+                        ) {
+                            val intent = Intent(context, EditActivity::class.java)
+                            intent.putExtra("id", position.toString())
+                            (context as HistoryActivity).startActivity(intent)
+                            (context).overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
-                        }
-                        else {
-                               Toast.makeText(context, context.getString(R.string.cant_edit), Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, context.getString(R.string.cant_edit), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
