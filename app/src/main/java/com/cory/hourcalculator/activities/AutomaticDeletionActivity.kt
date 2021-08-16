@@ -65,6 +65,8 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
+
+        val historyToggleData = HistoryToggleData(this)
         bottomNav_automaticDeletion.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_automaticDeletion.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
 
