@@ -60,7 +60,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
         }
 
         vibrationData = VibrationData(this)
