@@ -20,6 +20,7 @@ import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_layout_settings.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class LayoutSettings : AppCompatActivity() {
@@ -28,7 +29,6 @@ class LayoutSettings : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
 
     private val dbHandler = DBHelper(this, null)
-    private val dataList = ArrayList<HashMap<String, String>>()
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -70,12 +70,33 @@ class LayoutSettings : AppCompatActivity() {
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
         }
+        val historyToggleData = HistoryToggleData(this)
+
+        bottomNav_layoutSettings.menu.findItem(R.id.menu_settings).isChecked = true
+        bottomNav_layoutSettings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
+
+        bottomNav_layoutSettings.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_history -> {
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_settings -> {
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                else -> false
+            }
+        }
 
         // prevents keyboard from opening when activity is launched
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
 
         val vibrationData = VibrationData(this)
-        val historyToggleData = HistoryToggleData(this)
 
         val enableVibration = findViewById<RadioButton>(R.id.enableVibration)
         val disableVibration = findViewById<RadioButton>(R.id.disableVibration)
