@@ -10,9 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
+import kotlinx.android.synthetic.main.activity_delete_app_data.*
 
 class DeleteAppDataActivity : AppCompatActivity() {
 
