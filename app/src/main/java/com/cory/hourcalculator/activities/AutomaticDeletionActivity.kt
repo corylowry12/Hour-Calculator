@@ -65,7 +65,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
         }
 
         val trashAutomaticDeletion = TrashAutomaticDeletion(this)
