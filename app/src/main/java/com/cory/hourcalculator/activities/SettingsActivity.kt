@@ -34,7 +34,7 @@ class SettingsActivity : AppCompatActivity() {
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
-    
+
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,8 +62,8 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
         setContentView(R.layout.activity_settings)
-        
-        var intent : Intent
+
+        var intent: Intent
         val historyToggleData = HistoryToggleData(this)
         bottomNav_settings.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_settings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
@@ -144,7 +144,7 @@ class SettingsActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
-       layoutSubtitle.setOnClickListener {
+        layoutSubtitle.setOnClickListener {
             vibration(vibrationData)
             intent = Intent(this, LayoutSettings::class.java)
             startActivity(intent)
@@ -193,7 +193,7 @@ class SettingsActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
 
-       patchNotesSubtitle.setOnClickListener {
+        patchNotesSubtitle.setOnClickListener {
             vibration(vibrationData)
             intent = Intent(this, PatchNotesActivity::class.java)
             startActivity(intent)
@@ -240,13 +240,12 @@ class SettingsActivity : AppCompatActivity() {
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
-                        .setPositiveButton(R.string.ok) {_, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
                             vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
-                            if(exportData.loadExportFormat() == 1) {
+                            if (exportData.loadExportFormat() == 1) {
                                 createFileCSV()
-                            }
-                            else if(exportData.loadExportFormat() == 0) {
+                            } else if (exportData.loadExportFormat() == 0) {
                                 createFileTEXT()
                             }
                         }
@@ -256,12 +255,10 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     val alert = alertDialog.create()
                     alert.show()
-                }
-                else {
+                } else {
                     managePermissions.showAlertSettings(this)
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
@@ -279,13 +276,12 @@ class SettingsActivity : AppCompatActivity() {
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
-                        .setPositiveButton(R.string.ok) {_, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
                             vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
-                            if(exportData.loadExportFormat() == 1) {
+                            if (exportData.loadExportFormat() == 1) {
                                 createFileCSV()
-                            }
-                            else if(exportData.loadExportFormat() == 0) {
+                            } else if (exportData.loadExportFormat() == 0) {
                                 createFileTEXT()
                             }
                         }
@@ -295,12 +291,10 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     val alert = alertDialog.create()
                     alert.show()
-                }
-                else {
+                } else {
                     managePermissions.showAlertSettings(this)
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
@@ -315,13 +309,12 @@ class SettingsActivity : AppCompatActivity() {
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
-                        .setPositiveButton(R.string.ok) {_, _ ->
+                        .setPositiveButton(R.string.ok) { _, _ ->
                             vibration(vibrationData)
                             exportData.setExportFormat(selectedItemIndex)
-                            if(exportData.loadExportFormat() == 1) {
+                            if (exportData.loadExportFormat() == 1) {
                                 createFileCSV()
-                            }
-                            else if(exportData.loadExportFormat() == 0) {
+                            } else if (exportData.loadExportFormat() == 0) {
                                 createFileTEXT()
                             }
                         }
@@ -331,12 +324,10 @@ class SettingsActivity : AppCompatActivity() {
                         }
                     val alert = alertDialog.create()
                     alert.show()
-                }
-                else {
+                } else {
                     managePermissions.showAlertSettings(this)
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, getString(R.string.no_hours_stored), Toast.LENGTH_SHORT).show()
             }
         }
@@ -450,10 +441,10 @@ class SettingsActivity : AppCompatActivity() {
 
             }
             startActivityForResult(intent, createFile)
-        } catch (e : FileNotFoundException) {
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
-        } catch (e : IOException) {
+        } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
         }
@@ -468,10 +459,10 @@ class SettingsActivity : AppCompatActivity() {
 
             }
             startActivityForResult(intent, createFile)
-        } catch (e : FileNotFoundException) {
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.file_not_found), Toast.LENGTH_SHORT).show()
-        } catch (e : IOException) {
+        } catch (e: IOException) {
             e.printStackTrace()
             Toast.makeText(this, getString(R.string.error_saving), Toast.LENGTH_SHORT).show()
         }
@@ -481,10 +472,10 @@ class SettingsActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         val exportData = ExportData(this)
         if (createFile == requestCode) {
-            when(resultCode) {
+            when (resultCode) {
                 Activity.RESULT_OK -> {
-                    if(data?.data != null) {
-                        if(exportData.loadExportFormat() == 1) {
+                    if (data?.data != null) {
+                        if (exportData.loadExportFormat() == 1) {
                             var string = ""
                             val datalist = ArrayList<HashMap<String, String>>()
                             datalist.clear()
@@ -513,8 +504,7 @@ class SettingsActivity : AppCompatActivity() {
                                 cursor.moveToNext()
                             }
                             writeInFile(data.data!!, string)
-                        }
-                        else if(exportData.loadExportFormat() == 0) {
+                        } else if (exportData.loadExportFormat() == 0) {
                             var string = ""
                             val datalist = ArrayList<HashMap<String, String>>()
                             datalist.clear()
@@ -552,9 +542,9 @@ class SettingsActivity : AppCompatActivity() {
 
     }
 
-    private fun writeInFile(@NonNull uri : Uri, @NonNull text : String) {
+    private fun writeInFile(@NonNull uri: Uri, @NonNull text: String) {
         val exportData = ExportData(this)
-        if(exportData.loadExportFormat() == 1) {
+        if (exportData.loadExportFormat() == 1) {
             val outputStream: OutputStream = contentResolver.openOutputStream(uri)!!
             val bw = BufferedWriter(OutputStreamWriter(outputStream))
             try {
@@ -571,8 +561,7 @@ class SettingsActivity : AppCompatActivity() {
             } catch (e: IOException) {
                 e.printStackTrace()
             }
-        }
-        else if(exportData.loadExportFormat() == 0) {
+        } else if (exportData.loadExportFormat() == 0) {
             val outputStream: OutputStream = contentResolver.openOutputStream(uri)!!
             val bw = BufferedWriter(OutputStreamWriter(outputStream))
             try {
@@ -593,7 +582,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onRestart() {
