@@ -135,7 +135,7 @@ class WebViewActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
             this.finish()
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
         }
     }
 
@@ -179,7 +179,7 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                 return true
             }
@@ -187,7 +187,7 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, SettingsActivity::class.java)
                 startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                 return true
             }
@@ -195,7 +195,7 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, PatchNotesActivity::class.java)
                 startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                 return true
             }
@@ -203,7 +203,7 @@ class WebViewActivity : AppCompatActivity() {
                 vibration(vibrationData)
                 val intent = Intent(this, HistoryActivity::class.java)
                 startActivity(intent)
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
                 return true
             }
