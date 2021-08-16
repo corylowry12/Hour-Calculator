@@ -21,15 +21,12 @@ class EditActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     private val dataList = ArrayList<HashMap<String, String>>()
 
-    private lateinit var spinner1selecteditem: String
-    private lateinit var spinner2selecteditem: String
-
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
 
     private lateinit var vibrationData: VibrationData
 
-    private lateinit var date : String
+    private lateinit var date: String
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -69,8 +66,6 @@ class EditActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
 
         main()
 
@@ -106,23 +101,19 @@ class EditActivity : AppCompatActivity() {
 
         date = map["day"].toString()
 
-        //inTime.setText(map["intime"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
-        //outTime.setText(map["out"].toString().replace(" ", "").replace("A", "").replace("M", "").replace("P", ""))
+        val (inTimeHours, inTimeMinutes) = map["intime"].toString().split(":")
+        val (outTimeHours, outTimeMinutes) = map["out"].toString().split(":")
 
-        var (inTimeHours, inTimeMinutes) = map["intime"].toString().split(":")
-        var (outTimeHours, outTimeMinutes) = map["out"].toString().split(":")
+        var inTimeHoursInteger: Int = inTimeHours.toInt()
+        var outTimeHoursInteger: Int = outTimeHours.toInt()
 
-        var inTimeHoursInteger : Int = inTimeHours.toInt()
-        var outTimeHoursInteger : Int = outTimeHours.toInt()
-
-        val inTimeMinutesNumbers : Int
-        val outTimeMinutesNumbers : Int
+        val inTimeMinutesNumbers: Int
+        val outTimeMinutesNumbers: Int
 
         if (map["intime"].toString().contains(getString(R.string.pm))) {
             inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
             inTimeHoursInteger += 12
-        }
-        else {
+        } else {
             inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
             if (inTimeHours.toInt() == 12) {
                 inTimeHoursInteger -= 12
@@ -132,8 +123,7 @@ class EditActivity : AppCompatActivity() {
         if (map["out"].toString().contains(getString(R.string.pm))) {
             outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
             outTimeHoursInteger += 12
-        }
-        else {
+        } else {
             outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
             if (outTimeHours.toInt() == 12) {
                 outTimeHoursInteger -= 12
@@ -151,24 +141,39 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-        private fun calculate(id: String, dayOfWeek: String) {
-            val inTimeMinutes = timePickerInTime.minute
-            val inTimeHours = timePickerInTime.hour
-            val outTimeMinutes = timePickerOutTime.minute
-            val outTimeHours = timePickerOutTime.hour
+    private fun calculate(id: String, dayOfWeek: String) {
+        var inTimeMinutes = timePickerInTime.minute
+        val inTimeHours = timePickerInTime.hour
+        var outTimeMinutes = timePickerOutTime.minute
+        val outTimeHours = timePickerOutTime.hour
 
-            var inTimeTotal = ""
-            var outTimeTotal  = ""
+        if (inTimeMinutes.toString().length == 1) {
+            inTimeMinutes = "0$inTimeMinutes".toInt()
+        }
 
-            var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
-            minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
-            var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
-            if (minutesDecimal < 0) {
-                minutesWithoutFirstDecimal = (1.0 - minutesWithoutFirstDecimal.toDouble()).toString()
-                minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
-                minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
-            }
-            var hoursDifference = outTimeHours - inTimeHours
+        if (outTimeMinutes.toString().length == 1) {
+            outTimeMinutes = "0$outTimeMinutes".toInt()
+        }
+
+        var inTimeTotal = ""
+        var outTimeTotal = ""
+
+        var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
+        minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
+        var minutesWithoutFirstDecimal = minutesDecimal.toString().substring(2)
+        if (minutesDecimal < 0) {
+            minutesWithoutFirstDecimal = (1.0 - minutesWithoutFirstDecimal.toDouble()).toString()
+            minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toString()
+            minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
+        }
+        var hoursDifference = outTimeHours - inTimeHours
+        if ("$hoursDifference.$minutesWithoutFirstDecimal".toDouble() == 0.0) {
+            infoTextView1.text = getString(R.string.in_time_and_out_time_can_not_be_the_same)
+        } else if (timePickerInTime.hour >= 0 && timePickerOutTime.hour <= 12 && hoursDifference < 0) {
+            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+        } else if (timePickerInTime.hour >= 12 && timePickerOutTime.hour <= 24 && hoursDifference < 0) {
+            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+        } else {
             if (minutesDecimal < 0) {
                 hoursDifference -= 1
             }
@@ -204,6 +209,7 @@ class EditActivity : AppCompatActivity() {
             savingHours(totalHours, inTimeTotal, outTimeTotal, id, dayOfWeek)
             infoTextView1.text = getString(R.string.total_hours, "$hoursDifference.$minutesWithoutFirstDecimal")
         }
+    }
 
     private fun savingHours(totalHours3: Double, inTime: String, outTime: String, id: String, dayOfWeek: String) {
         dbHandler.update(id, inTime, outTime, totalHours3.toString(), dayOfWeek)
