@@ -23,7 +23,6 @@ class HistoryDeletion(context: Context) {
             map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
             map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
             map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-            map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
             map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
             map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
             dataList.add(map)
