@@ -94,7 +94,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             }
         }
 
-        val trashAutomaticDeletion = TrashAutomaticDeletion(this)
         val vibrationData = VibrationData(this)
         val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
         val daysWorkedPerWeek = DaysWorkedPerWeek(this)
@@ -174,7 +173,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                 constraintlayoutTextBox.startAnimation(slideAnimation)
                 layout_settings_warning.startAnimation(slideAnimation)
-                relativeLayoutDeletionSettings.startAnimation(slideAnimation)
                 historyAutomaticDeletion.setHistoryDeletionState(true)
                 val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                 daysWorked.text = editable
@@ -185,7 +183,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                     val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
                     constraintlayoutTextBox.startAnimation(slideAnimation)
                     layout_settings_warning.startAnimation(slideAnimation)
-                    relativeLayoutDeletionSettings.startAnimation(slideAnimation)
                     historyAutomaticDeletion.setHistoryDeletionState(true)
                     val editable = Editable.Factory.getInstance().newEditable(daysWorkedPerWeek.loadDaysWorked().toString())
                     daysWorked.text = editable
@@ -199,7 +196,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                 val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
                 constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
                 layout_settings_warning.startAnimation(slideUpTextBox)
-                relativeLayoutDeletionSettings.startAnimation(slideUpTextBox)
                 historyAutomaticDeletion.setHistoryDeletionState(false)
                 Snackbar.make(automaticDeletionConstraint, getString(R.string.history_automatic_deletion_disabled), Snackbar.LENGTH_SHORT).show()
                 constraintlayoutTextBox.visibility = View.GONE
