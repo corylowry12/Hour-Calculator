@@ -5,7 +5,7 @@ package com.cory.hourcalculator.activities
 import android.content.Context
 import android.content.Intent
 import android.os.*
-import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
@@ -31,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
-    private lateinit var trashAutomaticDeletion: TrashAutomaticDeletion
 
     val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
     private val dbHandler = DBHelper(this, null)
@@ -69,10 +68,6 @@ class MainActivity : AppCompatActivity() {
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_main)
 
-        timePickerInTime.setOnTimeChangedListener { view, hourOfDay, minute ->
-            Log.i("Hour of day", hourOfDay.toString())
-        }
-
         val appUpdater = AppUpdater(this)
             .setDisplay(Display.DIALOG)
             .setCancelable(false)
@@ -85,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         appUpdater.start()
 
         historyToggleData = HistoryToggleData(this)
-        trashAutomaticDeletion = TrashAutomaticDeletion(this)
 
         MobileAds.initialize(this)
         val adView = AdView(this)
@@ -99,6 +93,11 @@ class MainActivity : AppCompatActivity() {
         mAdView.adListener = object : AdListener() {
         }
 
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(constraintLayout.windowToken, 0)
+        imm.hideSoftInputFromWindow(timePickerInTime.windowToken, 0)
+        imm.hideSoftInputFromWindow(timePickerOutTime.windowToken, 0)
+
         val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
         val historyDeletion = HistoryDeletion(this)
         val daysWorked = DaysWorkedPerWeek(this)
@@ -109,15 +108,23 @@ class MainActivity : AppCompatActivity() {
         val dateData = DateData(this)
         if (dateData.loadMinutes1() != "") {
             timePickerInTime.minute = dateData.loadMinutes1()!!.toInt()
+        } else {
+            dateData.setMinutes1(timePickerInTime.minute.toString())
         }
         if (dateData.loadHours1() != "") {
             timePickerInTime.hour = dateData.loadHours1()!!.toInt()
+        } else {
+            dateData.setHours1(timePickerInTime.hour.toString())
         }
         if (dateData.loadMinutes2() != "") {
             timePickerOutTime.minute = dateData.loadMinutes2()!!.toInt()
+        } else {
+            dateData.setMinutes2(timePickerOutTime.minute.toString())
         }
         if (dateData.loadHours2() != "") {
             timePickerOutTime.hour = dateData.loadHours2()!!.toInt()
+        } else {
+            dateData.setHours2(timePickerOutTime.hour.toString())
         }
 
         timePickerInTime.setOnTimeChangedListener { _, hourOfDay, minute ->
@@ -191,7 +198,7 @@ class MainActivity : AppCompatActivity() {
             outTimeMinutes = "0$outTimeMinutes"
         }
         var inTimeTotal = ""
-        var outTimeTotal  = ""
+        var outTimeTotal = ""
 
         var minutesDecimal: Double = (outTimeMinutes.toInt() - inTimeMinutes.toInt()) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
@@ -202,40 +209,48 @@ class MainActivity : AppCompatActivity() {
             minutesWithoutFirstDecimal = minutesWithoutFirstDecimal.substring(2)
         }
         var hoursDifference = outTimeHours.toInt() - inTimeHours.toInt()
-        if (minutesDecimal < 0) {
-            hoursDifference -= 1
-        }
-        if (hoursDifference < 0) {
-            hoursDifference += 24
-        }
+        if ("$hoursDifference.$minutesWithoutFirstDecimal".toDouble() == 0.0) {
+            infoTextView1.text = getString(R.string.in_time_and_out_time_can_not_be_the_same)
+        } else if (timePickerInTime.hour >= 0 && timePickerOutTime.hour <= 12 && hoursDifference < 0) {
+            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+        } else if (timePickerInTime.hour >= 12 && timePickerOutTime.hour <= 24 && hoursDifference < 0) {
+            infoTextView1.text = getString(R.string.in_time_can_not_be_greater_than_out_time)
+        } else {
+            if (minutesDecimal < 0) {
+                hoursDifference -= 1
+            }
+            if (hoursDifference < 0) {
+                hoursDifference += 24
+            }
+            if (inTimeHours.toInt() > 12) {
+                val inTime = inTimeHours.toInt() - 12
+                val amOrPm = getString(R.string.pm)
+                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+            } else if (inTimeHours.toInt() == 0) {
+                val inTime = inTimeHours + 12
+                val amOrPm = getString(R.string.am)
+                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+            } else {
+                val amOrPm = getString(R.string.am)
+                inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
+            }
+            if (outTimeHours.toInt() > 12) {
+                val outTime = outTimeHours.toInt() - 12
+                val amOrPm = getString(R.string.pm)
+                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+            } else if (outTimeHours.toInt() == 0) {
+                val outTime = outTimeHours + 12
+                val amOrPm = getString(R.string.am)
+                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+            } else {
+                val amOrPm = getString(R.string.am)
+                outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
+            }
 
-        if (inTimeHours.toInt() > 12) {
-            val inTime = inTimeHours.toInt() - 12
-            val amOrPm = getString(R.string.pm)
-            inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-        } else if (inTimeHours.toInt() == 0) {
-            val inTime = inTimeHours + 12
-            val amOrPm = getString(R.string.am)
-            inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-        } else {
-            val amOrPm = getString(R.string.am)
-            inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
+            val totalHours = "$hoursDifference.$minutesWithoutFirstDecimal".toDouble()
+            savingHours(totalHours, inTimeTotal, outTimeTotal)
+            infoTextView1.text = getString(R.string.total_hours, "$hoursDifference.$minutesWithoutFirstDecimal")
         }
-        if (outTimeHours.toInt() > 12) {
-            val outTime = outTimeHours.toInt() - 12
-            val amOrPm = getString(R.string.pm)
-            outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-        } else if (outTimeHours.toInt() == 0) {
-            val outTime = outTimeHours + 12
-            val amOrPm = getString(R.string.am)
-            outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-        } else {
-            val amOrPm = getString(R.string.am)
-            outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
-        }
-        val totalHours = "$hoursDifference.$minutesWithoutFirstDecimal".toDouble()
-        savingHours(totalHours, inTimeTotal, outTimeTotal)
-        infoTextView1.text = getString(R.string.total_hours, "$hoursDifference.$minutesWithoutFirstDecimal")
     }
 
     private fun savingHours(totalHours3: Double, inTime: String, outTime: String) {
