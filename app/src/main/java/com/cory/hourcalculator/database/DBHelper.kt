@@ -27,7 +27,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun insertRow(intime: String, outtime:String, total: String, dayOfWeek: String) {
+    fun insertRow(intime: String, outtime: String, total: String, dayOfWeek: String) {
         val values = ContentValues()
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
@@ -40,7 +40,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun update(id : String, intime: String, outtime: String, total: String, dayOfWeek: String) {
+    fun update(id: String, intime: String, outtime: String, total: String, dayOfWeek: String) {
         val values = ContentValues()
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
@@ -49,7 +49,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         val db = this.writableDatabase
 
-        db.update(TABLE_NAME, values,"$COLUMN_ID=?", arrayOf(id))
+        db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(id))
 
     }
 
@@ -96,28 +96,28 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     fun retrieve(query: String): Cursor {
 
-        var cursor : Cursor
+        var cursor: Cursor
         val db = this.writableDatabase
         val columns = listOf(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
 
-        if(query != "" && query.isNotEmpty()) {
+        if (query != "" && query.isNotEmpty()) {
             val sql = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_IN LIKE '%$query%' " +
                     " OR $COLUMN_OUT LIKE '%$query%' " +
                     " OR $COLUMN_BREAK LIKE '%$query%' " +
                     " OR $COLUMN_TOTAL LIKE '%$query%' " +
                     " OR $COLUMN_DAY LIKE '%$query%' "
 
-           cursor = db.rawQuery(sql, null)
+            cursor = db.rawQuery(sql, null)
             return cursor
         }
 
-            cursor = db.query(TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
-            return cursor
+        cursor = db.query(TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
+        return cursor
 
 
     }
 
-    fun itemClicked(index : Int): Cursor {
+    fun itemClicked(index: Int): Cursor {
 
         val db = this.readableDatabase
 

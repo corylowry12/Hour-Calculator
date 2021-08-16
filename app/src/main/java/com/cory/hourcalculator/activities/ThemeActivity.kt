@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
 import kotlinx.android.synthetic.main.activity_theme.*
@@ -61,9 +62,9 @@ class ThemeActivity : AppCompatActivity() {
         mAdView.loadAd(adRequest)
         mAdView.adListener = object : AdListener() {
         }
-
+        val historyToggleData = HistoryToggleData(this)
         bottomNav_theme.menu.findItem(R.id.menu_settings).isChecked = true
-
+        bottomNav_theme.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
         bottomNav_theme.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -101,10 +102,9 @@ class ThemeActivity : AppCompatActivity() {
 
         lightThemeButton.setOnClickListener {
             vibration(vibrationData)
-            if(!darkThemeData.loadDarkModeState()) {
+            if (!darkThemeData.loadDarkModeState()) {
                 Toast.makeText(this, getString(R.string.light_theme_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 darkThemeData.setDarkModeState(false)
                 restartApplication()
             }
@@ -126,14 +126,11 @@ class ThemeActivity : AppCompatActivity() {
 
         if (accentColor.loadAccent() == 0) {
             tealAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 1) {
+        } else if (accentColor.loadAccent() == 1) {
             pinkAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 2) {
+        } else if (accentColor.loadAccent() == 2) {
             orangeAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 3) {
+        } else if (accentColor.loadAccent() == 3) {
             redAccentButton.isChecked = true
         }
 
@@ -170,7 +167,7 @@ class ThemeActivity : AppCompatActivity() {
         val intent = this.intent
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onRestart() {
@@ -178,7 +175,7 @@ class ThemeActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
     }
 
@@ -190,6 +187,6 @@ class ThemeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

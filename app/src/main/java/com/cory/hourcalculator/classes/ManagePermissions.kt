@@ -15,7 +15,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
 
-class ManagePermissions(private val activity: Activity, private val list: List<String>, private val code:Int) {
+class ManagePermissions(private val activity: Activity, private val list: List<String>, private val code: Int) {
 
     val vibrationData = VibrationData(activity)
 
@@ -105,7 +105,7 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
             Toast.makeText(activity, activity.getString(R.string.manually_enable_permissions), Toast.LENGTH_SHORT).show()
             activity.startActivity(intent)
         }
-        builder.setNeutralButton(activity.getString(R.string.cancel)) {dialog, _ ->
+        builder.setNeutralButton(activity.getString(R.string.cancel)) { dialog, _ ->
             vibration(vibrationData)
             Toast.makeText(activity, activity.getString(R.string.permission_not_granted), Toast.LENGTH_SHORT).show()
             dialog.dismiss()
