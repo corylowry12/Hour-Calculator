@@ -89,7 +89,7 @@ class PatchNotesActivity : AppCompatActivity() {
             val intent = Intent(this, WebViewActivity::class.java)
             intent.putExtra("url", getString(R.string.github_link))
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
 
         }
 
