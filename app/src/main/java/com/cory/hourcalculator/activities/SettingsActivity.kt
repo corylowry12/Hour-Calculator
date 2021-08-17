@@ -35,7 +35,7 @@ class SettingsActivity : AppCompatActivity() {
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -487,7 +487,6 @@ class SettingsActivity : AppCompatActivity() {
                                 map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
                                 map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
                                 map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-                                map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
                                 map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
                                 map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
 
@@ -496,7 +495,6 @@ class SettingsActivity : AppCompatActivity() {
                                 string += getString(R.string.id_text) + map["id"].toString() + "\n" +
                                         getString(R.string.in_time_text) + map["intime"].toString() + "\n" +
                                         getString(R.string.out_time_text) + map["out"].toString() + "\n" +
-                                        getString(R.string.break_time_text) + map["break"].toString() + "\n" +
                                         getString(R.string.total_time_text) + map["total"].toString() + "\n" +
                                         getString(R.string.day_text) + map["day"].toString() + "\n" +
                                         getString(R.string.asterisks_text) + "\n"
@@ -516,7 +514,6 @@ class SettingsActivity : AppCompatActivity() {
                                 map["id"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_ID))
                                 map["intime"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_IN))
                                 map["out"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_OUT))
-                                map["break"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_BREAK))
                                 map["total"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_TOTAL))
                                 map["day"] = cursor.getString(cursor.getColumnIndex(DBHelper.COLUMN_DAY))
 
@@ -525,7 +522,6 @@ class SettingsActivity : AppCompatActivity() {
                                 string += getString(R.string.id_text) + map["id"].toString() + "\n" +
                                         getString(R.string.in_time_text) + map["intime"].toString() + "\n" +
                                         getString(R.string.out_time_text) + map["out"].toString() + "\n" +
-                                        getString(R.string.break_time_text) + map["break"].toString() + "\n" +
                                         getString(R.string.total_time_text) + map["total"].toString() + "\n" +
                                         getString(R.string.day_text) + map["day"].toString() + "\n" +
                                         getString(R.string.asterisks_text) + "\n"
