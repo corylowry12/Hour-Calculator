@@ -66,12 +66,62 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SplashScreen"
-            android:theme="@style/SplashScreenThemeLight">
+            android:theme="@style/SplashScreenThemeLight"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity-alias android:label="@string/app_name"
+            android:name=".SplashScreenNoIcon"
+            android:enabled="true"
+            android:exported="true"
+            android:targetActivity=".activities.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity-alias>
+
+        <activity-alias android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_pink"
+            android:roundIcon="@mipmap/ic_launcher_pink_round"
+            android:name=".SplashPink"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_orange"
+            android:roundIcon="@mipmap/ic_launcher_orange_round"
+            android:name=".SplashOrange"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias android:label="@string/app_name"
+            android:icon="@mipmap/ic_launcher_red"
+            android:roundIcon="@mipmap/ic_launcher_red_round"
+            android:name=".SplashRed"
+            android:enabled="false"
+            android:exported="true"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
 
         <activity
             android:name=".activities.WebViewActivity"
@@ -112,8 +162,8 @@
             android:name=".activities.MainActivity"
             android:launchMode="standard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:configChanges="keyboardHidden"/>
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
