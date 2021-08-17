@@ -111,7 +111,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\coryl\Downloads\hourcalculatorlogo.png" />
+                                                <entry key="imagePath" value="C:\Users\coryl\Downloads\red_logo.png" />
                                                 <entry key="scalingPercent" value="87" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
@@ -150,7 +150,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="26a69a" />
+                                      <entry key="backgroundColor" value="c21d1e" />
+                                      <entry key="outputName" value="ic_launcher_red" />
                                     </map>
                                   </option>
                                 </PersistentState>
