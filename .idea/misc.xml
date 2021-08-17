@@ -3,7 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_delete_black_24dp.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_feedback_black_24dp.xml" value="1.0856481481481481" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_github_seeklogo_com.xml" value="0.8" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_more_vert_24px.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_published_with_changes_black_24dp.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_refresh_black_24dp.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_save_black_24dp.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_share_black_24dp.xml" value="1.0856481481481481" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/drawable/ic_sort_24px.xml" value="1.0856481481481481" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/activity_automatic_deletion.xml" value="0.5175" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/activity_delete_app_data.xml" value="0.5175" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/activity_history.xml" value="0.52875" />
@@ -13,6 +21,7 @@
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/activity_settings.xml" value="0.5175" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/activity_theme.xml" value="0.5175" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/edit_activity.xml" value="0.5175" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-hdpi/list_row.xml" value="1.0138888888888888" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-ldpi/activity_automatic_deletion.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-ldpi/activity_delete_app_data.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-ldpi/activity_history.xml" value="0.9791666666666666" />

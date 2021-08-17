@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
@@ -25,7 +26,14 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var vibrationData: VibrationData
 
-    private lateinit var date: String
+    private lateinit var inTime: String
+    private lateinit var outTime: String
+
+    private var inTimeBool = false
+    private var outTimeBool = false
+
+    private lateinit var idMap: String
+    private lateinit var day: String
 
     private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
@@ -70,6 +78,43 @@ class EditActivity : AppCompatActivity() {
 
         vibrationData = VibrationData(this)
 
+        timePickerInTime.setOnTimeChangedListener { view, hourOfDay, minute ->
+
+            val inTimeMinutesNumbers: Int
+
+            val (inTimeHours, inTimeMinutes) = inTime.split(":")
+
+            var inTimeHoursInteger: Int = inTimeHours.toInt()
+
+            if (inTime.contains(getString(R.string.pm))) {
+                inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
+                inTimeHoursInteger += 12
+            } else {
+                inTimeMinutesNumbers = inTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
+                if (inTimeHours.toInt() == 12) {
+                    inTimeHoursInteger -= 12
+                }
+            }
+
+            inTimeBool = inTimeHoursInteger != hourOfDay || inTimeMinutesNumbers != minute
+        }
+        timePickerOutTime.setOnTimeChangedListener { view, hourOfDay, minute ->
+
+            val outTimeMinutesNumbers: Int
+            val (outTimeHours, outTimeMinutes) = outTime.split(":")
+            var outTimeHoursInteger: Int = outTimeHours.toInt()
+
+            if (outTime.contains(getString(R.string.pm))) {
+                outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.pm), "").trim().toInt()
+                outTimeHoursInteger += 12
+            } else {
+                outTimeMinutesNumbers = outTimeMinutes.replace(getString(R.string.am), "").trim().toInt()
+                if (outTimeHours.toInt() == 12) {
+                    outTimeHoursInteger -= 12
+                }
+            }
+            outTimeBool = outTimeHoursInteger != hourOfDay || outTimeMinutesNumbers != minute
+        }
     }
 
     fun main() {
@@ -93,9 +138,10 @@ class EditActivity : AppCompatActivity() {
             cursor.moveToNext()
 
         }
-        val idMap = map["id"].toString()
-
-        date = map["day"].toString()
+        idMap = map["id"].toString()
+        inTime = map["intime"].toString()
+        outTime = map["out"].toString()
+        day = map["day"].toString()
 
         val (inTimeHours, inTimeMinutes) = map["intime"].toString().split(":")
         val (outTimeHours, outTimeMinutes) = map["out"].toString().split(":")
@@ -133,7 +179,7 @@ class EditActivity : AppCompatActivity() {
 
         saveButton.setOnClickListener {
             vibration(vibrationData)
-            calculate(idMap, map["day"].toString())
+            calculate(idMap, day)
         }
     }
 
@@ -177,29 +223,37 @@ class EditActivity : AppCompatActivity() {
                 hoursDifference += 24
             }
 
-            if (inTimeHours > 12) {
-                val inTime = inTimeHours - 12
-                val amOrPm = getString(R.string.pm)
-                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-            } else if (inTimeHours == 0) {
-                val inTime = inTimeHours + 12
-                val amOrPm = getString(R.string.am)
-                inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
-            } else {
-                val amOrPm = getString(R.string.am)
-                inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
+            when {
+                inTimeHours > 12 -> {
+                    val inTime = inTimeHours - 12
+                    val amOrPm = getString(R.string.pm)
+                    inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+                }
+                inTimeHours == 0 -> {
+                    val inTime = inTimeHours + 12
+                    val amOrPm = getString(R.string.am)
+                    inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
+                }
+                else -> {
+                    val amOrPm = getString(R.string.am)
+                    inTimeTotal = "$inTimeHours:$inTimeMinutes $amOrPm"
+                }
             }
-            if (outTimeHours > 12) {
-                val outTime = outTimeHours - 12
-                val amOrPm = getString(R.string.pm)
-                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-            } else if (outTimeHours == 0) {
-                val outTime = outTimeHours + 12
-                val amOrPm = getString(R.string.am)
-                outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
-            } else {
-                val amOrPm = getString(R.string.am)
-                outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
+            when {
+                outTimeHours > 12 -> {
+                    val outTime = outTimeHours - 12
+                    val amOrPm = getString(R.string.pm)
+                    outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+                }
+                outTimeHours == 0 -> {
+                    val outTime = outTimeHours + 12
+                    val amOrPm = getString(R.string.am)
+                    outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
+                }
+                else -> {
+                    val amOrPm = getString(R.string.am)
+                    outTimeTotal = "$outTimeHours:$outTimeMinutes $amOrPm"
+                }
             }
             val totalHours = "$hoursDifference.$minutesWithoutFirstDecimal".toDouble()
             savingHours(totalHours, inTimeTotal, outTimeTotal, id, dayOfWeek)
@@ -211,7 +265,6 @@ class EditActivity : AppCompatActivity() {
         dbHandler.update(id, inTime, outTime, totalHours3.toString(), dayOfWeek)
         this.finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
         Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_LONG).show()
     }
 
@@ -238,10 +291,23 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-        this.finish()
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
-        Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+        if (inTimeBool || outTimeBool) {
+            val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
+            alert.setTitle("Go Back?")
+            alert.setMessage("You have pending changes. Would you like to save?")
+            alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                calculate(idMap, day)
+            }
+            alert.setNegativeButton(getString(R.string.no)) { _, _ ->
+                this.finish()
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+            }
+            alert.show()
+        } else {
+            this.finish()
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+            Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+        }
     }
 }

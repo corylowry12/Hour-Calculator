@@ -1,6 +1,8 @@
 package com.cory.hourcalculator.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -13,6 +15,7 @@ import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,24 +23,33 @@ class SplashScreen : AppCompatActivity() {
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_splash_screen)
 
-        load()
+        if (Build.VERSION.RELEASE.toInt() < 12) {
+            load()
 
-        val accentColor = AccentColor(this)
+            val accentColor = AccentColor(this)
 
-        val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
-        if (accentColor.loadAccent() == 0) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
-        } else if (accentColor.loadAccent() == 1) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pinklogo))
-        } else if (accentColor.loadAccent() == 2) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.orange_logo))
-        } else if (accentColor.loadAccent() == 3) {
-            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_logo))
+            val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
+            when {
+                accentColor.loadAccent() == 0 -> {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
+                }
+                accentColor.loadAccent() == 1 -> {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pinklogo))
+                }
+                accentColor.loadAccent() == 2 -> {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.orange_logo))
+                }
+                accentColor.loadAccent() == 3 -> {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_logo))
+                }
+            }
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
     fun load() {
-
         val cardView: CardView = findViewById(R.id.cardView)
         val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.side_slide)
         cardView.startAnimation(slideAnimation)
@@ -53,6 +65,11 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        load()
+        if (Build.VERSION.RELEASE.toInt() < 12) {
+            load()
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

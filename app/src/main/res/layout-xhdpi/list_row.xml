@@ -75,7 +75,7 @@
                 android:background="?attr/cardBackgroundColor"
                 android:contentDescription="more items button"
                 android:src="@drawable/ic_more_vert_24px"
-                app:tint="?attr/historyItemMenuTint"/>
+                app:tint="?attr/historyItemMenuTint" />
 
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

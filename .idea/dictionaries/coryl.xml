@@ -1,8 +1,10 @@
 <component name="ProjectDictionaryState">
   <dictionary name="coryl">
     <words>
+      <w>acde</w>
       <w>adview</w>
       <w>amoled</w>
+      <w>appname</w>
       <w>bibleify</w>
       <w>bibleifylogo</w>
       <w>bookfinder</w>
@@ -23,8 +25,11 @@
       <w>datalist</w>
       <w>deletesavedhourtext</w>
       <w>dont</w>
+      <w>dorg</w>
       <w>drop las</w>
       <w>drummler</w>
+      <w>endlocal</w>
+      <w>errorlevel</w>
       <w>hourcalculator</w>
       <w>hourcalculatorlogo</w>
       <w>hourtimeconverter</w>
@@ -45,10 +50,12 @@
       <w>outtimelast</w>
       <w>patchnotes</w>
       <w>patreon</w>
+      <w>playcore</w>
       <w>returntop</w>
       <w>savedhour</w>
       <w>seeklogo</w>
       <w>selecteditem</w>
+      <w>setlocal</w>
       <w>sharedpref</w>
       <w>sorttype</w>
       <w>splashtimeout</w>

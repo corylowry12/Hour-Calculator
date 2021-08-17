@@ -19,6 +19,7 @@
         <item name="popupMenuBackground">@color/lightBackground</item>
         <item name="alertDialogTheme">@style/AlertDialogStyleLight</item>
         <item name="historyItemMenuTint">@android:color/black</item>
+        <item name="settingsDivider">@color/settingsDividerLightColor</item>
     </style>
 
     <style name="AMOLED" parent="ThemeOverlay.MaterialComponents.Dark">
@@ -42,6 +43,7 @@
         <item name="alertDialogTheme">@style/AlertDialogStyleDark</item>
         <item name="alertDialogStyle">@style/AlertDialogStyleDark</item>
         <item name="historyItemMenuTint">@android:color/white</item>
+        <item name="settingsDivider">@color/settingsDividerDarkColor</item>
     </style>
 
     <style name="popup" parent="android:ThemeOverlay.Material.Dark">
@@ -145,14 +147,14 @@
     <style name="pink_accent">
         <item name="colorPrimary">@color/pinkAccent</item>
         <item name="colorAccent">@color/pinkAccent</item>
-        <item name="colorPrimaryDark">#B35F88</item>
+        <item name="colorPrimaryDark">@color/darkPink</item>
         <item name="selectedTint">@color/pinkAccent</item>
     </style>
 
     <style name="teal_accent">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimaryDark">#1E7C73</item>
+        <item name="colorPrimaryDark">@color/darkTeal</item>
         <item name="selectedTint">@color/colorPrimary</item>
     </style>
 
@@ -166,7 +168,7 @@
     <style name="red_accent">
         <item name="colorPrimary">@color/redAccent</item>
         <item name="colorAccent">@color/redAccent</item>
-        <item name="colorPrimaryDark">#8E2421</item>
+        <item name="colorPrimaryDark">@color/darkRed</item>
         <item name="selectedTint">@color/redAccent</item>
     </style>
 

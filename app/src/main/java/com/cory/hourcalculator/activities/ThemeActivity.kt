@@ -126,14 +126,19 @@ class ThemeActivity : AppCompatActivity() {
         val orangeAccentButton = findViewById<RadioButton>(R.id.Orange)
         val redAccentButton = findViewById<RadioButton>(R.id.Red)
 
-        if (accentColor.loadAccent() == 0) {
-            tealAccentButton.isChecked = true
-        } else if (accentColor.loadAccent() == 1) {
-            pinkAccentButton.isChecked = true
-        } else if (accentColor.loadAccent() == 2) {
-            orangeAccentButton.isChecked = true
-        } else if (accentColor.loadAccent() == 3) {
-            redAccentButton.isChecked = true
+        when {
+            accentColor.loadAccent() == 0 -> {
+                tealAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 1 -> {
+                pinkAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 2 -> {
+                orangeAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 3 -> {
+                redAccentButton.isChecked = true
+            }
         }
 
         tealAccentButton.setOnClickListener {
@@ -144,7 +149,7 @@ class ThemeActivity : AppCompatActivity() {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
-                alert.setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
                     accentColor.setAccentState(0)
                     packageManager.setComponentEnabledSetting(
                         ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
@@ -164,7 +169,7 @@ class ThemeActivity : AppCompatActivity() {
                     )
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
                     tealAccentButton.isChecked = false
                 }
                 alert.show()
@@ -198,7 +203,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(1)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
                     pinkAccentButton.isChecked = false
                 }
                 alert.show()
@@ -232,7 +237,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(2)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
                     orangeAccentButton.isChecked = false
                 }
                 alert.show()
@@ -266,7 +271,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(3)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
                     redAccentButton.isChecked = false
                 }
                 alert.show()

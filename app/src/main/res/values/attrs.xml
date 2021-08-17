@@ -8,4 +8,5 @@
     <attr name="selectedTint" format="color" />
     <attr name="settingsIconTint" type="color" />
     <attr name="historyItemMenuTint" format="color" />
+    <attr name="settingsDivider" format="color" />
 </resources>

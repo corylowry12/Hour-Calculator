@@ -136,8 +136,8 @@ I created this app in order to help me calculate my hours at work.
      barChart.setAnimateY(600)
      ```
 There is only one global, one.
-* Now when you toggle history switch in settings, a snackbar message will pop up
-* Now when you toggle break text box switch in settings, a snackbar message will pop up
+* Now when you toggle history switch in settings, a Snack Bar message will pop up
+* Now when you toggle break text box switch in settings, a Snack Bar message will pop up
 * Newly added dialog in settings if you try to toggle history. If you're changing it to off, it will ask you what you would like to do with your hours, nothing, trash, or delete.
 * Now you can view change log/release notes on this github, not in app as it was previously
 * Fixed issue with delete in history activity deleting the wrong entry
@@ -152,7 +152,7 @@ There is only one global, one.
 * Fixed issue with you being able to input minutes as long as three numbers. That's no longer an issue
 * Fixed graph not display the last entered as the first bar. It would display the first item as the first bar. Now that's fixed
 * Fixed issue with text box allowing you to enter 5 digits without a colon
-* Fixed the issue with break time textbox not vibrating when clicked
+* Fixed the issue with break time Text box not vibrating when clicked
 * Added ability to edit stored hours
 * Break text box is now enabled by default
 * All new animations when switching activities

@@ -20,191 +20,200 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
-    <TextView
-        android:id="@+id/themeSettingsTextView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/theme_settings"
-        android:textColor="?attr/textColor"
+        android:layout_height="0dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintBottom_toTopOf="@id/relative_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/themeCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/themeSettingsTextView">
-
-        <RadioGroup
-            android:id="@+id/radioGroup"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/lightTheme"
+            <TextView
+                android:id="@+id/themeSettingsTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/light_theme"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/theme_settings"
+                android:textColor="?attr/textColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/themeCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/themeSettingsTextView"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
+
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RadioButton
+                        android:id="@+id/lightTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/light_theme"
+                        android:textColor="?attr/textColor"
+                        android:textSize="12sp" />
+
+                    <RadioButton
+                        android:id="@+id/darkTheme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:text="@string/dark_theme"
+                        android:textColor="?attr/textColor"
+                        android:textSize="12sp" />
+                </RadioGroup>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/accentSettingsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/themeCardView"
+                android:gravity="center"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:text="@string/accent_color"
                 android:textColor="?attr/textColor"
                 android:textSize="12sp" />
 
-            <RadioButton
-                android:id="@+id/darkTheme"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/accentCardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="@string/dark_theme"
-                android:textColor="?attr/textColor"
-                android:textSize="12sp" />
-        </RadioGroup>
-    </androidx.cardview.widget.CardView>
+                android:layout_below="@id/accentSettingsTextView"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:cardBackgroundColor="?attr/cardBackgroundColor"
+                app:cardCornerRadius="10dp"
+                app:cardPreventCornerOverlap="false"
+                app:cardUseCompatPadding="true">
 
-    <TextView
-        android:id="@+id/accentSettingsTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:text="@string/accent_color"
-        android:textColor="?attr/textColor"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/themeCardView" />
+                <RadioGroup
+                    android:id="@+id/radioGroupAccent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/accentCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="10dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/accentSettingsTextView">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-        <RadioGroup
-            android:id="@+id/radioGroupAccent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/Teal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/teal"
+                            android:textColor="?attr/textColor"
+                            android:textSize="12sp"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+                        <ImageView
+                            android:id="@+id/tealImageView"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/circleimageviewteal"
+                            android:contentDescription="@string/teal_image_view"
+                            app:layout_constraintBottom_toTopOf="@id/Pink"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <RadioButton
+                            android:id="@+id/Pink"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/pink"
+                            android:textColor="?attr/textColor"
+                            android:textSize="12sp"
+                            app:layout_constraintTop_toBottomOf="@id/Teal" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/circleimageviewpink"
+                            android:contentDescription="@string/pink_image_view"
+                            app:layout_constraintBottom_toTopOf="@id/Orange"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/Pink" />
+
+                        <RadioButton
+                            android:id="@+id/Orange"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/orange"
+                            android:textColor="?attr/textColor"
+                            android:textSize="12sp"
+                            app:layout_constraintTop_toBottomOf="@id/Pink" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/circleimagevieworange"
+                            android:contentDescription="@string/orange_image_view"
+                            app:layout_constraintBottom_toTopOf="@id/Red"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/Orange" />
+
+                        <RadioButton
+                            android:id="@+id/Red"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/red"
+                            android:textColor="?attr/textColor"
+                            android:textSize="12sp"
+                            app:layout_constraintTop_toBottomOf="@id/Orange" />
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="12dp"
+                            android:background="@drawable/circleimageviewred"
+                            android:contentDescription="@string/orange_image_view"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/Orange" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </RadioGroup>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <RadioButton
-                    android:id="@+id/Teal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/teal"
-                    android:textColor="?attr/textColor"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/tealImageView"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/circleimageviewteal"
-                    android:contentDescription="@string/teal_image_view"
-                    app:layout_constraintBottom_toTopOf="@id/Pink"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <RadioButton
-                    android:id="@+id/Pink"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/pink"
-                    android:textColor="?attr/textColor"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@id/Teal" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/circleimageviewpink"
-                    android:contentDescription="@string/pink_image_view"
-                    app:layout_constraintBottom_toTopOf="@id/Orange"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/Pink" />
-
-                <RadioButton
-                    android:id="@+id/Orange"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/orange"
-                    android:textColor="?attr/textColor"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@id/Pink" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/circleimagevieworange"
-                    android:contentDescription="@string/orange_image_view"
-                    app:layout_constraintBottom_toTopOf="@id/Red"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/Orange" />
-
-                <RadioButton
-                    android:id="@+id/Red"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:text="@string/red"
-                    android:textColor="?attr/textColor"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@id/Orange" />
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_marginEnd="12dp"
-                    android:background="@drawable/circleimageviewred"
-                    android:contentDescription="@string/orange_image_view"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/Orange" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </RadioGroup>
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingStart="20dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="20dp"
-        android:text="@string/changing_theme_info"
-        android:textAlignment="center"
-        android:textColor="?attr/textColor"
-        android:textSize="10sp"
-        app:layout_constraintTop_toBottomOf="@id/accentCardView"
-        tools:ignore="SmallSp" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/accentCardView"
+                android:paddingStart="20dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="20dp"
+                android:text="@string/changing_theme_info"
+                android:textAlignment="center"
+                android:textColor="?attr/textColor"
+                android:textSize="10sp"
+                tools:ignore="SmallSp" />
+        </RelativeLayout>
+    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/relative_theme"

@@ -20,4 +20,9 @@
     <color name="orangeAccent">#FA773B</color>
     <color name="darkOrangeAccent">#C65E2F</color>
     <color name="redAccent">#C41D1D</color>
+    <color name="settingsDividerLightColor">#BABABA</color>
+    <color name="settingsDividerDarkColor">#323B40</color>
+    <color name="darkRed">#8E2421</color>
+    <color name="darkTeal">#1E7C73</color>
+    <color name="darkPink">#B35F88</color>
 </resources>

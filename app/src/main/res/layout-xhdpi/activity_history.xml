@@ -36,7 +36,6 @@
         android:id="@+id/textViewTotalHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:gravity="center"
         android:textColor="?attr/textColor"
         android:textSize="22sp"
@@ -49,8 +48,6 @@
         android:id="@+id/textViewSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
@@ -63,7 +60,6 @@
         android:id="@+id/textViewWages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="16sp"
@@ -84,6 +80,7 @@
         app:fabSize="mini"
         app:layout_constraintBottom_toTopOf="@id/textViewSize"
         app:layout_constraintStart_toEndOf="@id/textViewTotalHours"
+        app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_arrow_upward_24px" />
 
     <RelativeLayout

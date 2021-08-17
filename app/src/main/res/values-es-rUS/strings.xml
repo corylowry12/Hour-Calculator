@@ -147,7 +147,7 @@
     <string name="update_available">Actualización disponible</string>
     <string name="check_out_latest_version">¡Mira la última versión de mi aplicación!</string>
     <string name="update">Actualizar</string>
-    <string name="maybe_later">Quizas mas tarde</string>
+    <string name="maybe_later">Quizás mas tarde</string>
     <string name="view_changes_in_this_update">Ver los cambios en esta actualización</string>
     <string name="in_time_and_out_time_can_not_be_the_same">Tiempo de in time y out no puede ser el mismo</string>
     <string name="build_version">Versión de compilación: Estable</string>
