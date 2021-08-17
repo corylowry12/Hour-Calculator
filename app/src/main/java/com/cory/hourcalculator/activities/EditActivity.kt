@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
@@ -28,7 +27,7 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var date: String
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+   private  val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,9 +73,6 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun main() {
-
-        val inTime = findViewById<TimePicker>(R.id.timePickerInTime)
-        val outTime = findViewById<TimePicker>(R.id.timePickerOutTime)
 
         val id = intent.getStringExtra("id").toString()
 
@@ -155,8 +151,8 @@ class EditActivity : AppCompatActivity() {
             outTimeMinutes = "0$outTimeMinutes".toInt()
         }
 
-        var inTimeTotal = ""
-        var outTimeTotal = ""
+        val inTimeTotal : String
+        val outTimeTotal : String
 
         var minutesDecimal: Double = (outTimeMinutes - inTimeMinutes) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
