@@ -13,33 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_alignParentBottom="true"
-        app:itemIconTint="@drawable/bottom_navigation_selector"
-        app:itemIconSize="24dp"
         app:elevation="2dp"
-        app:menu="@menu/menu_bottom_navigation"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:labelVisibilityMode="labeled"
-        />
+        app:menu="@menu/menu_bottom_navigation" />
 
     <TimePicker
         android:id="@+id/timePickerInTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"
-        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView" />
 
     <TimePicker
         android:id="@+id/timePickerOutTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"
-        app:layout_constraintTop_toBottomOf="@id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
@@ -61,11 +60,11 @@
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="10dp"
         android:hapticFeedbackEnabled="true"
         android:text="@string/calculate"
         android:textSize="12sp"
@@ -80,6 +79,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4sp"
         android:gravity="center_horizontal"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="20sp"
@@ -88,9 +89,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/saveButton"
         tools:hint="Total Hours: 6.42"
-        tools:visibility="visible"
-        android:paddingEnd="5dp"
-        android:paddingStart="5dp"/>
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView"
@@ -107,7 +106,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginTop="8dp"/>
+        app:layout_goneMarginTop="8dp" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

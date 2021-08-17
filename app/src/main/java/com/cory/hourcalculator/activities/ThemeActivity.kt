@@ -140,8 +140,7 @@ class ThemeActivity : AppCompatActivity() {
             vibration(vibrationData)
             if (accentColor.loadAccent() == 0) {
                 Toast.makeText(this, getString(R.string.teal_is_already_chosen), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
@@ -165,7 +164,7 @@ class ThemeActivity : AppCompatActivity() {
                     )
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
                     tealAccentButton.isChecked = false
                 }
                 alert.show()
@@ -175,8 +174,7 @@ class ThemeActivity : AppCompatActivity() {
             vibration(vibrationData)
             if (accentColor.loadAccent() == 1) {
                 Toast.makeText(this, getString(R.string.pink_is_already_chosen), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
@@ -200,7 +198,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(1)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
                     pinkAccentButton.isChecked = false
                 }
                 alert.show()
@@ -210,8 +208,7 @@ class ThemeActivity : AppCompatActivity() {
             vibration(vibrationData)
             if (accentColor.loadAccent() == 2) {
                 Toast.makeText(this, getString(R.string.orange_accent_already_chosen), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
@@ -235,7 +232,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(2)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
                     orangeAccentButton.isChecked = false
                 }
                 alert.show()
@@ -245,8 +242,7 @@ class ThemeActivity : AppCompatActivity() {
             vibration(vibrationData)
             if (accentColor.loadAccent() == 3) {
                 Toast.makeText(this, "Red accent color already chosen", Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
@@ -270,7 +266,7 @@ class ThemeActivity : AppCompatActivity() {
                     accentColor.setAccentState(3)
                     restartApplication()
                 }
-                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                alert.setNeutralButton(getString(R.string.no)) { dialog, which ->
                     redAccentButton.isChecked = false
                 }
                 alert.show()
@@ -287,11 +283,11 @@ class ThemeActivity : AppCompatActivity() {
 
     private fun restartApplication() {
         Handler(Looper.getMainLooper()).postDelayed({
-        val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
-        intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        this.finish()
+            val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
+            intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            this.finish()
         }, 1000)
     }
 

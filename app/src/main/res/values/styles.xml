@@ -34,8 +34,8 @@
         <item name="itemBackground">@color/darkMenuBackground</item>
         <item name="android:textColor">@color/darkTextColor</item>
         <item name="popupMenuBackground">@color/darkMenuBackground</item>
-        <!--<item name="iconTint">@color/darkIconTint</item>
-        <item name="tint">@color/darkTint</item>-->
+        <!--<item name="iconTint">@color/darkIconTint</item>-->
+        <item name="tint">@color/darkTint</item>
         <item name="settingsIconTint">@color/darkIconTint</item>
         <item name="notSelectedTint">@color/darkTint</item>
         <item name="actionBarTheme">@style/ActionBarDark</item>
@@ -58,7 +58,7 @@
         <item name="android:textColorHint">@color/cardDarkBackground</item>
     </style>
 
-    <style name="subtitleTextDark" >
+    <style name="subtitleTextDark">
         <item name="android:textColor">@android:color/black</item>
     </style>
 
@@ -168,7 +168,7 @@
     <style name="red_accent">
         <item name="colorPrimary">@color/redAccent</item>
         <item name="colorAccent">@color/redAccent</item>
-       <item name="colorPrimaryDark">#8E2421</item>
+        <item name="colorPrimaryDark">#8E2421</item>
         <item name="selectedTint">@color/redAccent</item>
     </style>
 

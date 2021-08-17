@@ -27,14 +27,11 @@ class SplashScreen : AppCompatActivity() {
         val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
         if (accentColor.loadAccent() == 0) {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
-        }
-        else if (accentColor.loadAccent() == 1) {
+        } else if (accentColor.loadAccent() == 1) {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pinklogo))
-        }
-        else if (accentColor.loadAccent() == 2) {
+        } else if (accentColor.loadAccent() == 2) {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.orange_logo))
-        }
-        else if (accentColor.loadAccent() == 3) {
+        } else if (accentColor.loadAccent() == 3) {
             imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_logo))
         }
     }

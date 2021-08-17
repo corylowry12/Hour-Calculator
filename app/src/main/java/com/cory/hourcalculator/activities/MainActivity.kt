@@ -28,8 +28,6 @@ import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
 
-
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var vibrationData: VibrationData
@@ -199,8 +197,8 @@ class MainActivity : AppCompatActivity() {
         if (outTimeMinutes.length == 1) {
             outTimeMinutes = "0$outTimeMinutes"
         }
-        val inTimeTotal : String
-        val outTimeTotal : String
+        val inTimeTotal: String
+        val outTimeTotal: String
 
         var minutesDecimal: Double = (outTimeMinutes.toInt() - inTimeMinutes.toInt()) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
@@ -288,8 +286,7 @@ class MainActivity : AppCompatActivity() {
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
-        }
-        else if (accentColor.loadAccent() == 1) {
+        } else if (accentColor.loadAccent() == 1) {
             packageManager.setComponentEnabledSetting(
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
@@ -306,8 +303,7 @@ class MainActivity : AppCompatActivity() {
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
-        }
-        else if (accentColor.loadAccent() == 2) {
+        } else if (accentColor.loadAccent() == 2) {
             packageManager.setComponentEnabledSetting(
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                 PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
@@ -324,8 +320,7 @@ class MainActivity : AppCompatActivity() {
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
             )
-        }
-        else if (accentColor.loadAccent() == 3) {
+        } else if (accentColor.loadAccent() == 3) {
             packageManager.setComponentEnabledSetting(
                 ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                 PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP

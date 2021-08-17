@@ -13,14 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="58dp"
         android:layout_alignParentBottom="true"
-        app:itemIconSize="24dp"
         app:elevation="2dp"
-        app:menu="@menu/menu_bottom_navigation"
+        app:itemIconSize="24dp"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:labelVisibilityMode="labeled"
-        />
+        app:menu="@menu/menu_bottom_navigation" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -63,15 +62,15 @@
                         android:id="@+id/enableVibration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/enable_vibration"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="5dp"
+                        android:text="@string/enable_vibration" />
 
                     <RadioButton
                         android:id="@+id/disableVibration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/disable_vibration"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="5dp"
+                        android:text="@string/disable_vibration" />
 
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
@@ -105,15 +104,15 @@
                         android:id="@+id/enableHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/enable_history"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="5dp"
+                        android:text="@string/enable_history" />
 
                     <RadioButton
                         android:id="@+id/disableHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/disable_history"
-                        android:layout_marginStart="5dp"/>
+                        android:layout_marginStart="5dp"
+                        android:text="@string/disable_history" />
 
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
@@ -187,8 +186,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNav_layoutSettings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.gms.ads.AdView
             android:id="@+id/adView"
