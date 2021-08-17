@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#26A69A</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#30D3B6</color>
+    <color name="colorAccent">#26A69A</color>
     <color name="lightBackground">#FFFFFF</color>
     <color name="lightText">#000000</color>
     <color name="darkBackground">#000000</color>
@@ -16,7 +16,8 @@
     <color name="darkTint">#ffffff</color>
     <color name="darkIconTint">#ffffff</color>
     <color name="deleteButton">#ce2029</color>
-    <color name="pinkAccent">#fc7ebd</color>
-    <color name="orangeAccent">#ff9900</color>
-    <color name="redAccent">#E53935</color>
+    <color name="pinkAccent">#FA7DBD</color>
+    <color name="orangeAccent">#FA773B</color>
+    <color name="darkOrangeAccent">#C65E2F</color>
+    <color name="redAccent">#C41D1D</color>
 </resources>

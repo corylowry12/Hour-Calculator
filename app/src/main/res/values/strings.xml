@@ -167,4 +167,9 @@
     <string name="in_time_and_out_time_can_not_be_the_same">In time and Out Time can not be the same</string>
     <string name="build_version">Build Version: Stable</string>
     <string name="date">Updated On: August 15, 2021</string>
+    <string name="warning">Warning</string>
+    <string name="restart_application_warning">This will restart application. Do you want to continue?</string>
+    <string name="pink_is_already_chosen">Pink accent color is already chosen</string>
+    <string name="teal_is_already_chosen">Teal accent color is already chosen</string>
+    <string name="orange_accent_already_chosen">Orange accent color is already chosen</string>
 </resources>

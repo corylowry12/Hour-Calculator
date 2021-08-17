@@ -14,7 +14,7 @@ class HistoryDeletion(context: Context) {
     fun deletion(context: Context) {
         val numberToDelete = dbHandler.getCount() - daysWorkedPerWeek.loadDaysWorked().toString().toInt()
         dataList.clear()
-        val cursor = dbHandler.automaticDeletion(context, numberToDelete)
+        val cursor = dbHandler.automaticDeletion(numberToDelete)
         cursor!!.moveToFirst()
 
         val map = HashMap<String, String>()

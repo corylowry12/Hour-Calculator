@@ -1,13 +1,15 @@
 package com.cory.hourcalculator.activities
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
+import android.content.pm.PackageManager
+import android.os.*
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.cory.hourcalculator.BuildConfig
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
@@ -22,7 +24,7 @@ class ThemeActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -106,7 +108,7 @@ class ThemeActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.light_theme_is_already_enabled), Toast.LENGTH_SHORT).show()
             } else {
                 darkThemeData.setDarkModeState(false)
-                restartApplication()
+                restartThemeChange()
             }
         }
         darkThemeButton.setOnClickListener {
@@ -115,7 +117,7 @@ class ThemeActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.dark_mode_is_already_enabled), Toast.LENGTH_SHORT).show()
             } else {
                 darkThemeData.setDarkModeState(true)
-                restartApplication()
+                restartThemeChange()
             }
         }
 
@@ -136,23 +138,143 @@ class ThemeActivity : AppCompatActivity() {
 
         tealAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(0)
-            restartApplication()
+            if (accentColor.loadAccent() == 0) {
+                Toast.makeText(this, getString(R.string.teal_is_already_chosen), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                    accentColor.setAccentState(0)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                    tealAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         pinkAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(1)
-            restartApplication()
+            if (accentColor.loadAccent() == 1) {
+                Toast.makeText(this, getString(R.string.pink_is_already_chosen), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(1)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                    pinkAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         orangeAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(2)
-            restartApplication()
+            if (accentColor.loadAccent() == 2) {
+                Toast.makeText(this, getString(R.string.orange_accent_already_chosen), Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(2)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                    orangeAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         redAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(3)
-            restartApplication()
+            if (accentColor.loadAccent() == 3) {
+                Toast.makeText(this, "Red accent color already chosen", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(3)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) {dialog, which ->
+                    redAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
     }
 
@@ -164,6 +286,16 @@ class ThemeActivity : AppCompatActivity() {
     }
 
     private fun restartApplication() {
+        Handler(Looper.getMainLooper()).postDelayed({
+        val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
+        intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        this.finish()
+        }, 1000)
+    }
+
+    private fun restartThemeChange() {
         val intent = this.intent
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
@@ -176,7 +308,6 @@ class ThemeActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-
     }
 
     override fun onSupportNavigateUp(): Boolean {

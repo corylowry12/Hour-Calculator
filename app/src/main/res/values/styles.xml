@@ -161,7 +161,7 @@
     <style name="orange_accent">
         <item name="colorPrimary">@color/orangeAccent</item>
         <item name="colorAccent">@color/orangeAccent</item>
-        <item name="colorPrimaryDark">#B16A00</item>
+        <item name="colorPrimaryDark">@color/darkOrangeAccent</item>
         <item name="selectedTint">@color/orangeAccent</item>
     </style>
 

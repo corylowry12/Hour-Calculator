@@ -17,7 +17,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         db.execSQL(
             "CREATE TABLE $TABLE_NAME " +
-                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_IN TEXT, $COLUMN_OUT TEXT, $COLUMN_BREAK TEXT, $COLUMN_TOTAL TEXT, $COLUMN_DAY TEXT)"
+                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_IN TEXT, $COLUMN_OUT TEXT, $COLUMN_TOTAL TEXT, $COLUMN_DAY TEXT)"
         )
     }
 
@@ -65,7 +65,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     }
 
-    fun automaticDeletion(context: Context, numberToDelete: Int): Cursor? {
+    fun automaticDeletion(numberToDelete: Int): Cursor? {
         val db = this.writableDatabase
 
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day ASC LIMIT $numberToDelete", null)
@@ -87,13 +87,12 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     companion object {
         const val DATABASE_VERSION = 2
-        const val DATABASE_NAME = "myDBfile.db"
-        const val TABLE_NAME = "users"
+        const val DATABASE_NAME = "hours.db"
+        const val TABLE_NAME = "hours"
 
         const val COLUMN_ID = "id"
         const val COLUMN_IN = "intime"
         const val COLUMN_OUT = "out"
-        const val COLUMN_BREAK = "break"
         const val COLUMN_TOTAL = "total"
         const val COLUMN_DAY = "day"
     }
