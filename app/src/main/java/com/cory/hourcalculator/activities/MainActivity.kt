@@ -2,12 +2,15 @@
 
 package com.cory.hourcalculator.activities
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cory.hourcalculator.BuildConfig
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
@@ -24,22 +27,20 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
+
+
+
 class MainActivity : AppCompatActivity() {
 
-    // private lateinit var vibrationData: VibrationData
     private lateinit var vibrationData: VibrationData
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
     private val dbHandler = DBHelper(this, null)
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
-    // Spinner lazy and lateinit initializers
-    private lateinit var spinner1selecteditem: String
-    private lateinit var spinner2selecteditem: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         firebaseAnalytics = Firebase.analytics
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_main)
+
 
         val appUpdater = AppUpdater(this)
             .setDisplay(Display.DIALOG)
@@ -197,8 +199,8 @@ class MainActivity : AppCompatActivity() {
         if (outTimeMinutes.length == 1) {
             outTimeMinutes = "0$outTimeMinutes"
         }
-        var inTimeTotal = ""
-        var outTimeTotal = ""
+        val inTimeTotal : String
+        val outTimeTotal : String
 
         var minutesDecimal: Double = (outTimeMinutes.toInt() - inTimeMinutes.toInt()) / 60.0
         minutesDecimal = minutesDecimal.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
@@ -264,6 +266,82 @@ class MainActivity : AppCompatActivity() {
         if (vibrationData.loadVibrationState()) {
             val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (accentColor.loadAccent() == 0) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+        else if (accentColor.loadAccent() == 1) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+        else if (accentColor.loadAccent() == 2) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+        }
+        else if (accentColor.loadAccent() == 3) {
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
+            packageManager.setComponentEnabledSetting(
+                ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+            )
         }
     }
 
