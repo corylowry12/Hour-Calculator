@@ -7,4 +7,5 @@
     <attr name="notSelectedTint" format="color" />
     <attr name="selectedTint" format="color" />
     <attr name="settingsIconTint" type="color" />
+    <attr name="historyItemMenuTint" format="color" />
 </resources>
