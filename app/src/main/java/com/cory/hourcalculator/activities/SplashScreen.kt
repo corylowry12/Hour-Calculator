@@ -5,10 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
+import com.cory.hourcalculator.classes.AccentColor
 
 class SplashScreen : AppCompatActivity() {
 
@@ -18,6 +21,22 @@ class SplashScreen : AppCompatActivity() {
         setContentView(R.layout.activity_splash_screen)
 
         load()
+
+        val accentColor = AccentColor(this)
+
+        val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
+        if (accentColor.loadAccent() == 0) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
+        }
+        else if (accentColor.loadAccent() == 1) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pinklogo))
+        }
+        else if (accentColor.loadAccent() == 2) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.orange_logo))
+        }
+        else if (accentColor.loadAccent() == 3) {
+            imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_logo))
+        }
     }
 
     fun load() {
