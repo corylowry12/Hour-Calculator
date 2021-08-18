@@ -23,7 +23,35 @@ class SplashScreen : AppCompatActivity() {
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_splash_screen)
 
-        if (Build.VERSION.RELEASE.toInt() < 12) {
+        if (Build.VERSION.RELEASE.contains(".")) {
+            val version = Build.VERSION.RELEASE.split(".")
+            if (version.toString().toInt() < 12) {
+                load()
+
+                val accentColor = AccentColor(this)
+
+                val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
+                when {
+                    accentColor.loadAccent() == 0 -> {
+                        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
+                    }
+                    accentColor.loadAccent() == 1 -> {
+                        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.pinklogo))
+                    }
+                    accentColor.loadAccent() == 2 -> {
+                        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.orange_logo))
+                    }
+                    accentColor.loadAccent() == 3 -> {
+                        imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.red_logo))
+                    }
+                }
+            }
+            else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        else if (Build.VERSION.RELEASE.toInt() < 12) {
             load()
 
             val accentColor = AccentColor(this)
@@ -65,9 +93,19 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (Build.VERSION.RELEASE.toInt() < 12) {
+        if (Build.VERSION.RELEASE.contains(".")) {
+            val version = Build.VERSION.RELEASE.split(".")
+            if (version.toString().toInt() < 12) {
+                load()
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+        else if (Build.VERSION.RELEASE.toInt() < 12) {
             load()
-        } else {
+        }
+        else {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

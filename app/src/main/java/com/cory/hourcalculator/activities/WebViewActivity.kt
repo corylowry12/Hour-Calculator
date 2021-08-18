@@ -31,6 +31,7 @@ class WebViewActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData : VibrationData
 
     private lateinit var url: String
 
@@ -125,6 +126,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }
@@ -150,7 +152,7 @@ class WebViewActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val vibrationData = VibrationData(this)
+        vibrationData = VibrationData(this)
         return when (item.itemId) {
             R.id.refresh -> {
                 vibration(vibrationData)

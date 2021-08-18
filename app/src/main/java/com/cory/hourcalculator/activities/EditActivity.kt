@@ -35,7 +35,7 @@ class EditActivity : AppCompatActivity() {
     private lateinit var idMap: String
     private lateinit var day: String
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +79,7 @@ class EditActivity : AppCompatActivity() {
         vibrationData = VibrationData(this)
 
         timePickerInTime.setOnTimeChangedListener { view, hourOfDay, minute ->
-
+            vibration(vibrationData)
             val inTimeMinutesNumbers: Int
 
             val (inTimeHours, inTimeMinutes) = inTime.split(":")
@@ -99,7 +99,7 @@ class EditActivity : AppCompatActivity() {
             inTimeBool = inTimeHoursInteger != hourOfDay || inTimeMinutesNumbers != minute
         }
         timePickerOutTime.setOnTimeChangedListener { view, hourOfDay, minute ->
-
+            vibration(vibrationData)
             val outTimeMinutesNumbers: Int
             val (outTimeHours, outTimeMinutes) = outTime.split(":")
             var outTimeHoursInteger: Int = outTimeHours.toInt()
@@ -286,6 +286,7 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }
@@ -293,12 +294,15 @@ class EditActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (inTimeBool || outTimeBool) {
             val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
-            alert.setTitle("Go Back?")
-            alert.setMessage("You have pending changes. Would you like to save?")
+            alert.setTitle(getString(R.string.pending_changes))
+            alert.setMessage(getString(R.string.pending_changes_would_you_like_to_save))
             alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                vibration(vibrationData)
                 calculate(idMap, day)
+                Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_SHORT).show()
             }
             alert.setNegativeButton(getString(R.string.no)) { _, _ ->
+                vibration(vibrationData)
                 this.finish()
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                 Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
@@ -307,7 +311,6 @@ class EditActivity : AppCompatActivity() {
         } else {
             this.finish()
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-            Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
         }
     }
 }

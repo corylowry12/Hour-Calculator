@@ -30,12 +30,13 @@ class SettingsActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData : VibrationData
 
     private val createFile = 1
     private val dbHandler = DBHelper(this, null)
     private val permissionRequestCode = 1
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +64,8 @@ class SettingsActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_settings)
 
+        vibrationData = VibrationData(this)
+
         var intent: Intent
         val historyToggleData = HistoryToggleData(this)
         bottomNav_settings.menu.findItem(R.id.menu_settings).isChecked = true
@@ -70,12 +73,14 @@ class SettingsActivity : AppCompatActivity() {
         bottomNav_settings.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -113,8 +118,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun main() {
-        // initializes the vibrationData class
-        val vibrationData = VibrationData(this)
 
         themeHeading.setOnClickListener {
             vibration(vibrationData)

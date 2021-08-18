@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -23,8 +24,11 @@ class PatchNotesActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData: VibrationData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private lateinit var historyToggleData : HistoryToggleData
+
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,8 @@ class PatchNotesActivity : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
 
+        historyToggleData = HistoryToggleData(this)
+
         window.setBackgroundDrawable(null)
 
         MobileAds.initialize(this)
@@ -65,23 +71,29 @@ class PatchNotesActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
+        vibrationData = VibrationData(this)
+
         bottomNav_patchNotes.menu.findItem(R.id.menu_settings).isChecked = true
+        bottomNav_patchNotes.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
 
         bottomNav_patchNotes.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -94,8 +106,6 @@ class PatchNotesActivity : AppCompatActivity() {
         firebaseAnalytics = Firebase.analytics
 
         findViewById<TextView>(R.id.textView).text = getString(R.string.whats_new, getString(R.string.version_number))
-
-        val vibrationData = VibrationData(this)
 
         linkTextView.setOnClickListener {
             vibration(vibrationData)
@@ -126,6 +136,7 @@ class PatchNotesActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }

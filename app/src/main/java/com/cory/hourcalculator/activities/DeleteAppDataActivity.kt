@@ -24,7 +24,7 @@ class DeleteAppDataActivity : AppCompatActivity() {
 
     private val dbHandler = DBHelper(this, null)
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +63,8 @@ class DeleteAppDataActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
+        vibrationData = VibrationData(this)
+
         val historyToggleData = HistoryToggleData(this)
 
         bottomNav_deleteAppData.menu.findItem(R.id.menu_settings).isChecked = true
@@ -71,18 +73,21 @@ class DeleteAppDataActivity : AppCompatActivity() {
         bottomNav_deleteAppData.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -91,8 +96,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        vibrationData = VibrationData(this)
 
         val deleteButton = findViewById<Button>(R.id.deleteButton)
         deleteButton.setOnClickListener {
@@ -139,6 +142,7 @@ class DeleteAppDataActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }

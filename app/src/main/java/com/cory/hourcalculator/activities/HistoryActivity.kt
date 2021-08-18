@@ -4,17 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.os.*
 import android.view.Menu
 import android.view.MenuItem
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.adapters.CustomAdapter
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
+import com.google.android.material.internal.TextDrawableHelper
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -31,8 +35,9 @@ class HistoryActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData : VibrationData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,6 +66,8 @@ class HistoryActivity : AppCompatActivity() {
 
         window.setBackgroundDrawable(null)
 
+        vibrationData = VibrationData(this)
+
         firebaseAnalytics = Firebase.analytics
 
         MobileAds.initialize(this)
@@ -80,12 +87,14 @@ class HistoryActivity : AppCompatActivity() {
         bottomNav_history.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -200,6 +209,13 @@ class HistoryActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.listView)
         listView.adapter = CustomAdapter(this@HistoryActivity, dataList)
 
+    }
+
+    fun vibration(vibrationData: VibrationData) {
+        if (vibrationData.loadVibrationState()) {
+            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
+        }
     }
 
     override fun onResume() {

@@ -24,7 +24,7 @@ class ThemeActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,26 +62,30 @@ class ThemeActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
+
+        vibrationData = VibrationData(this)
+
         val historyToggleData = HistoryToggleData(this)
         bottomNav_theme.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_theme.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
         bottomNav_theme.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -90,8 +94,6 @@ class ThemeActivity : AppCompatActivity() {
                 else -> false
             }
         }
-
-        vibrationData = VibrationData(this)
 
         val lightThemeButton = findViewById<RadioButton>(R.id.lightTheme)
         val darkThemeButton = findViewById<RadioButton>(R.id.darkTheme)
@@ -150,6 +152,7 @@ class ThemeActivity : AppCompatActivity() {
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
                     accentColor.setAccentState(0)
                     packageManager.setComponentEnabledSetting(
                         ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
@@ -170,6 +173,7 @@ class ThemeActivity : AppCompatActivity() {
                     restartApplication()
                 }
                 alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
                     tealAccentButton.isChecked = false
                 }
                 alert.show()
@@ -184,6 +188,7 @@ class ThemeActivity : AppCompatActivity() {
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
                     packageManager.setComponentEnabledSetting(
                         ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
@@ -204,6 +209,7 @@ class ThemeActivity : AppCompatActivity() {
                     restartApplication()
                 }
                 alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
                     pinkAccentButton.isChecked = false
                 }
                 alert.show()
@@ -218,6 +224,7 @@ class ThemeActivity : AppCompatActivity() {
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
                     packageManager.setComponentEnabledSetting(
                         ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                         PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
@@ -238,6 +245,7 @@ class ThemeActivity : AppCompatActivity() {
                     restartApplication()
                 }
                 alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
                     orangeAccentButton.isChecked = false
                 }
                 alert.show()
@@ -246,12 +254,13 @@ class ThemeActivity : AppCompatActivity() {
         redAccentButton.setOnClickListener {
             vibration(vibrationData)
             if (accentColor.loadAccent() == 3) {
-                Toast.makeText(this, "Red accent color already chosen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.red_color_is_already_chosen), Toast.LENGTH_SHORT).show()
             } else {
                 val alert = AlertDialog.Builder(this)
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
                     packageManager.setComponentEnabledSetting(
                         ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
                         PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
@@ -272,6 +281,7 @@ class ThemeActivity : AppCompatActivity() {
                     restartApplication()
                 }
                 alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
                     redAccentButton.isChecked = false
                 }
                 alert.show()
@@ -312,6 +322,7 @@ class ThemeActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }

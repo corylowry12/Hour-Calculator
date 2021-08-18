@@ -27,10 +27,11 @@ class LayoutSettings : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData : VibrationData
 
     private val dbHandler = DBHelper(this, null)
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,18 +73,22 @@ class LayoutSettings : AppCompatActivity() {
         }
         val historyToggleData = HistoryToggleData(this)
 
+        vibrationData = VibrationData(this)
+
         bottomNav_layoutSettings.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_layoutSettings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
 
         bottomNav_layoutSettings.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -95,8 +100,6 @@ class LayoutSettings : AppCompatActivity() {
 
         // prevents keyboard from opening when activity is launched
         this.window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
-
-        val vibrationData = VibrationData(this)
 
         val enableVibration = findViewById<RadioButton>(R.id.enableVibration)
         val disableVibration = findViewById<RadioButton>(R.id.disableVibration)
@@ -228,6 +231,7 @@ class LayoutSettings : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }

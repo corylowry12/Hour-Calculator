@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
     private val dbHandler = DBHelper(this, null)
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -126,11 +126,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         timePickerInTime.setOnTimeChangedListener { _, hourOfDay, minute ->
+            vibration(vibrationData)
             dateData.setMinutes1(minute.toString())
             dateData.setHours1(hourOfDay.toString())
         }
 
         timePickerOutTime.setOnTimeChangedListener { _, hourOfDay, minute ->
+            vibration(vibrationData)
             dateData.setMinutes2(minute.toString())
             dateData.setHours2(hourOfDay.toString())
         }
@@ -141,12 +143,14 @@ class MainActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)

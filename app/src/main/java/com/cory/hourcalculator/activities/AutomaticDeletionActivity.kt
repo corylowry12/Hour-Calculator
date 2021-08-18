@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.android.synthetic.main.activity_automatic_deletion.*
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -23,11 +25,11 @@ class AutomaticDeletionActivity : AppCompatActivity() {
 
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
+    private lateinit var vibrationData : VibrationData
 
     private val dbHandler = DBHelper(this, null)
 
-
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +68,8 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
+        vibrationData = VibrationData(this)
+
         val historyToggleData = HistoryToggleData(this)
         bottomNav_automaticDeletion.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_automaticDeletion.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
@@ -73,18 +77,21 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         bottomNav_automaticDeletion.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_history -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, HistoryActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
                     true
                 }
                 R.id.menu_settings -> {
+                    vibration(vibrationData)
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
@@ -94,7 +101,6 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             }
         }
 
-        val vibrationData = VibrationData(this)
         val historyAutomaticDeletion = HistoryAutomaticDeletion(this)
         val daysWorkedPerWeek = DaysWorkedPerWeek(this)
         val historyDeletion = HistoryDeletion(this)
@@ -135,9 +141,9 @@ class AutomaticDeletionActivity : AppCompatActivity() {
         daysWorked.setOnKeyListener(View.OnKeyListener { _, i, keyEvent ->
             if (i == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_UP) {
                 vibration(vibrationData)
-                if (daysWorked.toString() != "") {
+                if (daysWorked.text.toString() != "") {
                     if (dbHandler.getCount() > daysWorkedPerWeek.loadDaysWorked().toString().toInt()) {
-                        //val numberToDelete = dbHandler.getCount() - daysWorkedPerWeek.loadDaysWorked().toString().toInt()
+
                         daysWorkedPerWeek.setDaysWorked(daysWorked.text.toString())
                         val alertDialog = AlertDialog.Builder(this)
                         alertDialog.setTitle(getString(R.string.delete_hours))
@@ -158,16 +164,60 @@ class AutomaticDeletionActivity : AppCompatActivity() {
                         alertDialog.show()
                     }
                 }
-                daysWorked.clearFocus()
+                else {
+                    hideKeyboard(daysWorked)
+                    disableHistoryDeletion.isChecked = true
+                    val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
+                    val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
+                    constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
+                    layout_settings_warning.startAnimation(slideUpTextBox)
+                    constraintlayoutTextBox.visibility = View.GONE
+                    historyAutomaticDeletion.setHistoryDeletionState(false)
+                    Toast.makeText(this, getString(R.string.history_automatic_deletion_was_disabled_because_you_left_the_text_box_blank), Toast.LENGTH_SHORT).show()
+                }
             }
             if (i == KeyEvent.KEYCODE_BACK && keyEvent.action == KeyEvent.ACTION_DOWN) {
-                daysWorked.clearFocus()
+                if (daysWorked.text.toString() != "") {
+                    if (dbHandler.getCount() > daysWorkedPerWeek.loadDaysWorked().toString().toInt()) {
+
+                        daysWorkedPerWeek.setDaysWorked(daysWorked.text.toString())
+                        val alertDialog = AlertDialog.Builder(this)
+                        alertDialog.setTitle(getString(R.string.delete_hours))
+                        alertDialog.setMessage(getString(R.string.would_you_like_to_delete_all_hours, daysWorkedPerWeek.loadDaysWorked().toString()))
+                        alertDialog.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                            historyDeletion.deletion(this)
+                        }
+                        alertDialog.setNegativeButton(getString(R.string.no)) { _, _ ->
+                            disableHistoryDeletion.isChecked = true
+                            val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
+                            val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
+                            constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
+                            layout_settings_warning.startAnimation(slideUpTextBox)
+                            constraintlayoutTextBox.visibility = View.GONE
+                            historyAutomaticDeletion.setHistoryDeletionState(false)
+                            Toast.makeText(this, getString(R.string.history_deletion_disabled_because_you_chose_no), Toast.LENGTH_SHORT).show()
+                        }
+                        alertDialog.show()
+                    }
+                }
+                else {
+                    hideKeyboard(daysWorked)
+                    disableHistoryDeletion.isChecked = true
+                    val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
+                    val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
+                    constraintlayoutTextBox.startAnimation(slideTextBoxAnimation)
+                    layout_settings_warning.startAnimation(slideUpTextBox)
+                    constraintlayoutTextBox.visibility = View.GONE
+                    historyAutomaticDeletion.setHistoryDeletionState(false)
+                    Toast.makeText(this, getString(R.string.history_automatic_deletion_was_disabled_because_you_left_the_text_box_blank), Toast.LENGTH_SHORT).show()
+                }
                 return@OnKeyListener true
             }
             false
         })
 
         enableHistoryDeletion.setOnClickListener {
+            vibration(vibrationData)
             if (!historyAutomaticDeletion.loadHistoryDeletionState()) {
                 constraintlayoutTextBox.visibility = View.VISIBLE
                 val slideAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_down_text_box)
@@ -191,6 +241,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             }
         }
         disableHistoryDeletion.setOnClickListener {
+            vibration(vibrationData)
             if (historyAutomaticDeletion.loadHistoryDeletionState()) {
                 val slideTextBoxAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_box)
                 val slideUpTextBox = AnimationUtils.loadAnimation(this, R.anim.slide_up_text_view)
@@ -202,6 +253,21 @@ class AutomaticDeletionActivity : AppCompatActivity() {
             } else {
                 Toast.makeText(this, getString(R.string.history_automatic_deletion_already_disabled), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun hideKeyboard(daysWorked: TextInputEditText) {
+        val inputManager: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val focusedView = this.currentFocus
+
+        if (focusedView != null) {
+            inputManager.hideSoftInputFromWindow(focusedView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+            if (daysWorked.hasFocus()) {
+                daysWorked.clearFocus()
+            }
+        }
+        else {
+            inputManager.hideSoftInputFromWindow(focusedView?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
         }
     }
 
@@ -223,6 +289,7 @@ class AutomaticDeletionActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }

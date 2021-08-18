@@ -29,7 +29,8 @@
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView" />
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        android:layout_marginTop="-10dp"/>
 
     <TimePicker
         android:id="@+id/timePickerOutTime"
@@ -39,7 +40,8 @@
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView2" />
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        android:layout_marginTop="-10dp"/>
 
     <TextView
         android:id="@+id/textView2"
@@ -53,7 +55,8 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePickerInTime" />
+        app:layout_constraintTop_toBottomOf="@+id/timePickerInTime"
+        android:layout_marginTop="-10dp"/>
 
     <Button
         android:id="@+id/calculateButton1"
@@ -76,7 +79,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="4sp"
         android:layout_marginEnd="20dp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
@@ -93,8 +95,6 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="8sp"
         android:text="@string/in"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
@@ -104,7 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_goneMarginTop="8dp" />
+        android:layout_marginBottom="-10dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
