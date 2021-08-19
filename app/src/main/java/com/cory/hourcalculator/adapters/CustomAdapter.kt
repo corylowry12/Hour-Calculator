@@ -91,6 +91,7 @@ class CustomAdapter(
                         alertDialog.setTitle(context.getString(R.string.delete_all_from_history_heading))
                         alertDialog.setMessage(context.getString(R.string.delete_all_from_history))
                         alertDialog.setPositiveButton(context.getString(R.string.yes)) { _, _ ->
+                            vibration(vibrationData)
                             dbHandler.deleteAll()
                             val runnable = Runnable {
                                 (context as HistoryActivity).update()
@@ -98,7 +99,9 @@ class CustomAdapter(
                             }
                             HistoryActivity().runOnUiThread(runnable)
                         }
-                            .setNegativeButton(context.getString(R.string.no), null)
+                            .setNegativeButton(context.getString(R.string.no)) {_, _ ->
+                                vibration(vibrationData)
+                            }
                         val alert = alertDialog.create()
                         alert.show()
                     }

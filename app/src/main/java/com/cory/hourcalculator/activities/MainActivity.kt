@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         window.setBackgroundDrawable(null)
         setContentView(R.layout.activity_main)
 
-
         val appUpdater = AppUpdater(this)
             .setDisplay(Display.DIALOG)
             .setCancelable(false)

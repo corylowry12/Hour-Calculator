@@ -4,21 +4,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.drawable.Drawable
 import android.os.*
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.cory.hourcalculator.R
 import com.cory.hourcalculator.adapters.CustomAdapter
 import com.cory.hourcalculator.classes.*
 import com.cory.hourcalculator.database.DBHelper
 import com.google.android.gms.ads.*
-import com.google.android.material.internal.TextDrawableHelper
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -79,8 +76,6 @@ class HistoryActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
 
         bottomNav_history.menu.findItem(R.id.menu_history).isChecked = true
 
@@ -122,7 +117,10 @@ class HistoryActivity : AppCompatActivity() {
         textViewWages.startAnimation(slideTopToBottom)
 
 
-        floatingActionButtonHistory.setOnClickListener { listView.smoothScrollToPosition(0) }
+        floatingActionButtonHistory.setOnClickListener {
+            vibration(vibrationData)
+            listView.smoothScrollToPosition(0)
+        }
 
         when {
             accentColor.loadAccent() == 0 -> {
@@ -167,6 +165,15 @@ class HistoryActivity : AppCompatActivity() {
     }
 
     private fun loadIntoList() {
+
+        if (dbHandler.getAllRow(this)?.count == 0) {
+            noHoursStoredTextView.visibility = View.VISIBLE
+            textViewSize.visibility = View.GONE
+        }
+        else {
+            noHoursStoredTextView.visibility = View.GONE
+            textViewSize.visibility = View.VISIBLE
+        }
 
         val wagesData = WagesData(this)
         textViewWages.text = ""

@@ -118,7 +118,7 @@
     <string name="layout">Paramètres de mise en page</string>
     <string name="appearance">Paramètres d\'apparence</string>
     <string name="layout_settings_information">Tous les paramètres que vous pouvez modifier ici modifieront les fonctionnalités de base de l\'application</string>
-    <string name="version_settings">Version: 7.1.1</string>
+    <string name="version_settings">Version: 8.0.0</string>
     <string name="delete_all_cache_and_app_data">Supprimer toutes les données du cache et de l\'application</string>
     <string name="delete_app_data">Supprimer les données de l\'application</string>
     <string name="delete_app_data_warning">Cliquer sur le bouton ci-dessous supprimera toutes les données de l\'application, y compris les heures stockées dans l\'historique et la corbeille et tous les paramètres que vous avez modifiés. PROCÉDER AVEC PRUDENCE!</string>
@@ -151,5 +151,15 @@
     <string name="view_changes_in_this_update">Afficher les modifications dans cette mise à jour</string>
     <string name="in_time_and_out_time_can_not_be_the_same">Dans le temps et le temps d\'extérieur ne peuvent pas être les mêmes</string>
     <string name="build_version">Version de build : Stable</string>
-    <string name="date">Mis à jour le: August 15, 2021</string>
+    <string name="date">Mis à jour le: August 18, 2021</string>
+    <string name="warning">Avertissement</string>
+    <string name="restart_application_warning">Cela redémarrera l\'application. Voulez-vous continuer?</string>
+    <string name="pink_is_already_chosen">La couleur d\'accentuation rose est déjà choisie</string>
+    <string name="teal_is_already_chosen">La couleur d\'accentuation sarcelle est déjà choisie</string>
+    <string name="orange_accent_already_chosen">La couleur d\'accentuation orange est déjà choisie</string>
+    <string name="history_automatic_deletion_was_disabled_because_you_left_the_text_box_blank">La suppression automatique de l\'historique a été désactivée car vous avez laissé la zone de texte vide</string>
+    <string name="pending_changes">Modifications en attente</string>
+    <string name="pending_changes_would_you_like_to_save">Vous avez des modifications en attente. Voulez-vous économiser?</string>
+    <string name="red_color_is_already_chosen">Couleur d\'accentuation rouge déjà choisie</string>
+    <string name="there_are_currently_no_hours_stored">Il n\'y a actuellement aucune heure stockée</string>
 </resources>

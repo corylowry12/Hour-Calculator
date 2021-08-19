@@ -21,6 +21,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_navigation" />
 
+    <TextView
+        android:id="@+id/noHoursStoredTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewWages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/there_are_currently_no_hours_stored"
+        android:textAlignment="center"/>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"

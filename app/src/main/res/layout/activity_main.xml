@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView" />
@@ -36,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView2" />

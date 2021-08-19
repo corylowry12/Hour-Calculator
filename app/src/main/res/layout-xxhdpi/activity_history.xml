@@ -33,6 +33,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/noHoursStoredTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewWages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/there_are_currently_no_hours_stored"
+        android:textAlignment="center"/>
+
+    <TextView
         android:id="@+id/textViewTotalHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

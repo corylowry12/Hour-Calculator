@@ -69,8 +69,7 @@ class LayoutSettings : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
+
         val historyToggleData = HistoryToggleData(this)
 
         vibrationData = VibrationData(this)
@@ -147,6 +146,7 @@ class LayoutSettings : AppCompatActivity() {
                 Snackbar.make(constraintLayoutSettings, getString(R.string.enabled_history), Snackbar.LENGTH_SHORT).show()
                 invalidateOptionsMenu()
             }
+            bottomNav_layoutSettings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
         }
         disableHistory.setOnClickListener {
             vibration(vibrationData)
@@ -158,18 +158,25 @@ class LayoutSettings : AppCompatActivity() {
                 alertDialog.setTitle(getString(R.string.history))
                 alertDialog.setMessage(getString(R.string.what_would_you_like_to_do_with_history))
                 alertDialog.setPositiveButton(getString(R.string.delete)) { _, _ ->
+                    vibration(vibrationData)
                     dbHandler.deleteAll()
                     Snackbar.make(constraintLayoutSettings, getString(R.string.deleted_all_of_hour_history), Snackbar.LENGTH_SHORT).show()
                 }
-                alertDialog.setNeutralButton(getString(R.string.nothing), null)
+                alertDialog.setNeutralButton(getString(R.string.nothing)) {_, _ ->
+                    vibration(vibrationData)
+                }
                 alertDialog.create().show()
                 Snackbar.make(constraintLayoutSettings, getString(R.string.disabled_history), Snackbar.LENGTH_SHORT).show()
-                invalidateOptionsMenu()
             }
+            bottomNav_layoutSettings.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
         }
 
         val wagesData = WagesData(this)
         val wagesEditText = findViewById<TextInputEditText>(R.id.Wages)
+
+        wagesEditText.setOnClickListener {
+            vibration(vibrationData)
+        }
 
         val editable = Editable.Factory.getInstance().newEditable(wagesData.loadWageAmount().toString())
         wagesEditText.text = editable

@@ -4,7 +4,7 @@
     <!--THIS CODE IS FOR SIDE ANIMATION-->
     <translate
         android:duration="1500"
-        android:fromXDelta="-60%p"
+        android:fromXDelta="-80%p"
         android:fromYDelta="0%" />
 
     <alpha

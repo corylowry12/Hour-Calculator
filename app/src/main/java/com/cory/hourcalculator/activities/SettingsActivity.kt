@@ -240,6 +240,7 @@ class SettingsActivity : AppCompatActivity() {
                     val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            vibration(vibrationData)
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
@@ -276,6 +277,7 @@ class SettingsActivity : AppCompatActivity() {
                     val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            vibration(vibrationData)
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
@@ -309,6 +311,7 @@ class SettingsActivity : AppCompatActivity() {
                     val alertDialog = AlertDialog.Builder(this, accentColor.alertTheme(this))
                         .setTitle(getString(R.string.choose_format))
                         .setSingleChoiceItems(selection, selectedItemIndex) { _, which ->
+                            vibration(vibrationData)
                             selectedItemIndex = which
                             exportData.setExportFormat(selectedItemIndex)
                         }
