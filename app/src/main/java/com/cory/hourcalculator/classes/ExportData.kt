@@ -13,6 +13,7 @@ class ExportData(context: Context) {
         editor.putInt("Export", state)
         editor.apply()
     }
+
     // this will load the night mode state
     fun loadExportFormat(): Int {
         val state = sharedPreferences.getInt("Export", 1)

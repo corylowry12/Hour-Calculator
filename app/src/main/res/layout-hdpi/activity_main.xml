@@ -8,229 +8,110 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.MainActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemIconSize="24dp"
+        app:itemIconTint="@drawable/bottom_navigation_selector"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_navigation" />
+
+    <TimePicker
+        android:id="@+id/timePickerInTime"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        android:layout_marginTop="-10dp"/>
+
+    <TimePicker
+        android:id="@+id/timePickerOutTime"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:timePickerMode="spinner"
+        android:descendantFocusability="blocksDescendants"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView2"
+        android:layout_marginTop="-10dp"/>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="8sp"
         android:text="@string/out"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout1"
-        tools:ignore="SmallSp" />
+        app:layout_constraintTop_toBottomOf="@+id/timePickerInTime"
+        android:layout_marginTop="-10dp"/>
 
     <Button
         android:id="@+id/calculateButton1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="4dp"
         android:layout_alignStart="@+id/textView2"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:hapticFeedbackEnabled="true"
         android:text="@string/calculate"
-        android:textSize="12sp"
+        android:textSize="11sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textInputLayout3" />
-
-    <Button
-        android:id="@+id/btnClear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:text="@string/clear"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calculateButton1" />
+        app:layout_constraintTop_toBottomOf="@id/timePickerOutTime"
+        android:layout_marginTop="-10dp"/>
 
     <TextView
         android:id="@+id/infoTextView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4sp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         android:gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnClear"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton1"
         tools:hint="Total Hours: 6.42"
-        tools:visibility="visible"
-        android:paddingEnd="5dp"
-        android:paddingStart="5dp"/>
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="@string/break_time_in_minutes"
-        android:textAlignment="center"
-        android:textColor="?attr/textColor"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
-        tools:ignore="SmallSp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:text="@string/enter_time_in_12h_format"
-        android:textAlignment="center"
-        android:textColor="?attr/textColor"
-        android:textSize="12sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:visibility="visible" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="8sp"
         android:text="@string/in"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout1"
+        app:layout_constraintBottom_toTopOf="@+id/timePickerInTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="SmallSp" />
-
-
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/material_spinner_1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout1"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:ignore="SmallSp" />
-
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/material_spinner_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4sp"
-        android:layout_marginTop="12dp"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="SmallSp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout1"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="4sp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/material_spinner_1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inTime"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:width="200sp"
-            android:ems="10"
-            android:hint="@string/_9_00"
-            android:imeOptions="actionNext"
-            android:inputType="time"
-            android:maxLength="5"
-            android:textSize="10sp"
-            tools:ignore="SmallSp" />
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="4sp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/material_spinner_2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/outTime"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/infoTextView1"
-            android:layout_centerHorizontal="true"
-            android:width="200sp"
-            android:ems="10"
-            android:hint="@string/_5_00"
-            android:imeOptions="actionGo"
-            android:inputType="time"
-            android:maxLength="5"
-            android:textSize="10sp"
-            tools:ignore="SmallSp" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/breakTime"
-            android:layout_width="150sp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/_60"
-            android:inputType="time"
-            android:maxLength="3"
-            android:textSize="10sp"
-            tools:ignore="SmallSp" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="-10dp"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -241,7 +122,6 @@
             app:adSize="BANNER"
             app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
     </RelativeLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

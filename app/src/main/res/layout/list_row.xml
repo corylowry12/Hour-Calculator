@@ -2,20 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
     android:background="?attr/backgroundColor"
-    android:id="@+id/relativeLayout">
+    android:gravity="center_vertical"
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardViewHistory"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="5dp"
         app:cardBackgroundColor="?attr/cardBackgroundColor"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="10dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,59 +31,51 @@
             android:padding="20dp">
 
 
-    <TextView
-        android:id="@+id/row_in"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/in_time"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"/>
+            <TextView
+                android:id="@+id/row_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/in_time"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/row_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/out_time"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"
-        android:layout_below="@id/row_in"/>
+            <TextView
+                android:id="@+id/row_out"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_in"
+                android:text="@string/out_time"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/row_break"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/break_time"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"
-        android:layout_below="@id/row_out"/>
+            <TextView
+                android:id="@+id/row_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_out"
+                android:text="@string/total"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/row_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/total"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"
-        android:layout_below="@id/row_break"/>
+            <TextView
+                android:id="@+id/row_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/row_total"
+                android:text="@string/day"
+                android:textColor="?attr/textColor"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/row_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/day"
-        android:textSize="16sp"
-        android:textColor="?attr/textColor"
-        android:layout_below="@id/row_total"/>
-
-    <ImageButton
-        android:id="@+id/imageViewOptions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_more_vert_24px"
-        android:background="?attr/cardBackgroundColor"
-        android:contentDescription="more items button" />
+            <ImageButton
+                android:id="@+id/imageViewOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:background="?attr/cardBackgroundColor"
+                android:contentDescription="more items button"
+                android:src="@drawable/ic_more_vert_24px"
+                app:tint="?attr/historyItemMenuTint" />
 
         </RelativeLayout>
 

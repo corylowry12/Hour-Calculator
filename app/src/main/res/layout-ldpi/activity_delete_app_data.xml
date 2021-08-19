@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:tools="http://schemas.android.com/tools"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_deleteAppData"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activities.DeleteAppDataActivity"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemIconSize="24dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_navigation" />
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:background="?attr/backgroundColor"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        app:layout_constraintBottom_toTopOf="@id/bottomNav_deleteAppData"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".activities.DeleteAppDataActivity">
 
         <TextView
             android:id="@+id/warning"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="?attr/textColor"
+            android:padding="10dp"
             android:text="@string/delete_app_data_warning"
             android:textAlignment="center"
-            android:padding="10dp"
-            android:textSize="14sp"/>
+            android:textColor="?attr/textColor"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/deleteButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/delete_app_data"
-            app:backgroundTint="@color/deleteButton"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
             android:layout_marginTop="25dp"
-            android:textSize="12sp"/>
+            android:layout_marginEnd="10dp"
+            android:text="@string/delete_app_data"
+            android:textSize="12sp"
+            app:backgroundTint="@color/deleteButton" />
 
     </LinearLayout>
 

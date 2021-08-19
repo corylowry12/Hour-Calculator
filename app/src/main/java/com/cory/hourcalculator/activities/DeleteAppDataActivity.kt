@@ -3,17 +3,18 @@ package com.cory.hourcalculator.activities
 import android.content.Context
 import android.content.Intent
 import android.os.*
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.*
+import com.cory.hourcalculator.classes.AccentColor
+import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
-import com.cory.hourcalculator.database.DBHelperTrash
 import com.google.android.gms.ads.*
+import kotlinx.android.synthetic.main.activity_delete_app_data.*
 
 class DeleteAppDataActivity : AppCompatActivity() {
 
@@ -22,9 +23,8 @@ class DeleteAppDataActivity : AppCompatActivity() {
     private lateinit var vibrationData: VibrationData
 
     private val dbHandler = DBHelper(this, null)
-    private val dbHandlerTrash = DBHelperTrash(this, null)
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,10 +62,40 @@ class DeleteAppDataActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
 
         vibrationData = VibrationData(this)
+
+        val historyToggleData = HistoryToggleData(this)
+
+        bottomNav_deleteAppData.menu.findItem(R.id.menu_settings).isChecked = true
+        bottomNav_deleteAppData.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
+
+        bottomNav_deleteAppData.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_history -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_settings -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                else -> false
+            }
+        }
 
         val deleteButton = findViewById<Button>(R.id.deleteButton)
         deleteButton.setOnClickListener {
@@ -78,7 +108,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
                 applicationContext.getSharedPreferences("file", 0).edit().clear().apply()
                 applicationContext.cacheDir.deleteRecursively()
                 dbHandler.deleteAll()
-                dbHandlerTrash.deleteAll()
                 Toast.makeText(this, getString(R.string.app_data_cleared_toast), Toast.LENGTH_LONG).show()
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
@@ -108,14 +137,12 @@ class DeleteAppDataActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }
@@ -123,95 +150,6 @@ class DeleteAppDataActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_delete, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        vibrationData = VibrationData(this)
-        if (vibrationData.loadVibrationState()) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-        return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.Settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if (!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                } else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

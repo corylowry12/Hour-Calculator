@@ -14,7 +14,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <supports-screens
         android:largeScreens="true"
@@ -31,12 +30,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.AutomaticDeletionActivity"
+        <activity
+            android:name=".activities.AutomaticDeletionActivity"
             android:label="@string/automatic_deletion"
             android:launchMode="standard"
             android:parentActivityName=".activities.SettingsActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity"/>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.DeleteAppDataActivity"
             android:label="@string/delete_data_label"
@@ -44,13 +44,7 @@
             android:parentActivityName=".activities.SettingsActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.NotificationSettingActivity"
-            android:label="@string/notification_settings"
-            android:launchMode="standard"
-            android:parentActivityName=".activities.SettingsActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".activities.LayoutSettings"
             android:label="@string/layout"
@@ -73,13 +67,67 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.SplashScreen"
+            android:exported="true"
             android:theme="@style/SplashScreenThemeLight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity-alias
+            android:name=".SplashScreenNoIcon"
+            android:enabled="true"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".SplashPink"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_pink"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_pink_round"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".SplashOrange"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_orange"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_orange_round"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name=".SplashRed"
+            android:enabled="false"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_red"
+            android:label="@string/app_name"
+            android:roundIcon="@mipmap/ic_launcher_red_round"
+            android:targetActivity=".activities.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
+
         <activity
             android:name=".activities.WebViewActivity"
             android:label="@string/webview"
@@ -87,37 +135,15 @@
             android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.GraphActivity"
-            android:label="@string/graph_label"
-            android:launchMode="standard"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />
 
         <activity
-            android:name=".activities.VersionInfoActivity"
-            android:label="@string/version_info_label"
-            android:launchMode="standard"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
-            android:name=".activities.TrashActivity"
-            android:label="@string/trash"
-            android:launchMode="standard"
-            android:parentActivityName=".activities.MainActivity"
-            android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".activities.HistoryActivity"
+            android:exported="true"
             android:label="@string/history"
             android:launchMode="standard"
-            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -135,30 +161,19 @@
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:launchMode="standard"
-            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".activities.MainActivity"
+            android:configChanges="keyboardHidden"
             android:launchMode="standard"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
             tools:ignore="LockedOrientationActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-4546055219731501~9110514822" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_stat_name" />
 
-        <service
-            android:name=".notifications.MyFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
     </application>
 
 </manifest>

@@ -4,25 +4,25 @@
 
     <item
         android:id="@+id/copyMenu"
+        android:icon="@drawable/ic_content_copy_black_24dp"
         android:title="@string/copy_to_clipboard"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_content_copy_black_24dp"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/shareMenu"
+        android:icon="@drawable/ic_share_black_24dp"
         android:title="@string/share_via"
-        app:showAsAction="always"
-        android:icon="@drawable/ic_share_black_24dp"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/refresh"
+        android:icon="@drawable/ic_refresh_black_24dp"
         android:title="Refresh"
-        app:showAsAction="ifRoom"
-        android:icon="@drawable/ic_refresh_black_24dp"/>
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/home"
-        android:title="@string/home"/>
+        android:title="@string/home" />
 
     <item
         android:id="@+id/Settings"
@@ -33,10 +33,4 @@
     <item
         android:id="@+id/history"
         android:title="@string/history" />
-    <item
-        android:id="@+id/trash"
-        android:title="@string/trash" />
-    <item
-        android:id="@+id/graph"
-        android:title="@string/graph" />
 </menu>

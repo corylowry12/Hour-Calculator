@@ -3,16 +3,7 @@
 
     <item
         android:id="@+id/menu5"
-        android:title="Edit"
-        />
-
-    <item
-        android:id="@+id/menu1"
-        android:title="@string/movie_item_to_trash" />
-
-    <item
-        android:id="@+id/menu3"
-        android:title="@string/move_all_to_trash" />
+        android:title="Edit" />
 
     <item
         android:id="@+id/menu2"

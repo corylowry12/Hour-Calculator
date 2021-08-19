@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:tools="http://schemas.android.com/tools"
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <item
-        android:id="@+id/app_bar_search"
-        android:icon="@drawable/ic_search_black_24dp"
-        android:title="Search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="always" />
-    <item
+        android:id="@+id/mnuSort"
         android:icon="@drawable/ic_sort_24px"
         android:title="@string/sort"
-        android:id="@+id/mnuSort"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction">
         <menu>
@@ -30,21 +24,4 @@
                 android:title="@string/sort_by_least_hours" />
         </menu>
     </item>
-
-    <item
-        android:id="@+id/home"
-        android:title="@string/home"/>
-
-    <item
-        android:id="@+id/Settings"
-        android:title="@string/title_activity_settings" />
-    <item
-        android:id="@+id/changelog"
-        android:title="@string/change_log" />
-    <item
-        android:id="@+id/trash"
-        android:title="@string/trash" />
-    <item
-        android:id="@+id/graph"
-        android:title="@string/graph" />
 </menu>

@@ -1,18 +1,22 @@
 package com.cory.hourcalculator.activities
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.view.Menu
-import android.view.MenuItem
+import android.content.pm.PackageManager
+import android.os.*
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.cory.hourcalculator.BuildConfig
 import com.cory.hourcalculator.R
-import com.cory.hourcalculator.classes.*
+import com.cory.hourcalculator.classes.AccentColor
+import com.cory.hourcalculator.classes.DarkThemeData
+import com.cory.hourcalculator.classes.HistoryToggleData
+import com.cory.hourcalculator.classes.VibrationData
 import com.google.android.gms.ads.*
+import kotlinx.android.synthetic.main.activity_theme.*
 
 class ThemeActivity : AppCompatActivity() {
 
@@ -20,7 +24,7 @@ class ThemeActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
 
-    val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE")
+    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +62,38 @@ class ThemeActivity : AppCompatActivity() {
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
-        mAdView.adListener = object : AdListener() {
-        }
 
         vibrationData = VibrationData(this)
+
+        val historyToggleData = HistoryToggleData(this)
+        bottomNav_theme.menu.findItem(R.id.menu_settings).isChecked = true
+        bottomNav_theme.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
+        bottomNav_theme.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_history -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, HistoryActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                R.id.menu_settings -> {
+                    vibration(vibrationData)
+                    val intent = Intent(this, SettingsActivity::class.java)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    true
+                }
+                else -> false
+            }
+        }
 
         val lightThemeButton = findViewById<RadioButton>(R.id.lightTheme)
         val darkThemeButton = findViewById<RadioButton>(R.id.darkTheme)
@@ -74,12 +106,11 @@ class ThemeActivity : AppCompatActivity() {
 
         lightThemeButton.setOnClickListener {
             vibration(vibrationData)
-            if(!darkThemeData.loadDarkModeState()) {
+            if (!darkThemeData.loadDarkModeState()) {
                 Toast.makeText(this, getString(R.string.light_theme_is_already_enabled), Toast.LENGTH_SHORT).show()
-            }
-            else {
+            } else {
                 darkThemeData.setDarkModeState(false)
-                restartApplication()
+                restartThemeChange()
             }
         }
         darkThemeButton.setOnClickListener {
@@ -88,7 +119,7 @@ class ThemeActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.dark_mode_is_already_enabled), Toast.LENGTH_SHORT).show()
             } else {
                 darkThemeData.setDarkModeState(true)
-                restartApplication()
+                restartThemeChange()
             }
         }
 
@@ -97,38 +128,164 @@ class ThemeActivity : AppCompatActivity() {
         val orangeAccentButton = findViewById<RadioButton>(R.id.Orange)
         val redAccentButton = findViewById<RadioButton>(R.id.Red)
 
-        if (accentColor.loadAccent() == 0) {
-            tealAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 1) {
-            pinkAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 2) {
-            orangeAccentButton.isChecked = true
-        }
-        else if (accentColor.loadAccent() == 3) {
-            redAccentButton.isChecked = true
+        when {
+            accentColor.loadAccent() == 0 -> {
+                tealAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 1 -> {
+                pinkAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 2 -> {
+                orangeAccentButton.isChecked = true
+            }
+            accentColor.loadAccent() == 3 -> {
+                redAccentButton.isChecked = true
+            }
         }
 
         tealAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(0)
-            restartApplication()
+            if (accentColor.loadAccent() == 0) {
+                Toast.makeText(this, getString(R.string.teal_is_already_chosen), Toast.LENGTH_SHORT).show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
+                    accentColor.setAccentState(0)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
+                    tealAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         pinkAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(1)
-            restartApplication()
+            if (accentColor.loadAccent() == 1) {
+                Toast.makeText(this, getString(R.string.pink_is_already_chosen), Toast.LENGTH_SHORT).show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(1)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
+                    pinkAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         orangeAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(2)
-            restartApplication()
+            if (accentColor.loadAccent() == 2) {
+                Toast.makeText(this, getString(R.string.orange_accent_already_chosen), Toast.LENGTH_SHORT).show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(2)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
+                    orangeAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
         redAccentButton.setOnClickListener {
             vibration(vibrationData)
-            accentColor.setAccentState(3)
-            restartApplication()
+            if (accentColor.loadAccent() == 3) {
+                Toast.makeText(this, getString(R.string.red_color_is_already_chosen), Toast.LENGTH_SHORT).show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.restart_application_warning))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(3)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
+                    redAccentButton.isChecked = false
+                }
+                alert.show()
+            }
         }
     }
 
@@ -140,14 +297,20 @@ class ThemeActivity : AppCompatActivity() {
     }
 
     private fun restartApplication() {
+        Handler(Looper.getMainLooper()).postDelayed({
+            val intent = applicationContext.packageManager.getLaunchIntentForPackage(applicationContext.packageName)
+            intent!!.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            this.finish()
+        }, 1000)
+    }
+
+    private fun restartThemeChange() {
         val intent = this.intent
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onRestart() {
@@ -155,14 +318,11 @@ class ThemeActivity : AppCompatActivity() {
         val intent = Intent(this, this::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        vibration(vibrationData)
         onBackPressed()
         return true
     }
@@ -170,101 +330,6 @@ class ThemeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         this.finish()
-        if (!PerformanceModeData(this).loadPerformanceMode()) {
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-        } else {
-            overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.main_menu_appearance_settings, menu)
-        val historyToggleData = HistoryToggleData(this)
-        if (!historyToggleData.loadHistoryState()) {
-            val history = menu.findItem(R.id.history)
-            history.isVisible = false
-            val trash = menu.findItem(R.id.trash)
-            trash.isVisible = false
-            val graph = menu.findItem(R.id.graph)
-            graph.isVisible = false
-        }
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        vibrationData = VibrationData(this)
-        if (vibrationData.loadVibrationState()) {
-            val vibrator = this.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(5, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-        return when (item.itemId) {
-            R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.Settings -> {
-                val intent = Intent(this, SettingsActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.changelog -> {
-                val intent = Intent(this, PatchNotesActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.history -> {
-                val intent = Intent(this, HistoryActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.trash -> {
-                val intent = Intent(this, TrashActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            R.id.graph -> {
-                val intent = Intent(this, GraphActivity::class.java)
-                startActivity(intent)
-                if(!PerformanceModeData(this).loadPerformanceMode()) {
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
-                }
-                else {
-                    overridePendingTransition(R.anim.no_animation, R.anim.no_animation)
-                }
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

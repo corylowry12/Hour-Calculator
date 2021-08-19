@@ -8,80 +8,96 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.HistoryActivity">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_history"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemIconSize="24dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_navigation" />
+
+    <TextView
+        android:id="@+id/noHoursStoredTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/textViewWages"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/there_are_currently_no_hours_stored"
+        android:textAlignment="center"/>
+
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/horizontalGuideline"
+        android:divider="@null"
+        android:textColor="?attr/textColor"
+        app:layout_constraintBottom_toTopOf="@+id/textViewTotalHours"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="?attr/textColor"
-        android:divider="@null"/>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/horizontalGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent=".70" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewTotalHours"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
         android:gravity="center"
-        tools:text="@string/total_hours_history"
         android:textColor="?attr/textColor"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintTop_toBottomOf="@+id/listView"
+        tools:text="@string/total_hours_history" />
 
     <TextView
         android:id="@+id/textViewSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        tools:text="@string/amount_of_hours_saved"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTotalHours" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTotalHours"
+        tools:text="@string/amount_of_hours_saved" />
 
     <TextView
         android:id="@+id/textViewWages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        tools:text="@string/total_wages"
         android:textAlignment="center"
         android:textColor="?attr/textColor"
         android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/relativeLayout_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSize" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewSize"
+        tools:text="@string/total_wages" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonHistory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
         android:clickable="true"
         android:contentDescription="scroll to top"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWages"
-        app:srcCompat="@drawable/ic_arrow_upward_24px"
+        android:visibility="invisible"
         app:fabSize="mini"
-        android:visibility="invisible"/>
+        app:layout_constraintBottom_toTopOf="@id/textViewSize"
+        app:layout_constraintStart_toEndOf="@id/textViewTotalHours"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_arrow_upward_24px" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout_history"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav_history"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

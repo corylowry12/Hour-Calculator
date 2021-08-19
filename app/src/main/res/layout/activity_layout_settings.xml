@@ -8,102 +8,36 @@
     android:background="?attr/backgroundColor"
     tools:context=".activities.LayoutSettings">
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav_layoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_alignParentBottom="true"
+        app:elevation="2dp"
+        app:itemIconSize="24dp"
+        app:labelVisibilityMode="labeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_bottom_navigation" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/relative_layoutSettings"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/performanceModeTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="@string/performance_mode_settings"
-                android:textColor="?attr/textColor" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardViewPerformanceMode"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/performanceModeTextView"
-                app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/enablePerformanceMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/enable_performance_mode" />
-
-                    <RadioButton
-                        android:id="@+id/disablePerformanceMode"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/disable_performance_mode" />
-
-                </RadioGroup>
-            </androidx.cardview.widget.CardView>
-
-            <TextView
-                android:id="@+id/breakTextBoxTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/cardViewPerformanceMode"
-                android:gravity="center"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
-                android:text="@string/break_text_box_settings"
-                android:textColor="?attr/textColor" />
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/breakTextBoxSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/breakTextBoxTextView"
-                app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
-                app:cardPreventCornerOverlap="false"
-                app:cardUseCompatPadding="true">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <RadioButton
-                        android:id="@+id/enableBreakTextBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/enable_break_text_box" />
-
-                    <RadioButton
-                        android:id="@+id/disableBreakTextBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/disable_break_text_box" />
-
-                </RadioGroup>
-            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/vibrationTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/breakTextBoxSettings"
                 android:gravity="center"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
@@ -116,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/vibrationTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -128,12 +62,14 @@
                         android:id="@+id/enableVibration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="@string/enable_vibration" />
 
                     <RadioButton
                         android:id="@+id/disableVibration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="@string/disable_vibration" />
 
                 </RadioGroup>
@@ -156,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/historyTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -168,12 +104,14 @@
                         android:id="@+id/enableHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="@string/enable_history" />
 
                     <RadioButton
                         android:id="@+id/disableHistory"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
                         android:text="@string/disable_history" />
 
                 </RadioGroup>
@@ -196,7 +134,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/wagesTextView"
                 app:cardBackgroundColor="?attr/cardBackgroundColor"
-                app:cardCornerRadius="5dp"
+                app:cardCornerRadius="10dp"
                 app:cardPreventCornerOverlap="false"
                 app:cardUseCompatPadding="true">
 
@@ -233,24 +171,32 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/cardViewWages"
                 android:gravity="center"
+                android:padding="10dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
                 android:text="@string/layout_settings_information"
                 android:textColor="?attr/textColor"
-                android:padding="10dp"
-                android:textSize="12sp"/>
-
-                <com.google.android.gms.ads.AdView
-                    android:id="@+id/adView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="false"
-                    android:layout_centerHorizontal="true"
-                    android:layout_below="@id/information"
-                    app:adSize="BANNER"
-                    app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+                android:textSize="12sp" />
 
         </RelativeLayout>
     </ScrollView>
 
+    <RelativeLayout
+        android:id="@+id/relative_layoutSettings"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav_layoutSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_centerHorizontal="true"
+            app:adSize="BANNER"
+            app:adUnitId="ca-app-pub-4546055219731501/5171269817" />
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

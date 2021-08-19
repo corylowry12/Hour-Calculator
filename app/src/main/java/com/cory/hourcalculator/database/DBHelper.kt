@@ -8,7 +8,6 @@ import android.database.Cursor
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.cory.hourcalculator.classes.DaysWorkedPerWeek
 import com.cory.hourcalculator.classes.SortData
 
 class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
@@ -18,7 +17,7 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
         db.execSQL(
             "CREATE TABLE $TABLE_NAME " +
-                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_IN TEXT, $COLUMN_OUT TEXT, $COLUMN_BREAK TEXT, $COLUMN_TOTAL TEXT, $COLUMN_DAY TEXT)"
+                    "($COLUMN_ID INTEGER PRIMARY KEY, $COLUMN_IN TEXT, $COLUMN_OUT TEXT, $COLUMN_TOTAL TEXT, $COLUMN_DAY TEXT)"
         )
     }
 
@@ -27,11 +26,10 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         onCreate(db)
     }
 
-    fun insertRow(intime: String, outtime:String, breaktime: String, total: String, dayOfWeek: String) {
+    fun insertRow(intime: String, outtime: String, total: String, dayOfWeek: String) {
         val values = ContentValues()
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
-        values.put(COLUMN_BREAK, breaktime)
         values.put(COLUMN_TOTAL, total)
         values.put(COLUMN_DAY, dayOfWeek)
 
@@ -41,19 +39,16 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun update(id : String, intime: String, outtime: String, breaktime: String, total: String, dayOfWeek: String) {
+    fun update(id: String, intime: String, outtime: String, total: String, dayOfWeek: String) {
         val values = ContentValues()
-        //values.put(COLUMN_ID, id)
         values.put(COLUMN_IN, intime)
         values.put(COLUMN_OUT, outtime)
-        values.put(COLUMN_BREAK, breaktime)
         values.put(COLUMN_TOTAL, total)
         values.put(COLUMN_DAY, dayOfWeek)
 
         val db = this.writableDatabase
-        /*db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(id))
-        db.close()*/
-        db.update(TABLE_NAME, values,"$COLUMN_ID=?", arrayOf(id))
+
+        db.update(TABLE_NAME, values, "$COLUMN_ID=?", arrayOf(id))
 
     }
 
@@ -70,10 +65,8 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
 
     }
 
-    fun automaticDeletion(context: Context, numberToDelete: Int): Cursor? {
+    fun automaticDeletion(numberToDelete: Int): Cursor? {
         val db = this.writableDatabase
-
-        val daysWorkedPerWeek = DaysWorkedPerWeek(context).loadDaysWorked()
 
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day ASC LIMIT $numberToDelete", null)
     }
@@ -85,12 +78,6 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY $sorttype", null)
     }
 
-    fun returntop7(): Cursor? {
-        val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM $TABLE_NAME ORDER BY day DESC LIMIT 7", null)
-    }
-
     fun deleteAll() {
         val db = this.writableDatabase
         db.delete(TABLE_NAME, null, null)
@@ -98,45 +85,14 @@ class DBHelper(context: Context, factory: SQLiteDatabase.CursorFactory?) :
         db.close()
     }
 
-    fun retrieve(query: String): Cursor {
-
-        var cursor : Cursor
-        val db = this.writableDatabase
-        val columns = listOf(COLUMN_ID, COLUMN_IN, COLUMN_OUT, COLUMN_BREAK, COLUMN_TOTAL, COLUMN_DAY)
-
-        if(query != "" && query.isNotEmpty()) {
-            val sql = "SELECT * FROM $TABLE_NAME WHERE $COLUMN_IN LIKE '%$query%' " +
-                    " OR $COLUMN_OUT LIKE '%$query%' " +
-                    " OR $COLUMN_BREAK LIKE '%$query%' " +
-                    " OR $COLUMN_TOTAL LIKE '%$query%' " +
-                    " OR $COLUMN_DAY LIKE '%$query%' "
-
-           cursor = db.rawQuery(sql, null)
-            return cursor
-        }
-
-            cursor = db.query(TABLE_NAME, columns.toTypedArray(), null, null, null, null, null)
-            return cursor
-
-
-    }
-
-    fun itemClicked(index : Int): Cursor {
-
-        val db = this.readableDatabase
-
-        return db.rawQuery("SELECT * FROM $TABLE_NAME WHERE $COLUMN_ID=$index", null)
-    }
-
     companion object {
-        const val DATABASE_VERSION = 1
-        const val DATABASE_NAME = "myDBfile.db"
-        const val TABLE_NAME = "users"
+        const val DATABASE_VERSION = 2
+        const val DATABASE_NAME = "hours.db"
+        const val TABLE_NAME = "hours"
 
         const val COLUMN_ID = "id"
         const val COLUMN_IN = "intime"
         const val COLUMN_OUT = "out"
-        const val COLUMN_BREAK = "break"
         const val COLUMN_TOTAL = "total"
         const val COLUMN_DAY = "day"
     }

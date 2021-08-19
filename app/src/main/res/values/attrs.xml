@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-        <attr name="backgroundColor" format="color" />
-        <attr name="textColor" format="color" />
-        <attr name="menuTextColor" format="color"/>
-        <attr name="cardBackground" format="color" />
-        <attr name="chartbackground" format="color" />
-        <attr name="settingsTextColorAccent" format="color" />
-        <attr name="disableTextColor" format="color"/>
-        <attr name="tealTextColor" format="color" />
-        <attr name="pinkTextColor" format="color" />
+    <attr name="backgroundColor" format="color" />
+    <attr name="textColor" format="color" />
+    <attr name="menuTextColor" format="color" />
+    <attr name="cardBackground" format="color" />
+    <attr name="notSelectedTint" format="color" />
+    <attr name="selectedTint" format="color" />
+    <attr name="settingsIconTint" type="color" />
+    <attr name="historyItemMenuTint" format="color" />
+    <attr name="settingsDivider" format="color" />
 </resources>
