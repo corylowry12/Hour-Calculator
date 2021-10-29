@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         accentColor = AccentColor(this)
         when {
             accentColor.loadAccent() == 0 -> {
-                theme.applyStyle(R.style.teal_accent, true)
+                theme.applyStyle(R.style.system_accent, true)
             }
             accentColor.loadAccent() == 1 -> {
                 theme.applyStyle(R.style.pink_accent, true)
