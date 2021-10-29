@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#26A69A</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#26A69A</color>
@@ -25,4 +25,6 @@
     <color name="darkRed">#8E2421</color>
     <color name="darkTeal">#1E7C73</color>
     <color name="darkPink">#B35F88</color>
+
+    <color name="pixelAccent" tools:targetApi="s">@android:color/system_accent1_300</color>
 </resources>
