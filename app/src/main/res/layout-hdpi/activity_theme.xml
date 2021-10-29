@@ -193,9 +193,19 @@
                             android:layout_marginEnd="12dp"
                             android:background="@drawable/circleimageviewred"
                             android:contentDescription="@string/orange_image_view"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintBottom_toTopOf="@id/systemAccent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/Orange" />
+
+                        <RadioButton
+                            android:id="@+id/systemAccent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="5dp"
+                            android:text="@string/red"
+                            android:textColor="?attr/textColor"
+                            android:textSize="12sp"
+                            app:layout_constraintTop_toBottomOf="@id/Red" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
