@@ -172,4 +172,11 @@
         <item name="selectedTint">@color/redAccent</item>
     </style>
 
+    <style name="system_accent">
+        <item name="colorPrimary">@color/pixelAccent</item>
+        <item name="colorAccent">@color/pixelAccent</item>
+        <item name="colorPrimaryDark">@color/pixelAccent</item>
+        <item name="selectedTint">@color/pixelAccent</item>
+    </style>
+
 </resources>

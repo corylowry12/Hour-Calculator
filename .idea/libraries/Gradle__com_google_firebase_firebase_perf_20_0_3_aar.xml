@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.google.firebase:firebase-perf:20.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/e607df2643f98c2721fc6f1105a0e534/transformed/jetified-firebase-perf-20.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/b6847fd2ec651fbd6dce2488b7c2289f/transformed/jetified-firebase-perf-20.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b6847fd2ec651fbd6dce2488b7c2289f/transformed/jetified-firebase-perf-20.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b6847fd2ec651fbd6dce2488b7c2289f/transformed/jetified-firebase-perf-20.0.3/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.google.firebase/firebase-perf/20.0.3/234a59af3224c4d63896519e89eb1eaddd29ee4e/firebase-perf-20.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>
