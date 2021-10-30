@@ -80,6 +80,10 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
                     alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.redAccent))
                     alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.redAccent))
                 }
+                accentColor.loadAccent() == 4 -> {
+                    alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(context, R.color.pixelAccent))
+                    alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(context, R.color.pixelAccent))
+                }
             }
         }
     }
@@ -128,6 +132,10 @@ class ManagePermissions(private val activity: Activity, private val list: List<S
             accentColor.loadAccent() == 3 -> {
                 alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.redAccent))
                 alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.redAccent))
+            }
+            accentColor.loadAccent() == 4 -> {
+                alert.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(ContextCompat.getColor(activity, R.color.pixelAccent))
+                alert.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(activity, R.color.pixelAccent))
             }
         }
     }
