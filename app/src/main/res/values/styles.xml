@@ -175,8 +175,26 @@
     <style name="system_accent">
         <item name="colorPrimary">@color/pixelAccent</item>
         <item name="colorAccent">@color/pixelAccent</item>
-        <item name="colorPrimaryDark">@color/pixelAccent</item>
+        <item name="colorPrimaryDark">@color/pixelAccentDark</item>
         <item name="selectedTint">@color/pixelAccent</item>
+    </style>
+
+    <style name="AlertDialogStyleDark_system" parent="Theme.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/pixelAccent</item>
+        <item name="android:background">@color/darkMenuBackground</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="colorPrimary">@color/pixelAccent</item>
+    </style>
+
+    <style name="AlertDialogStyleLight_system" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="colorAccent">@color/pixelAccent</item>
+        <item name="android:background">@color/cardLightBackground</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorPrimary">@color/pixelAccent</item>
+        <item name="textColorAlertDialogListItem">@android:color/black</item>
+        <item name="android:textColorPrimary">@color/lightText</item>
+        <item name="textColor">@color/lightText</item>
     </style>
 
 </resources>
