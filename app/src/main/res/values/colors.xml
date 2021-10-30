@@ -26,5 +26,6 @@
     <color name="darkTeal">#1E7C73</color>
     <color name="darkPink">#B35F88</color>
 
-    <color name="pixelAccent" tools:targetApi="s">@android:color/system_accent1_300</color>
+    <color name="pixelAccent" tools:targetApi="s">@android:color/system_accent1_400</color>
+    <color name="pixelAccentDark" tools:targetApi="s">@android:color/system_accent1_700</color>
 </resources>
