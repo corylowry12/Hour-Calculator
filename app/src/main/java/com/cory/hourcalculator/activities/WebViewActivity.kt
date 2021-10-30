@@ -58,6 +58,9 @@ class WebViewActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
             }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
+            }
         }
         setContentView(R.layout.activity_web_view)
         val actionBar = supportActionBar
