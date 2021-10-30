@@ -42,6 +42,10 @@ class AccentColor(context: Context) {
             return R.style.AlertDialogStyleLight_red
         } else if (state == 3 && darkThemeData.loadDarkModeState()) {
             return R.style.AlertDialogStyleDark_red
+        } else if (state == 4 && !darkThemeData.loadDarkModeState()) {
+            return R.style.AlertDialogStyleLight_system
+        } else if (state == 4 && darkThemeData.loadDarkModeState()) {
+            return R.style.AlertDialogStyleDark_system
         }
 
         return R.style.AlertDialogStyleDark
