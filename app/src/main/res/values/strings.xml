@@ -41,7 +41,7 @@
     <string name="total">Total</string>
     <string name="day">Day</string>
     <string name="whats_new">"What's new in version %1$s"</string>
-    <string name="version_number" translatable="false">8.0.0</string>
+    <string name="version_number" translatable="false">8.0.1</string>
     <string name="enabled_vibration">You enabled vibration</string>
     <string name="disabled_vibration">You disabled vibration</string>
     <string name="please_try_again">Sorry, Please Try Again</string>
@@ -107,7 +107,7 @@
     <string name="layout">Layout Settings</string>
     <string name="appearance">Appearance Settings</string>
     <string name="layout_settings_information">All the settings that you can change here will change the basic functionality of the app</string>
-    <string name="version_settings">Version: 8.0.0</string>
+    <string name="version_settings">Version: 8.0.1</string>
     <string name="github_issue_link" translatable="false">https://github.com/corylowry12/Hour-Calculator/issues</string>
     <string name="delete_all_cache_and_app_data">Delete all cache and app data</string>
     <string name="delete_app_data">Delete App Data</string>
@@ -166,7 +166,7 @@
     <string name="view_changes_in_this_update">View changes in this update</string>
     <string name="in_time_and_out_time_can_not_be_the_same">In time and Out Time can not be the same</string>
     <string name="build_version">Build Version: Stable</string>
-    <string name="date">Updated On: August 18, 2021</string>
+    <string name="date">Updated On: October 29, 2021</string>
     <string name="warning">Warning</string>
     <string name="restart_application_warning">This will restart application. Do you want to continue?</string>
     <string name="pink_is_already_chosen">Pink accent color is already chosen</string>
@@ -177,4 +177,7 @@
     <string name="pending_changes_would_you_like_to_save">You have pending changes. Would you like to save?</string>
     <string name="red_color_is_already_chosen">Red accent color already chosen</string>
     <string name="there_are_currently_no_hours_stored">There are currently no hours stored</string>
+    <string name="system_accent_already_chosen">System accent color is already chosen</string>
+    <string name="follow_system_accent">Follow System Accent</string>
+    <string name="may_or_may_not_work_properly">This may or may not work properly. Would you like to continue?</string>
 </resources>

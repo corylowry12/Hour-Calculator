@@ -118,7 +118,7 @@
     <string name="layout">opciones de diseño</string>
     <string name="appearance">Configuración de la apariencia</string>
     <string name="layout_settings_information">Todas las configuraciones que puede cambiar aquí cambiarán la funcionalidad básica de la aplicación</string>
-    <string name="version_settings">Versión: 8.0.0</string>
+    <string name="version_settings">Versión: 8.0.1</string>
     <string name="delete_all_cache_and_app_data">Eliminar toda la caché y los datos de la aplicación</string>
     <string name="delete_app_data">Eliminar datos de la aplicación</string>
     <string name="delete_app_data_warning">Al hacer clic en el botón a continuación, se eliminarán todos los datos de la aplicación, incluidas las horas almacenadas en el historial y la papelera y cualquier configuración que haya cambiado. ¡PROCEDA CON PRECAUCIÓN!</string>
@@ -151,7 +151,7 @@
     <string name="view_changes_in_this_update">Ver los cambios en esta actualización</string>
     <string name="in_time_and_out_time_can_not_be_the_same">Tiempo de in time y out no puede ser el mismo</string>
     <string name="build_version">Versión de compilación: Estable</string>
-    <string name="date">Actualizado el: August 18, 2021</string>
+    <string name="date">Actualizado el: October 29, 2021</string>
     <string name="warning">Advertencia</string>
     <string name="restart_application_warning">Esto reiniciará la aplicación. ¿Desea continuar?</string>
     <string name="pink_is_already_chosen">El color de énfasis rosa ya está elegido</string>
@@ -162,4 +162,7 @@
     <string name="pending_changes_would_you_like_to_save">Tiene cambios pendientes. ¿Te gustaría ahorrar?</string>
     <string name="red_color_is_already_chosen">Color de énfasis rojo ya elegido</string>
     <string name="there_are_currently_no_hours_stored">Actualmente no hay horas almacenadas</string>
+    <string name="system_accent_already_chosen">El color de acento del sistema ya está elegido</string>
+    <string name="follow_system_accent">Seguir el acento del sistema</string>
+    <string name="may_or_may_not_work_properly">Esto puede funcionar correctamente o no. ¿Te gustaría continuar?</string>
 </resources>
