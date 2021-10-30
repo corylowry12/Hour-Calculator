@@ -70,7 +70,7 @@
                         android:layout_marginStart="5dp"
                         android:text="@string/light_theme"
                         android:textColor="?attr/textColor"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
 
                     <RadioButton
                         android:id="@+id/darkTheme"
@@ -79,7 +79,7 @@
                         android:layout_marginStart="5dp"
                         android:text="@string/dark_theme"
                         android:textColor="?attr/textColor"
-                        android:textSize="12sp" />
+                        android:textSize="16sp" />
                 </RadioGroup>
             </androidx.cardview.widget.CardView>
 
@@ -93,7 +93,7 @@
                 android:paddingBottom="4dp"
                 android:text="@string/accent_color"
                 android:textColor="?attr/textColor"
-                android:textSize="12sp" />
+                android:textSize="16sp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/accentCardView"
@@ -123,7 +123,7 @@
                             android:layout_marginStart="5dp"
                             android:text="@string/teal"
                             android:textColor="?attr/textColor"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <ImageView
@@ -144,7 +144,7 @@
                             android:layout_marginStart="5dp"
                             android:text="@string/pink"
                             android:textColor="?attr/textColor"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             app:layout_constraintTop_toBottomOf="@id/Teal" />
 
                         <ImageView
@@ -164,7 +164,7 @@
                             android:layout_marginStart="5dp"
                             android:text="@string/orange"
                             android:textColor="?attr/textColor"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             app:layout_constraintTop_toBottomOf="@id/Pink" />
 
                         <ImageView
@@ -184,7 +184,7 @@
                             android:layout_marginStart="5dp"
                             android:text="@string/red"
                             android:textColor="?attr/textColor"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             app:layout_constraintTop_toBottomOf="@id/Orange" />
 
                         <ImageView
@@ -202,9 +202,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="@string/red"
+                            android:text="@string/follow_system_accent"
                             android:textColor="?attr/textColor"
-                            android:textSize="12sp"
+                            android:textSize="16sp"
                             app:layout_constraintTop_toBottomOf="@id/Red" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </RadioGroup>
@@ -220,8 +220,7 @@
                 android:text="@string/changing_theme_info"
                 android:textAlignment="center"
                 android:textColor="?attr/textColor"
-                android:textSize="10sp"
-                tools:ignore="SmallSp" />
+                android:textSize="14sp" />
         </RelativeLayout>
     </ScrollView>
 

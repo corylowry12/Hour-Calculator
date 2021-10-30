@@ -202,7 +202,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="5dp"
-                            android:text="@string/red"
+                            android:text="@string/follow_system_accent"
                             android:textColor="?attr/textColor"
                             android:textSize="12sp"
                             app:layout_constraintTop_toBottomOf="@id/Red" />
