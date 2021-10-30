@@ -17,7 +17,10 @@ import com.cory.hourcalculator.database.DBHelper
 import com.github.javiersantos.appupdater.AppUpdater
 import com.github.javiersantos.appupdater.enums.Display
 import com.github.javiersantos.appupdater.enums.UpdateFrom
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var historyToggleData: HistoryToggleData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
     private val dbHandler = DBHelper(this, null)
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         accentColor = AccentColor(this)
         when {
             accentColor.loadAccent() == 0 -> {
-                theme.applyStyle(R.style.system_accent, true)
+                theme.applyStyle(R.style.teal_accent, true)
             }
             accentColor.loadAccent() == 1 -> {
                 theme.applyStyle(R.style.pink_accent, true)
@@ -61,6 +63,9 @@ class MainActivity : AppCompatActivity() {
             }
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
+            }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
             }
         }
         super.onCreate(savedInstanceState)
@@ -84,8 +89,6 @@ class MainActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
-        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
@@ -230,7 +233,7 @@ class MainActivity : AppCompatActivity() {
                     inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
                 }
                 inTimeHours.toInt() == 0 -> {
-                    val inTime = inTimeHours + 12
+                    val inTime = 12
                     val amOrPm = getString(R.string.am)
                     inTimeTotal = "$inTime:$inTimeMinutes $amOrPm"
                 }
@@ -246,7 +249,7 @@ class MainActivity : AppCompatActivity() {
                     outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
                 }
                 outTimeHours.toInt() == 0 -> {
-                    val outTime = outTimeHours + 12
+                    val outTime = 12
                     val amOrPm = getString(R.string.am)
                     outTimeTotal = "$outTime:$outTimeMinutes $amOrPm"
                 }

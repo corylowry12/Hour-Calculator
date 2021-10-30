@@ -34,8 +34,6 @@ class HistoryActivity : AppCompatActivity() {
     private lateinit var accentColor: AccentColor
     private lateinit var vibrationData : VibrationData
 
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         darkThemeData = DarkThemeData(this)
@@ -58,6 +56,9 @@ class HistoryActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
             }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
+            }
         }
         setContentView(R.layout.activity_history)
 
@@ -71,8 +72,6 @@ class HistoryActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
-        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
@@ -134,6 +133,9 @@ class HistoryActivity : AppCompatActivity() {
             }
             accentColor.loadAccent() == 3 -> {
                 floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(Color.rgb(229, 57, 53))
+            }
+            accentColor.loadAccent() == 4 -> {
+                floatingActionButtonHistory.backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.pixelAccent))
             }
         }
 

@@ -1,6 +1,7 @@
 package com.cory.hourcalculator.activities
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
@@ -12,7 +13,10 @@ import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.VibrationData
 import com.cory.hourcalculator.database.DBHelper
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.edit_activity.*
 import java.math.RoundingMode
 
@@ -34,8 +38,6 @@ class EditActivity : AppCompatActivity() {
 
     private lateinit var idMap: String
     private lateinit var day: String
-
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,9 @@ class EditActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
             }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
+            }
         }
         setContentView(R.layout.edit_activity)
         val actionBar = supportActionBar
@@ -68,13 +73,115 @@ class EditActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
-        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
         main()
+
+        bottomNav.menu.findItem(R.id.menu_history).isChecked = true
+
+        bottomNav.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_home -> {
+                    vibration(vibrationData)
+                    if (inTimeBool || outTimeBool) {
+                        val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
+                        alert.setTitle(getString(R.string.pending_changes))
+                        alert.setMessage(getString(R.string.pending_changes_would_you_like_to_save))
+                        alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                            vibration(vibrationData)
+                            calculate(idMap, day)
+                            Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.setNegativeButton(getString(R.string.no)) { _, _ ->
+                            vibration(vibrationData)
+                            this.finish()
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                            Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.show()
+                    }
+                    else {
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    }
+                    true
+                }
+                R.id.menu_history -> {
+                    vibration(vibrationData)
+                    if (inTimeBool || outTimeBool) {
+                        val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
+                        alert.setTitle(getString(R.string.pending_changes))
+                        alert.setMessage(getString(R.string.pending_changes_would_you_like_to_save))
+                        alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                            vibration(vibrationData)
+                            calculate(idMap, day)
+                            Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.setNegativeButton(getString(R.string.no)) { _, _ ->
+                            vibration(vibrationData)
+                            this.finish()
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                            Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, HistoryActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.show()
+                    }
+                    else {
+                        val intent = Intent(this, HistoryActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    }
+                    true
+                }
+                R.id.menu_settings -> {
+                    vibration(vibrationData)
+                    if (inTimeBool || outTimeBool) {
+                        val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
+                        alert.setTitle(getString(R.string.pending_changes))
+                        alert.setMessage(getString(R.string.pending_changes_would_you_like_to_save))
+                        alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                            vibration(vibrationData)
+                            calculate(idMap, day)
+                            Toast.makeText(this, getString(R.string.hour_is_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, SettingsActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.setNegativeButton(getString(R.string.no)) { _, _ ->
+                            vibration(vibrationData)
+                            this.finish()
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                            Toast.makeText(this, getString(R.string.hour_was_not_saved), Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, SettingsActivity::class.java)
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                        }
+                        alert.show()
+                    }
+                    else {
+                        val intent = Intent(this, SettingsActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+                    }
+                    true
+                }
+                else -> false
+            }
+        }
 
         vibrationData = VibrationData(this)
 

@@ -12,7 +12,10 @@ import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -27,8 +30,6 @@ class PatchNotesActivity : AppCompatActivity() {
     private lateinit var vibrationData: VibrationData
 
     private lateinit var historyToggleData : HistoryToggleData
-
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +53,9 @@ class PatchNotesActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
             }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
+            }
         }
         setContentView(R.layout.activity_patch_notes)
         val actionBar = supportActionBar
@@ -65,8 +69,6 @@ class PatchNotesActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
-        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)

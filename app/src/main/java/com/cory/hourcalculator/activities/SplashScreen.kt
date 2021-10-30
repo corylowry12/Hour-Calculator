@@ -32,7 +32,7 @@ class SplashScreen : AppCompatActivity() {
 
                 val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
                 when {
-                    accentColor.loadAccent() == 0 -> {
+                    accentColor.loadAccent() == 0 || accentColor.loadAccent() == 4 -> {
                         imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
                     }
                     accentColor.loadAccent() == 1 -> {
@@ -58,7 +58,7 @@ class SplashScreen : AppCompatActivity() {
 
             val imageView = findViewById<ImageView>(R.id.SplashScreenImage)
             when {
-                accentColor.loadAccent() == 0 -> {
+                accentColor.loadAccent() == 0 || accentColor.loadAccent() == 4 -> {
                     imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.hourcalculatorlogo))
                 }
                 accentColor.loadAccent() == 1 -> {

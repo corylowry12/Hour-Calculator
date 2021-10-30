@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.*
+import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -15,7 +16,10 @@ import com.cory.hourcalculator.classes.AccentColor
 import com.cory.hourcalculator.classes.DarkThemeData
 import com.cory.hourcalculator.classes.HistoryToggleData
 import com.cory.hourcalculator.classes.VibrationData
-import com.google.android.gms.ads.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_theme.*
 
 class ThemeActivity : AppCompatActivity() {
@@ -23,8 +27,6 @@ class ThemeActivity : AppCompatActivity() {
     private lateinit var darkThemeData: DarkThemeData
     private lateinit var accentColor: AccentColor
     private lateinit var vibrationData: VibrationData
-
-    private val testDeviceId = listOf("5E80E48DC2282D372EAE0E3ACDE070CC", "8EE44B7B4B422D333731760574A381FE", "C290EC36E0463AF42E6770B180892920")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +50,9 @@ class ThemeActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 theme.applyStyle(R.style.red_accent, true)
             }
+            accentColor.loadAccent() == 4 -> {
+                theme.applyStyle(R.style.system_accent, true)
+            }
         }
         setContentView(R.layout.activity_theme)
         val actionBar = supportActionBar
@@ -57,14 +62,15 @@ class ThemeActivity : AppCompatActivity() {
         val adView = AdView(this)
         adView.adSize = AdSize.BANNER
         adView.adUnitId = "ca-app-pub-4546055219731501/5171269817"
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceId).build()
-        MobileAds.setRequestConfiguration(configuration)
         val mAdView = findViewById<AdView>(R.id.adView)
         val adRequest = AdRequest.Builder().build()
         mAdView.loadAd(adRequest)
 
         vibrationData = VibrationData(this)
 
+        if (Build.MANUFACTURER != "Google" && Build.VERSION.RELEASE != "12") {
+            systemAccent.visibility = View.GONE
+        }
         val historyToggleData = HistoryToggleData(this)
         bottomNav_theme.menu.findItem(R.id.menu_settings).isChecked = true
         bottomNav_theme.menu.findItem(R.id.menu_history).isVisible = historyToggleData.loadHistoryState()
@@ -127,6 +133,7 @@ class ThemeActivity : AppCompatActivity() {
         val pinkAccentButton = findViewById<RadioButton>(R.id.Pink)
         val orangeAccentButton = findViewById<RadioButton>(R.id.Orange)
         val redAccentButton = findViewById<RadioButton>(R.id.Red)
+        val systemAccentButton = findViewById<RadioButton>(R.id.systemAccent)
 
         when {
             accentColor.loadAccent() == 0 -> {
@@ -141,6 +148,9 @@ class ThemeActivity : AppCompatActivity() {
             accentColor.loadAccent() == 3 -> {
                 redAccentButton.isChecked = true
             }
+            accentColor.loadAccent() == 4 -> {
+                systemAccentButton.isChecked = true
+            }
         }
 
         tealAccentButton.setOnClickListener {
@@ -148,7 +158,7 @@ class ThemeActivity : AppCompatActivity() {
             if (accentColor.loadAccent() == 0) {
                 Toast.makeText(this, getString(R.string.teal_is_already_chosen), Toast.LENGTH_SHORT).show()
             } else {
-                val alert = AlertDialog.Builder(this)
+                val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -184,7 +194,7 @@ class ThemeActivity : AppCompatActivity() {
             if (accentColor.loadAccent() == 1) {
                 Toast.makeText(this, getString(R.string.pink_is_already_chosen), Toast.LENGTH_SHORT).show()
             } else {
-                val alert = AlertDialog.Builder(this)
+                val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -220,7 +230,7 @@ class ThemeActivity : AppCompatActivity() {
             if (accentColor.loadAccent() == 2) {
                 Toast.makeText(this, getString(R.string.orange_accent_already_chosen), Toast.LENGTH_SHORT).show()
             } else {
-                val alert = AlertDialog.Builder(this)
+                val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -256,7 +266,7 @@ class ThemeActivity : AppCompatActivity() {
             if (accentColor.loadAccent() == 3) {
                 Toast.makeText(this, getString(R.string.red_color_is_already_chosen), Toast.LENGTH_SHORT).show()
             } else {
-                val alert = AlertDialog.Builder(this)
+                val alert = AlertDialog.Builder(this, accentColor.alertTheme(this))
                 alert.setTitle(getString(R.string.warning))
                 alert.setMessage(getString(R.string.restart_application_warning))
                 alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
@@ -283,6 +293,42 @@ class ThemeActivity : AppCompatActivity() {
                 alert.setNeutralButton(getString(R.string.no)) { _, _ ->
                     vibration(vibrationData)
                     redAccentButton.isChecked = false
+                }
+                alert.show()
+            }
+        }
+        systemAccentButton.setOnClickListener {
+            vibration(vibrationData)
+            if (accentColor.loadAccent() == 4) {
+                Toast.makeText(this, getString(R.string.system_accent_already_chosen), Toast.LENGTH_SHORT).show()
+            } else {
+                val alert = AlertDialog.Builder(this)
+                alert.setTitle(getString(R.string.warning))
+                alert.setMessage(getString(R.string.may_or_may_not_work_properly))
+                alert.setPositiveButton(getString(R.string.yes)) { _, _ ->
+                    vibration(vibrationData)
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashOrange"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashRed"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashPink"),
+                        PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP
+                    )
+                    packageManager.setComponentEnabledSetting(
+                        ComponentName(BuildConfig.APPLICATION_ID, "com.cory.hourcalculator.SplashScreenNoIcon"),
+                        PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP
+                    )
+                    accentColor.setAccentState(4)
+                    restartApplication()
+                }
+                alert.setNeutralButton(getString(R.string.no)) { _, _ ->
+                    vibration(vibrationData)
+                    systemAccentButton.isChecked = false
                 }
                 alert.show()
             }
