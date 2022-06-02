@@ -1,9 +1,15 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.javiersantos:AppUpdater:2.7@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4367a526fc9e3f4fe1198d598de19712/transformed/jetified-AppUpdater-2.7/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4367a526fc9e3f4fe1198d598de19712/transformed/jetified-AppUpdater-2.7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4367a526fc9e3f4fe1198d598de19712/transformed/jetified-AppUpdater-2.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d3cee234113203e0db6224b6d2592dfc/transformed/jetified-AppUpdater-2.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d3cee234113203e0db6224b6d2592dfc/transformed/jetified-AppUpdater-2.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d3cee234113203e0db6224b6d2592dfc/transformed/jetified-AppUpdater-2.7/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ac3d9fcf168e08597f035f71971cb8a6/transformed/jetified-AppUpdater-2.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ac3d9fcf168e08597f035f71971cb8a6/transformed/jetified-AppUpdater-2.7/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ac3d9fcf168e08597f035f71971cb8a6/transformed/jetified-AppUpdater-2.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8b33e7b8840c6d894e36aed03caf32d2/transformed/jetified-AppUpdater-2.7/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8b33e7b8840c6d894e36aed03caf32d2/transformed/jetified-AppUpdater-2.7/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8b33e7b8840c6d894e36aed03caf32d2/transformed/jetified-AppUpdater-2.7/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

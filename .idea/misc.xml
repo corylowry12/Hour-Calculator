@@ -83,17 +83,18 @@
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout-xxxhdpi/list_row.xml" value="0.165234375" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_automatic_deletion.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_delete_app_data.xml" value="0.9583333333333334" />
-        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_history.xml" value="0.9583333333333334" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_history.xml" value="0.1" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_layout_settings.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_main.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_patch_notes.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_settings.xml" value="0.8536082474226804" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_splash_screen.xml" value="1.0138888888888888" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_theme.xml" value="0.9583333333333334" />
-        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_web_view.xml" value="0.9791666666666666" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/activity_web_view.xml" value="0.1" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/edit_activity.xml" value="0.9583333333333334" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/list_row.xml" value="0.9791666666666666" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/layout/splashscreenpink.xml" value="1.0138888888888888" />
+        <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/menu/main_menu_history.xml" value="1.7777777777777777" />
         <entry key="..\:/HourCalculator2/Hour-Calculator/app/src/main/res/menu/menu_history_options.xml" value="0.9791666666666666" />
         <entry key="app/src/main/res/layout-xxhdpi/activity_layout_settings.xml" value="0.11927083333333334" />
       </map>
